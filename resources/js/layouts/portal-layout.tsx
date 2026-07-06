@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 import { SECTORS } from '@/lib/portal-sectors';
@@ -7,6 +7,10 @@ import { home } from '@/routes';
 
 const RED = '#E30613';
 const STRIPE_ACCENT = true;
+
+function formatArs(value: number): string {
+    return Math.round(value).toLocaleString('es-AR');
+}
 
 export default function PortalLayout({
     active = 'home',
@@ -18,6 +22,7 @@ export default function PortalLayout({
     children: ReactNode;
 }) {
     const [query, setQuery] = useState('');
+    const { dolarOficialVenta } = usePage().props;
 
     return (
         <>
@@ -50,7 +55,11 @@ export default function PortalLayout({
                         flexDirection: 'column',
                     }}
                 >
-                    <Header query={query} onQuery={setQuery} />
+                    <Header
+                        query={query}
+                        onQuery={setQuery}
+                        dolarOficialVenta={dolarOficialVenta}
+                    />
 
                     {STRIPE_ACCENT && (
                         <div
@@ -228,9 +237,11 @@ function Sidebar({ active }: { active: ActiveView }) {
 function Header({
     query,
     onQuery,
+    dolarOficialVenta,
 }: {
     query: string;
     onQuery: (value: string) => void;
+    dolarOficialVenta: number | null;
 }) {
     return (
         <header
@@ -324,7 +335,9 @@ function Header({
                             lineHeight: 1,
                         }}
                     >
-                        $1.184
+                        {dolarOficialVenta !== null
+                            ? `$${formatArs(dolarOficialVenta)}`
+                            : '—'}
                         <span style={{ color: RED }}>.</span>
                     </div>
                 </div>

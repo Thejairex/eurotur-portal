@@ -2,11 +2,22 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class PortalTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Avoid real network calls to dolarapi.com from HandleInertiaRequests::share().
+        Http::fake([
+            'dolarapi.com/*' => Http::response(['venta' => 1510]),
+        ]);
+    }
+
     /**
      * @return array<string, array{string}>
      */
