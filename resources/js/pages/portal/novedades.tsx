@@ -38,7 +38,29 @@ type HistoryResponse = {
     has_more: boolean;
 };
 
+type VoucherSummary = {
+    pending: number;
+    processing: number;
+    ok: number;
+    failed: number;
+    skipped: number;
+    total: number;
+};
+
+type ChequeSummary = {
+    pending: number;
+    ok: number;
+    failed: number;
+    total: number;
+};
+
+type Summary = {
+    vouchers: VoucherSummary;
+    cheques: ChequeSummary;
+};
+
 type Props = {
+    summary: Summary | null;
     stats: StatsSnapshot | null;
     history: HistoryResponse | null;
 };
@@ -59,6 +81,32 @@ function EmptyState({ message }: { message: string }) {
     );
 }
 
+function StatValue({
+    label,
+    value,
+    highlight = false,
+}: {
+    label: string;
+    value: string | number;
+    highlight?: boolean;
+}) {
+    return (
+        <div>
+            <Label>{label}</Label>
+            <div
+                style={{
+                    fontFamily: "'Archivo', sans-serif",
+                    fontWeight: 800,
+                    fontSize: '18px',
+                    color: highlight ? RED : '#000',
+                }}
+            >
+                {value}
+            </div>
+        </div>
+    );
+}
+
 function Label({ children }: { children: string }) {
     return (
         <div
@@ -75,8 +123,8 @@ function Label({ children }: { children: string }) {
     );
 }
 
-export default function Novedades({ stats, history }: Props) {
-    usePoll(15000, { only: ['stats', 'history'] });
+export default function Novedades({ summary, stats, history }: Props) {
+    usePoll(15000, { only: ['stats', 'history', 'summary'] });
 
     const pipeline = stats?.stats ?? null;
 
@@ -153,8 +201,106 @@ export default function Novedades({ stats, history }: Props) {
                         estado actual<span style={{ color: RED }}>—</span>
                     </div>
 
-                    {stats === null ? (
+                    {summary === null ? (
                         <EmptyState message="sin conexión con el monitor — verificá BOT_MONITOR_URL / BOT_MONITOR_API_KEY." />
+                    ) : (
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '18px',
+                            }}
+                        >
+                            <div>
+                                <Label>vouchers</Label>
+                                <div
+                                    style={{
+                                        display: 'grid',
+                                        gridTemplateColumns: 'repeat(6,1fr)',
+                                        gap: '18px',
+                                        marginTop: '6px',
+                                    }}
+                                >
+                                    <StatValue
+                                        label="pendientes"
+                                        value={summary.vouchers.pending}
+                                    />
+                                    <StatValue
+                                        label="procesando"
+                                        value={summary.vouchers.processing}
+                                    />
+                                    <StatValue
+                                        label="ok"
+                                        value={summary.vouchers.ok}
+                                    />
+                                    <StatValue
+                                        label="fallidos"
+                                        value={summary.vouchers.failed}
+                                        highlight={summary.vouchers.failed > 0}
+                                    />
+                                    <StatValue
+                                        label="omitidos"
+                                        value={summary.vouchers.skipped}
+                                    />
+                                    <StatValue
+                                        label="total"
+                                        value={summary.vouchers.total}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <Label>cheques</Label>
+                                <div
+                                    style={{
+                                        display: 'grid',
+                                        gridTemplateColumns: 'repeat(6,1fr)',
+                                        gap: '18px',
+                                        marginTop: '6px',
+                                    }}
+                                >
+                                    <StatValue
+                                        label="pendientes"
+                                        value={summary.cheques.pending}
+                                    />
+                                    <StatValue
+                                        label="ok"
+                                        value={summary.cheques.ok}
+                                    />
+                                    <StatValue
+                                        label="fallidos"
+                                        value={summary.cheques.failed}
+                                        highlight={summary.cheques.failed > 0}
+                                    />
+                                    <StatValue
+                                        label="total"
+                                        value={summary.cheques.total}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                <div
+                    style={{
+                        borderTop: '3px solid #000',
+                        paddingTop: '20px',
+                        marginBottom: '40px',
+                    }}
+                >
+                    <div
+                        style={{
+                            fontFamily: "'Archivo', sans-serif",
+                            fontWeight: 900,
+                            fontSize: '16px',
+                            marginBottom: '16px',
+                        }}
+                    >
+                        corrida activa<span style={{ color: RED }}>—</span>
+                    </div>
+
+                    {pipeline === null ? (
+                        <EmptyState message="sin corrida activa en este momento." />
                     ) : (
                         <div
                             style={{
@@ -172,69 +318,29 @@ export default function Novedades({ stats, history }: Props) {
                                         fontSize: '18px',
                                         textTransform: 'uppercase',
                                         color:
-                                            stats.state === 'error' ||
-                                            stats.state === 'hung'
+                                            stats?.state === 'error' ||
+                                            stats?.state === 'hung'
                                                 ? RED
                                                 : '#000',
                                     }}
                                 >
-                                    {stats.state}
+                                    {stats?.state ?? '—'}
                                 </div>
                             </div>
-                            <div>
-                                <Label>progreso</Label>
-                                <div
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontWeight: 800,
-                                        fontSize: '18px',
-                                    }}
-                                >
-                                    {pipeline
-                                        ? `${pipeline.progress_pct.toFixed(0)}%`
-                                        : '—'}
-                                </div>
-                            </div>
-                            <div>
-                                <Label>ok</Label>
-                                <div
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontWeight: 800,
-                                        fontSize: '18px',
-                                    }}
-                                >
-                                    {pipeline?.ok ?? '—'}
-                                </div>
-                            </div>
-                            <div>
-                                <Label>fallidos</Label>
-                                <div
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontWeight: 800,
-                                        fontSize: '18px',
-                                        color:
-                                            pipeline && pipeline.failed > 0
-                                                ? RED
-                                                : '#000',
-                                    }}
-                                >
-                                    {pipeline?.failed ?? '—'}
-                                </div>
-                            </div>
-                            <div>
-                                <Label>omitidos</Label>
-                                <div
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontWeight: 800,
-                                        fontSize: '18px',
-                                    }}
-                                >
-                                    {pipeline?.skipped ?? '—'}
-                                </div>
-                            </div>
+                            <StatValue
+                                label="progreso"
+                                value={`${pipeline.progress_pct.toFixed(0)}%`}
+                            />
+                            <StatValue label="ok" value={pipeline.ok} />
+                            <StatValue
+                                label="fallidos"
+                                value={pipeline.failed}
+                                highlight={pipeline.failed > 0}
+                            />
+                            <StatValue
+                                label="omitidos"
+                                value={pipeline.skipped}
+                            />
                         </div>
                     )}
                 </div>

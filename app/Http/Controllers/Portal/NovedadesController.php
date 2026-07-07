@@ -15,6 +15,7 @@ class NovedadesController extends Controller
     public function __invoke(BotService $bot): Response
     {
         return Inertia::render('portal/novedades', [
+            'summary' => fn () => $bot->summary(),
             'stats' => fn () => $bot->stats(),
             'history' => fn () => $bot->history(),
         ]);

@@ -8,6 +8,22 @@ use Illuminate\Support\Facades\Http;
 class BotService
 {
     /**
+     * Persistent totals from the database (vouchers/cheques by status).
+     * Always available, regardless of whether a run is currently active —
+     * used as the connectivity signal, since /api/stats legitimately
+     * returns null whenever nothing is running.
+     *
+     * @return array<string, mixed>|null
+     */
+    public function summary(): ?array
+    {
+        return $this->get('/api/summary');
+    }
+
+    /**
+     * Progress of the currently active run. Null whenever nothing is
+     * running — that is not a failure, see summary() above.
+     *
      * @return array<string, mixed>|null
      */
     public function stats(): ?array

@@ -12,12 +12,44 @@ class BotServiceTest extends TestCase
     public function test_it_returns_stats_from_a_successful_response(): void
     {
         Http::fake([
-            'euroturbot-monitor:8000/api/stats' => Http::response(['state' => 'idle', 'stats' => null]),
+            'euroturbot-monitor:8000/api/stats' => Http::response(['state' => 'running', 'stats' => ['progress_pct' => 50]]),
         ]);
 
         $stats = app(BotService::class)->stats();
 
-        $this->assertSame('idle', $stats['state']);
+        $this->assertSame('running', $stats['state']);
+    }
+
+    public function test_it_returns_null_stats_when_no_run_is_active(): void
+    {
+        Http::fake([
+            'euroturbot-monitor:8000/api/stats' => Http::response(null),
+        ]);
+
+        $this->assertNull(app(BotService::class)->stats());
+    }
+
+    public function test_it_returns_summary_from_a_successful_response(): void
+    {
+        Http::fake([
+            'euroturbot-monitor:8000/api/summary' => Http::response([
+                'vouchers' => ['pending' => 1, 'processing' => 0, 'ok' => 2, 'failed' => 0, 'skipped' => 0, 'total' => 3],
+                'cheques' => ['pending' => 0, 'ok' => 1, 'failed' => 0, 'total' => 1],
+            ]),
+        ]);
+
+        $summary = app(BotService::class)->summary();
+
+        $this->assertSame(3, $summary['vouchers']['total']);
+    }
+
+    public function test_it_returns_null_summary_on_a_failed_response(): void
+    {
+        Http::fake([
+            'euroturbot-monitor:8000/*' => Http::response(null, 500),
+        ]);
+
+        $this->assertNull(app(BotService::class)->summary());
     }
 
     public function test_it_sends_the_api_key_header(): void
