@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'bot_monitor' => [
+        'url' => env('BOT_MONITOR_URL', 'http://euroturbot-monitor:8000'),
+        'api_key' => env('BOT_MONITOR_API_KEY'),
+    ],
+
 ];

@@ -5,6 +5,7 @@ import {
     institucional,
     it,
     mesa,
+    novedades,
     operaciones,
     producto,
     responsables,
@@ -26,7 +27,8 @@ export type SectorId =
     | 'traveldesigners'
     | 'it'
     | 'mesa'
-    | 'responsables';
+    | 'responsables'
+    | 'novedades';
 
 export type ActiveView = 'home' | SectorId;
 
@@ -135,5 +137,13 @@ export const SECTORS: Sector[] = [
         shortLabel: 'Responsables',
         place: 'portal',
         href: responsables(),
+    },
+    {
+        id: 'novedades',
+        num: '13',
+        navLabel: 'Novedades',
+        shortLabel: 'Novedades',
+        place: 'automatización',
+        href: novedades(),
     },
 ];

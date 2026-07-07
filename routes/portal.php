@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Portal\NovedadesController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'portal/home')->name('home');
@@ -15,3 +16,4 @@ Route::inertia('traveldesigners', 'portal/traveldesigners')->name('portal.travel
 Route::inertia('it', 'portal/it')->name('portal.it');
 Route::inertia('mesa', 'portal/mesa')->name('portal.mesa');
 Route::inertia('responsables', 'portal/responsables')->name('portal.responsables');
+Route::get('novedades', NovedadesController::class)->name('portal.novedades');
