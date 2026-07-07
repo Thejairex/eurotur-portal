@@ -107,6 +107,35 @@ function StatValue({
     );
 }
 
+function PanelButton({
+    children,
+    variant,
+}: {
+    children: string;
+    variant: 'start' | 'stop';
+}) {
+    return (
+        <button
+            type="button"
+            style={{
+                fontFamily: "'Space Mono', monospace",
+                fontSize: '11px',
+                fontWeight: 700,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                padding: '10px 16px',
+                border:
+                    variant === 'start' ? '1px solid #000' : `1px solid ${RED}`,
+                background: variant === 'start' ? '#000' : '#fff',
+                color: variant === 'start' ? '#fff' : RED,
+                cursor: 'pointer',
+            }}
+        >
+            {children}
+        </button>
+    );
+}
+
 function Label({ children }: { children: string }) {
     return (
         <div
@@ -290,13 +319,29 @@ export default function Novedades({ summary, stats, history }: Props) {
                 >
                     <div
                         style={{
-                            fontFamily: "'Archivo', sans-serif",
-                            fontWeight: 900,
-                            fontSize: '16px',
+                            display: 'flex',
+                            alignItems: 'baseline',
+                            justifyContent: 'space-between',
                             marginBottom: '16px',
                         }}
                     >
-                        corrida activa<span style={{ color: RED }}>—</span>
+                        <div
+                            style={{
+                                fontFamily: "'Archivo', sans-serif",
+                                fontWeight: 900,
+                                fontSize: '16px',
+                            }}
+                        >
+                            corrida activa<span style={{ color: RED }}>—</span>
+                        </div>
+                        <div style={{ display: 'flex', gap: '10px' }}>
+                            <PanelButton variant="start">
+                                Iniciar robot
+                            </PanelButton>
+                            <PanelButton variant="stop">
+                                Detener bot
+                            </PanelButton>
+                        </div>
                     </div>
 
                     {pipeline === null ? (
