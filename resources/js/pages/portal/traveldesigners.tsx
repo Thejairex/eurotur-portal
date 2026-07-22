@@ -1,16 +1,17 @@
 import { Head } from '@inertiajs/react';
-import { PortalPlaceholder } from '@/components/portal/other-section';
+import { SectorIndex } from '@/components/portal/sector-index';
+import { TRAVELDESIGNERS_DATA } from '@/lib/portal-sections-data';
 
 export default function TravelDesigners() {
     return (
         <>
             <Head title="Travel Designers" />
-            <PortalPlaceholder title="travel designers" num="09" />
+            <SectorIndex data={TRAVELDESIGNERS_DATA} />
         </>
     );
 }
 
 TravelDesigners.layout = {
     active: 'traveldesigners',
-    label: 'travel designers—',
+    label: 'Travel Designers—',
 };

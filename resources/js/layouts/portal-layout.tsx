@@ -1,4 +1,4 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 import { SECTORS } from '@/lib/portal-sectors';
@@ -14,7 +14,7 @@ function formatArs(value: number): string {
 
 export default function PortalLayout({
     active = 'home',
-    label = 'inicio—',
+    label = 'Inicio—',
     children,
 }: {
     active?: ActiveView;
@@ -22,19 +22,71 @@ export default function PortalLayout({
     children: ReactNode;
 }) {
     const [query, setQuery] = useState('');
+    const [menuOpen, setMenuOpen] = useState(false);
     const { dolarOficialVenta } = usePage().props;
 
     return (
         <>
+            <Head>
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+                <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap"
+                />
+            </Head>
+
             <style>{`
                 .eurotur-portal ::selection { background: ${RED}; color: #fff; }
-                .eurotur-portal .nav-item:hover { background: ${RED}; color: #fff; }
-                .eurotur-portal .quick-card:hover { background: ${RED}; color: #fff; }
-                .eurotur-portal .tile:hover { background-image: none; background-color: ${RED}; color: #fff; }
-                .eurotur-portal .doc-link:hover { color: ${RED}; border-color: ${RED}; }
+                .eurotur-portal .nav-item:hover { background: ${RED}; color: #fff; transform: translateX(5px); }
+                .eurotur-portal .quick-card:hover { background: ${RED}; color: #fff; transform: translateY(-5px); }
+                .eurotur-portal .tile:hover { background-image: none; background-color: ${RED}; color: #fff; transform: translateY(-5px); }
+                .eurotur-portal .doc-link:hover { color: ${RED}; border-color: ${RED}; transform: translateX(3px); }
+                .eurotur-portal .qrated-cta:hover { background: #b3050f; transform: translateY(-3px); }
+                .eurotur-portal .mesa-cred-btn:hover { background: #000; color: #fff; }
+                .eurotur-portal .mesa-copy-btn:hover { background: ${RED}; color: #fff; border-color: ${RED}; }
+                .eurotur-portal .innov-frente-header:hover { background: #faf7f7; transform: translateX(4px); }
+                .eurotur-portal .innov-mosaic-item:hover { border-color: #000; transform: translateY(-3px); }
+                .eurotur-portal .innov-instr-card:hover { background: #faf7f7; }
+                .eurotur-portal .innov-instr-link:hover { background: #b3050f; transform: translateX(3px); }
+
+                @media (max-width: 860px) {
+                    #portal-root { flex-direction: column; }
+                    #portal-aside { width: 100% !important; flex: none !important; position: sticky !important; top: 0 !important; height: auto !important; align-self: auto !important; z-index: 40; background: #fff; border-right: none !important; border-bottom: 1px solid #000; padding: 14px 18px !important; }
+                    #portal-asidetop { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+                    #portal-burger { display: flex !important; }
+                    #portal-nav { display: none !important; }
+                    #portal-aside[data-menu="open"] #portal-nav { display: flex !important; margin-top: 14px; }
+                    #portal-divider { display: none; }
+                    #portal-aside[data-menu="open"] #portal-divider { display: block; margin: 14px 0 0 !important; }
+                    #portal-asidefoot { display: none; }
+                    #portal-aside[data-menu="open"] #portal-asidefoot { display: block; }
+                    #portal-vlabel { display: none !important; }
+                    #portal-header { flex-direction: column; align-items: flex-start !important; gap: 18px !important; padding: 22px 20px 18px !important; }
+                    #portal-header > div { max-width: none !important; width: 100%; }
+                    #portal-content { padding: 26px 20px 32px !important; }
+                    #portal-footer { flex-direction: column; align-items: flex-start !important; gap: 16px !important; padding: 20px !important; }
+                    #portal-footer > div { flex-wrap: wrap; gap: 10px 22px !important; }
+                }
+                @media (max-width: 900px) {
+                    #portal-content [style*="repeat(5"] { grid-template-columns: repeat(3,1fr) !important; }
+                    #portal-content [style*="repeat(4"] { grid-template-columns: repeat(3,1fr) !important; }
+                    #portal-content [style*="1.55fr 1fr"] { grid-template-columns: 1fr !important; }
+                    #portal-content [style*="0.82fr 1.18fr"] { grid-template-columns: 1fr !important; }
+                    #portal-content [style*="1.08fr 0.92fr"] { grid-template-columns: 1fr !important; }
+                }
+                @media (max-width: 600px) {
+                    #portal-content [style*="repeat(5"],
+                    #portal-content [style*="repeat(4"],
+                    #portal-content [style*="repeat(3"] { grid-template-columns: repeat(2,1fr) !important; }
+                    #portal-content [style*="repeat(2"] { grid-template-columns: 1fr !important; }
+                    #portal-content [style*="gap:18px"] { flex-wrap: wrap; row-gap: 8px !important; }
+                    #portal-content #qrated-cats { grid-template-columns: 1fr !important; }
+                }
             `}</style>
 
             <div
+                id="portal-root"
                 className="eurotur-portal"
                 style={{
                     display: 'flex',
@@ -44,7 +96,11 @@ export default function PortalLayout({
                     fontFamily: "'Archivo', sans-serif",
                 }}
             >
-                <Sidebar active={active} />
+                <Sidebar
+                    active={active}
+                    menuOpen={menuOpen}
+                    onToggleMenu={() => setMenuOpen((v) => !v)}
+                />
 
                 <main
                     style={{
@@ -73,6 +129,7 @@ export default function PortalLayout({
                     )}
 
                     <div
+                        id="portal-vlabel"
                         style={{
                             position: 'absolute',
                             left: 0,
@@ -103,6 +160,7 @@ export default function PortalLayout({
                     </div>
 
                     <div
+                        id="portal-content"
                         style={{
                             flex: 1,
                             padding: '44px 56px 40px 112px',
@@ -119,9 +177,19 @@ export default function PortalLayout({
     );
 }
 
-function Sidebar({ active }: { active: ActiveView }) {
+function Sidebar({
+    active,
+    menuOpen,
+    onToggleMenu,
+}: {
+    active: ActiveView;
+    menuOpen: boolean;
+    onToggleMenu: () => void;
+}) {
     return (
         <aside
+            id="portal-aside"
+            data-menu={menuOpen ? 'open' : 'closed'}
             style={{
                 width: '216px',
                 flex: '0 0 216px',
@@ -135,32 +203,64 @@ function Sidebar({ active }: { active: ActiveView }) {
                 borderRight: '1px solid #000',
             }}
         >
-            <Link
-                href={home()}
-                style={{ all: 'unset', cursor: 'pointer', display: 'block' }}
-            >
-                <img
-                    src="/eurotur-logo.png"
-                    alt="Eurotur — 70 años"
-                    style={{ width: '118px', height: 'auto', display: 'block' }}
-                />
-                <div
+            <div id="portal-asidetop">
+                <Link
+                    href={home()}
                     style={{
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: '9px',
-                        letterSpacing: '0.14em',
-                        textTransform: 'uppercase',
-                        color: '#666',
-                        marginTop: '10px',
+                        all: 'unset',
+                        cursor: 'pointer',
+                        display: 'block',
                     }}
                 >
-                    portal interno
-                    <br />
-                    dmc · desde 1954
-                </div>
-            </Link>
+                    <img
+                        src="/eurotur-logo.png"
+                        alt="Eurotur — 70 años"
+                        style={{
+                            width: '118px',
+                            height: 'auto',
+                            display: 'block',
+                        }}
+                    />
+                    <div
+                        style={{
+                            fontFamily: "'Space Mono', monospace",
+                            fontSize: '9px',
+                            letterSpacing: '0.14em',
+                            textTransform: 'uppercase',
+                            color: '#666',
+                            marginTop: '10px',
+                        }}
+                    >
+                        portal interno
+                        <br />
+                        dmc · desde 1954
+                    </div>
+                </Link>
+                <button
+                    id="portal-burger"
+                    type="button"
+                    onClick={onToggleMenu}
+                    style={{
+                        display: 'none',
+                        alignItems: 'center',
+                        gap: '8px',
+                        cursor: 'pointer',
+                        background: '#000',
+                        color: '#fff',
+                        border: 'none',
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '11px',
+                        letterSpacing: '0.12em',
+                        textTransform: 'uppercase',
+                        padding: '11px 14px',
+                    }}
+                >
+                    {menuOpen ? 'Cerrar ✕' : 'Menú ≡'}
+                </button>
+            </div>
 
             <div
+                id="portal-divider"
                 style={{
                     height: '1px',
                     background: '#000',
@@ -169,6 +269,7 @@ function Sidebar({ active }: { active: ActiveView }) {
             />
 
             <nav
+                id="portal-nav"
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -189,7 +290,8 @@ function Sidebar({ active }: { active: ActiveView }) {
                             gap: '9px',
                             padding: '5px 4px',
                             color: sector.id === active ? RED : '#000',
-                            transition: 'color .12s, background .12s',
+                            transition:
+                                'color .12s, background .12s, transform .12s',
                         }}
                     >
                         <span
@@ -219,6 +321,7 @@ function Sidebar({ active }: { active: ActiveView }) {
             </nav>
 
             <div
+                id="portal-asidefoot"
                 style={{
                     fontFamily: "'Space Mono', monospace",
                     fontSize: '9px',
@@ -245,6 +348,7 @@ function Header({
 }) {
     return (
         <header
+            id="portal-header"
             style={{
                 display: 'flex',
                 alignItems: 'flex-end',
@@ -361,7 +465,7 @@ function Header({
                             lineHeight: 1,
                         }}
                     >
-                        01·07·26
+                        09·07·26
                     </div>
                 </div>
             </div>
@@ -372,6 +476,7 @@ function Header({
 function Footer() {
     return (
         <footer
+            id="portal-footer"
             style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -399,10 +504,10 @@ function Footer() {
                     <span style={{ color: '#999' }}>email</span>
                     &nbsp;&nbsp;
                     <a
-                        href="mailto:info@eurotur.tur.ar"
+                        href="mailto:portal@eurotur.tur.ar"
                         style={{ color: 'inherit', textDecoration: 'none' }}
                     >
-                        info@eurotur.tur.ar
+                        portal@eurotur.tur.ar
                     </a>
                 </span>
                 <span style={{ color: '#999' }}>

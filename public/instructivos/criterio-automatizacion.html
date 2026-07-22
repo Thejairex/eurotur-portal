@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Vale la pena este robotito? — Eurotur</title>
+<style>
+  :root{
+    --rojo:#E30613;
+    --rojo-osc:#b60510;
+    --tinta:#1d1d1f;
+    --gris:#6b6b70;
+    --gris-suave:#f4f5f7;
+    --linea:#e7e8ec;
+    --papel:#ffffff;
+    --verde:#1f9d5a;
+    --amba:#e8a200;
+    --off:#c9ccd2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--gris-suave);
+    color:var(--tinta);
+    font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    line-height:1.45;-webkit-font-smoothing:antialiased;
+    padding:0 0 60px;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 26px;}
+
+  /* topbar rojo */
+  .topbar{background:var(--rojo);height:8px;width:100%;}
+
+  header{padding:40px 0 8px;text-align:center;}
+  .kick{color:var(--rojo);font-weight:800;font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;}
+  h1{
+    font-size:clamp(30px,5vw,50px);font-weight:800;letter-spacing:-.02em;line-height:1.02;
+    color:var(--tinta);
+  }
+  h1 b{color:var(--rojo);}
+  .lead{max-width:620px;margin:16px auto 0;color:var(--gris);font-size:16.5px;}
+
+  /* regla de oro */
+  .golden{
+    max-width:720px;margin:26px auto 0;background:var(--rojo);color:#fff;
+    border-radius:18px;padding:18px 26px;text-align:center;
+    font-size:17px;font-weight:700;box-shadow:0 10px 28px rgba(227,6,19,.22);
+  }
+  .golden span{opacity:.85;font-weight:600;}
+
+  /* layout principal */
+  .stage{display:grid;grid-template-columns:1fr 340px;gap:26px;margin-top:34px;align-items:start;}
+  @media(max-width:900px){.stage{grid-template-columns:1fr;}}
+
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:560px){.cards{grid-template-columns:1fr;}}
+
+  .card{
+    background:var(--papel);border:2px solid var(--linea);border-radius:18px;
+    padding:18px 18px 16px;cursor:pointer;transition:.18s;position:relative;
+    display:flex;flex-direction:column;gap:10px;min-height:150px;
+    user-select:none;
+  }
+  .card:hover{border-color:#d3d5da;transform:translateY(-2px);}
+  .card .ic{width:44px;height:44px;color:var(--rojo);}
+  .card .qh{font-weight:800;font-size:16.5px;letter-spacing:-.01em;}
+  .card .qs{font-size:13px;color:var(--gris);line-height:1.4;}
+  .card .toggle{
+    margin-top:auto;display:inline-flex;align-items:center;gap:8px;
+    font-size:12.5px;font-weight:700;color:var(--gris);
+  }
+  .dot{width:12px;height:12px;border-radius:50%;background:var(--off);transition:.18s;flex:none;}
+
+  /* estado activo (verde = cumple) */
+  .card.on{border-color:var(--verde);background:#f2fbf5;}
+  .card.on .dot{background:var(--verde);}
+  .card.on .toggle{color:var(--verde);}
+  .card.on .toggle .lbl::after{content:"Sí";}
+  .card .toggle .lbl::after{content:"—";}
+
+  /* card tipo (script/IA) neutral */
+  .card.type{border-style:dashed;}
+  .card.type.on{border-color:var(--rojo);background:#fff4f5;}
+  .card.type.on .dot{background:var(--rojo);}
+  .card.type.on .toggle{color:var(--rojo);}
+  .card.type .toggle .lbl::after{content:"Script";}
+  .card.type.on .toggle .lbl::after{content:"IA / criterio";}
+
+  .card .flag{
+    position:absolute;top:14px;right:14px;font-size:10px;font-weight:800;
+    letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--amba);
+    padding:3px 8px;border-radius:20px;opacity:0;transition:.18s;
+  }
+  .card.block .flag{opacity:1;}
+
+  /* panel veredicto */
+  .verdict{
+    position:sticky;top:20px;background:var(--papel);border-radius:22px;
+    border:2px solid var(--linea);padding:26px 24px;text-align:center;
+    box-shadow:0 12px 34px rgba(20,20,30,.06);
+  }
+  .vlabel{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);}
+  .semaforo{display:flex;justify-content:center;gap:14px;margin:22px 0;}
+  .light{width:52px;height:52px;border-radius:50%;background:#eceef2;transition:.25s;position:relative;}
+  .light.va.act{background:var(--verde);box-shadow:0 0 0 6px rgba(31,157,90,.16);}
+  .light.esp.act{background:var(--amba);box-shadow:0 0 0 6px rgba(232,162,0,.16);}
+  .light.no.act{background:var(--rojo);box-shadow:0 0 0 6px rgba(227,6,19,.16);}
+  .light small{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:700;color:var(--gris);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;}
+
+  .vbig{font-size:34px;font-weight:800;letter-spacing:-.02em;margin:26px 0 6px;transition:.2s;}
+  .vbig.va{color:var(--verde);}
+  .vbig.esp{color:var(--amba);}
+  .vbig.no{color:var(--rojo);}
+  .vmsg{font-size:14px;color:var(--gris);line-height:1.5;min-height:60px;}
+  .vtype{margin-top:16px;padding-top:14px;border-top:1px solid var(--linea);font-size:12.5px;color:var(--gris);}
+  .vtype b{color:var(--tinta);}
+  .reset{margin-top:18px;background:none;border:1.5px solid var(--linea);color:var(--gris);
+    padding:9px 18px;border-radius:22px;font-size:13px;font-weight:700;cursor:pointer;transition:.15s;}
+  .reset:hover{border-color:var(--rojo);color:var(--rojo);}
+
+  .hint{text-align:center;color:var(--gris);font-size:13px;margin-top:22px;}
+  .hint b{color:var(--rojo);}
+
+  footer{text-align:center;margin-top:40px;color:var(--gris);font-size:12px;letter-spacing:.04em;}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="wrap">
+
+  <header>
+    <div class="kick">Criterio de automatización · Eurotur</div>
+    <h1>¿Vale la pena<br>este <b>robotito?</b></h1>
+    <p class="lead">Antes de armar cualquier automatización, pasa por este filtro. Toca cada tarjeta según cómo responde tu idea y mirá dónde cae.</p>
+    <div class="golden">El criterio existe para poder decir que no. <span>Sin filtro, todo pedido entra y nos saturamos.</span></div>
+  </header>
+
+  <div class="stage">
+    <div class="cards" id="cards">
+      <!-- 1 -->
+      <div class="card" data-key="dolor">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M19.1 4.9l-2.8 2.8M7.7 16.3l-2.8 2.8"/><circle cx="12" cy="12" r="3"/></svg>
+        <div class="qh">Duele de verdad</div>
+        <div class="qs">Molesta a alguien y consume tiempo real, hoy.</div>
+        <div class="toggle"><span class="dot"></span><span class="lbl">Cumple: </span></div>
+      </div>
+      <!-- 2 -->
+      <div class="card" data-key="recurrente">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+        <div class="qh">Es recurrente</div>
+        <div class="qs">Pasa seguido. No es una tarea de una sola vez.</div>
+        <div class="toggle"><span class="dot"></span><span class="lbl">Cumple: </span></div>
+      </div>
+      <!-- 3 -->
+      <div class="card" data-key="unico" data-block="1">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14.5v6M14.5 17.5h6"/></svg>
+        <div class="qh">No se solapa</div>
+        <div class="qs">No hay otro robot, área o paso que ya lo haga.</div>
+        <div class="flag">Bloqueante</div>
+        <div class="toggle"><span class="dot"></span><span class="lbl">Cumple: </span></div>
+      </div>
+      <!-- 4 -->
+      <div class="card" data-key="datos" data-block="1">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>
+        <div class="qh">Datos limpios</div>
+        <div class="qs">La info está lista. No hay que limpiar todo primero.</div>
+        <div class="flag">Bloqueante</div>
+        <div class="toggle"><span class="dot"></span><span class="lbl">Cumple: </span></div>
+      </div>
+      <!-- 5 -->
+      <div class="card" data-key="mantenible" data-block="1">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.3 2.3-2-2 2.3-2.3z"/></svg>
+        <div class="qh">Se puede mantener</div>
+        <div class="qs">Sobrevive si cambia TP o se va quien lo hizo.</div>
+        <div class="flag">Bloqueante</div>
+        <div class="toggle"><span class="dot"></span><span class="lbl">Cumple: </span></div>
+      </div>
+      <!-- 6 tipo -->
+      <div class="card type" data-key="tipo">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="10" r="1.3"/><circle cx="15" cy="10" r="1.3"/><path d="M8.5 15c1 1 2 1.4 3.5 1.4S14.5 16 15.5 15"/><path d="M12 2v2"/></svg>
+        <div class="qh">¿Script o IA?</div>
+        <div class="qs">Clicks repetitivos (script) o necesita criterio (IA). No suma ni resta: sólo define quién lo hace.</div>
+        <div class="toggle"><span class="dot"></span><span class="lbl">Tipo: </span></div>
+      </div>
+    </div>
+
+    <!-- VEREDICTO -->
+    <aside class="verdict">
+      <div class="vlabel">Veredicto</div>
+      <div class="semaforo">
+        <div class="light no" id="l-no"><small>No va</small></div>
+        <div class="light esp" id="l-esp"><small>Esperá</small></div>
+        <div class="light va" id="l-va"><small>Va</small></div>
+      </div>
+      <div class="vbig" id="vbig">—</div>
+      <div class="vmsg" id="vmsg">Tocá las tarjetas para evaluar la idea.</div>
+      <div class="vtype" id="vtype">Tipo: <b>—</b></div>
+      <button class="reset" id="reset">Reiniciar</button>
+    </aside>
+  </div>
+
+  <p class="hint">Las tarjetas con <b>Bloqueante</b> frenan la idea aunque el resto esté bien: sin datos, con solape o sin quién la sostenga, primero hay que resolver eso.</p>
+
+  <footer>Eurotur DMC · Argentina — Criterio de automatización con IA · v1</footer>
+</div>
+
+<script>
+(function(){
+  const cards = [...document.querySelectorAll('.card')];
+  const state = {};
+  cards.forEach(c=> state[c.dataset.key] = false);
+
+  const lVa=document.getElementById('l-va'), lEsp=document.getElementById('l-esp'), lNo=document.getElementById('l-no');
+  const vbig=document.getElementById('vbig'), vmsg=document.getElementById('vmsg'), vtype=document.getElementById('vtype');
+
+  function evaluate(){
+    // claves que "pesan" (excluye tipo)
+    const dolor = state.dolor;
+    const recurrente = state.recurrente;
+    const blockers = ['unico','datos','mantenible'];
+    const blockersOk = blockers.every(k=>state[k]);
+    const blockersFail = blockers.filter(k=>!state[k]);
+
+    // marcar cards bloqueantes que estén en falso Y con algo ya respondido
+    cards.forEach(c=>{
+      if(c.dataset.block==='1'){
+        c.classList.toggle('block', !state[c.dataset.key] && anyAnswered());
+      }
+    });
+
+    lVa.classList.remove('act'); lEsp.classList.remove('act'); lNo.classList.remove('act');
+    vbig.className='vbig';
+
+    if(!anyAnswered()){
+      vbig.textContent='—';
+      vmsg.textContent='Tocá las tarjetas para evaluar la idea.';
+      setType(); return;
+    }
+
+    // NO VA: no duele o no es recurrente => juguetito / única vez
+    if(!dolor || !recurrente){
+      lNo.classList.add('act');
+      vbig.textContent='NO VA'; vbig.classList.add('no');
+      vmsg.innerHTML = !dolor
+        ? 'Si no le duele a nadie, es un <b>juguetito</b>. El esfuerzo de armarlo no se recupera.'
+        : 'Tarea de <b>única vez</b>: tardás más armando el robot que haciéndola a mano.';
+      setType(); return;
+    }
+    // ESPERÁ: duele y es recurrente, pero hay bloqueante sin resolver
+    if(!blockersOk){
+      lEsp.classList.add('act');
+      vbig.textContent='ESPERÁ'; vbig.classList.add('esp');
+      const nombres={unico:'ya existe algo que se solapa',datos:'los datos no están limpios',mantenible:'no está claro cómo se mantiene'};
+      const faltan = blockersFail.map(k=>nombres[k]).join(' · ');
+      vmsg.innerHTML = 'Buena idea, pero primero hay que resolver: <b>'+faltan+'</b>.';
+      setType(); return;
+    }
+    // VA
+    lVa.classList.add('act');
+    vbig.textContent='VA'; vbig.classList.add('va');
+    vmsg.innerHTML='Pasa el filtro. Entra a la cola con prioridad.';
+    setType();
+  }
+
+  function anyAnswered(){ return Object.keys(state).some(k=>k!=='tipo' && state[k]); }
+
+  function setType(){
+    if(state.tipo){ vtype.innerHTML='Tipo: <b>IA / requiere criterio</b>'; }
+    else { vtype.innerHTML='Tipo: <b>Script de clicks</b>'; }
+  }
+
+  cards.forEach(c=>{
+    c.addEventListener('click',()=>{
+      state[c.dataset.key] = !state[c.dataset.key];
+      c.classList.toggle('on', state[c.dataset.key]);
+      evaluate();
+    });
+  });
+
+  document.getElementById('reset').addEventListener('click',()=>{
+    cards.forEach(c=>{state[c.dataset.key]=false; c.classList.remove('on','block');});
+    evaluate();
+  });
+
+  evaluate();
+})();
+</script>
+</body>
+</html>

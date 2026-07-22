@@ -1,13 +1,14 @@
 import { Head } from '@inertiajs/react';
-import { PortalPlaceholder } from '@/components/portal/other-section';
+import { SectorIndex } from '@/components/portal/sector-index';
+import { CONTRATACIONES_DATA } from '@/lib/portal-sections-data';
 
 export default function Contrataciones() {
     return (
         <>
             <Head title="Contrataciones" />
-            <PortalPlaceholder title="contrataciones" num="04" />
+            <SectorIndex data={CONTRATACIONES_DATA} />
         </>
     );
 }
 
-Contrataciones.layout = { active: 'contrataciones', label: 'contrataciones—' };
+Contrataciones.layout = { active: 'contrataciones', label: 'Contrataciones—' };

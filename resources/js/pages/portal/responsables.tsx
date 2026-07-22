@@ -1,13 +1,14 @@
 import { Head } from '@inertiajs/react';
-import { PortalPlaceholder } from '@/components/portal/other-section';
+import { SectorIndex } from '@/components/portal/sector-index';
+import { RESPONSABLES_DATA } from '@/lib/portal-sections-data';
 
 export default function Responsables() {
     return (
         <>
             <Head title="Responsables del Portal" />
-            <PortalPlaceholder title="responsables del portal" num="12" />
+            <SectorIndex data={RESPONSABLES_DATA} />
         </>
     );
 }
 
-Responsables.layout = { active: 'responsables', label: 'responsables—' };
+Responsables.layout = { active: 'responsables', label: 'Responsables—' };

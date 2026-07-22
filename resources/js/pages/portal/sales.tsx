@@ -1,13 +1,14 @@
 import { Head } from '@inertiajs/react';
-import { PortalPlaceholder } from '@/components/portal/other-section';
+import { SectorIndex } from '@/components/portal/sector-index';
+import { SALES_DATA } from '@/lib/portal-sections-data';
 
 export default function Sales() {
     return (
         <>
             <Head title="Sales" />
-            <PortalPlaceholder title="sales" num="08" />
+            <SectorIndex data={SALES_DATA} />
         </>
     );
 }
 
-Sales.layout = { active: 'sales', label: 'sales—' };
+Sales.layout = { active: 'sales', label: 'Sales—' };

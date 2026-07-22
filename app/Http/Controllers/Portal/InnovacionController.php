@@ -7,14 +7,14 @@ use App\Services\BotService;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class NovedadesController extends Controller
+class InnovacionController extends Controller
 {
     /**
-     * Show the automation pipeline status and recent activity.
+     * Show the innovation/AI showcase plus the live automation pipeline status.
      */
     public function __invoke(BotService $bot): Response
     {
-        return Inertia::render('portal/novedades', [
+        return Inertia::render('portal/innovacion', [
             'summary' => fn () => $bot->summary(),
             'stats' => fn () => $bot->stats(),
             'history' => fn () => $bot->history(),

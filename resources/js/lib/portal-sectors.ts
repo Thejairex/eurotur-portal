@@ -2,12 +2,13 @@ import {
     adm,
     contrataciones,
     customercare,
+    innovacion,
     institucional,
     it,
     mesa,
-    novedades,
     operaciones,
     producto,
+    qrated,
     responsables,
     rrhh,
     sales,
@@ -23,12 +24,13 @@ export type SectorId =
     | 'operaciones'
     | 'producto'
     | 'customercare'
+    | 'qrated'
     | 'sales'
     | 'traveldesigners'
     | 'it'
     | 'mesa'
     | 'responsables'
-    | 'novedades';
+    | 'innovacion';
 
 export type ActiveView = 'home' | SectorId;
 
@@ -99,8 +101,16 @@ export const SECTORS: Sector[] = [
         href: customercare(),
     },
     {
-        id: 'sales',
+        id: 'qrated',
         num: '08',
+        navLabel: 'Qrated',
+        shortLabel: 'Qrated',
+        place: 'premium · mice',
+        href: qrated(),
+    },
+    {
+        id: 'sales',
+        num: '09',
         navLabel: 'Sales',
         shortLabel: 'Sales',
         place: 'clientes',
@@ -108,7 +118,7 @@ export const SECTORS: Sector[] = [
     },
     {
         id: 'traveldesigners',
-        num: '09',
+        num: '10',
         navLabel: 'Travel Designers',
         shortLabel: 'Travel Designers',
         place: 'ruta 40',
@@ -116,7 +126,7 @@ export const SECTORS: Sector[] = [
     },
     {
         id: 'it',
-        num: '10',
+        num: '11',
         navLabel: 'IT',
         shortLabel: 'IT',
         place: 'sistemas',
@@ -124,7 +134,7 @@ export const SECTORS: Sector[] = [
     },
     {
         id: 'mesa',
-        num: '11',
+        num: '12',
         navLabel: 'Mesa de Información',
         shortLabel: 'Mesa de Info',
         place: 'soporte',
@@ -132,18 +142,18 @@ export const SECTORS: Sector[] = [
     },
     {
         id: 'responsables',
-        num: '12',
+        num: '13',
         navLabel: 'Responsables del Portal',
         shortLabel: 'Responsables',
         place: 'portal',
         href: responsables(),
     },
     {
-        id: 'novedades',
-        num: '13',
-        navLabel: 'Novedades',
-        shortLabel: 'Novedades',
-        place: 'automatización',
-        href: novedades(),
+        id: 'innovacion',
+        num: '14',
+        navLabel: 'Innovación',
+        shortLabel: 'Innovación',
+        place: 'ia · scripts',
+        href: innovacion(),
     },
 ];

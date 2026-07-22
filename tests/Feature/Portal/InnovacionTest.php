@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
 
-class NovedadesTest extends TestCase
+class InnovacionTest extends TestCase
 {
     private const SUMMARY_RESPONSE = [
         'vouchers' => ['pending' => 5, 'processing' => 0, 'ok' => 10, 'failed' => 1, 'skipped' => 2, 'total' => 18],
@@ -33,11 +33,11 @@ class NovedadesTest extends TestCase
             ]),
         ]);
 
-        $response = $this->get(route('portal.novedades'));
+        $response = $this->get(route('portal.innovacion'));
 
         $response->assertOk();
         $response->assertInertia(fn (Assert $page) => $page
-            ->component('portal/novedades')
+            ->component('portal/innovacion')
             ->where('summary.vouchers.total', 18)
             ->where('stats.state', 'running')
             ->where('history.vouchers.0.supplier_code', 'ACME')
@@ -52,11 +52,11 @@ class NovedadesTest extends TestCase
             'euroturbot-monitor:8000/api/history*' => Http::response(['vouchers' => [], 'total' => 0, 'has_more' => false]),
         ]);
 
-        $response = $this->get(route('portal.novedades'));
+        $response = $this->get(route('portal.innovacion'));
 
         $response->assertOk();
         $response->assertInertia(fn (Assert $page) => $page
-            ->component('portal/novedades')
+            ->component('portal/innovacion')
             ->where('summary.vouchers.total', 18)
             ->where('stats', null)
         );
@@ -68,11 +68,11 @@ class NovedadesTest extends TestCase
             'euroturbot-monitor:8000/*' => Http::response(null, 500),
         ]);
 
-        $response = $this->get(route('portal.novedades'));
+        $response = $this->get(route('portal.innovacion'));
 
         $response->assertOk();
         $response->assertInertia(fn (Assert $page) => $page
-            ->component('portal/novedades')
+            ->component('portal/innovacion')
             ->where('summary', null)
             ->where('stats', null)
             ->where('history', null)

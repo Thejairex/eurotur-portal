@@ -1,4 +1,5 @@
 import { Head } from '@inertiajs/react';
+import { ImageSlot } from '@/components/portal/image-slot';
 
 const RED = '#E30613';
 
@@ -64,10 +65,9 @@ export default function Institucional() {
                             style={{
                                 fontFamily: "'Anton', sans-serif",
                                 fontWeight: 400,
-                                fontSize: 'clamp(44px,6vw,84px)',
+                                fontSize: 'clamp(64px,9vw,132px)',
                                 lineHeight: 0.84,
                                 margin: 0,
-                                textTransform: 'lowercase',
                                 letterSpacing: '-0.005em',
                             }}
                         >
@@ -91,30 +91,14 @@ export default function Institucional() {
 
                 <div
                     style={{
+                        position: 'relative',
                         height: '340px',
-                        backgroundImage:
-                            'repeating-linear-gradient(45deg,#111 0 2px,#e9e9e9 2px 11px)',
                         borderTop: '3px solid #000',
                         borderBottom: '1px solid #000',
-                        display: 'flex',
-                        alignItems: 'flex-end',
-                        padding: '16px',
                         marginBottom: '34px',
                     }}
                 >
-                    <span
-                        style={{
-                            fontFamily: "'Space Mono', monospace",
-                            fontSize: '10px',
-                            letterSpacing: '0.1em',
-                            textTransform: 'uppercase',
-                            color: '#000',
-                            background: '#fff',
-                            padding: '4px 8px',
-                        }}
-                    >
-                        imagen b&n a sangre — glaciar perito moreno / patagonia
-                    </span>
+                    <ImageSlot placeholder="Imagen a sangre — Glaciar Perito Moreno / Patagonia (blanco y negro)" />
                 </div>
 
                 <div
@@ -270,29 +254,8 @@ export default function Institucional() {
                                 en la industria del turismo.
                             </p>
                         </div>
-                        <div
-                            style={{
-                                height: '150px',
-                                backgroundImage:
-                                    'repeating-linear-gradient(45deg,#E30613 0 2px,#ffd6d9 2px 11px)',
-                                display: 'flex',
-                                alignItems: 'flex-end',
-                                padding: '12px',
-                            }}
-                        >
-                            <span
-                                style={{
-                                    fontFamily: "'Space Mono', monospace",
-                                    fontSize: '9px',
-                                    letterSpacing: '0.1em',
-                                    textTransform: 'uppercase',
-                                    color: '#fff',
-                                    background: RED,
-                                    padding: '3px 7px',
-                                }}
-                            >
-                                duotono rojo — ushuaia
-                            </span>
+                        <div style={{ position: 'relative', height: '150px' }}>
+                            <ImageSlot placeholder="Ushuaia — blanco y negro" />
                         </div>
                     </div>
                 </div>
@@ -383,4 +346,4 @@ export default function Institucional() {
     );
 }
 
-Institucional.layout = { active: 'institucional', label: 'institucional—' };
+Institucional.layout = { active: 'institucional', label: 'Institucional—' };

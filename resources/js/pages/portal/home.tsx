@@ -1,5 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import type { ReactNode } from 'react';
+import { ImageSlot } from '@/components/portal/image-slot';
 import { SECTORS } from '@/lib/portal-sectors';
 
 const RED = '#E30613';
@@ -193,18 +194,7 @@ function SectionHeading({ label, hint }: { label: string; hint: string }) {
 export default function Home() {
     return (
         <>
-            <Head title="Portal Eurotur">
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link
-                    rel="preconnect"
-                    href="https://fonts.gstatic.com"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="stylesheet"
-                    href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap"
-                />
-            </Head>
+            <Head title="Portal Eurotur" />
 
             <section
                 style={{
@@ -234,10 +224,9 @@ export default function Home() {
                             lineHeight: 0.82,
                             letterSpacing: '-0.005em',
                             margin: 0,
-                            textTransform: 'lowercase',
                         }}
                     >
-                        portal de
+                        Portal de
                         <br />
                         eurotur
                         <span style={{ color: RED }}>.</span>
@@ -255,12 +244,23 @@ export default function Home() {
                         Todo lo que usás cada día, a un toque. Elegí un acceso
                         rápido o entrá a tu sector.
                     </p>
+                    <div
+                        style={{
+                            position: 'relative',
+                            height: '280px',
+                            borderTop: '3px solid #000',
+                            borderBottom: '1px solid #000',
+                            marginTop: '26px',
+                        }}
+                    >
+                        <ImageSlot placeholder="Imagen de portada — arquitectura / Patagonia (blanco y negro, a sangre)" />
+                    </div>
                 </div>
 
                 <div>
                     <SectionHeading
                         label="accesos rápidos"
-                        hint="uso frecuente"
+                        hint="↗ abre en otra pestaña"
                     />
                     <div
                         style={{
@@ -278,6 +278,7 @@ export default function Home() {
                                 rel="noreferrer"
                                 className="quick-card"
                                 style={{
+                                    position: 'relative',
                                     display: 'flex',
                                     flexDirection: 'column',
                                     justifyContent: 'space-between',
@@ -287,9 +288,21 @@ export default function Home() {
                                     color: '#000',
                                     borderRight: '1px solid #000',
                                     borderBottom: '1px solid #000',
-                                    transition: 'background .12s,color .12s',
+                                    transition:
+                                        'background .12s,color .12s,transform .14s',
                                 }}
                             >
+                                <span
+                                    style={{
+                                        position: 'absolute',
+                                        top: '16px',
+                                        right: '16px',
+                                        fontFamily: "'Space Mono', monospace",
+                                        fontSize: '13px',
+                                    }}
+                                >
+                                    ↗
+                                </span>
                                 {q.icon}
                                 <div>
                                     <div
@@ -322,7 +335,7 @@ export default function Home() {
                 <div>
                     <SectionHeading
                         label="sectores"
-                        hint="01 — 12 · tocá para entrar"
+                        hint="→ tocá para entrar"
                     />
                     <div
                         style={{
@@ -338,6 +351,7 @@ export default function Home() {
                                 href={sector.href}
                                 className="tile"
                                 style={{
+                                    cursor: 'pointer',
                                     position: 'relative',
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -350,7 +364,8 @@ export default function Home() {
                                     borderBottom: '1px solid #000',
                                     backgroundImage:
                                         'linear-gradient(rgba(0,0,0,0.42),rgba(0,0,0,0.42)),repeating-linear-gradient(45deg,#111 0 2px,#dcdcdc 2px 12px)',
-                                    transition: 'background .12s,color .12s',
+                                    transition:
+                                        'background .12s,color .12s,transform .14s',
                                 }}
                             >
                                 <div
@@ -385,14 +400,34 @@ export default function Home() {
                                 </div>
                                 <div
                                     style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontWeight: 800,
-                                        fontSize: '17px',
-                                        letterSpacing: '-0.01em',
-                                        lineHeight: 1.05,
+                                        display: 'flex',
+                                        alignItems: 'flex-end',
+                                        justifyContent: 'space-between',
+                                        gap: '8px',
                                     }}
                                 >
-                                    {sector.shortLabel}
+                                    <span
+                                        style={{
+                                            fontFamily: "'Archivo', sans-serif",
+                                            fontWeight: 800,
+                                            fontSize: '17px',
+                                            letterSpacing: '-0.01em',
+                                            lineHeight: 1.05,
+                                        }}
+                                    >
+                                        {sector.shortLabel}
+                                    </span>
+                                    <span
+                                        style={{
+                                            fontFamily:
+                                                "'Space Mono', monospace",
+                                            fontSize: '15px',
+                                            flex: '0 0 auto',
+                                            lineHeight: 1,
+                                        }}
+                                    >
+                                        →
+                                    </span>
                                 </div>
                             </Link>
                         ))}
@@ -511,4 +546,4 @@ export default function Home() {
     );
 }
 
-Home.layout = { active: 'home', label: 'inicio—' };
+Home.layout = { active: 'home', label: 'Inicio—' };

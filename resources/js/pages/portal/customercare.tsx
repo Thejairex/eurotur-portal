@@ -1,13 +1,14 @@
 import { Head } from '@inertiajs/react';
-import { PortalPlaceholder } from '@/components/portal/other-section';
+import { SectorIndex } from '@/components/portal/sector-index';
+import { CUSTOMERCARE_DATA } from '@/lib/portal-sections-data';
 
 export default function CustomerCare() {
     return (
         <>
             <Head title="Customer Care" />
-            <PortalPlaceholder title="customer care" num="07" />
+            <SectorIndex data={CUSTOMERCARE_DATA} />
         </>
     );
 }
 
-CustomerCare.layout = { active: 'customercare', label: 'customer care—' };
+CustomerCare.layout = { active: 'customercare', label: 'Customer Care—' };
