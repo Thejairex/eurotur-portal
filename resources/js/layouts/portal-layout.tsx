@@ -12,6 +12,15 @@ function formatArs(value: number): string {
     return Math.round(value).toLocaleString('es-AR');
 }
 
+function formatToday(): string {
+    const now = new Date();
+    const dd = String(now.getDate()).padStart(2, '0');
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const yy = String(now.getFullYear() % 100).padStart(2, '0');
+
+    return `${dd}·${mm}·${yy}`;
+}
+
 export default function PortalLayout({
     active = 'home',
     label = 'Inicio—',
@@ -465,7 +474,7 @@ function Header({
                             lineHeight: 1,
                         }}
                     >
-                        09·07·26
+                        {formatToday()}
                     </div>
                 </div>
             </div>
