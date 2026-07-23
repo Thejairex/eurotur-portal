@@ -2,13 +2,34 @@ import { Form, Head } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
 import TextLink from '@/components/text-link';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Spinner } from '@/components/ui/spinner';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
+
+const RED = '#E30613';
+
+const labelStyle: React.CSSProperties = {
+    display: 'block',
+    fontFamily: "'Space Mono', monospace",
+    fontSize: '10px',
+    fontWeight: 700,
+    letterSpacing: '0.12em',
+    textTransform: 'uppercase',
+    color: '#666',
+    marginBottom: '8px',
+};
+
+const inputStyle: React.CSSProperties = {
+    width: '100%',
+    fontFamily: "'Archivo', sans-serif",
+    fontSize: '15px',
+    fontWeight: 500,
+    color: '#000',
+    background: 'transparent',
+    border: 'none',
+    borderBottom: '2px solid #000',
+    borderRadius: 0,
+    padding: '8px 0',
+};
 
 type Props = {
     status?: string;
@@ -18,7 +39,7 @@ type Props = {
 export default function Login({ status, canResetPassword }: Props) {
     return (
         <>
-            <Head title="Log in" />
+            <Head title="Ingresar" />
 
             <Form
                 {...store.form()}
@@ -28,9 +49,11 @@ export default function Login({ status, canResetPassword }: Props) {
                 {({ processing, errors }) => (
                     <>
                         <div className="grid gap-6">
-                            <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
-                                <Input
+                            <div>
+                                <label htmlFor="email" style={labelStyle}>
+                                    Correo electrónico
+                                </label>
+                                <input
                                     id="email"
                                     type="email"
                                     name="email"
@@ -38,21 +61,33 @@ export default function Login({ status, canResetPassword }: Props) {
                                     autoFocus
                                     tabIndex={1}
                                     autoComplete="email"
-                                    placeholder="email@example.com"
+                                    placeholder="nombre@eurotur.tur.ar"
+                                    style={inputStyle}
                                 />
                                 <InputError message={errors.email} />
                             </div>
 
-                            <div className="grid gap-2">
-                                <div className="flex items-center">
-                                    <Label htmlFor="password">Password</Label>
+                            <div>
+                                <div className="flex items-baseline justify-between">
+                                    <label
+                                        htmlFor="password"
+                                        style={labelStyle}
+                                    >
+                                        Contraseña
+                                    </label>
                                     {canResetPassword && (
                                         <TextLink
                                             href={request()}
-                                            className="ml-auto text-sm"
+                                            className="auth-link mb-2 text-xs"
+                                            style={{
+                                                fontFamily:
+                                                    "'Space Mono', monospace",
+                                                color: '#666',
+                                                textDecoration: 'none',
+                                            }}
                                             tabIndex={5}
                                         >
-                                            Forgot your password?
+                                            ¿Olvidaste tu contraseña?
                                         </TextLink>
                                     )}
                                 </div>
@@ -62,37 +97,75 @@ export default function Login({ status, canResetPassword }: Props) {
                                     required
                                     tabIndex={2}
                                     autoComplete="current-password"
-                                    placeholder="Password"
+                                    placeholder="••••••••"
+                                    className="rounded-none border-0 border-b-2 border-black bg-transparent px-0 text-[15px] font-medium shadow-none focus-visible:ring-0"
                                 />
                                 <InputError message={errors.password} />
                             </div>
 
-                            <div className="flex items-center space-x-3">
-                                <Checkbox
+                            <label className="flex items-center gap-3">
+                                <input
+                                    type="checkbox"
                                     id="remember"
                                     name="remember"
                                     tabIndex={3}
+                                    style={{
+                                        width: '16px',
+                                        height: '16px',
+                                        accentColor: RED,
+                                    }}
                                 />
-                                <Label htmlFor="remember">Remember me</Label>
-                            </div>
+                                <span
+                                    style={{
+                                        fontFamily: "'Archivo', sans-serif",
+                                        fontSize: '13px',
+                                        fontWeight: 500,
+                                    }}
+                                >
+                                    Recordarme
+                                </span>
+                            </label>
 
-                            <Button
+                            <button
                                 type="submit"
-                                className="mt-4 w-full"
+                                className="auth-submit"
                                 tabIndex={4}
                                 disabled={processing}
                                 data-test="login-button"
+                                style={{
+                                    marginTop: '8px',
+                                    width: '100%',
+                                    background: RED,
+                                    color: '#fff',
+                                    border: 'none',
+                                    fontFamily: "'Space Mono', monospace",
+                                    fontSize: '12px',
+                                    fontWeight: 700,
+                                    letterSpacing: '0.14em',
+                                    textTransform: 'uppercase',
+                                    padding: '14px 0',
+                                    cursor: processing ? 'default' : 'pointer',
+                                    opacity: processing ? 0.7 : 1,
+                                    transition: 'background .12s',
+                                }}
                             >
-                                {processing && <Spinner />}
-                                Log in
-                            </Button>
+                                {processing ? 'Ingresando…' : 'Ingresar'}
+                            </button>
                         </div>
                     </>
                 )}
             </Form>
 
             {status && (
-                <div className="mb-4 text-center text-sm font-medium text-green-600">
+                <div
+                    style={{
+                        marginTop: '20px',
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '12px',
+                        textAlign: 'center',
+                        color: '#16a34a',
+                    }}
+                >
                     {status}
                 </div>
             )}
@@ -101,6 +174,6 @@ export default function Login({ status, canResetPassword }: Props) {
 }
 
 Login.layout = {
-    title: 'Log in to your account',
-    description: 'Enter your email and password below to log in',
+    title: 'Ingresar',
+    description: 'Ingresá tu email y contraseña para acceder al portal',
 };
