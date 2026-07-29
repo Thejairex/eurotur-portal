@@ -3,21 +3,16 @@
 namespace App\Http\Controllers\Portal;
 
 use App\Http\Controllers\Controller;
-use App\Services\BotService;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class InnovacionController extends Controller
 {
     /**
-     * Show the innovation/AI showcase plus the live automation pipeline status.
+     * Show the innovation/AI showcase.
      */
-    public function __invoke(BotService $bot): Response
+    public function __invoke(): Response
     {
-        return Inertia::render('portal/innovacion', [
-            'summary' => fn () => $bot->summary(),
-            'stats' => fn () => $bot->stats(),
-            'history' => fn () => $bot->history(),
-        ]);
+        return Inertia::render('portal/innovacion');
     }
 }

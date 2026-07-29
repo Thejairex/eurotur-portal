@@ -2,12 +2,15 @@
 
 namespace Tests\Feature\Portal;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
 
-class InnovacionTest extends TestCase
+class AdmBotMonitorTest extends TestCase
 {
+    use RefreshDatabase;
+
     private const SUMMARY_RESPONSE = [
         'vouchers' => ['pending' => 5, 'processing' => 0, 'ok' => 10, 'failed' => 1, 'skipped' => 2, 'total' => 18],
         'cheques' => ['pending' => 0, 'ok' => 3, 'failed' => 0, 'total' => 3],
@@ -33,11 +36,11 @@ class InnovacionTest extends TestCase
             ]),
         ]);
 
-        $response = $this->get(route('portal.innovacion'));
+        $response = $this->get(route('portal.adm'));
 
         $response->assertOk();
         $response->assertInertia(fn (Assert $page) => $page
-            ->component('portal/innovacion')
+            ->component('portal/adm')
             ->where('summary.vouchers.total', 18)
             ->where('stats.state', 'running')
             ->where('history.vouchers.0.supplier_code', 'ACME')
@@ -52,11 +55,11 @@ class InnovacionTest extends TestCase
             'euroturbot-monitor:8000/api/history*' => Http::response(['vouchers' => [], 'total' => 0, 'has_more' => false]),
         ]);
 
-        $response = $this->get(route('portal.innovacion'));
+        $response = $this->get(route('portal.adm'));
 
         $response->assertOk();
         $response->assertInertia(fn (Assert $page) => $page
-            ->component('portal/innovacion')
+            ->component('portal/adm')
             ->where('summary.vouchers.total', 18)
             ->where('stats', null)
         );
@@ -68,11 +71,11 @@ class InnovacionTest extends TestCase
             'euroturbot-monitor:8000/*' => Http::response(null, 500),
         ]);
 
-        $response = $this->get(route('portal.innovacion'));
+        $response = $this->get(route('portal.adm'));
 
         $response->assertOk();
         $response->assertInertia(fn (Assert $page) => $page
-            ->component('portal/innovacion')
+            ->component('portal/adm')
             ->where('summary', null)
             ->where('stats', null)
             ->where('history', null)

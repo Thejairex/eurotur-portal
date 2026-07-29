@@ -1,4 +1,4 @@
-import { Head, usePoll } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 
 const RED = '#E30613';
@@ -194,155 +194,7 @@ const INSTRUCTIVOS: Instructivo[] = [
     },
 ];
 
-type PipelineStats = {
-    running: boolean;
-    finished: boolean;
-    error: string | null;
-    total: number;
-    ok: number;
-    failed: number;
-    skipped: number;
-    progress_pct: number;
-    elapsed_seconds: number;
-};
-
-type StatsSnapshot = {
-    state: string;
-    mode: string | null;
-    thread_alive: boolean;
-    heartbeat_age: number;
-    stats: PipelineStats | null;
-};
-
-type HistoryVoucher = {
-    seq: number;
-    ts: string;
-    supplier_code: string;
-    voucher: string;
-    currency: string;
-    status: string;
-    error: string;
-};
-
-type HistoryResponse = {
-    vouchers: HistoryVoucher[];
-    total: number;
-    has_more: boolean;
-};
-type VoucherSummary = {
-    pending: number;
-    processing: number;
-    ok: number;
-    failed: number;
-    skipped: number;
-    total: number;
-};
-type ChequeSummary = {
-    pending: number;
-    ok: number;
-    failed: number;
-    total: number;
-};
-type BotSummary = { vouchers: VoucherSummary; cheques: ChequeSummary };
-
-type Props = {
-    summary: BotSummary | null;
-    stats: StatsSnapshot | null;
-    history: HistoryResponse | null;
-};
-
-function Label({ children }: { children: string }) {
-    return (
-        <div
-            style={{
-                fontFamily: "'Space Mono', monospace",
-                fontSize: '9px',
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                color: '#999',
-            }}
-        >
-            {children}
-        </div>
-    );
-}
-
-function EmptyState({ message }: { message: string }) {
-    return (
-        <div
-            style={{
-                fontFamily: "'Space Mono', monospace",
-                fontSize: '12px',
-                letterSpacing: '0.06em',
-                color: '#666',
-                padding: '18px 0',
-            }}
-        >
-            {message}
-        </div>
-    );
-}
-
-function StatValue({
-    label,
-    value,
-    highlight = false,
-}: {
-    label: string;
-    value: string | number;
-    highlight?: boolean;
-}) {
-    return (
-        <div>
-            <Label>{label}</Label>
-            <div
-                style={{
-                    fontFamily: "'Archivo', sans-serif",
-                    fontWeight: 800,
-                    fontSize: '18px',
-                    color: highlight ? RED : '#000',
-                }}
-            >
-                {value}
-            </div>
-        </div>
-    );
-}
-
-function PanelButton({
-    children,
-    variant,
-}: {
-    children: string;
-    variant: 'start' | 'stop';
-}) {
-    return (
-        <button
-            type="button"
-            style={{
-                fontFamily: "'Space Mono', monospace",
-                fontSize: '11px',
-                fontWeight: 700,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                padding: '10px 16px',
-                border:
-                    variant === 'start' ? '1px solid #000' : `1px solid ${RED}`,
-                background: variant === 'start' ? '#000' : '#fff',
-                color: variant === 'start' ? '#fff' : RED,
-                cursor: 'pointer',
-            }}
-        >
-            {children}
-        </button>
-    );
-}
-
-export default function Innovacion({ summary, stats, history }: Props) {
-    usePoll(15000, { only: ['stats', 'history', 'summary'] });
-
-    const pipeline = stats?.stats ?? null;
-
+export default function Innovacion() {
     const [layout, setLayout] = useState<'a' | 'b'>('a');
     const [openFrentes, setOpenFrentes] = useState<Record<string, boolean>>({});
     const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
@@ -444,13 +296,14 @@ export default function Innovacion({ summary, stats, history }: Props) {
                         gridTemplateColumns: 'repeat(4,1fr)',
                         borderTop: '3px solid #000',
                         borderBottom: '1px solid #000',
+                        borderLeft: '1px solid #000',
                     }}
                 >
                     {INNOV_STATS.map((s) => (
                         <div
                             key={s.l}
                             style={{
-                                padding: '14px 18px 16px 0',
+                                padding: '14px 18px 16px 18px',
                                 borderRight: '1px dotted #000',
                             }}
                         >
@@ -478,7 +331,7 @@ export default function Innovacion({ summary, stats, history }: Props) {
                             </div>
                         </div>
                     ))}
-                    <div style={{ padding: '14px 18px 16px 0' }}>
+                    <div style={{ padding: '14px 18px 16px 18px' }}>
                         <div
                             style={{
                                 fontFamily: "'Archivo', sans-serif",
@@ -607,18 +460,6 @@ export default function Innovacion({ summary, stats, history }: Props) {
                                             }}
                                         >
                                             {f.area}
-                                        </span>
-                                        <span
-                                            style={{
-                                                fontFamily:
-                                                    "'Space Mono', monospace",
-                                                fontSize: '10px',
-                                                letterSpacing: '0.08em',
-                                                textTransform: 'uppercase',
-                                                color: '#999',
-                                            }}
-                                        >
-                                            {f.owner}
                                         </span>
                                         <span
                                             style={{
@@ -775,19 +616,6 @@ export default function Innovacion({ summary, stats, history }: Props) {
                                         }}
                                     >
                                         {f.area}
-                                    </div>
-                                    <div
-                                        style={{
-                                            fontFamily:
-                                                "'Space Mono', monospace",
-                                            fontSize: '9px',
-                                            letterSpacing: '0.06em',
-                                            textTransform: 'uppercase',
-                                            color: '#999',
-                                            marginTop: '5px',
-                                        }}
-                                    >
-                                        {f.owner}
                                     </div>
                                 </div>
                                 <div
@@ -1155,290 +983,6 @@ export default function Innovacion({ summary, stats, history }: Props) {
                     }}
                 >
                     mantiene— Homez, Valentina · actualizado 07·2026
-                </div>
-
-                {/* ---- Monitor del bot en vivo ---- */}
-                <div
-                    style={{
-                        borderTop: '3px solid #000',
-                        paddingTop: '20px',
-                        marginTop: '52px',
-                    }}
-                >
-                    <div
-                        style={{
-                            fontFamily: "'Archivo', sans-serif",
-                            fontWeight: 900,
-                            fontSize: '19px',
-                            letterSpacing: '-0.01em',
-                            marginBottom: '16px',
-                        }}
-                    >
-                        monitor del bot
-                        <span style={{ color: RED }}>—</span>
-                    </div>
-
-                    {summary === null ? (
-                        <EmptyState message="sin conexión con el monitor — verificá BOT_MONITOR_URL / BOT_MONITOR_API_KEY." />
-                    ) : (
-                        <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '18px',
-                            }}
-                        >
-                            <div>
-                                <Label>vouchers</Label>
-                                <div
-                                    style={{
-                                        display: 'grid',
-                                        gridTemplateColumns: 'repeat(6,1fr)',
-                                        gap: '18px',
-                                        marginTop: '6px',
-                                    }}
-                                >
-                                    <StatValue
-                                        label="pendientes"
-                                        value={summary.vouchers.pending}
-                                    />
-                                    <StatValue
-                                        label="procesando"
-                                        value={summary.vouchers.processing}
-                                    />
-                                    <StatValue
-                                        label="ok"
-                                        value={summary.vouchers.ok}
-                                    />
-                                    <StatValue
-                                        label="fallidos"
-                                        value={summary.vouchers.failed}
-                                        highlight={summary.vouchers.failed > 0}
-                                    />
-                                    <StatValue
-                                        label="omitidos"
-                                        value={summary.vouchers.skipped}
-                                    />
-                                    <StatValue
-                                        label="total"
-                                        value={summary.vouchers.total}
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <Label>cheques</Label>
-                                <div
-                                    style={{
-                                        display: 'grid',
-                                        gridTemplateColumns: 'repeat(6,1fr)',
-                                        gap: '18px',
-                                        marginTop: '6px',
-                                    }}
-                                >
-                                    <StatValue
-                                        label="pendientes"
-                                        value={summary.cheques.pending}
-                                    />
-                                    <StatValue
-                                        label="ok"
-                                        value={summary.cheques.ok}
-                                    />
-                                    <StatValue
-                                        label="fallidos"
-                                        value={summary.cheques.failed}
-                                        highlight={summary.cheques.failed > 0}
-                                    />
-                                    <StatValue
-                                        label="total"
-                                        value={summary.cheques.total}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                <div
-                    style={{
-                        borderTop: '3px solid #000',
-                        paddingTop: '20px',
-                        marginTop: '40px',
-                    }}
-                >
-                    <div
-                        style={{
-                            display: 'flex',
-                            alignItems: 'baseline',
-                            justifyContent: 'space-between',
-                            marginBottom: '16px',
-                        }}
-                    >
-                        <div
-                            style={{
-                                fontFamily: "'Archivo', sans-serif",
-                                fontWeight: 900,
-                                fontSize: '16px',
-                            }}
-                        >
-                            corrida activa<span style={{ color: RED }}>—</span>
-                        </div>
-                        <div style={{ display: 'flex', gap: '10px' }}>
-                            <PanelButton variant="start">
-                                Iniciar robot
-                            </PanelButton>
-                            <PanelButton variant="stop">
-                                Detener bot
-                            </PanelButton>
-                        </div>
-                    </div>
-
-                    {pipeline === null ? (
-                        <EmptyState message="sin corrida activa en este momento." />
-                    ) : (
-                        <div
-                            style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'repeat(5,1fr)',
-                                gap: '18px',
-                            }}
-                        >
-                            <div>
-                                <Label>estado</Label>
-                                <div
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontWeight: 800,
-                                        fontSize: '18px',
-                                        textTransform: 'uppercase',
-                                        color:
-                                            stats?.state === 'error' ||
-                                            stats?.state === 'hung'
-                                                ? RED
-                                                : '#000',
-                                    }}
-                                >
-                                    {stats?.state ?? '—'}
-                                </div>
-                            </div>
-                            <StatValue
-                                label="progreso"
-                                value={`${pipeline.progress_pct.toFixed(0)}%`}
-                            />
-                            <StatValue label="ok" value={pipeline.ok} />
-                            <StatValue
-                                label="fallidos"
-                                value={pipeline.failed}
-                                highlight={pipeline.failed > 0}
-                            />
-                            <StatValue
-                                label="omitidos"
-                                value={pipeline.skipped}
-                            />
-                        </div>
-                    )}
-                </div>
-
-                <div
-                    style={{
-                        borderTop: '3px solid #000',
-                        paddingTop: '20px',
-                        marginTop: '40px',
-                    }}
-                >
-                    <div
-                        style={{
-                            fontFamily: "'Archivo', sans-serif",
-                            fontWeight: 900,
-                            fontSize: '16px',
-                            marginBottom: '16px',
-                        }}
-                    >
-                        últimos procesados<span style={{ color: RED }}>—</span>
-                    </div>
-
-                    {history === null || history.vouchers.length === 0 ? (
-                        <EmptyState message="sin datos del historial." />
-                    ) : (
-                        <div
-                            style={{ display: 'flex', flexDirection: 'column' }}
-                        >
-                            {history.vouchers.map((v) => (
-                                <div
-                                    key={v.seq}
-                                    style={{
-                                        display: 'grid',
-                                        gridTemplateColumns:
-                                            '90px 110px 1fr 90px 100px 1fr',
-                                        gap: '12px',
-                                        padding: '8px 0',
-                                        borderBottom: '1px dotted #000',
-                                        alignItems: 'baseline',
-                                    }}
-                                >
-                                    <span
-                                        style={{
-                                            fontFamily:
-                                                "'Space Mono', monospace",
-                                            fontSize: '11px',
-                                            color: '#999',
-                                        }}
-                                    >
-                                        {v.ts}
-                                    </span>
-                                    <span
-                                        style={{
-                                            fontFamily: "'Archivo', sans-serif",
-                                            fontWeight: 700,
-                                            fontSize: '13px',
-                                        }}
-                                    >
-                                        {v.supplier_code}
-                                    </span>
-                                    <span
-                                        style={{
-                                            fontFamily: "'Archivo', sans-serif",
-                                            fontSize: '13px',
-                                        }}
-                                    >
-                                        {v.voucher}
-                                    </span>
-                                    <span
-                                        style={{
-                                            fontFamily:
-                                                "'Space Mono', monospace",
-                                            fontSize: '11px',
-                                            color: '#666',
-                                        }}
-                                    >
-                                        {v.currency}
-                                    </span>
-                                    <span
-                                        style={{
-                                            fontFamily:
-                                                "'Space Mono', monospace",
-                                            fontSize: '11px',
-                                            textTransform: 'uppercase',
-                                            color:
-                                                v.status === 'ok'
-                                                    ? '#000'
-                                                    : RED,
-                                        }}
-                                    >
-                                        {v.status}
-                                    </span>
-                                    <span
-                                        style={{
-                                            fontFamily: "'Archivo', sans-serif",
-                                            fontSize: '12px',
-                                            color: RED,
-                                        }}
-                                    >
-                                        {v.error}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    )}
                 </div>
             </section>
         </>
