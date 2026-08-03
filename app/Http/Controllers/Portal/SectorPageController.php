@@ -6,7 +6,6 @@ use App\Enums\EditableSector;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Portal\SectorGroupResource;
 use App\Models\SectorGroup;
-use App\Services\BotService;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -17,16 +16,9 @@ class SectorPageController extends Controller
         return $this->render(EditableSector::Rrhh);
     }
 
-    /**
-     * Administración also shows the accounts-payable automation bot monitor.
-     */
-    public function adm(BotService $bot): Response
+    public function adm(): Response
     {
-        return $this->render(EditableSector::Adm, [
-            'summary' => fn () => $bot->summary(),
-            'stats' => fn () => $bot->stats(),
-            'history' => fn () => $bot->history(),
-        ]);
+        return $this->render(EditableSector::Adm);
     }
 
     public function contrataciones(): Response
@@ -69,10 +61,7 @@ class SectorPageController extends Controller
         return $this->render(EditableSector::Responsables);
     }
 
-    /**
-     * @param  array<string, mixed>  $extraProps
-     */
-    private function render(EditableSector $sector, array $extraProps = []): Response
+    private function render(EditableSector $sector): Response
     {
         $groups = SectorGroup::query()
             ->where('sector', $sector->value)
@@ -82,7 +71,6 @@ class SectorPageController extends Controller
 
         return Inertia::render("portal/{$sector->value}", [
             'groups' => SectorGroupResource::collection($groups),
-            ...$extraProps,
         ]);
     }
 }

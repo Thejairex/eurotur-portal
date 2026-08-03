@@ -1,5 +1,7 @@
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
+import type { BotMonitorProps } from '@/components/portal/bot-monitor';
+import { BotMonitor } from '@/components/portal/bot-monitor';
 
 const RED = '#E30613';
 
@@ -22,7 +24,13 @@ const BADGE_STYLE: Record<
     },
 };
 
-type Initiative = { n: string; badge: string; cls: BadgeClass; desc: string };
+type Initiative = {
+    n: string;
+    badge: string;
+    cls: BadgeClass;
+    desc: string;
+    docHref?: string;
+};
 type Frente = {
     id: string;
     num: string;
@@ -43,6 +51,14 @@ const FRENTES: Frente[] = [
                 badge: 'Producción',
                 cls: 'prod',
                 desc: 'Procesó 600.000 líneas históricas: genera invoices y cheques con el costo real cargado contra cada línea.',
+            },
+            {
+                n: 'Carga diaria de tipos de cambio en TourPlan',
+                badge: 'Producción',
+                cls: 'prod',
+                desc: 'Actualiza automáticamente las cotizaciones del día en TourPlan para que las cargas y cotizaciones usen el tipo de cambio correcto.',
+                // TODO: reemplazar por el link/archivo de documentación real.
+                docHref: '#',
             },
             {
                 n: 'Conciliador de pagos duplicados',
@@ -194,7 +210,7 @@ const INSTRUCTIVOS: Instructivo[] = [
     },
 ];
 
-export default function Innovacion() {
+export default function Innovacion({ summary, stats }: BotMonitorProps) {
     const [layout, setLayout] = useState<'a' | 'b'>('a');
     const [openFrentes, setOpenFrentes] = useState<Record<string, boolean>>({});
     const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
@@ -546,25 +562,89 @@ export default function Innovacion() {
                                                             {it.desc}
                                                         </div>
                                                     </div>
-                                                    <span
+                                                    <div
                                                         style={{
-                                                            fontFamily:
-                                                                "'Space Mono', monospace",
-                                                            fontSize: '9.5px',
-                                                            letterSpacing:
-                                                                '0.08em',
-                                                            textTransform:
-                                                                'uppercase',
-                                                            padding: '4px 8px',
-                                                            whiteSpace:
-                                                                'nowrap',
-                                                            ...BADGE_STYLE[
-                                                                it.cls
-                                                            ],
+                                                            display: 'flex',
+                                                            flexDirection:
+                                                                'column',
+                                                            alignItems:
+                                                                'flex-end',
+                                                            gap: '6px',
                                                         }}
                                                     >
-                                                        {it.badge}
-                                                    </span>
+                                                        <span
+                                                            style={{
+                                                                fontFamily:
+                                                                    "'Space Mono', monospace",
+                                                                fontSize:
+                                                                    '9.5px',
+                                                                letterSpacing:
+                                                                    '0.08em',
+                                                                textTransform:
+                                                                    'uppercase',
+                                                                padding:
+                                                                    '4px 8px',
+                                                                whiteSpace:
+                                                                    'nowrap',
+                                                                ...BADGE_STYLE[
+                                                                    it.cls
+                                                                ],
+                                                            }}
+                                                        >
+                                                            {it.badge}
+                                                        </span>
+                                                        {it.docHref && (
+                                                            <a
+                                                                href={
+                                                                    it.docHref
+                                                                }
+                                                                download
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                                style={{
+                                                                    textDecoration:
+                                                                        'none',
+                                                                    fontFamily:
+                                                                        "'Space Mono', monospace",
+                                                                    fontSize:
+                                                                        '9.5px',
+                                                                    letterSpacing:
+                                                                        '0.08em',
+                                                                    textTransform:
+                                                                        'uppercase',
+                                                                    padding:
+                                                                        '4px 8px',
+                                                                    whiteSpace:
+                                                                        'nowrap',
+                                                                    border: '1px solid #000',
+                                                                    color: '#000',
+                                                                    background:
+                                                                        '#fff',
+                                                                    cursor: 'pointer',
+                                                                }}
+                                                            >
+                                                                Documentación ⭳
+                                                            </a>
+                                                        )}
+                                                    </div>
+                                                    {f.id === 'f1' &&
+                                                        idx === 0 && (
+                                                            <div
+                                                                style={{
+                                                                    gridColumn:
+                                                                        '1 / -1',
+                                                                }}
+                                                            >
+                                                                <BotMonitor
+                                                                    summary={
+                                                                        summary
+                                                                    }
+                                                                    stats={
+                                                                        stats
+                                                                    }
+                                                                />
+                                                            </div>
+                                                        )}
                                                 </div>
                                             ))}
                                         </div>

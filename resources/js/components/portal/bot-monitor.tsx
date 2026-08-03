@@ -22,22 +22,6 @@ type StatsSnapshot = {
     stats: PipelineStats | null;
 };
 
-type HistoryVoucher = {
-    seq: number;
-    ts: string;
-    supplier_code: string;
-    voucher: string;
-    currency: string;
-    status: string;
-    error: string;
-};
-
-type HistoryResponse = {
-    vouchers: HistoryVoucher[];
-    total: number;
-    has_more: boolean;
-};
-
 type VoucherSummary = {
     pending: number;
     processing: number;
@@ -59,7 +43,6 @@ type BotSummary = { vouchers: VoucherSummary; cheques: ChequeSummary };
 export type BotMonitorProps = {
     summary: BotSummary | null;
     stats: StatsSnapshot | null;
-    history: HistoryResponse | null;
 };
 
 function Label({ children }: { children: string }) {
@@ -83,10 +66,10 @@ function EmptyState({ message }: { message: string }) {
         <div
             style={{
                 fontFamily: "'Space Mono', monospace",
-                fontSize: '12px',
+                fontSize: '11px',
                 letterSpacing: '0.06em',
                 color: '#666',
-                padding: '18px 0',
+                padding: '4px 0',
             }}
         >
             {message}
@@ -110,7 +93,7 @@ function StatValue({
                 style={{
                     fontFamily: "'Archivo', sans-serif",
                     fontWeight: 800,
-                    fontSize: '18px',
+                    fontSize: '15px',
                     color: highlight ? RED : '#000',
                 }}
             >
@@ -132,11 +115,11 @@ function PanelButton({
             type="button"
             style={{
                 fontFamily: "'Space Mono', monospace",
-                fontSize: '11px',
+                fontSize: '10px',
                 fontWeight: 700,
-                letterSpacing: '0.08em',
+                letterSpacing: '0.06em',
                 textTransform: 'uppercase',
-                padding: '10px 16px',
+                padding: '7px 12px',
                 border:
                     variant === 'start' ? '1px solid #000' : `1px solid ${RED}`,
                 background: variant === 'start' ? '#000' : '#fff',
@@ -149,140 +132,82 @@ function PanelButton({
     );
 }
 
-export function BotMonitor({ summary, stats, history }: BotMonitorProps) {
-    usePoll(15000, { only: ['stats', 'history', 'summary'] });
+/**
+ * Compact live status panel for the TourPlan CxP automation bot — meant to
+ * be embedded at the end of its initiative card, not as a standalone page section.
+ */
+export function BotMonitor({ summary, stats }: BotMonitorProps) {
+    usePoll(15000, { only: ['stats', 'summary'] });
 
     const pipeline = stats?.stats ?? null;
 
     return (
-        <>
-            <div
-                style={{
-                    borderTop: '3px solid #000',
-                    paddingTop: '20px',
-                    marginTop: '52px',
-                }}
-            >
-                <div
-                    style={{
-                        fontFamily: "'Archivo', sans-serif",
-                        fontWeight: 900,
-                        fontSize: '19px',
-                        letterSpacing: '-0.01em',
-                        marginBottom: '16px',
-                    }}
-                >
-                    monitor del bot
-                    <span style={{ color: RED }}>—</span>
-                </div>
-
+        <div
+            style={{
+                marginTop: '12px',
+                paddingTop: '12px',
+                borderTop: '1px dotted #cfcfcf',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px',
+            }}
+        >
+            <div>
+                <Label>monitor del bot</Label>
                 {summary === null ? (
-                    <EmptyState message="sin conexión con el monitor — verificá BOT_MONITOR_URL / BOT_MONITOR_API_KEY." />
+                    <EmptyState message="sin conexión con el monitor." />
                 ) : (
                     <div
                         style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: '18px',
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(3,1fr)',
+                            gap: '10px',
+                            marginTop: '6px',
                         }}
                     >
-                        <div>
-                            <Label>vouchers</Label>
-                            <div
-                                style={{
-                                    display: 'grid',
-                                    gridTemplateColumns: 'repeat(6,1fr)',
-                                    gap: '18px',
-                                    marginTop: '6px',
-                                }}
-                            >
-                                <StatValue
-                                    label="pendientes"
-                                    value={summary.vouchers.pending}
-                                />
-                                <StatValue
-                                    label="procesando"
-                                    value={summary.vouchers.processing}
-                                />
-                                <StatValue
-                                    label="ok"
-                                    value={summary.vouchers.ok}
-                                />
-                                <StatValue
-                                    label="fallidos"
-                                    value={summary.vouchers.failed}
-                                    highlight={summary.vouchers.failed > 0}
-                                />
-                                <StatValue
-                                    label="omitidos"
-                                    value={summary.vouchers.skipped}
-                                />
-                                <StatValue
-                                    label="total"
-                                    value={summary.vouchers.total}
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <Label>cheques</Label>
-                            <div
-                                style={{
-                                    display: 'grid',
-                                    gridTemplateColumns: 'repeat(6,1fr)',
-                                    gap: '18px',
-                                    marginTop: '6px',
-                                }}
-                            >
-                                <StatValue
-                                    label="pendientes"
-                                    value={summary.cheques.pending}
-                                />
-                                <StatValue
-                                    label="ok"
-                                    value={summary.cheques.ok}
-                                />
-                                <StatValue
-                                    label="fallidos"
-                                    value={summary.cheques.failed}
-                                    highlight={summary.cheques.failed > 0}
-                                />
-                                <StatValue
-                                    label="total"
-                                    value={summary.cheques.total}
-                                />
-                            </div>
-                        </div>
+                        <StatValue
+                            label="vouchers ok"
+                            value={summary.vouchers.ok}
+                        />
+                        <StatValue
+                            label="vouchers fallidos"
+                            value={summary.vouchers.failed}
+                            highlight={summary.vouchers.failed > 0}
+                        />
+                        <StatValue
+                            label="vouchers total"
+                            value={summary.vouchers.total}
+                        />
+                        <StatValue
+                            label="cheques ok"
+                            value={summary.cheques.ok}
+                        />
+                        <StatValue
+                            label="cheques fallidos"
+                            value={summary.cheques.failed}
+                            highlight={summary.cheques.failed > 0}
+                        />
+                        <StatValue
+                            label="cheques total"
+                            value={summary.cheques.total}
+                        />
                     </div>
                 )}
             </div>
 
-            <div
-                style={{
-                    borderTop: '3px solid #000',
-                    paddingTop: '20px',
-                    marginTop: '40px',
-                }}
-            >
+            <div>
                 <div
                     style={{
                         display: 'flex',
                         alignItems: 'baseline',
                         justifyContent: 'space-between',
-                        marginBottom: '16px',
+                        marginBottom: '6px',
                     }}
                 >
-                    <div
-                        style={{
-                            fontFamily: "'Archivo', sans-serif",
-                            fontWeight: 900,
-                            fontSize: '16px',
-                        }}
-                    >
-                        corrida activa<span style={{ color: RED }}>—</span>
-                    </div>
-                    <div style={{ display: 'flex', gap: '10px' }}>
-                        <PanelButton variant="start">Iniciar robot</PanelButton>
-                        <PanelButton variant="stop">Detener bot</PanelButton>
+                    <Label>corrida activa</Label>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                        <PanelButton variant="start">Iniciar</PanelButton>
+                        <PanelButton variant="stop">Detener</PanelButton>
                     </div>
                 </div>
 
@@ -292,8 +217,8 @@ export function BotMonitor({ summary, stats, history }: BotMonitorProps) {
                     <div
                         style={{
                             display: 'grid',
-                            gridTemplateColumns: 'repeat(5,1fr)',
-                            gap: '18px',
+                            gridTemplateColumns: 'repeat(4,1fr)',
+                            gap: '10px',
                         }}
                     >
                         <div>
@@ -302,7 +227,7 @@ export function BotMonitor({ summary, stats, history }: BotMonitorProps) {
                                 style={{
                                     fontFamily: "'Archivo', sans-serif",
                                     fontWeight: 800,
-                                    fontSize: '18px',
+                                    fontSize: '15px',
                                     textTransform: 'uppercase',
                                     color:
                                         stats?.state === 'error' ||
@@ -324,105 +249,9 @@ export function BotMonitor({ summary, stats, history }: BotMonitorProps) {
                             value={pipeline.failed}
                             highlight={pipeline.failed > 0}
                         />
-                        <StatValue label="omitidos" value={pipeline.skipped} />
                     </div>
                 )}
             </div>
-
-            <div
-                style={{
-                    borderTop: '3px solid #000',
-                    paddingTop: '20px',
-                    marginTop: '40px',
-                }}
-            >
-                <div
-                    style={{
-                        fontFamily: "'Archivo', sans-serif",
-                        fontWeight: 900,
-                        fontSize: '16px',
-                        marginBottom: '16px',
-                    }}
-                >
-                    últimos procesados<span style={{ color: RED }}>—</span>
-                </div>
-
-                {history === null || history.vouchers.length === 0 ? (
-                    <EmptyState message="sin datos del historial." />
-                ) : (
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        {history.vouchers.map((v) => (
-                            <div
-                                key={v.seq}
-                                style={{
-                                    display: 'grid',
-                                    gridTemplateColumns:
-                                        '90px 110px 1fr 90px 100px 1fr',
-                                    gap: '12px',
-                                    padding: '8px 0',
-                                    borderBottom: '1px dotted #000',
-                                    alignItems: 'baseline',
-                                }}
-                            >
-                                <span
-                                    style={{
-                                        fontFamily: "'Space Mono', monospace",
-                                        fontSize: '11px',
-                                        color: '#999',
-                                    }}
-                                >
-                                    {v.ts}
-                                </span>
-                                <span
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontWeight: 700,
-                                        fontSize: '13px',
-                                    }}
-                                >
-                                    {v.supplier_code}
-                                </span>
-                                <span
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontSize: '13px',
-                                    }}
-                                >
-                                    {v.voucher}
-                                </span>
-                                <span
-                                    style={{
-                                        fontFamily: "'Space Mono', monospace",
-                                        fontSize: '11px',
-                                        color: '#666',
-                                    }}
-                                >
-                                    {v.currency}
-                                </span>
-                                <span
-                                    style={{
-                                        fontFamily: "'Space Mono', monospace",
-                                        fontSize: '11px',
-                                        textTransform: 'uppercase',
-                                        color: v.status === 'ok' ? '#000' : RED,
-                                    }}
-                                >
-                                    {v.status}
-                                </span>
-                                <span
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontSize: '12px',
-                                        color: RED,
-                                    }}
-                                >
-                                    {v.error}
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                )}
-            </div>
-        </>
+        </div>
     );
 }
