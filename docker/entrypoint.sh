@@ -3,6 +3,9 @@ set -e
 
 cd /var/www/html
 
+mkdir -p database/data
+[ -f database/data/database.sqlite ] || touch database/data/database.sqlite
+
 if [ -z "$APP_KEY" ] && ! grep -q "^APP_KEY=.\+" .env; then
     php artisan key:generate --force
 fi

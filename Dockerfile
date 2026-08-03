@@ -31,7 +31,8 @@ COPY . .
 COPY --from=vendor /app/vendor ./vendor
 
 RUN cp .env.example .env \
-    && touch database/database.sqlite \
+    && mkdir -p database/data \
+    && touch database/data/database.sqlite \
     && php artisan key:generate --force \
     && npm run build
 
@@ -67,8 +68,8 @@ COPY . .
 COPY --from=frontend /app/public/build ./public/build
 
 RUN cp .env.example .env \
-    && mkdir -p database storage/framework/{cache,sessions,views} storage/logs bootstrap/cache \
-    && touch database/database.sqlite \
+    && mkdir -p database/data storage/framework/{cache,sessions,views} storage/logs bootstrap/cache \
+    && touch database/data/database.sqlite \
     && chown -R www-data:www-data /var/www/html \
     && chmod -R 775 storage bootstrap/cache database
 
