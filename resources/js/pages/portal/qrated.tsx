@@ -9,6 +9,7 @@ type Category = {
     title: string;
     desc: string;
     placeholder: string;
+    href: string;
 };
 
 const CATEGORIES: Category[] = [
@@ -17,18 +18,21 @@ const CATEGORIES: Category[] = [
         title: 'Creatividad & Contenido',
         desc: 'Piezas, campañas y material creativo.',
         placeholder: 'Creatividad y Contenido',
+        href: 'https://drive.google.com/drive/folders/1clUYwl9z9tG0RRhI-A5zgZZ0tBN7Xa8L',
     },
     {
         num: '02',
         title: 'Herramientas',
         desc: 'Recursos y utilidades del equipo.',
         placeholder: 'Herramientas',
+        href: 'https://drive.google.com/drive/folders/1h9pS_VFwaJtqItldu1P7_Hjft027Tmx2',
     },
     {
         num: '03',
         title: 'Proveedores Especiales',
         desc: 'Curaduría premium · MICE y lujo.',
         placeholder: 'Proveedores Especiales',
+        href: 'https://drive.google.com/drive/folders/1SIoqHSXdA4XTZEmHP4gBYy8QKgIC25Yq',
     },
 ];
 
@@ -208,13 +212,21 @@ export default function Qrated() {
                     }}
                 >
                     {CATEGORIES.map((cat) => (
-                        <div
+                        <a
                             key={cat.num}
+                            href={cat.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="qrated-cat"
                             style={{
                                 borderRight: '1px solid #000',
                                 borderBottom: '1px solid #000',
                                 display: 'flex',
                                 flexDirection: 'column',
+                                textDecoration: 'none',
+                                cursor: 'pointer',
+                                transition:
+                                    'background .12s,color .12s,transform .14s',
                             }}
                         >
                             <div
@@ -228,11 +240,11 @@ export default function Qrated() {
                             </div>
                             <div style={{ padding: '14px 16px 18px' }}>
                                 <div
+                                    className="qrated-cat-num"
                                     style={{
                                         fontFamily: "'Space Mono', monospace",
                                         fontSize: '10px',
                                         letterSpacing: '0.08em',
-                                        color: '#999',
                                     }}
                                 >
                                     {cat.num}
@@ -249,9 +261,9 @@ export default function Qrated() {
                                     {cat.title}
                                 </div>
                                 <div
+                                    className="qrated-cat-desc"
                                     style={{
                                         fontSize: '12px',
-                                        color: '#777',
                                         lineHeight: 1.4,
                                         marginTop: '5px',
                                     }}
@@ -259,7 +271,7 @@ export default function Qrated() {
                                     {cat.desc}
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     ))}
                 </div>
 

@@ -253,7 +253,11 @@ export default function Home() {
                             marginTop: '26px',
                         }}
                     >
-                        <ImageSlot placeholder="Imagen de portada — arquitectura / Patagonia (blanco y negro, a sangre)" />
+                        <ImageSlot
+                            src="/img/portal/portada.jpg"
+                            alt="Portada Eurotur"
+                            placeholder="Imagen de portada — arquitectura / Patagonia (blanco y negro, a sangre)"
+                        />
                     </div>
                 </div>
 
@@ -362,8 +366,7 @@ export default function Home() {
                                     color: '#fff',
                                     borderRight: '1px solid #000',
                                     borderBottom: '1px solid #000',
-                                    backgroundImage:
-                                        'linear-gradient(rgba(0,0,0,0.42),rgba(0,0,0,0.42)),repeating-linear-gradient(45deg,#111 0 2px,#dcdcdc 2px 12px)',
+                                    ['--tile-photo' as string]: `url('/img/portal/sectores/${sector.id}.webp')`,
                                     transition:
                                         'background .12s,color .12s,transform .14s',
                                 }}
@@ -371,20 +374,9 @@ export default function Home() {
                                 <div
                                     style={{
                                         display: 'flex',
-                                        alignItems: 'flex-start',
-                                        justifyContent: 'space-between',
+                                        justifyContent: 'flex-end',
                                     }}
                                 >
-                                    <div
-                                        style={{
-                                            fontFamily: "'Archivo', sans-serif",
-                                            fontWeight: 900,
-                                            fontSize: '46px',
-                                            lineHeight: 0.78,
-                                        }}
-                                    >
-                                        {sector.num}
-                                    </div>
                                     <div
                                         style={{
                                             fontFamily:
@@ -410,7 +402,7 @@ export default function Home() {
                                         style={{
                                             fontFamily: "'Archivo', sans-serif",
                                             fontWeight: 800,
-                                            fontSize: '17px',
+                                            fontSize: 'clamp(20px,3vw,32px)',
                                             letterSpacing: '-0.01em',
                                             lineHeight: 1.05,
                                         }}

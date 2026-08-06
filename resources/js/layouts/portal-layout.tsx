@@ -53,9 +53,16 @@ export default function PortalLayout({
                 .eurotur-portal ::selection { background: ${RED}; color: #fff; }
                 .eurotur-portal .nav-item:hover { background: ${RED}; color: #fff; transform: translateX(5px); }
                 .eurotur-portal .quick-card:hover { background: ${RED}; color: #fff; transform: translateY(-5px); }
-                .eurotur-portal .tile:hover { background-image: none; background-color: ${RED}; color: #fff; transform: translateY(-5px); }
+                .eurotur-portal .tile { background-image: linear-gradient(rgba(0,0,0,.42),rgba(0,0,0,.42)),var(--tile-photo); background-size: cover; background-position: center; }
+                .eurotur-portal .tile:hover { background-image: linear-gradient(rgba(227,6,19,.55),rgba(227,6,19,.55)),var(--tile-photo); color: #fff; transform: translateY(-5px); }
                 .eurotur-portal .doc-link:hover { color: ${RED}; border-color: ${RED}; transform: translateX(3px); }
                 .eurotur-portal .qrated-cta:hover { background: #b3050f; transform: translateY(-3px); }
+                .eurotur-portal .qrated-cat { color: #000; }
+                .eurotur-portal .qrated-cat-num { color: #999; }
+                .eurotur-portal .qrated-cat-desc { color: #777; }
+                .eurotur-portal .qrated-cat:hover { background: ${RED}; color: #fff; transform: translateY(-5px); }
+                .eurotur-portal .qrated-cat:hover .qrated-cat-num,
+                .eurotur-portal .qrated-cat:hover .qrated-cat-desc { color: rgba(255,255,255,.85); }
                 .eurotur-portal .mesa-cred-btn:hover { background: #000; color: #fff; }
                 .eurotur-portal .mesa-copy-btn:hover { background: ${RED}; color: #fff; border-color: ${RED}; }
                 .eurotur-portal .innov-frente-header:hover { background: #faf7f7; transform: translateX(4px); }
@@ -307,17 +314,6 @@ function Sidebar({
                                 'color .12s, background .12s, transform .12s',
                         }}
                     >
-                        <span
-                            style={{
-                                fontFamily: "'Space Mono', monospace",
-                                fontSize: '10px',
-                                fontWeight: 700,
-                                width: '18px',
-                                flex: '0 0 18px',
-                            }}
-                        >
-                            {sector.num}
-                        </span>
                         <span
                             style={{
                                 fontFamily: "'Archivo', sans-serif",

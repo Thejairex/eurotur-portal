@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(SectorLinksSeeder::class);
+        $this->call(FrenteSeeder::class);
     }
 }

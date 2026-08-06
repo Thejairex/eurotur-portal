@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Portal\FrenteController;
+use App\Http\Controllers\Portal\IniciativaController;
 use App\Http\Controllers\Portal\InnovacionController;
 use App\Http\Controllers\Portal\SectorGroupController;
 use App\Http\Controllers\Portal\SectorItemController;
@@ -30,4 +32,12 @@ Route::middleware('auth')->group(function () {
     Route::post('groups/{group}/items', [SectorItemController::class, 'store'])->name('portal.items.store');
     Route::put('items/{item}', [SectorItemController::class, 'update'])->name('portal.items.update');
     Route::delete('items/{item}', [SectorItemController::class, 'destroy'])->name('portal.items.destroy');
+
+    Route::post('frentes', [FrenteController::class, 'store'])->name('portal.frentes.store');
+    Route::put('frentes/{frente}', [FrenteController::class, 'update'])->name('portal.frentes.update');
+    Route::delete('frentes/{frente}', [FrenteController::class, 'destroy'])->name('portal.frentes.destroy');
+
+    Route::post('frentes/{frente}/iniciativas', [IniciativaController::class, 'store'])->name('portal.iniciativas.store');
+    Route::put('iniciativas/{iniciativa}', [IniciativaController::class, 'update'])->name('portal.iniciativas.update');
+    Route::delete('iniciativas/{iniciativa}', [IniciativaController::class, 'destroy'])->name('portal.iniciativas.destroy');
 });

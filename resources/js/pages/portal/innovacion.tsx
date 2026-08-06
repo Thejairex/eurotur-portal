@@ -1,5 +1,8 @@
-import { Head } from '@inertiajs/react';
+import { Form, Head } from '@inertiajs/react';
 import { useState } from 'react';
+import FrenteController from '@/actions/App/Http/Controllers/Portal/FrenteController';
+import IniciativaController from '@/actions/App/Http/Controllers/Portal/IniciativaController';
+import InputError from '@/components/input-error';
 import type { BotMonitorProps } from '@/components/portal/bot-monitor';
 import { BotMonitor } from '@/components/portal/bot-monitor';
 
@@ -24,139 +27,30 @@ const BADGE_STYLE: Record<
     },
 };
 
+const CLS_LABELS: Record<BadgeClass, string> = {
+    prod: 'Producción',
+    live: 'Funciona',
+    dev: 'Desarrollo',
+    test: 'En TEST',
+    curso: 'En curso',
+    ana: 'Análisis',
+    cero: 'Sin iniciar',
+};
+
 type Initiative = {
+    id: number;
     n: string;
     badge: string;
     cls: BadgeClass;
     desc: string;
-    docHref?: string;
+    docHref?: string | null;
 };
 type Frente = {
-    id: string;
-    num: string;
+    id: number;
     area: string;
-    owner: string;
+    owner: string | null;
     items: Initiative[];
 };
-
-const FRENTES: Frente[] = [
-    {
-        id: 'f1',
-        num: '01',
-        area: 'Administrativo · Cuentas a pagar',
-        owner: 'V. Homez · Y. Juárez',
-        items: [
-            {
-                n: 'Bot de carga en TourPlan',
-                badge: 'Producción',
-                cls: 'prod',
-                desc: 'Procesó 600.000 líneas históricas: genera invoices y cheques con el costo real cargado contra cada línea.',
-            },
-            {
-                n: 'Carga diaria de tipos de cambio en TourPlan',
-                badge: 'Producción',
-                cls: 'prod',
-                desc: 'Actualiza automáticamente las cotizaciones del día en TourPlan para que las cargas y cotizaciones usen el tipo de cambio correcto.',
-                // TODO: reemplazar por el link/archivo de documentación real.
-                docHref: '#',
-            },
-            {
-                n: 'Conciliador de pagos duplicados',
-                badge: 'Desarrollo',
-                cls: 'dev',
-                desc: 'Alerta REVISAR / CON FACTURAS PREVIAS / NUEVA por proveedor + file, antes de generar la OP.',
-            },
-            {
-                n: 'Chat IA de documentación',
-                badge: 'Análisis',
-                cls: 'ana',
-                desc: 'Asistente que responde sobre procesos de CxP a partir de la documentación. Pendiente de aprobación.',
-            },
-            {
-                n: 'Comprobantes USD · Banco→Drive',
-                badge: 'Sin iniciar',
-                cls: 'cero',
-                desc: 'Captura automática de comprobantes en dólares del banco a Drive. Pendiente de aprobación.',
-            },
-            {
-                n: 'Sistematización de pagos a guías',
-                badge: 'Sin iniciar',
-                cls: 'cero',
-                desc: 'Anticipos, rendición de gastos y honorarios. Requiere documentar el proceso completo.',
-            },
-        ],
-    },
-    {
-        id: 'f2',
-        num: '02',
-        area: 'Contrataciones · Base de datos',
-        owner: 'M. Zanone',
-        items: [
-            {
-                n: 'Revalorización de tarifas (PCM)',
-                badge: 'En TEST',
-                cls: 'test',
-                desc: 'Revaloriza el PCM cuando cambia un componente: modifica el servicio madre o crea temporada. Corre desde un prompt.',
-            },
-            {
-                n: 'Descarga de reportes TP NX',
-                badge: 'Funciona',
-                cls: 'live',
-                desc: 'Bajada automática de reportes de Operations (Tour Summary y otros). Patrón replicable.',
-            },
-        ],
-    },
-    {
-        id: 'f3',
-        num: '03',
-        area: 'Conciliaciones bancarias',
-        owner: 'Tesorería + Contabilidad',
-        items: [
-            {
-                n: 'Conciliación bancaria con IA + bot',
-                badge: 'En curso',
-                cls: 'curso',
-                desc: 'Iniciativa de Administración. En exploración — conviene coordinar para no solaparse con CxP.',
-            },
-        ],
-    },
-    {
-        id: 'f4',
-        num: '04',
-        area: 'Uso propio · Productividad',
-        owner: 'V. Homez',
-        items: [
-            {
-                n: 'Reporte semanal + dashboard',
-                badge: 'Desarrollo',
-                cls: 'dev',
-                desc: 'Banco de pruebas de lo mismo que se baja al resto: aplicar primero en uno lo que después se enseña.',
-            },
-            {
-                n: 'Pipeline reuniones → Notion',
-                badge: 'Análisis',
-                cls: 'ana',
-                desc: 'De la reunión a notas estructuradas en Notion, listas para consultar.',
-            },
-            {
-                n: 'Asistente de correo · digest 9am',
-                badge: 'Análisis',
-                cls: 'ana',
-                desc: 'Resumen diario del correo entregado a las 9am.',
-            },
-        ],
-    },
-];
-
-const ALL_ITEMS = FRENTES.flatMap((f) => f.items);
-const INNOV_STATS = [
-    { k: String(FRENTES.length), l: 'frentes activos' },
-    { k: String(ALL_ITEMS.length), l: 'iniciativas' },
-    {
-        k: String(ALL_ITEMS.filter((i) => i.badge === 'Producción').length),
-        l: 'en producción',
-    },
-];
 
 type Instructivo = {
     id: string;
@@ -210,13 +104,52 @@ const INSTRUCTIVOS: Instructivo[] = [
     },
 ];
 
-export default function Innovacion({ summary, stats }: BotMonitorProps) {
+const labelFieldStyle: React.CSSProperties = {
+    width: '100%',
+    fontFamily: "'Archivo', sans-serif",
+    fontSize: '12.5px',
+    fontWeight: 500,
+    border: 'none',
+    borderBottom: '1px solid #000',
+    borderRadius: 0,
+    padding: '4px 0',
+    marginBottom: '6px',
+};
+
+const smallButtonStyle: React.CSSProperties = {
+    fontFamily: "'Space Mono', monospace",
+    fontSize: '9px',
+    letterSpacing: '0.08em',
+    textTransform: 'uppercase',
+    background: 'transparent',
+    border: '1px solid #000',
+    padding: '4px 8px',
+    cursor: 'pointer',
+};
+
+type Props = BotMonitorProps & { frentes: Frente[] };
+
+export default function Innovacion({ frentes, summary, stats }: Props) {
     const [layout, setLayout] = useState<'a' | 'b'>('a');
+    const [editing, setEditing] = useState(false);
     const [openFrentes, setOpenFrentes] = useState<Record<string, boolean>>({});
     const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
     const [openInstr, setOpenInstr] = useState<Record<string, boolean>>({});
+    const [addingFrente, setAddingFrente] = useState(false);
+    const [addingItemIn, setAddingItemIn] = useState<number | null>(null);
+    const [editingItem, setEditingItem] = useState<number | null>(null);
 
-    function toggleFrente(id: string) {
+    const allItems = frentes.flatMap((f) => f.items);
+    const innovStats = [
+        { k: String(frentes.length), l: 'frentes activos' },
+        { k: String(allItems.length), l: 'iniciativas' },
+        {
+            k: String(allItems.filter((i) => i.badge === 'Producción').length),
+            l: 'en producción',
+        },
+    ];
+
+    function toggleFrente(id: number) {
         setOpenFrentes((prev) => ({ ...prev, [id]: !prev[id] }));
     }
 
@@ -315,7 +248,7 @@ export default function Innovacion({ summary, stats }: BotMonitorProps) {
                         borderLeft: '1px solid #000',
                     }}
                 >
-                    {INNOV_STATS.map((s) => (
+                    {innovStats.map((s) => (
                         <div
                             key={s.l}
                             style={{
@@ -397,38 +330,62 @@ export default function Innovacion({ summary, stats }: BotMonitorProps) {
                     </div>
                     <div
                         style={{
-                            display: 'inline-flex',
-                            border: '1px solid #000',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
                         }}
                     >
-                        <button
-                            type="button"
-                            onClick={() => setLayout('a')}
+                        <div
                             style={{
-                                ...segBase,
-                                background: layout === 'a' ? '#000' : '#fff',
-                                color: layout === 'a' ? '#fff' : '#000',
+                                display: 'inline-flex',
+                                border: '1px solid #000',
                             }}
                         >
-                            índice
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => setLayout('b')}
-                            style={{
-                                ...segBase,
-                                background: layout === 'b' ? '#000' : '#fff',
-                                color: layout === 'b' ? '#fff' : '#000',
-                            }}
-                        >
-                            mosaico
-                        </button>
+                            <button
+                                type="button"
+                                onClick={() => setLayout('a')}
+                                style={{
+                                    ...segBase,
+                                    background:
+                                        layout === 'a' ? '#000' : '#fff',
+                                    color: layout === 'a' ? '#fff' : '#000',
+                                }}
+                            >
+                                índice
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setLayout('b')}
+                                style={{
+                                    ...segBase,
+                                    background:
+                                        layout === 'b' ? '#000' : '#fff',
+                                    color: layout === 'b' ? '#fff' : '#000',
+                                }}
+                            >
+                                mosaico
+                            </button>
+                        </div>
+                        {layout === 'a' && (
+                            <button
+                                type="button"
+                                onClick={() => setEditing((v) => !v)}
+                                style={{
+                                    ...smallButtonStyle,
+                                    background: editing ? RED : 'transparent',
+                                    color: editing ? '#fff' : '#000',
+                                    borderColor: editing ? RED : '#000',
+                                }}
+                            >
+                                {editing ? 'Listo ✕' : 'Editar ✎'}
+                            </button>
+                        )}
                     </div>
                 </div>
 
                 {layout === 'a' ? (
                     <div>
-                        {FRENTES.map((f) => {
+                        {frentes.map((f, frenteIndex) => {
                             const open = !!openFrentes[f.id];
 
                             return (
@@ -436,83 +393,120 @@ export default function Innovacion({ summary, stats }: BotMonitorProps) {
                                     key={f.id}
                                     style={{ borderBottom: '1px solid #000' }}
                                 >
-                                    <button
-                                        type="button"
-                                        onClick={() => toggleFrente(f.id)}
-                                        className="innov-frente-header"
+                                    <div
                                         style={{
-                                            cursor: 'pointer',
-                                            boxSizing: 'border-box',
-                                            width: '100%',
                                             display: 'flex',
                                             alignItems: 'center',
-                                            gap: '18px',
-                                            padding: '18px 4px',
-                                            background: 'transparent',
-                                            border: 'none',
-                                            transition:
-                                                'background .12s,transform .12s',
+                                            gap: '10px',
                                         }}
                                     >
-                                        <span
+                                        <button
+                                            type="button"
+                                            onClick={() => toggleFrente(f.id)}
+                                            className="innov-frente-header"
                                             style={{
-                                                fontFamily:
-                                                    "'Anton', sans-serif",
-                                                fontSize: '30px',
-                                                color: RED,
-                                                lineHeight: 1,
-                                                flex: '0 0 auto',
-                                            }}
-                                        >
-                                            {f.num}
-                                        </span>
-                                        <span
-                                            style={{
-                                                fontFamily:
-                                                    "'Archivo', sans-serif",
-                                                fontWeight: 800,
-                                                fontSize: '18px',
-                                                letterSpacing: '-0.01em',
-                                            }}
-                                        >
-                                            {f.area}
-                                        </span>
-                                        <span
-                                            style={{
-                                                marginLeft: 'auto',
+                                                cursor: 'pointer',
+                                                boxSizing: 'border-box',
+                                                width: '100%',
                                                 display: 'flex',
                                                 alignItems: 'center',
-                                                gap: '16px',
+                                                gap: '18px',
+                                                padding: '18px 4px',
+                                                background: 'transparent',
+                                                border: 'none',
+                                                transition:
+                                                    'background .12s,transform .12s',
                                             }}
                                         >
                                             <span
                                                 style={{
                                                     fontFamily:
-                                                        "'Space Mono', monospace",
-                                                    fontSize: '10px',
-                                                    letterSpacing: '0.06em',
-                                                    textTransform: 'uppercase',
-                                                    color: '#666',
+                                                        "'Anton', sans-serif",
+                                                    fontSize: '30px',
+                                                    color: RED,
+                                                    lineHeight: 1,
+                                                    flex: '0 0 auto',
                                                 }}
                                             >
-                                                {f.items.length} iniciativas
+                                                {String(
+                                                    frenteIndex + 1,
+                                                ).padStart(2, '0')}
                                             </span>
                                             <span
                                                 style={{
                                                     fontFamily:
                                                         "'Archivo', sans-serif",
-                                                    fontWeight: 900,
-                                                    fontSize: '26px',
-                                                    color: RED,
-                                                    lineHeight: 1,
-                                                    width: '18px',
-                                                    textAlign: 'center',
+                                                    fontWeight: 800,
+                                                    fontSize: '18px',
+                                                    letterSpacing: '-0.01em',
                                                 }}
                                             >
-                                                {open ? '–' : '+'}
+                                                {f.area}
                                             </span>
-                                        </span>
-                                    </button>
+                                            <span
+                                                style={{
+                                                    marginLeft: 'auto',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '16px',
+                                                }}
+                                            >
+                                                <span
+                                                    style={{
+                                                        fontFamily:
+                                                            "'Space Mono', monospace",
+                                                        fontSize: '10px',
+                                                        letterSpacing: '0.06em',
+                                                        textTransform:
+                                                            'uppercase',
+                                                        color: '#666',
+                                                    }}
+                                                >
+                                                    {f.items.length} iniciativas
+                                                </span>
+                                                <span
+                                                    style={{
+                                                        fontFamily:
+                                                            "'Archivo', sans-serif",
+                                                        fontWeight: 900,
+                                                        fontSize: '26px',
+                                                        color: RED,
+                                                        lineHeight: 1,
+                                                        width: '18px',
+                                                        textAlign: 'center',
+                                                    }}
+                                                >
+                                                    {open ? '–' : '+'}
+                                                </span>
+                                            </span>
+                                        </button>
+                                        {editing && (
+                                            <Form
+                                                {...FrenteController.destroy.form(
+                                                    { frente: f.id },
+                                                )}
+                                            >
+                                                {({ processing }) => (
+                                                    <button
+                                                        type="submit"
+                                                        disabled={processing}
+                                                        title="Eliminar frente"
+                                                        style={{
+                                                            all: 'unset',
+                                                            cursor: 'pointer',
+                                                            color: RED,
+                                                            fontFamily:
+                                                                "'Space Mono', monospace",
+                                                            fontSize: '13px',
+                                                            flex: '0 0 auto',
+                                                        }}
+                                                    >
+                                                        ✕
+                                                    </button>
+                                                )}
+                                            </Form>
+                                        )}
+                                    </div>
                                     {open && (
                                         <div
                                             style={{
@@ -523,7 +517,7 @@ export default function Innovacion({ summary, stats }: BotMonitorProps) {
                                         >
                                             {f.items.map((it, idx) => (
                                                 <div
-                                                    key={f.id + '-' + idx}
+                                                    key={it.id}
                                                     style={{
                                                         display: 'grid',
                                                         gridTemplateColumns:
@@ -535,100 +529,193 @@ export default function Innovacion({ summary, stats }: BotMonitorProps) {
                                                             '1px dotted #cfcfcf',
                                                     }}
                                                 >
-                                                    <div>
+                                                    {editingItem === it.id ? (
                                                         <div
                                                             style={{
-                                                                fontFamily:
-                                                                    "'Archivo', sans-serif",
-                                                                fontWeight: 700,
-                                                                fontSize:
-                                                                    '15px',
+                                                                gridColumn:
+                                                                    '1 / -1',
                                                             }}
                                                         >
-                                                            {it.n}
-                                                        </div>
-                                                        <div
-                                                            style={{
-                                                                fontSize:
-                                                                    '12.5px',
-                                                                color: '#777',
-                                                                lineHeight: 1.45,
-                                                                marginTop:
-                                                                    '4px',
-                                                                maxWidth:
-                                                                    '560px',
-                                                            }}
-                                                        >
-                                                            {it.desc}
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        style={{
-                                                            display: 'flex',
-                                                            flexDirection:
-                                                                'column',
-                                                            alignItems:
-                                                                'flex-end',
-                                                            gap: '6px',
-                                                        }}
-                                                    >
-                                                        <span
-                                                            style={{
-                                                                fontFamily:
-                                                                    "'Space Mono', monospace",
-                                                                fontSize:
-                                                                    '9.5px',
-                                                                letterSpacing:
-                                                                    '0.08em',
-                                                                textTransform:
-                                                                    'uppercase',
-                                                                padding:
-                                                                    '4px 8px',
-                                                                whiteSpace:
-                                                                    'nowrap',
-                                                                ...BADGE_STYLE[
-                                                                    it.cls
-                                                                ],
-                                                            }}
-                                                        >
-                                                            {it.badge}
-                                                        </span>
-                                                        {it.docHref && (
-                                                            <a
-                                                                href={
-                                                                    it.docHref
+                                                            <IniciativaForm
+                                                                frenteId={f.id}
+                                                                item={it}
+                                                                onDone={() =>
+                                                                    setEditingItem(
+                                                                        null,
+                                                                    )
                                                                 }
-                                                                download
-                                                                target="_blank"
-                                                                rel="noreferrer"
+                                                            />
+                                                        </div>
+                                                    ) : (
+                                                        <>
+                                                            <div>
+                                                                <div
+                                                                    style={{
+                                                                        fontFamily:
+                                                                            "'Archivo', sans-serif",
+                                                                        fontWeight: 700,
+                                                                        fontSize:
+                                                                            '15px',
+                                                                    }}
+                                                                >
+                                                                    {it.n}
+                                                                </div>
+                                                                <div
+                                                                    style={{
+                                                                        fontSize:
+                                                                            '12.5px',
+                                                                        color: '#777',
+                                                                        lineHeight: 1.45,
+                                                                        marginTop:
+                                                                            '4px',
+                                                                        maxWidth:
+                                                                            '560px',
+                                                                    }}
+                                                                >
+                                                                    {it.desc}
+                                                                </div>
+                                                            </div>
+                                                            <div
                                                                 style={{
-                                                                    textDecoration:
-                                                                        'none',
-                                                                    fontFamily:
-                                                                        "'Space Mono', monospace",
-                                                                    fontSize:
-                                                                        '9.5px',
-                                                                    letterSpacing:
-                                                                        '0.08em',
-                                                                    textTransform:
-                                                                        'uppercase',
-                                                                    padding:
-                                                                        '4px 8px',
-                                                                    whiteSpace:
-                                                                        'nowrap',
-                                                                    border: '1px solid #000',
-                                                                    color: '#000',
-                                                                    background:
-                                                                        '#fff',
-                                                                    cursor: 'pointer',
+                                                                    display:
+                                                                        'flex',
+                                                                    flexDirection:
+                                                                        'column',
+                                                                    alignItems:
+                                                                        'flex-end',
+                                                                    gap: '6px',
                                                                 }}
                                                             >
-                                                                Documentación ⭳
-                                                            </a>
-                                                        )}
-                                                    </div>
-                                                    {f.id === 'f1' &&
-                                                        idx === 0 && (
+                                                                <div
+                                                                    style={{
+                                                                        display:
+                                                                            'flex',
+                                                                        alignItems:
+                                                                            'center',
+                                                                        gap: '8px',
+                                                                    }}
+                                                                >
+                                                                    <span
+                                                                        style={{
+                                                                            fontFamily:
+                                                                                "'Space Mono', monospace",
+                                                                            fontSize:
+                                                                                '9.5px',
+                                                                            letterSpacing:
+                                                                                '0.08em',
+                                                                            textTransform:
+                                                                                'uppercase',
+                                                                            padding:
+                                                                                '4px 8px',
+                                                                            whiteSpace:
+                                                                                'nowrap',
+                                                                            ...BADGE_STYLE[
+                                                                                it
+                                                                                    .cls
+                                                                            ],
+                                                                        }}
+                                                                    >
+                                                                        {
+                                                                            it.badge
+                                                                        }
+                                                                    </span>
+                                                                    {editing && (
+                                                                        <>
+                                                                            <button
+                                                                                type="button"
+                                                                                onClick={() =>
+                                                                                    setEditingItem(
+                                                                                        it.id,
+                                                                                    )
+                                                                                }
+                                                                                title="Editar"
+                                                                                style={{
+                                                                                    all: 'unset',
+                                                                                    cursor: 'pointer',
+                                                                                    fontFamily:
+                                                                                        "'Space Mono', monospace",
+                                                                                    fontSize:
+                                                                                        '10px',
+                                                                                    color: '#666',
+                                                                                }}
+                                                                            >
+                                                                                ✎
+                                                                            </button>
+                                                                            <Form
+                                                                                {...IniciativaController.destroy.form(
+                                                                                    {
+                                                                                        iniciativa:
+                                                                                            it.id,
+                                                                                    },
+                                                                                )}
+                                                                            >
+                                                                                {({
+                                                                                    processing,
+                                                                                }) => (
+                                                                                    <button
+                                                                                        type="submit"
+                                                                                        disabled={
+                                                                                            processing
+                                                                                        }
+                                                                                        title="Eliminar"
+                                                                                        style={{
+                                                                                            all: 'unset',
+                                                                                            cursor: 'pointer',
+                                                                                            fontFamily:
+                                                                                                "'Space Mono', monospace",
+                                                                                            fontSize:
+                                                                                                '10px',
+                                                                                            color: RED,
+                                                                                        }}
+                                                                                    >
+                                                                                        ✕
+                                                                                    </button>
+                                                                                )}
+                                                                            </Form>
+                                                                        </>
+                                                                    )}
+                                                                </div>
+                                                                {it.docHref && (
+                                                                    <a
+                                                                        href={
+                                                                            it.docHref
+                                                                        }
+                                                                        download
+                                                                        target="_blank"
+                                                                        rel="noreferrer"
+                                                                        style={{
+                                                                            textDecoration:
+                                                                                'none',
+                                                                            fontFamily:
+                                                                                "'Space Mono', monospace",
+                                                                            fontSize:
+                                                                                '9.5px',
+                                                                            letterSpacing:
+                                                                                '0.08em',
+                                                                            textTransform:
+                                                                                'uppercase',
+                                                                            padding:
+                                                                                '4px 8px',
+                                                                            whiteSpace:
+                                                                                'nowrap',
+                                                                            border: '1px solid #000',
+                                                                            color: '#000',
+                                                                            background:
+                                                                                '#fff',
+                                                                            cursor: 'pointer',
+                                                                        }}
+                                                                    >
+                                                                        Documentación
+                                                                        ⭳
+                                                                    </a>
+                                                                )}
+                                                            </div>
+                                                        </>
+                                                    )}
+                                                    {frenteIndex === 0 &&
+                                                        idx === 0 &&
+                                                        editingItem !==
+                                                            it.id && (
                                                             <div
                                                                 style={{
                                                                     gridColumn:
@@ -647,11 +734,60 @@ export default function Innovacion({ summary, stats }: BotMonitorProps) {
                                                         )}
                                                 </div>
                                             ))}
+                                            {editing && (
+                                                <div
+                                                    style={{
+                                                        paddingTop: '14px',
+                                                    }}
+                                                >
+                                                    {addingItemIn === f.id ? (
+                                                        <IniciativaForm
+                                                            frenteId={f.id}
+                                                            onDone={() =>
+                                                                setAddingItemIn(
+                                                                    null,
+                                                                )
+                                                            }
+                                                        />
+                                                    ) : (
+                                                        <button
+                                                            type="button"
+                                                            onClick={() =>
+                                                                setAddingItemIn(
+                                                                    f.id,
+                                                                )
+                                                            }
+                                                            style={
+                                                                smallButtonStyle
+                                                            }
+                                                        >
+                                                            + agregar iniciativa
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            )}
                                         </div>
                                     )}
                                 </div>
                             );
                         })}
+                        {editing && (
+                            <div style={{ padding: '18px 4px' }}>
+                                {addingFrente ? (
+                                    <AddFrenteForm
+                                        onDone={() => setAddingFrente(false)}
+                                    />
+                                ) : (
+                                    <button
+                                        type="button"
+                                        onClick={() => setAddingFrente(true)}
+                                        style={smallButtonStyle}
+                                    >
+                                        + agregar frente
+                                    </button>
+                                )}
+                            </div>
+                        )}
                     </div>
                 ) : (
                     <div
@@ -662,7 +798,7 @@ export default function Innovacion({ summary, stats }: BotMonitorProps) {
                             borderLeft: '1px solid #000',
                         }}
                     >
-                        {FRENTES.map((f) => (
+                        {frentes.map((f, frenteIndex) => (
                             <div
                                 key={f.id}
                                 style={{
@@ -683,7 +819,10 @@ export default function Innovacion({ summary, stats }: BotMonitorProps) {
                                             lineHeight: 0.9,
                                         }}
                                     >
-                                        {f.num}
+                                        {String(frenteIndex + 1).padStart(
+                                            2,
+                                            '0',
+                                        )}
                                     </div>
                                     <div
                                         style={{
@@ -705,8 +844,8 @@ export default function Innovacion({ summary, stats }: BotMonitorProps) {
                                         gap: '8px',
                                     }}
                                 >
-                                    {f.items.map((it, idx) => {
-                                        const key = f.id + '-' + idx;
+                                    {f.items.map((it) => {
+                                        const key = 'i-' + it.id;
                                         const open = !!openItems[key];
 
                                         return (
@@ -1066,6 +1205,197 @@ export default function Innovacion({ summary, stats }: BotMonitorProps) {
                 </div>
             </section>
         </>
+    );
+}
+
+function AddFrenteForm({ onDone }: { onDone: () => void }) {
+    return (
+        <Form
+            {...FrenteController.store.form()}
+            resetOnSuccess
+            onSuccess={onDone}
+            className="flex items-end gap-3"
+        >
+            {({ processing, errors }) => (
+                <>
+                    <div style={{ flex: 1, maxWidth: '320px' }}>
+                        <input
+                            name="area"
+                            placeholder="Área del frente…"
+                            required
+                            style={labelFieldStyle}
+                        />
+                        <InputError message={errors.area} />
+                    </div>
+                    <div style={{ flex: 1, maxWidth: '260px' }}>
+                        <input
+                            name="owner"
+                            placeholder="Responsable (opcional)"
+                            style={labelFieldStyle}
+                        />
+                        <InputError message={errors.owner} />
+                    </div>
+                    <button
+                        type="submit"
+                        disabled={processing}
+                        style={smallButtonStyle}
+                    >
+                        Guardar
+                    </button>
+                    <button
+                        type="button"
+                        onClick={onDone}
+                        style={smallButtonStyle}
+                    >
+                        Cancelar
+                    </button>
+                </>
+            )}
+        </Form>
+    );
+}
+
+function IniciativaForm({
+    frenteId,
+    item,
+    onDone,
+}: {
+    frenteId: number;
+    item?: Initiative;
+    onDone: () => void;
+}) {
+    const [mode, setMode] = useState<'url' | 'file'>('url');
+    const action = item
+        ? IniciativaController.update.form({ iniciativa: item.id })
+        : IniciativaController.store.form({ frente: frenteId });
+
+    return (
+        <Form {...action} onSuccess={onDone} className="flex flex-col gap-2">
+            {({ processing, errors }) => (
+                <>
+                    <input
+                        name="n"
+                        placeholder="Título de la iniciativa"
+                        defaultValue={item?.n}
+                        required
+                        style={labelFieldStyle}
+                    />
+                    <InputError message={errors.n} />
+
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                        <div style={{ flex: 1 }}>
+                            <input
+                                name="badge"
+                                placeholder="Texto del badge (ej. Producción)"
+                                defaultValue={item?.badge}
+                                required
+                                style={labelFieldStyle}
+                            />
+                            <InputError message={errors.badge} />
+                        </div>
+                        <div style={{ flex: 1 }}>
+                            <select
+                                name="cls"
+                                defaultValue={item?.cls ?? 'cero'}
+                                required
+                                style={labelFieldStyle}
+                            >
+                                {Object.entries(CLS_LABELS).map(
+                                    ([value, label]) => (
+                                        <option key={value} value={value}>
+                                            {label}
+                                        </option>
+                                    ),
+                                )}
+                            </select>
+                            <InputError message={errors.cls} />
+                        </div>
+                    </div>
+
+                    <textarea
+                        name="desc"
+                        placeholder="Descripción"
+                        defaultValue={item?.desc}
+                        required
+                        rows={2}
+                        style={{ ...labelFieldStyle, resize: 'vertical' }}
+                    />
+                    <InputError message={errors.desc} />
+
+                    <div
+                        style={{
+                            display: 'flex',
+                            gap: '10px',
+                            fontSize: '10px',
+                        }}
+                    >
+                        <label
+                            style={{
+                                display: 'flex',
+                                gap: '4px',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <input
+                                type="radio"
+                                checked={mode === 'url'}
+                                onChange={() => setMode('url')}
+                            />
+                            URL de documentación
+                        </label>
+                        <label
+                            style={{
+                                display: 'flex',
+                                gap: '4px',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <input
+                                type="radio"
+                                checked={mode === 'file'}
+                                onChange={() => setMode('file')}
+                            />
+                            Archivo
+                        </label>
+                    </div>
+
+                    {mode === 'url' ? (
+                        <input
+                            name="url"
+                            type="url"
+                            defaultValue={item?.docHref ?? ''}
+                            placeholder="https://… (opcional)"
+                            style={labelFieldStyle}
+                        />
+                    ) : (
+                        <input
+                            name="file"
+                            type="file"
+                            style={{ fontSize: '11px' }}
+                        />
+                    )}
+                    <InputError message={errors.url} />
+                    <InputError message={errors.file} />
+
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                        <button
+                            type="submit"
+                            disabled={processing}
+                            style={smallButtonStyle}
+                        >
+                            Guardar
+                        </button>
+                        <button
+                            type="button"
+                            onClick={onDone}
+                            style={smallButtonStyle}
+                        >
+                            Cancelar
+                        </button>
+                    </div>
+                </>
+            )}
+        </Form>
     );
 }
 

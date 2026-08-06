@@ -2,12 +2,15 @@
 
 namespace Tests\Feature\Portal;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
 
 class InnovacionTest extends TestCase
 {
+    use RefreshDatabase;
+
     private const SUMMARY_RESPONSE = [
         'vouchers' => ['pending' => 5, 'processing' => 0, 'ok' => 10, 'failed' => 1, 'skipped' => 2, 'total' => 18],
         'cheques' => ['pending' => 0, 'ok' => 3, 'failed' => 0, 'total' => 3],
