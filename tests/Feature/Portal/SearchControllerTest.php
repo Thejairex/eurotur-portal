@@ -1,0 +1,60 @@
+<?php
+
+namespace Tests\Feature\Portal;
+
+use App\Models\SectorGroup;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+
+class SearchControllerTest extends TestCase
+{
+    use RefreshDatabase;
+
+    private function makeItem(string $label, string $sector = 'rrhh', string $groupTitle = 'Empleado'): void
+    {
+        $group = SectorGroup::create(['sector' => $sector, 'title' => $groupTitle, 'sort_order' => 0]);
+        $group->items()->create(['label' => $label, 'url' => 'https://example.com', 'sort_order' => 0]);
+    }
+
+    public function test_it_finds_items_by_partial_label_case_insensitively(): void
+    {
+        $this->makeItem('Manual de conductores');
+
+        $response = $this->getJson(route('portal.search', ['q' => 'conductor']));
+
+        $response->assertOk();
+        $response->assertJsonCount(1);
+        $response->assertJsonPath('0.label', 'Manual de conductores');
+        $response->assertJsonPath('0.sectorLabel', 'RRHH');
+        $response->assertJsonPath('0.groupTitle', 'Empleado');
+    }
+
+    public function test_it_returns_empty_for_queries_shorter_than_two_characters(): void
+    {
+        $this->makeItem('Manual de conductores');
+
+        $response = $this->getJson(route('portal.search', ['q' => 'm']));
+
+        $response->assertOk();
+        $response->assertJsonCount(0);
+    }
+
+    public function test_it_returns_no_results_when_nothing_matches(): void
+    {
+        $this->makeItem('Manual de conductores');
+
+        $response = $this->getJson(route('portal.search', ['q' => 'zzzzz']));
+
+        $response->assertOk();
+        $response->assertJsonCount(0);
+    }
+
+    public function test_search_does_not_require_authentication(): void
+    {
+        $this->makeItem('Manual de conductores');
+
+        $response = $this->getJson(route('portal.search', ['q' => 'manual']));
+
+        $response->assertOk();
+    }
+}

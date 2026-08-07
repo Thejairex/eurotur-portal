@@ -1,9 +1,10 @@
 import { Head, Link, usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { SECTORS } from '@/lib/portal-sectors';
 import type { ActiveView } from '@/lib/portal-sectors';
 import { home } from '@/routes';
+import { search } from '@/routes/portal';
 
 const RED = '#E30613';
 const STRIPE_ACCENT = true;
@@ -30,7 +31,6 @@ export default function PortalLayout({
     label?: string;
     children: ReactNode;
 }) {
-    const [query, setQuery] = useState('');
     const [menuOpen, setMenuOpen] = useState(false);
     const { dolarOficialVenta } = usePage().props;
 
@@ -56,6 +56,8 @@ export default function PortalLayout({
                 .eurotur-portal .tile { background-image: linear-gradient(rgba(0,0,0,.42),rgba(0,0,0,.42)),var(--tile-photo); background-size: cover; background-position: center; }
                 .eurotur-portal .tile:hover { background-image: linear-gradient(rgba(227,6,19,.55),rgba(227,6,19,.55)),var(--tile-photo); color: #fff; transform: translateY(-5px); }
                 .eurotur-portal .doc-link:hover { color: ${RED}; border-color: ${RED}; transform: translateX(3px); }
+                .eurotur-portal .search-result:hover { background: ${RED}; color: #fff; }
+                .eurotur-portal .search-result:hover div { color: #fff !important; }
                 .eurotur-portal .qrated-cta:hover { background: #b3050f; transform: translateY(-3px); }
                 .eurotur-portal .qrated-cat { color: #000; }
                 .eurotur-portal .qrated-cat-num { color: #999; }
@@ -131,11 +133,7 @@ export default function PortalLayout({
                         flexDirection: 'column',
                     }}
                 >
-                    <Header
-                        query={query}
-                        onQuery={setQuery}
-                        dolarOficialVenta={dolarOficialVenta}
-                    />
+                    <Header dolarOficialVenta={dolarOficialVenta} />
 
                     {STRIPE_ACCENT && (
                         <div
@@ -346,15 +344,206 @@ function Sidebar({
     );
 }
 
-function Header({
-    query,
-    onQuery,
-    dolarOficialVenta,
-}: {
-    query: string;
-    onQuery: (value: string) => void;
-    dolarOficialVenta: number | null;
-}) {
+type SearchResult = {
+    id: number;
+    label: string;
+    url: string;
+    groupTitle: string;
+    sectorLabel: string;
+    sectorHref: string;
+};
+
+function GlobalSearch() {
+    const [query, setQuery] = useState('');
+    const [results, setResults] = useState<SearchResult[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [open, setOpen] = useState(false);
+    const requestId = useRef(0);
+
+    useEffect(() => {
+        const trimmed = query.trim();
+        const id = ++requestId.current;
+
+        const timeout = setTimeout(() => {
+            if (trimmed.length < 2) {
+                setResults([]);
+                setLoading(false);
+
+                return;
+            }
+
+            setLoading(true);
+
+            fetch(search.url({ query: { q: trimmed } }), {
+                headers: { Accept: 'application/json' },
+            })
+                .then((response) => response.json())
+                .then((data: SearchResult[]) => {
+                    if (id === requestId.current) {
+                        setResults(data);
+                        setLoading(false);
+                    }
+                })
+                .catch(() => {
+                    if (id === requestId.current) {
+                        setLoading(false);
+                    }
+                });
+        }, 250);
+
+        return () => clearTimeout(timeout);
+    }, [query]);
+
+    const showDropdown = open && query.trim().length >= 2;
+
+    return (
+        <div style={{ position: 'relative' }}>
+            <div
+                style={{
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: '9px',
+                    letterSpacing: '0.16em',
+                    textTransform: 'uppercase',
+                    color: '#999',
+                    marginBottom: '8px',
+                }}
+            >
+                búsqueda global
+            </div>
+            <div
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    borderBottom: '2px solid #000',
+                    paddingBottom: '8px',
+                }}
+            >
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    style={{ flex: '0 0 16px' }}
+                >
+                    <circle
+                        cx="7"
+                        cy="7"
+                        r="5.5"
+                        stroke="#000"
+                        strokeWidth="1.6"
+                    />
+                    <line
+                        x1="11.2"
+                        y1="11.2"
+                        x2="15"
+                        y2="15"
+                        stroke="#000"
+                        strokeWidth="1.6"
+                    />
+                </svg>
+                <input
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    onFocus={() => setOpen(true)}
+                    onBlur={() => setTimeout(() => setOpen(false), 150)}
+                    placeholder="Buscar documentos, formularios, sectores…"
+                    style={{
+                        all: 'unset',
+                        flex: 1,
+                        fontFamily: "'Archivo', sans-serif",
+                        fontSize: '15px',
+                        fontWeight: 500,
+                        color: '#000',
+                    }}
+                />
+            </div>
+
+            {showDropdown && (
+                <div
+                    style={{
+                        position: 'absolute',
+                        top: 'calc(100% + 4px)',
+                        left: 0,
+                        right: 0,
+                        background: '#fff',
+                        border: '1px solid #000',
+                        maxHeight: '360px',
+                        overflowY: 'auto',
+                        zIndex: 50,
+                    }}
+                >
+                    {loading && (
+                        <div
+                            style={{
+                                padding: '12px 16px',
+                                fontFamily: "'Space Mono', monospace",
+                                fontSize: '11px',
+                                color: '#999',
+                            }}
+                        >
+                            buscando…
+                        </div>
+                    )}
+                    {!loading && results.length === 0 && (
+                        <div
+                            style={{
+                                padding: '12px 16px',
+                                fontFamily: "'Space Mono', monospace",
+                                fontSize: '11px',
+                                color: '#999',
+                            }}
+                        >
+                            sin resultados.
+                        </div>
+                    )}
+                    {!loading &&
+                        results.map((result) => (
+                            <a
+                                key={result.id}
+                                href={result.url}
+                                target="_blank"
+                                rel="noreferrer"
+                                onMouseDown={(e) => e.preventDefault()}
+                                onClick={() => setOpen(false)}
+                                className="search-result"
+                                style={{
+                                    display: 'block',
+                                    textDecoration: 'none',
+                                    color: '#000',
+                                    padding: '10px 16px',
+                                    borderBottom: '1px dotted #ccc',
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        fontFamily: "'Archivo', sans-serif",
+                                        fontWeight: 700,
+                                        fontSize: '13px',
+                                    }}
+                                >
+                                    {result.label}
+                                </div>
+                                <div
+                                    style={{
+                                        fontFamily: "'Space Mono', monospace",
+                                        fontSize: '10px',
+                                        letterSpacing: '0.04em',
+                                        color: '#999',
+                                        marginTop: '2px',
+                                    }}
+                                >
+                                    {result.sectorLabel} · {result.groupTitle}
+                                </div>
+                            </a>
+                        ))}
+                </div>
+            )}
+        </div>
+    );
+}
+
+function Header({ dolarOficialVenta }: { dolarOficialVenta: number | null }) {
     return (
         <header
             id="portal-header"
@@ -368,64 +557,7 @@ function Header({
             }}
         >
             <div style={{ flex: 1, maxWidth: '440px' }}>
-                <div
-                    style={{
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: '9px',
-                        letterSpacing: '0.16em',
-                        textTransform: 'uppercase',
-                        color: '#999',
-                        marginBottom: '8px',
-                    }}
-                >
-                    búsqueda global
-                </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '12px',
-                        borderBottom: '2px solid #000',
-                        paddingBottom: '8px',
-                    }}
-                >
-                    <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        style={{ flex: '0 0 16px' }}
-                    >
-                        <circle
-                            cx="7"
-                            cy="7"
-                            r="5.5"
-                            stroke="#000"
-                            strokeWidth="1.6"
-                        />
-                        <line
-                            x1="11.2"
-                            y1="11.2"
-                            x2="15"
-                            y2="15"
-                            stroke="#000"
-                            strokeWidth="1.6"
-                        />
-                    </svg>
-                    <input
-                        value={query}
-                        onChange={(e) => onQuery(e.target.value)}
-                        placeholder="Buscar documentos, formularios, sectores…"
-                        style={{
-                            all: 'unset',
-                            flex: 1,
-                            fontFamily: "'Archivo', sans-serif",
-                            fontSize: '15px',
-                            fontWeight: 500,
-                            color: '#000',
-                        }}
-                    />
-                </div>
+                <GlobalSearch />
             </div>
             <div style={{ display: 'flex', gap: '34px', textAlign: 'right' }}>
                 <div>

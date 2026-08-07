@@ -3,12 +3,14 @@
 use App\Http\Controllers\Portal\FrenteController;
 use App\Http\Controllers\Portal\IniciativaController;
 use App\Http\Controllers\Portal\InnovacionController;
+use App\Http\Controllers\Portal\SearchController;
 use App\Http\Controllers\Portal\SectorGroupController;
 use App\Http\Controllers\Portal\SectorItemController;
 use App\Http\Controllers\Portal\SectorPageController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'portal/home')->name('home');
+Route::get('search', SearchController::class)->name('portal.search');
 Route::inertia('institucional', 'portal/institucional')->name('portal.institucional');
 Route::get('rrhh', [SectorPageController::class, 'rrhh'])->name('portal.rrhh');
 Route::get('adm', [SectorPageController::class, 'adm'])->name('portal.adm');
