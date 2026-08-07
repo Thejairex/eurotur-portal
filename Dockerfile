@@ -46,15 +46,18 @@ RUN apk add --no-cache \
         supervisor \
         sqlite \
         sqlite-libs \
+        postgresql-libs \
         icu \
         libzip \
     && apk add --no-cache --virtual .build-deps \
         sqlite-dev \
+        postgresql-dev \
         icu-dev \
         libzip-dev \
         oniguruma-dev \
     && docker-php-ext-install \
         pdo_sqlite \
+        pdo_pgsql \
         intl \
         zip \
         opcache \
