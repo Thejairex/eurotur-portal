@@ -44,3 +44,4 @@ graphify-out/manifest.json
 graphify-out/cost.json
 graphify-out/.graphify_*
 graphify-out/
+.env.preprod

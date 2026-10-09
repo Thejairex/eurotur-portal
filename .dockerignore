@@ -26,3 +26,4 @@ yarn-error.log
 tests
 .phpunit.cache
 .phpunit.result.cache
+.env.preprod
