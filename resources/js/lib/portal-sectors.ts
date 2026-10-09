@@ -170,7 +170,6 @@ export const SECTORS: Sector[] = [
         shortLabel: 'Sala de Reuniones',
         place: 'reservas · calendar',
         href: meetingRoom(),
-        photo: '/img/portal/sectores/meeting-room.png',
     },
     {
         id: 'exchange-rate',
