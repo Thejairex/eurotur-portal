@@ -43,6 +43,19 @@
         </x-inertia::head>
     </head>
     <body class="font-sans antialiased">
+        @if (config('app.preprod'))
+            {{-- Distintivo del entorno de PRE-PRODUCCION (APP_PREPROD=true). Inerte en produccion. --}}
+            <div style="position:fixed;top:0;left:0;right:0;height:4px;background:#f59e0b;z-index:2147483647;pointer-events:none"></div>
+            <div style="position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:#f59e0b;color:#111;font:700 12px/1 ui-monospace,monospace;letter-spacing:.08em;padding:8px 14px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,.35);z-index:2147483647;pointer-events:none">PREPRODUCCIÓN · ENTORNO DE PRUEBAS</div>
+            <script>
+                (function () {
+                    var t = document.querySelector('title');
+                    function mark() { if (document.title.indexOf('[PREPRO]') !== 0) { document.title = '[PREPRO] ' + document.title; } }
+                    mark();
+                    new MutationObserver(mark).observe(t || document.head, { childList: true, subtree: true, characterData: true });
+                })();
+            </script>
+        @endif
         <x-inertia::app />
     </body>
 </html>
