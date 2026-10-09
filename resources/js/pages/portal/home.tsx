@@ -589,25 +589,9 @@ export default function Home() {
                                         'background .12s,color .12s,transform .14s',
                                 }}
                             >
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        justifyContent: 'flex-end',
-                                    }}
-                                >
-                                    <div
-                                        style={{
-                                            fontFamily:
-                                                "'Space Mono', monospace",
-                                            fontSize: '9px',
-                                            letterSpacing: '0.08em',
-                                            textTransform: 'uppercase',
-                                            opacity: 0.85,
-                                        }}
-                                    >
-                                        {sector.place}
-                                    </div>
-                                </div>
+                                {/* Sin subtitulo (antes: sector.place); el div vacio
+                                    mantiene el titulo abajo con space-between. */}
+                                <div />
                                 <div
                                     style={{
                                         display: 'flex',

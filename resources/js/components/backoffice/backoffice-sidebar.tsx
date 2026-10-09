@@ -1,4 +1,6 @@
 import { Link, usePage } from '@inertiajs/react';
+import { ChevronDown } from 'lucide-react';
+import { useState } from 'react';
 import { TOOLS_PERMISSIONS, usePermissions } from '@/hooks/use-permissions';
 import { home } from '@/routes';
 import { index as crmIndex } from '@/routes/admin/crm';
@@ -13,7 +15,15 @@ type NavEntry = {
     match: string;
 };
 
-const ITEMS: NavEntry[] = [
+const TOOLS: NavEntry = {
+    label: 'Herramientas',
+    href: crmIndex(),
+    permission: TOOLS_PERMISSIONS,
+    match: '/administracion/crm',
+};
+
+/** Entradas que viven dentro del botón "Configuración". */
+const CONFIG_ITEMS: NavEntry[] = [
     {
         label: 'Usuarios',
         href: usersIndex(),
@@ -26,13 +36,10 @@ const ITEMS: NavEntry[] = [
         permission: 'roles.manage',
         match: '/administracion/roles',
     },
-    {
-        label: 'Herramientas',
-        href: crmIndex(),
-        permission: TOOLS_PERMISSIONS,
-        match: '/administracion/crm',
-    },
 ];
+
+const LINK_CLASS =
+    'px-[6px] py-[7px] text-[12.5px] leading-[1.15] font-semibold tracking-[-0.01em] transition-[color,background-color,transform] duration-[120ms] hover:bg-primary hover:text-primary-foreground motion-safe:hover:translate-x-[3px] ';
 
 /**
  * The backoffice's own nav, deliberately not shadcn's Sidebar: a fixed
@@ -42,11 +49,19 @@ const ITEMS: NavEntry[] = [
 export function BackofficeSidebar({ onNavigate }: { onNavigate?: () => void }) {
     const { url } = usePage();
     const { can, canAny } = usePermissions();
-    const items = ITEMS.filter((item) =>
+
+    const allowed = (item: NavEntry) =>
         Array.isArray(item.permission)
             ? canAny(...item.permission)
-            : can(item.permission),
-    );
+            : can(item.permission);
+
+    const showTools = allowed(TOOLS);
+    const configItems = CONFIG_ITEMS.filter(allowed);
+    const configActive = configItems.some((item) => url.startsWith(item.match));
+
+    // Abierto de entrada si la página actual es una de sus opciones.
+    const [configOpen, setConfigOpen] = useState(configActive);
+    const open = configOpen || configActive;
 
     return (
         <div className="flex h-full w-[216px] shrink-0 flex-col border-r border-border px-[22px] pt-[34px] pb-7">
@@ -61,31 +76,68 @@ export function BackofficeSidebar({ onNavigate }: { onNavigate?: () => void }) {
                     alt="Eurotur — 70 años"
                     style={{ width: '118px', height: 'auto', display: 'block' }}
                 />
-                <div className="mt-[10px] bo-eyebrow">Backoffice</div>
+                <div className="mt-[10px] bo-eyebrow">Back Office</div>
             </Link>
 
             <div className="my-[24px] h-px bg-foreground" />
 
             <nav className="flex flex-1 flex-col gap-[2px]">
-                {items.map((item) => {
-                    const active = url.startsWith(item.match);
+                {showTools && (
+                    <Link
+                        href={TOOLS.href}
+                        onClick={onNavigate}
+                        className={
+                            LINK_CLASS +
+                            (url.startsWith(TOOLS.match)
+                                ? 'bg-primary text-primary-foreground'
+                                : 'text-foreground')
+                        }
+                    >
+                        {TOOLS.label}
+                    </Link>
+                )}
 
-                    return (
-                        <Link
-                            key={item.match}
-                            href={item.href}
-                            onClick={onNavigate}
+                {configItems.length > 0 && (
+                    <div className="flex flex-col gap-[2px]">
+                        <button
+                            type="button"
+                            aria-expanded={open}
+                            onClick={() => setConfigOpen((value) => !value)}
                             className={
-                                'px-[6px] py-[7px] text-[12.5px] leading-[1.15] font-semibold tracking-[-0.01em] transition-[color,background-color,transform] duration-[120ms] hover:bg-primary hover:text-primary-foreground motion-safe:hover:translate-x-[3px] ' +
-                                (active
-                                    ? 'bg-primary text-primary-foreground'
-                                    : 'text-foreground')
+                                LINK_CLASS +
+                                'flex cursor-pointer items-center justify-between text-left text-foreground'
                             }
                         >
-                            {item.label}
-                        </Link>
-                    );
-                })}
+                            <span>Configuración</span>
+                            <ChevronDown
+                                className={
+                                    'size-3.5 transition-transform duration-[120ms] ' +
+                                    (open ? 'rotate-180' : '')
+                                }
+                            />
+                        </button>
+
+                        {open && (
+                            <div className="ml-[6px] flex flex-col gap-[2px] border-l border-border pl-[8px]">
+                                {configItems.map((item) => (
+                                    <Link
+                                        key={item.match}
+                                        href={item.href}
+                                        onClick={onNavigate}
+                                        className={
+                                            LINK_CLASS +
+                                            (url.startsWith(item.match)
+                                                ? 'bg-primary text-primary-foreground'
+                                                : 'text-foreground')
+                                        }
+                                    >
+                                        {item.label}
+                                    </Link>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                )}
             </nav>
 
             <div className="mt-[24px] h-px bg-foreground" />

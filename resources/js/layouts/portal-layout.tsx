@@ -5,7 +5,7 @@ import { TOOLS_PERMISSIONS, usePermissions } from '@/hooks/use-permissions';
 import { formatDay, isRateStale, lastBusinessDay } from '@/lib/exchange-rates';
 import { SECTORS } from '@/lib/portal-sectors';
 import type { ActiveView } from '@/lib/portal-sectors';
-import { home, logout } from '@/routes';
+import { home, login, logout } from '@/routes';
 import { index as crmIndex } from '@/routes/admin/crm';
 import { index as rolesIndex } from '@/routes/admin/roles';
 import { index as usersIndex } from '@/routes/admin/users';
@@ -57,7 +57,9 @@ export default function PortalLayout({
             <style>{`
                 .eurotur-portal ::selection { background: ${RED}; color: #fff; }
                 .eurotur-portal .nav-item:hover { background: ${RED}; color: #fff; transform: translateX(5px); }
-                .eurotur-portal .logout-btn:hover { background: ${RED}; color: #fff; transform: translateX(5px); }
+                .eurotur-portal .logout-btn:hover { background: #000; color: #fff; }
+                .eurotur-portal .backoffice-btn:hover { background: #000; color: #fff; transform: translateX(5px); }
+                .eurotur-portal .login-btn:hover { background: #000; color: #fff; }
                 .eurotur-portal .quick-card:hover { background: ${RED}; color: #fff; transform: translateY(-5px); }
                 .eurotur-portal .tile { background-image: linear-gradient(rgba(0,0,0,.42),rgba(0,0,0,.42)),var(--tile-photo); background-size: cover; background-position: center; }
                 .eurotur-portal .tile:hover { background-image: linear-gradient(rgba(227,6,19,.55),rgba(227,6,19,.55)),var(--tile-photo); color: #fff; transform: translateY(-5px); }
@@ -247,6 +249,16 @@ function Sidebar({
         (sector) =>
             !sector.requiredPermission || can(sector.requiredPermission),
     );
+    // "Buscador" (editores) se muestra al final del menu, aparte del resto.
+    const navSectors = visibleSectors.filter(
+        (sector) => sector.id !== 'search-admin',
+    );
+    const searchAdminSector = visibleSectors.find(
+        (sector) => sector.id === 'search-admin',
+    );
+    const navItems = searchAdminSector
+        ? [...navSectors, searchAdminSector]
+        : navSectors;
     const canAdminister = canAny(
         'users.manage',
         'roles.manage',
@@ -354,7 +366,7 @@ function Sidebar({
                     flex: 1,
                 }}
             >
-                {visibleSectors.map((sector) => (
+                {navItems.map((sector) => (
                     <Link
                         key={sector.id}
                         href={sector.href}
@@ -384,42 +396,6 @@ function Sidebar({
                         </span>
                     </Link>
                 ))}
-
-                {canAdminister && (
-                    <Link
-                        href={
-                            can('users.manage')
-                                ? usersIndex()
-                                : can('roles.manage')
-                                  ? rolesIndex()
-                                  : crmIndex()
-                        }
-                        className="nav-item"
-                        style={{
-                            all: 'unset',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'baseline',
-                            gap: '9px',
-                            padding: '7px 6px',
-                            color: '#000',
-                            transition:
-                                'color .12s, background .12s, transform .12s',
-                        }}
-                    >
-                        <span
-                            style={{
-                                fontFamily: "'Archivo', sans-serif",
-                                fontWeight: 600,
-                                fontSize: '12.5px',
-                                letterSpacing: '-0.01em',
-                                lineHeight: 1.15,
-                            }}
-                        >
-                            Backoffice
-                        </span>
-                    </Link>
-                )}
             </nav>
 
             <div style={{ flex: 1 }} />
@@ -438,8 +414,45 @@ function Sidebar({
                 bue · fte · ush · sla
             </div>
 
-            {isAuthenticated && (
-                <Form {...logout.form()} style={{ marginTop: '14px' }}>
+            {canAdminister && (
+                <Link
+                    href={
+                        can('users.manage')
+                            ? usersIndex()
+                            : can('roles.manage')
+                              ? rolesIndex()
+                              : crmIndex()
+                    }
+                    className="backoffice-btn"
+                    style={{
+                        all: 'unset',
+                        cursor: 'pointer',
+                        boxSizing: 'border-box',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: '9px',
+                        marginTop: '14px',
+                        padding: '11px 12px',
+                        width: '100%',
+                        background: RED,
+                        color: '#fff',
+                        fontFamily: "'Space Mono', monospace",
+                        fontWeight: 700,
+                        fontSize: '11px',
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase',
+                        transition:
+                            'color .12s, background .12s, transform .12s',
+                    }}
+                >
+                    <span>Back Office</span>
+                    <span aria-hidden="true">→</span>
+                </Link>
+            )}
+
+            {isAuthenticated ? (
+                <Form {...logout.form()} style={{ marginTop: '10px' }}>
                     {({ processing }) => (
                         <button
                             type="submit"
@@ -448,24 +461,50 @@ function Sidebar({
                             style={{
                                 all: 'unset',
                                 cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'baseline',
-                                gap: '9px',
-                                padding: '5px 4px',
+                                boxSizing: 'border-box',
+                                display: 'block',
                                 width: '100%',
-                                fontFamily: "'Archivo', sans-serif",
-                                fontWeight: 600,
-                                fontSize: '12.5px',
-                                letterSpacing: '-0.01em',
+                                padding: '10px 12px',
+                                textAlign: 'center',
+                                border: '1px solid #000',
+                                fontFamily: "'Space Mono', monospace",
+                                fontWeight: 700,
+                                fontSize: '11px',
+                                letterSpacing: '0.1em',
+                                textTransform: 'uppercase',
                                 color: '#000',
-                                transition:
-                                    'color .12s, background .12s, transform .12s',
+                                transition: 'color .12s, background .12s',
                             }}
                         >
                             Salir
                         </button>
                     )}
                 </Form>
+            ) : (
+                <Link
+                    href={login()}
+                    className="login-btn"
+                    style={{
+                        all: 'unset',
+                        cursor: 'pointer',
+                        boxSizing: 'border-box',
+                        display: 'block',
+                        width: '100%',
+                        marginTop: '14px',
+                        padding: '11px 12px',
+                        textAlign: 'center',
+                        background: RED,
+                        color: '#fff',
+                        fontFamily: "'Space Mono', monospace",
+                        fontWeight: 700,
+                        fontSize: '11px',
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase',
+                        transition: 'color .12s, background .12s',
+                    }}
+                >
+                    Iniciar sesión
+                </Link>
             )}
         </aside>
     );
