@@ -2,7 +2,7 @@ import { Form, Head, Link, router, usePage } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { TOOLS_PERMISSIONS, usePermissions } from '@/hooks/use-permissions';
-import { formatDay, isRateStale, lastBusinessDay } from '@/lib/exchange-rates';
+import { isRateStale } from '@/lib/exchange-rates';
 import { SECTORS } from '@/lib/portal-sectors';
 import type { ActiveView } from '@/lib/portal-sectors';
 import { home, login, logout } from '@/routes';
@@ -801,9 +801,6 @@ function Header({
     const iataStale =
         iataRate?.stale || isRateStale(iataRate?.updatedAt ?? null);
     const bnaStale = isRateStale(dolarOficial?.fecha ?? null);
-    const bnaDate = dolarOficial?.fecha
-        ? formatDay(new Date(dolarOficial.fecha))
-        : formatDay(lastBusinessDay());
 
     const metaValStyle: React.CSSProperties = {
         fontFamily: "'Archivo', sans-serif",
@@ -851,21 +848,6 @@ function Header({
                     {iataRate !== null ? `$${formatArs(iataRate.rate)}` : '—'}
                     <span style={{ color: RED }}>.</span>
                 </div>
-                <div
-                    style={{
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: '8px',
-                        letterSpacing: '0.1em',
-                        textTransform: 'uppercase',
-                        color: '#999',
-                        marginTop: '3px',
-                        textAlign: 'right',
-                    }}
-                >
-                    {iataRate?.updatedAt
-                        ? formatDay(new Date(iataRate.updatedAt))
-                        : '—'}
-                </div>
             </div>
             <div data-testid="meta-bna">
                 <div
@@ -896,19 +878,6 @@ function Header({
                         ? `$${formatArs(dolarOficial.venta)}`
                         : '—'}
                     <span style={{ color: RED }}>.</span>
-                </div>
-                <div
-                    style={{
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: '8px',
-                        letterSpacing: '0.1em',
-                        textTransform: 'uppercase',
-                        color: '#999',
-                        marginTop: '3px',
-                        textAlign: 'right',
-                    }}
-                >
-                    {bnaDate}
                 </div>
             </div>
             <div data-testid="meta-hoy">

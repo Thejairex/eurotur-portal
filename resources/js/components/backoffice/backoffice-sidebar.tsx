@@ -96,49 +96,64 @@ export function BackofficeSidebar({ onNavigate }: { onNavigate?: () => void }) {
                         {TOOLS.label}
                     </Link>
                 )}
-
-                {configItems.length > 0 && (
-                    <div className="flex flex-col gap-[2px]">
-                        <button
-                            type="button"
-                            aria-expanded={open}
-                            onClick={() => setConfigOpen((value) => !value)}
-                            className={
-                                LINK_CLASS +
-                                'flex cursor-pointer items-center justify-between text-left text-foreground'
-                            }
-                        >
-                            <span>Configuración</span>
-                            <ChevronDown
-                                className={
-                                    'size-3.5 transition-transform duration-[120ms] ' +
-                                    (open ? 'rotate-180' : '')
-                                }
-                            />
-                        </button>
-
-                        {open && (
-                            <div className="ml-[6px] flex flex-col gap-[2px] border-l border-border pl-[8px]">
-                                {configItems.map((item) => (
-                                    <Link
-                                        key={item.match}
-                                        href={item.href}
-                                        onClick={onNavigate}
-                                        className={
-                                            LINK_CLASS +
-                                            (url.startsWith(item.match)
-                                                ? 'bg-primary text-primary-foreground'
-                                                : 'text-foreground')
-                                        }
-                                    >
-                                        {item.label}
-                                    </Link>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                )}
             </nav>
+
+            {configItems.length > 0 && (
+                <div className="mt-[16px] flex flex-col gap-[2px]">
+                    <button
+                        type="button"
+                        aria-expanded={open}
+                        onClick={() => setConfigOpen((value) => !value)}
+                        className={
+                            LINK_CLASS +
+                            'flex cursor-pointer items-center gap-[8px] text-left text-foreground'
+                        }
+                    >
+                        <span
+                            aria-hidden="true"
+                            className="size-[16px] shrink-0 bg-current"
+                            style={{
+                                WebkitMaskImage:
+                                    "url('/img/icons/configuracion.png')",
+                                maskImage: "url('/img/icons/configuracion.png')",
+                                WebkitMaskSize: 'contain',
+                                maskSize: 'contain',
+                                WebkitMaskRepeat: 'no-repeat',
+                                maskRepeat: 'no-repeat',
+                                WebkitMaskPosition: 'center',
+                                maskPosition: 'center',
+                            }}
+                        />
+                        <span className="flex-1">Configuración</span>
+                        <ChevronDown
+                            className={
+                                'size-3.5 transition-transform duration-[120ms] ' +
+                                (open ? 'rotate-180' : '')
+                            }
+                        />
+                    </button>
+
+                    {open && (
+                        <div className="ml-[6px] flex flex-col gap-[2px] border-l border-border pl-[8px]">
+                            {configItems.map((item) => (
+                                <Link
+                                    key={item.match}
+                                    href={item.href}
+                                    onClick={onNavigate}
+                                    className={
+                                        LINK_CLASS +
+                                        (url.startsWith(item.match)
+                                            ? 'bg-primary text-primary-foreground'
+                                            : 'text-foreground')
+                                    }
+                                >
+                                    {item.label}
+                                </Link>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
 
             <div className="mt-[24px] h-px bg-foreground" />
 
