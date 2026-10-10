@@ -56,10 +56,13 @@ export default function PortalLayout({
 
             <style>{`
                 .eurotur-portal ::selection { background: ${RED}; color: #fff; }
-                .eurotur-portal .nav-item:hover { background: ${RED}; color: #fff; transform: translateX(5px); }
-                .eurotur-portal .logout-btn:hover { background: #000; color: #fff; }
-                .eurotur-portal .backoffice-btn:hover { background: #000; color: #fff; transform: translateX(5px); }
-                .eurotur-portal .login-btn:hover { background: #000; color: #fff; }
+                /* !important: los links del menu llevan `all: unset` inline, que le gana a cualquier regla de hoja de estilos */
+                .eurotur-portal .nav-item:hover { background: ${RED} !important; color: #fff !important; transform: translateX(5px) !important; }
+                .eurotur-portal .nav-item:active { transform: translateX(2px) !important; }
+                .eurotur-portal .nav-item:focus-visible { outline: 2px solid ${RED}; outline-offset: 2px; }
+                .eurotur-portal .logout-btn:hover { background: #000 !important; color: #fff !important; }
+                .eurotur-portal .backoffice-btn:hover { background: #000 !important; color: #fff !important; transform: translateX(5px) !important; }
+                .eurotur-portal .login-btn:hover { background: #000 !important; color: #fff !important; }
                 .eurotur-portal .quick-card:hover { background: ${RED}; color: #fff; transform: translateY(-5px); }
                 .eurotur-portal .tile { background-image: linear-gradient(rgba(0,0,0,.42),rgba(0,0,0,.42)),var(--tile-photo); background-size: cover; background-position: center; }
                 .eurotur-portal .tile:hover { background-image: linear-gradient(rgba(227,6,19,.55),rgba(227,6,19,.55)),var(--tile-photo); color: #fff; transform: translateY(-5px); }
