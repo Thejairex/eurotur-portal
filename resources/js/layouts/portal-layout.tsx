@@ -147,7 +147,6 @@ export default function PortalLayout({
                     active={active}
                     menuOpen={menuOpen}
                     onToggleMenu={() => setMenuOpen((v) => !v)}
-                    isHome={active === 'home'}
                 />
 
                 <main
@@ -238,12 +237,10 @@ function Sidebar({
     active,
     menuOpen,
     onToggleMenu,
-    isHome,
 }: {
     active: ActiveView;
     menuOpen: boolean;
     onToggleMenu: () => void;
-    isHome?: boolean;
 }) {
     const { auth } = usePage().props;
     const { can, canAny } = usePermissions();
