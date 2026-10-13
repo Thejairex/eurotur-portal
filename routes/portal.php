@@ -26,11 +26,9 @@ Route::get('busqueda', SearchResultsController::class)->name('portal.search-resu
 Route::inertia('institucional', 'portal/institucional')->name('portal.institucional');
 Route::get('rrhh', [SectorPageController::class, 'rrhh'])->name('portal.rrhh');
 Route::get('adm', [SectorPageController::class, 'adm'])->name('portal.adm');
-// Pre-Balance es una herramienta de Contabilidad: solo con sesion y permiso. Se abre
-// desde Back Office > Herramientas (antes era publica y estaba en el sector Administracion).
-Route::inertia('adm/prebalance', 'portal/adm-prebalance')
-    ->middleware(['auth', 'can:prebalance.use'])
-    ->name('portal.adm.prebalance');
+// Pre-Balance se mudo al Back Office (Herramientas, permiso prebalance.use). La ruta
+// vieja redirige para no romper favoritos ni enlaces; el acceso lo controla la nueva.
+Route::redirect('adm/prebalance', '/administracion/crm/pre-balance')->name('portal.adm.prebalance');
 Route::inertia('adm/rendicion-gastos', 'portal/adm-rendicion-gastos')->name('portal.adm.rendicion');
 Route::get('contrataciones', [SectorPageController::class, 'contrataciones'])->name('portal.contrataciones');
 Route::get('operaciones', [SectorPageController::class, 'operaciones'])->name('portal.operaciones');

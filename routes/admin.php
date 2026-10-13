@@ -30,6 +30,11 @@ Route::middleware(['auth', 'verified'])->prefix('administracion')->name('admin.'
     Route::middleware('can:herramientas.view')->prefix('crm')->name('crm.')->group(function () {
         Route::get('/', CrmIndexController::class)->name('index');
 
+        // Pre-Balance de Modulos: herramienta de Contabilidad, dentro del Back Office.
+        Route::inertia('pre-balance', 'admin/crm/prebalance')
+            ->middleware('can:prebalance.use')
+            ->name('prebalance');
+
         Route::middleware('can:invoice-loader.manage')->prefix('cargador-facturas')->name('invoice-loader.')->group(function () {
             Route::get('/', [InvoiceLoaderPageController::class, 'index'])->name('index');
 

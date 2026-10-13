@@ -31,14 +31,19 @@ class PrebalanceAccessTest extends TestCase
 
     public function test_guests_are_sent_to_login(): void
     {
-        $this->get(route('portal.adm.prebalance'))->assertRedirect(route('login'));
+        $this->get(route('admin.crm.prebalance'))->assertRedirect(route('login'));
+    }
+
+    public function test_the_old_portal_url_redirects_to_the_back_office(): void
+    {
+        $this->get(route('portal.adm.prebalance'))->assertRedirect('/administracion/crm/pre-balance');
     }
 
     public function test_users_without_the_permission_are_forbidden(): void
     {
         $viewer = User::factory()->viewer()->create();
 
-        $this->actingAs($viewer)->get(route('portal.adm.prebalance'))->assertForbidden();
+        $this->actingAs($viewer)->get(route('admin.crm.prebalance'))->assertForbidden();
     }
 
     public function test_editors_do_not_get_it_for_free(): void
@@ -46,14 +51,14 @@ class PrebalanceAccessTest extends TestCase
         // prebalance.use is not part of contentPermissions().
         $editor = User::factory()->editor()->create();
 
-        $this->actingAs($editor)->get(route('portal.adm.prebalance'))->assertForbidden();
+        $this->actingAs($editor)->get(route('admin.crm.prebalance'))->assertForbidden();
     }
 
     public function test_a_role_with_the_permission_can_open_it(): void
     {
         $user = User::factory()->withRole($this->contabilidadRole())->create();
 
-        $this->actingAs($user)->get(route('portal.adm.prebalance'))->assertOk();
+        $this->actingAs($user)->get(route('admin.crm.prebalance'))->assertOk();
     }
 
     public function test_the_permission_unlocks_the_herramientas_hub(): void

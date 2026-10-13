@@ -1253,4 +1253,5 @@ function Pie() {
     );
 }
 
-AdmPrebalance.layout = { active: 'adm', label: 'Pre-Balance—' };
+// Ya no se enruta como pagina del portal: la muestra pages/admin/crm/prebalance.tsx
+// dentro del Back Office (Herramientas).
