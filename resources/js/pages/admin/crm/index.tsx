@@ -2,7 +2,7 @@ import { Head, Link } from '@inertiajs/react';
 import InvoiceLoaderPageController from '@/actions/App/Http/Controllers/Admin/Crm/InvoiceLoaderPageController';
 import { PageHeader } from '@/components/backoffice/page-header';
 import { usePermissions } from '@/hooks/use-permissions';
-import { balanz, prepagos } from '@/routes/admin';
+import { balanz, bigBrother, prepagos } from '@/routes/admin';
 import { prebalance } from '@/routes/admin/crm';
 import type { RouteDefinition } from '@/wayfinder';
 
@@ -38,6 +38,14 @@ const TOOLS: CrmTool[] = [
             'Convertí los movimientos de la cuenta comitente de Balanz en asientos bimonetarios para Tango Gestión.',
         href: balanz(),
         permission: 'balanz.manage',
+        external: true,
+    },
+    {
+        label: 'Big Brother — Vencimientos',
+        description:
+            'Seguí el estado de los vencimientos no rutinarios de las unidades: vencidos, por vencer y datos que faltan.',
+        href: bigBrother(),
+        permission: 'big-brother.ver',
         external: true,
     },
     {

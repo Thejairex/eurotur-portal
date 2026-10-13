@@ -69,6 +69,8 @@ services:
             PREPAGOS_URL: http://192.168.98.4:8210
             # Generador de Asientos Balanz de PREPRODUCCION (no el de produccion, 8499).
             BALANZ_URL: http://192.168.98.4:8220
+            # Panel de Big Brother de PREPRODUCCION (datos ficticios; no el de produccion, 8497).
+            BIGBROTHER_URL: http://192.168.98.4:8230
         volumes:
             - storage-data:/var/www/html/storage
         networks:

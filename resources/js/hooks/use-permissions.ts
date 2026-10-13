@@ -39,4 +39,5 @@ export const TOOLS_PERMISSIONS = [
     'prepagos.manage',
     'balanz.manage',
     'prebalance.use',
+    'big-brother.ver',
 ];
