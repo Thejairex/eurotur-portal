@@ -25,7 +25,10 @@ export type ToolArea = {
     label: string;
 };
 
-/** Orden en que se muestran las áreas. Un área sin herramientas visibles no se muestra. */
+/**
+ * Orden en que se muestran las áreas. Un área sin herramientas visibles no se muestra
+ * (hoy "Administración" no tiene ninguna: queda lista para cuando llegue la primera).
+ */
 export const TOOL_AREAS: ToolArea[] = [
     { id: 'cuentas-a-pagar', label: 'Cuentas a Pagar' },
     { id: 'contabilidad', label: 'Contabilidad' },
@@ -107,7 +110,7 @@ export const BACKOFFICE_TOOLS: BackofficeTool[] = [
     },
     {
         id: 'big-brother',
-        area: 'administracion',
+        area: 'rrhh',
         label: 'Big Brother — Vencimientos',
         navLabel: 'Big Brother',
         description:
