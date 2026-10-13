@@ -5,8 +5,11 @@
 # preprod a produccion (ver "Regla de despliegue" en el README).
 #
 # Desde la carpeta del repo:
-#     docker build -f docker/Dockerfile.test -t portal-tests .
+#     DOCKER_BUILDKIT=1 docker build -f docker/Dockerfile.test -t portal-tests .
 #     docker run --rm portal-tests
+#
+# IMPORTANTE: con DOCKER_BUILDKIT=1. El constructor viejo de Docker ignora docker/Dockerfile.test.dockerignore
+# y usa el .dockerignore principal, que deja afuera tests/: PHPUnit falla con "Test directory not found".
 #
 # Corre TODOS los chequeos sin cortarse en el primero que falle (docker/ci-diagnostico.sh): build,
 # ESLint, Prettier, tsc, Pint, PHPStan y PHPUnit, mostrando de cada uno solo lo necesario para arreglarlo.

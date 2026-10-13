@@ -3,6 +3,7 @@
 namespace App\Support;
 
 use App\Enums\Permission;
+use InvalidArgumentException;
 
 /**
  * Herramientas que viven FUERA del portal (otro contenedor, otro puerto) y que el
@@ -75,7 +76,7 @@ final class HerramientasExternas
         $herramienta = self::buscar($slug);
 
         if ($herramienta === null) {
-            throw new \InvalidArgumentException("Herramienta desconocida: {$slug}");
+            throw new InvalidArgumentException("Herramienta desconocida: {$slug}");
         }
 
         $url = rtrim((string) config($herramienta['config']), '/').$herramienta['path'];

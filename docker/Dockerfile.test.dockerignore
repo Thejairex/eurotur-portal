@@ -25,3 +25,11 @@ npm-debug.log
 yarn-error.log
 .phpunit.cache
 .phpunit.result.cache
+
+# Claves y certificados: nunca dentro de una imagen ni en el repo
+y
+y.pub
+id_*
+*.pem
+*.key
+*.pub

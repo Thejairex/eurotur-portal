@@ -45,3 +45,11 @@ graphify-out/cost.json
 graphify-out/.graphify_*
 graphify-out/
 .env.preprod
+
+# Claves y certificados: nunca dentro de una imagen ni en el repo
+y
+y.pub
+id_*
+*.pem
+*.key
+*.pub

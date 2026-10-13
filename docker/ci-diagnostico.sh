@@ -65,7 +65,7 @@ fi
 
 # 6) PHPStan
 seccion "ANALISIS ESTATICO PHP (phpstan)"
-if vendor/bin/phpstan analyse --no-progress >/tmp/stan.log 2>&1; then
+if vendor/bin/phpstan analyse --no-progress --memory-limit=1G >/tmp/stan.log 2>&1; then
     echo "[OK] phpstan"
 else
     echo "[FALLO] phpstan"
