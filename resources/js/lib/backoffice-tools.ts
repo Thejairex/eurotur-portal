@@ -1,5 +1,5 @@
 import InvoiceLoaderPageController from '@/actions/App/Http/Controllers/Admin/Crm/InvoiceLoaderPageController';
-import { balanz, organigrama, prepagos } from '@/routes/admin';
+import { prepagos } from '@/routes/admin';
 import { prebalance } from '@/routes/admin/crm';
 import { embebida } from '@/routes/admin/herramientas';
 import type { RouteDefinition } from '@/wayfinder';
@@ -86,9 +86,10 @@ export const BACKOFFICE_TOOLS: BackofficeTool[] = [
         navLabel: 'Asientos Balanz',
         description:
             'Convertí los movimientos de la cuenta comitente de Balanz en asientos bimonetarios para Tango Gestión.',
-        href: balanz(),
+        // Se muestra dentro del Back Office (ver HerramientaEmbebidaController).
+        href: embebida({ herramienta: 'balanz' }),
         permission: 'balanz.manage',
-        external: true,
+        match: '/administracion/herramientas/balanz',
     },
     {
         id: 'prebalance',
@@ -108,9 +109,10 @@ export const BACKOFFICE_TOOLS: BackofficeTool[] = [
         navLabel: 'Organigrama',
         description:
             'Da de alta, baja y mueve personas, sube fotos e importa planillas del organigrama. La lectura es pública en el sector RRHH.',
-        href: organigrama(),
+        // Se muestra dentro del Back Office (ver HerramientaEmbebidaController).
+        href: embebida({ herramienta: 'organigrama' }),
         permission: 'organigrama.editar',
-        external: true,
+        match: '/administracion/herramientas/organigrama',
     },
     {
         id: 'big-brother',
