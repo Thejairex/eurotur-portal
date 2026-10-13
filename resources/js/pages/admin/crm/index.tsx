@@ -2,7 +2,7 @@ import { Head, Link } from '@inertiajs/react';
 import InvoiceLoaderPageController from '@/actions/App/Http/Controllers/Admin/Crm/InvoiceLoaderPageController';
 import { PageHeader } from '@/components/backoffice/page-header';
 import { usePermissions } from '@/hooks/use-permissions';
-import { balanz, bigBrother, prepagos } from '@/routes/admin';
+import { balanz, bigBrother, organigrama, prepagos } from '@/routes/admin';
 import { prebalance } from '@/routes/admin/crm';
 import type { RouteDefinition } from '@/wayfinder';
 
@@ -46,6 +46,14 @@ const TOOLS: CrmTool[] = [
             'Seguí el estado de los vencimientos no rutinarios de las unidades: vencidos, por vencer y datos que faltan.',
         href: bigBrother(),
         permission: 'big-brother.ver',
+        external: true,
+    },
+    {
+        label: 'Organigrama — Edición',
+        description:
+            'Da de alta, baja y mueve personas, sube fotos e importa planillas del organigrama. La lectura es pública en el sector RRHH.',
+        href: organigrama(),
+        permission: 'organigrama.editar',
         external: true,
     },
     {

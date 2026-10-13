@@ -40,4 +40,5 @@ export const TOOLS_PERMISSIONS = [
     'balanz.manage',
     'prebalance.use',
     'big-brother.ver',
+    'organigrama.editar',
 ];

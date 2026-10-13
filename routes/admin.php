@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Crm\InvoiceLoaderPageController;
 use App\Http\Controllers\Admin\Crm\InvoiceProposalController;
 use App\Http\Controllers\Admin\BalanzRedirectController;
 use App\Http\Controllers\Admin\BigBrotherRedirectController;
+use App\Http\Controllers\Admin\OrganigramaEditarRedirectController;
 use App\Http\Controllers\Admin\PrepagosRedirectController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
@@ -29,6 +30,8 @@ Route::middleware(['auth', 'verified'])->prefix('administracion')->name('admin.'
     Route::middleware('can:balanz.manage')->get('balanz', BalanzRedirectController::class)->name('balanz');
 
     Route::middleware('can:big-brother.ver')->get('big-brother', BigBrotherRedirectController::class)->name('big-brother');
+
+    Route::middleware('can:organigrama.editar')->get('organigrama', OrganigramaEditarRedirectController::class)->name('organigrama');
 
     Route::middleware('can:herramientas.view')->prefix('crm')->name('crm.')->group(function () {
         Route::get('/', CrmIndexController::class)->name('index');

@@ -30,6 +30,7 @@ class HerramientaSessionController extends Controller
     private const TOOLS = [
         'balanz' => Permission::BalanzManage,
         'big-brother' => Permission::BigBrotherVer,
+        'organigrama' => Permission::OrganigramaEditar,
     ];
 
     public function __invoke(Request $request, string $herramienta): Response

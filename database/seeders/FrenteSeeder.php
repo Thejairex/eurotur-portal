@@ -155,6 +155,18 @@ class FrenteSeeder extends Seeder
                     ],
                 ],
             ],
+            [
+                'area' => 'Recursos Humanos · Organigrama',
+                'owner' => 'V. Homez · R. Velázquez',
+                'items' => [
+                    [
+                        'n' => 'Organigrama interactivo',
+                        'badge' => 'En prueba',
+                        'cls' => 'test',
+                        'desc' => 'Organigrama navegable con foto por persona, ficha, filtros por sector y sede, contratos de temporada y vacantes. RRHH lo edita desde el Back Office, con registro de quién cambió qué. Reemplaza el PDF.',
+                    ],
+                ],
+            ],
         ];
     }
 }

@@ -68,7 +68,8 @@ class SectorLinksSeeder extends Seeder
                     $l('Cronograma 24 y 31·12·25', 'https://drive.google.com/drive/u/0/folders/1-f5Ymcn9n_zTClSXgWxEMkFLP_wlv0GX'),
                 ]],
                 ['title' => 'Organigrama', 'items' => [
-                    $l('Organigrama Eurotur', 'https://drive.google.com/drive/u/0/folders/1YBH-WESU1sBqR1v6VjPDlpH0fwtTAfcV'),
+                    ['t' => 'Organigrama Eurotur', 'h' => '/organigrama', 'keywords' => 'organigrama, estructura, quién es quién, RRHH, dotación, personal, jefes, equipo'],
+                    $l('Organigrama Eurotur — carpeta anterior (PDF)', 'https://drive.google.com/drive/u/0/folders/1YBH-WESU1sBqR1v6VjPDlpH0fwtTAfcV'),
                 ]],
                 ['title' => 'Datos ART', 'items' => [
                     $l('Eurotur S.A.', 'https://drive.google.com/drive/folders/1M0bvz0j36Zvbc2bJrKK_XwlxJ-coJF0z'),
@@ -279,6 +280,9 @@ class SectorLinksSeeder extends Seeder
                     $l('Manual de conductores/as', 'https://drive.google.com/drive/u/0/folders/166lJNjbeaRrE272XPPRCr-ollXUqeVsc'),
                     $l('Manual de convivencia', 'https://drive.google.com/drive/u/0/folders/16BCxu_MZyx5WA_3vjJA6dNk2xkpXw3O1'),
                     $l('Simulacro de recibo de haberes', 'https://drive.google.com/drive/u/0/folders/1ixZQMHj3CymaSnMuIQKAjzTdu7gcHLJU'),
+                ]],
+                ['title' => 'Organigrama', 'items' => [
+                    ['t' => 'Organigrama Travel Designers', 'h' => '/organigrama?empresa=TD', 'keywords' => 'organigrama, estructura, quién es quién, RRHH, dotación, personal, jefes, equipo'],
                 ]],
                 ['title' => 'Dirección', 'items' => [
                     $t('Av. Montes de Oca 2238, CABA'),
