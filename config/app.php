@@ -29,6 +29,13 @@ return [
     'env' => env('APP_ENV', 'production'),
 
     /*
+    | Marca visual de pre-produccion (cinta naranja + titulo "[PREPRO]").
+    | Solo se activa con APP_PREPROD=true, que unicamente setea
+    | docker-compose.preprod.yml: en produccion no hace nada.
+    */
+    'preprod' => (bool) env('APP_PREPROD', false),
+
+    /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------

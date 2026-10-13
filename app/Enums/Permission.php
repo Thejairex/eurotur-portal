@@ -30,6 +30,10 @@ enum Permission: string
     case PrepagosVerCoordinacion = 'prepagos.ver_coordinacion';
     case PrepagosVerControl = 'prepagos.ver_control';
     case PrepagosVerBandeja = 'prepagos.ver_bandeja';
+    case BalanzManage = 'balanz.manage';
+    case PrebalanceUse = 'prebalance.use';
+    case BigBrotherVer = 'big-brother.ver';
+    case OrganigramaEditar = 'organigrama.editar';
 
     public static function forSector(EditableSector $sector): self
     {
@@ -59,6 +63,10 @@ enum Permission: string
             self::PrepagosVerCoordinacion => 'Ver Coordinación de Prepagos',
             self::PrepagosVerControl => 'Ver Control de Prepagos',
             self::PrepagosVerBandeja => 'Ver Mi Bandeja de Prepagos',
+            self::BalanzManage => 'Usar el generador de asientos Balanz',
+            self::PrebalanceUse => 'Usar el armado de Pre-Balance de módulos',
+            self::BigBrotherVer => 'Ver el panel de Big Brother (vencimientos)',
+            self::OrganigramaEditar => 'Editar el organigrama (RRHH)',
         };
     }
 
@@ -66,7 +74,8 @@ enum Permission: string
     {
         return match ($this) {
             self::UsersManage, self::RolesManage, self::InvoiceLoaderManage, self::PrepagosManage,
-            self::PrepagosVerCoordinacion, self::PrepagosVerControl, self::PrepagosVerBandeja => 'administracion',
+            self::PrepagosVerCoordinacion, self::PrepagosVerControl, self::PrepagosVerBandeja,
+            self::BalanzManage, self::PrebalanceUse, self::BigBrotherVer, self::OrganigramaEditar => 'administracion',
             self::InnovacionManage, self::ExchangeRateManage, self::SearchAdmin => 'contenido',
             default => 'sectores',
         };
@@ -107,6 +116,10 @@ enum Permission: string
         return [
             self::InvoiceLoaderManage,
             self::PrepagosManage,
+            self::BalanzManage,
+            self::PrebalanceUse,
+            self::BigBrotherVer,
+            self::OrganigramaEditar,
         ];
     }
 

@@ -13,6 +13,29 @@ herramientas internas).
 > se sume. **`INFORME-CAMBIOS.md` es un changelog puntual de una fecha vieja
 > (20/08/2026) — no lo tomes como documentación vigente del estado actual.**
 
+## Regla de despliegue: primero preprod, después producción
+
+> **Todo cambio se sube PRIMERO a preprod, se prueba ahí y recién después pasa
+> a producción. Nunca se despliega directo a producción.** Vale para código,
+> estilos, textos, configuración y permisos.
+
+- Se trabaja en la rama **`preprod`** (nunca directo en `main`).
+- **Preprod:** `http://192.168.98.4:8200`, se levanta con
+  `docker-compose.preprod.yml` y tiene base (`eurotur_portal_preprod`), cookie
+  de sesión y `APP_KEY` propias. Los servicios externos (OCR, Cargador de
+  Facturas, Monitor del bot) están desconectados a propósito, para que una
+  prueba no pueda tocar nada real. Configuración en `.env.preprod` (se arma a
+  partir de `.env.preprod.example`; nunca se versiona).
+- **Producción:** `http://192.168.98.4:8080`, se despliega solo desde `main`.
+- Cuando preprod está validado, se abre un pull request `preprod` → `main` y
+  recién entonces se despliega producción.
+- Cinta naranja "PREPRODUCCIÓN" arriba y etiqueta abajo (variable
+  `APP_PREPROD=true`, solo en el compose de preprod): en producción no hace nada.
+
+Descripción completa del entorno: carpeta `PORTAL EUROTUR/05 - Preprod` del
+repo de documentación `eurotur-automatizaciones` y sección 7 de su
+`servidor EUROTUR.md`.
+
 ## Qué es este proyecto
 
 - **El portal** (`routes/portal.php`): página de inicio con accesos por
@@ -171,6 +194,26 @@ php artisan test --compact
 php artisan test --compact tests/Feature/Admin/Crm   # una carpeta puntual
 php artisan test --compact --filter=nombreDelTest     # un test puntual
 ```
+
+### Sin instalar PHP ni Node: con Docker
+
+`docker/Dockerfile.test` arma una imagen descartable que corre
+`composer run ci:check` completo (ESLint, Prettier, tsc, Pint, PHPStan y
+PHPUnit). Las pruebas usan SQLite en memoria: no tocan ninguna base real.
+Desde la carpeta del repo:
+
+```bash
+rm -f .dockerignore   # solo en una copia descartable del repo (ver docker/Dockerfile.test)
+docker build -f docker/Dockerfile.test -t portal-tests .
+docker run --rm portal-tests
+```
+
+Es el chequeo que corresponde antes de pasar de `preprod` a `main`. Corre build, ESLint, Prettier,
+`tsc`, Pint, PHPStan y PHPUnit **sin cortarse en el primero que falle** y termina con un resumen
+("TODO VERDE" o la lista de lo que falló). Si el servidor no tiene `buildx`, hay que borrar el `.dockerignore` de
+la copia antes de construir (ver `docker/Dockerfile.test`).
+Conviene armar el contexto desde Git (`git archive`) y no desde una carpeta de Windows: los saltos de línea
+CRLF hacen fallar a Pint y Prettier en Linux.
 
 ## Despliegue (producción)
 

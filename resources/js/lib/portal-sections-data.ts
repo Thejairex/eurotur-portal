@@ -96,8 +96,9 @@ const RRHH_GROUPS: SectorGroup[] = [
     {
         title: 'Organigrama',
         items: [
+            L('Organigrama Eurotur', '/organigrama'),
             L(
-                'Organigrama Eurotur',
+                'Organigrama Eurotur — carpeta anterior (PDF)',
                 'https://drive.google.com/drive/u/0/folders/1YBH-WESU1sBqR1v6VjPDlpH0fwtTAfcV',
             ),
         ],
@@ -293,11 +294,7 @@ export const ADM_DATA: SectorIndexData = {
         {
             title: 'Contabilidad · Cierre mensual',
             items: [
-                {
-                    t: 'Pre-Balance de Módulos — herramienta',
-                    h: '/adm/prebalance',
-                    badge: 'En prueba — Contabilidad',
-                },
+                // La herramienta ya no se lista aca: se abre desde Back Office > Herramientas.
                 L(
                     'Pre-Balance de Módulos — documentación',
                     '/documentos/prebalance-modulos.docx',
@@ -757,6 +754,12 @@ export const TRAVELDESIGNERS_DATA: SectorIndexData = {
                     'Simulacro de recibo de haberes',
                     'https://drive.google.com/drive/u/0/folders/1ixZQMHj3CymaSnMuIQKAjzTdu7gcHLJU',
                 ),
+            ],
+        },
+        {
+            title: 'Organigrama',
+            items: [
+                L('Organigrama Travel Designers', '/organigrama?empresa=TD'),
             ],
         },
         {

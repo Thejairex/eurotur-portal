@@ -2,6 +2,7 @@ import { usePage } from '@inertiajs/react';
 import { Menu } from 'lucide-react';
 import { useState } from 'react';
 import { BackofficeSidebar } from '@/components/backoffice/backoffice-sidebar';
+import { ThemeToggle } from '@/components/backoffice/theme-toggle';
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { Button } from '@/components/ui/button';
 import {
@@ -46,7 +47,12 @@ export function BackofficeHeader({
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
             </div>
 
-            {auth?.user && <span className="bo-label">{auth.user.name}</span>}
+            <div className="flex items-center gap-4">
+                <ThemeToggle />
+                {auth?.user && (
+                    <span className="bo-label">{auth.user.name}</span>
+                )}
+            </div>
         </header>
     );
 }

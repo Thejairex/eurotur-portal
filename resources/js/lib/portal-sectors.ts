@@ -53,6 +53,11 @@ export type Sector = {
     photo?: string;
 };
 
+/**
+ * Orden de los sectores: es el mismo en el menu lateral y en las tarjetas del
+ * inicio. "Buscador" (solo editores) va siempre al final: en el menu lateral
+ * se muestra aparte, junto a Back Office.
+ */
 export const SECTORS: Sector[] = [
     {
         id: 'institucional',
@@ -119,17 +124,32 @@ export const SECTORS: Sector[] = [
         href: adm(),
     },
     {
-        id: 'search-admin',
+        id: 'traveldesigners',
         num: '09',
-        navLabel: 'Buscador',
-        shortLabel: 'Buscador',
-        place: 'keywords · tesauro',
-        href: searchAdmin(),
-        requiredPermission: 'search.admin',
+        navLabel: 'Travel Designers',
+        shortLabel: 'Travel Designers',
+        place: 'ruta 40',
+        href: traveldesigners(),
+    },
+    {
+        id: 'qrated',
+        num: '10',
+        navLabel: 'Qrated',
+        shortLabel: 'Qrated',
+        place: 'premium · mice',
+        href: qrated(),
+    },
+    {
+        id: 'innovacion',
+        num: '11',
+        navLabel: 'Innovación',
+        shortLabel: 'Innovación',
+        place: 'ia · scripts',
+        href: innovacion(),
     },
     {
         id: 'it',
-        num: '10',
+        num: '12',
         navLabel: 'IT',
         shortLabel: 'IT',
         place: 'sistemas',
@@ -137,59 +157,43 @@ export const SECTORS: Sector[] = [
     },
     {
         id: 'mesa',
-        num: '11',
+        num: '13',
         navLabel: 'Mesa de Información',
         shortLabel: 'Mesa de Info',
         place: 'soporte',
         href: mesa(),
     },
     {
-        id: 'qrated',
-        num: '12',
-        navLabel: 'Qrated',
-        shortLabel: 'Qrated',
-        place: 'premium · mice',
-        href: qrated(),
-    },
-    {
         id: 'meeting-room',
-        num: '13',
+        num: '14',
         navLabel: 'Sala de Reuniones',
         shortLabel: 'Sala de Reuniones',
         place: 'reservas · calendar',
         href: meetingRoom(),
-        photo: '/img/portal/sectores/meeting-room.png',
     },
     {
         id: 'exchange-rate',
-        num: '14',
+        num: '15',
         navLabel: 'Tipo de Cambio',
         shortLabel: 'Tipo de Cambio',
         place: 'iata · bna',
         href: exchangeRate(),
     },
     {
-        id: 'traveldesigners',
-        num: '15',
-        navLabel: 'Travel Designers',
-        shortLabel: 'Travel Designers',
-        place: 'ruta 40',
-        href: traveldesigners(),
-    },
-    {
-        id: 'innovacion',
-        num: '16',
-        navLabel: 'Innovación',
-        shortLabel: 'Innovación',
-        place: 'ia · scripts',
-        href: innovacion(),
-    },
-    {
         id: 'responsables',
-        num: '17',
+        num: '16',
         navLabel: 'Responsables del Portal',
         shortLabel: 'Responsables',
         place: 'portal',
         href: responsables(),
+    },
+    {
+        id: 'search-admin',
+        num: '17',
+        navLabel: 'Buscador',
+        shortLabel: 'Buscador',
+        place: 'keywords · tesauro',
+        href: searchAdmin(),
+        requiredPermission: 'search.admin',
     },
 ];

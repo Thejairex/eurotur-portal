@@ -1,10 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\BalanzRedirectController;
+use App\Http\Controllers\Admin\BigBrotherRedirectController;
 use App\Http\Controllers\Admin\Crm\CrmIndexController;
 use App\Http\Controllers\Admin\Crm\InvoiceExecutionController;
 use App\Http\Controllers\Admin\Crm\InvoiceLoaderHistoryController;
 use App\Http\Controllers\Admin\Crm\InvoiceLoaderPageController;
 use App\Http\Controllers\Admin\Crm\InvoiceProposalController;
+use App\Http\Controllers\Admin\HerramientaEmbebidaController;
+use App\Http\Controllers\Admin\OrganigramaEditarRedirectController;
 use App\Http\Controllers\Admin\PrepagosRedirectController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
@@ -24,8 +28,23 @@ Route::middleware(['auth', 'verified'])->prefix('administracion')->name('admin.'
 
     Route::middleware('can:prepagos.manage')->get('prepagos', PrepagosRedirectController::class)->name('prepagos');
 
+    Route::middleware('can:balanz.manage')->get('balanz', BalanzRedirectController::class)->name('balanz');
+
+    Route::middleware('can:big-brother.ver')->get('big-brother', BigBrotherRedirectController::class)->name('big-brother');
+
+    Route::middleware('can:organigrama.editar')->get('organigrama', OrganigramaEditarRedirectController::class)->name('organigrama');
+
+    // Una herramienta externa mostrada DENTRO del Back Office (misma pestaña, menu al costado). El permiso
+    // lo chequea el controlador, segun la herramienta. Las rutas de arriba siguen abriendola directo.
+    Route::get('herramientas/{herramienta}', HerramientaEmbebidaController::class)->name('herramientas.embebida');
+
     Route::middleware('can:herramientas.view')->prefix('crm')->name('crm.')->group(function () {
         Route::get('/', CrmIndexController::class)->name('index');
+
+        // Pre-Balance de Modulos: herramienta de Contabilidad, dentro del Back Office.
+        Route::inertia('pre-balance', 'admin/crm/prebalance')
+            ->middleware('can:prebalance.use')
+            ->name('prebalance');
 
         Route::middleware('can:invoice-loader.manage')->prefix('cargador-facturas')->name('invoice-loader.')->group(function () {
             Route::get('/', [InvoiceLoaderPageController::class, 'index'])->name('index');

@@ -1,0 +1,93 @@
+# ---------------------------------------------------------------------------
+# Portal Eurotur -- PRE-PRODUCCION (rama "preprod")
+#
+# Entorno de pruebas del portal. Convive en el mismo servidor que produccion
+# (192.168.98.4) pero no comparte NADA con el: otro proyecto de Docker, otro
+# puerto (8200), otra base (eurotur_portal_preprod), otro volumen de storage,
+# otra cookie de sesion y otra APP_KEY.
+#
+# Uso (desde la carpeta de ESTA copia del repo, nunca desde la de produccion):
+#     docker compose -f docker-compose.preprod.yml up -d --build
+#
+# Sin interpolacion ${...} a proposito: las variables salen SOLO de
+# .env.preprod (env_file). Asi un ".env" de produccion que estuviera cerca
+# nunca se cuela en este entorno.
+#
+# Lo que esta forzado aca abajo (y gana sobre .env.preprod) son las
+# salvaguardas que NO deben depender de que alguien se acuerde de ponerlas.
+# ---------------------------------------------------------------------------
+name: eurotur-portal-preprod
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        # Imagen y contenedor propios: construir el preprod no puede pisar la
+        # imagen "eurotur-portal-app" de produccion.
+        image: eurotur-portal-preprod:latest
+        container_name: eurotur-portal-preprod
+        restart: unless-stopped
+        ports:
+            - '8200:80'
+        env_file:
+            - .env.preprod
+        environment:
+            APP_ENV: production
+            APP_DEBUG: 'false'
+            # Distintivo visual: cinta naranja + [PREPRO] en el titulo.
+            APP_PREPROD: 'true'
+            APP_URL: http://192.168.98.4:8200
+            DB_CONNECTION: pgsql
+            DB_HOST: global-postgres
+            DB_PORT: 5432
+            # Base propia de pruebas. Nunca eurotur_portal (produccion).
+            DB_DATABASE: eurotur_portal_preprod
+            SESSION_DRIVER: database
+            # Nombre propio: portal de produccion y preprod comparten host
+            # (cambia solo el puerto) y las cookies se comparten por host, no
+            # por puerto. Con el mismo nombre, entrar a uno te sacaria del otro.
+            SESSION_COOKIE: eurotur_preprod_session
+            CACHE_STORE: database
+            QUEUE_CONNECTION: database
+            # Que ningun mail de prueba salga de verdad.
+            MAIL_MAILER: log
+            # Servicios que NO se conectan en preprod. Las pantallas se ven,
+            # pero cualquier accion falla con "no se pudo conectar". Hay que
+            # definirlas igual: si faltan, config/services.php usa por defecto
+            # los nombres de los contenedores de PRODUCCION (ocr-comprobantes,
+            # cargador-facturas, euroturbot-monitor) y, como este entorno
+            # comparte red con ellos, llegaria a los reales (podria cargar
+            # facturas de verdad en Tourplan).
+            RECEIPT_OCR_URL: http://desconectado.invalid
+            RECEIPT_OCR_API_KEY: ''
+            INVOICE_LOADER_URL: http://desconectado.invalid
+            INVOICE_LOADER_API_KEY: ''
+            BOT_MONITOR_URL: http://desconectado.invalid
+            BOT_MONITOR_API_KEY: ''
+            # Panel de Prepagos de PREPRODUCCION (no el de produccion, 8498).
+            PREPAGOS_URL: http://192.168.98.4:8210
+            # Generador de Asientos Balanz de PREPRODUCCION (no el de produccion, 8499).
+            BALANZ_URL: http://192.168.98.4:8220
+            # Panel de Big Brother de PREPRODUCCION (datos ficticios; no el de produccion, 8497).
+            BIGBROTHER_URL: http://192.168.98.4:8230
+            # Organigrama de PREPRODUCCION (datos ficticios; no el de produccion, 8003).
+            ORGANIGRAMA_URL: http://192.168.98.4:8240
+        volumes:
+            - storage-data:/var/www/html/storage
+        networks:
+            - default
+            - proxy
+        logging:
+            driver: json-file
+            options:
+                max-size: '10m'
+                max-file: '3'
+
+volumes:
+    storage-data:
+
+networks:
+    # Misma red externa que usa produccion para llegar a global-postgres.
+    proxy:
+        external: true

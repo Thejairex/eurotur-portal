@@ -21,12 +21,15 @@ class PrebalancePublicationTest extends TestCase
 
     private const MIGRATION = 'database/migrations/2026_08_10_133658_publish_prebalance_modulos_portal_entries.php';
 
+    private const REMOVAL_MIGRATION = 'database/migrations/2026_10_13_120000_remove_prebalance_tool_link_from_adm_sector.php';
+
     public function test_the_seeders_publish_the_tool_across_adm_responsables_and_innovacion(): void
     {
         $this->seed(SectorLinksSeeder::class);
         $this->seed(FrenteSeeder::class);
 
-        $this->assertPublished();
+        // The tool link itself is no longer seeded: it lives in Back Office > Herramientas.
+        $this->assertPublished(toolListed: false);
     }
 
     public function test_the_data_migration_publishes_the_tool_on_an_already_seeded_database(): void
@@ -45,7 +48,7 @@ class PrebalancePublicationTest extends TestCase
 
         $this->runDataMigration();
 
-        $this->assertPublished();
+        $this->assertPublished(toolListed: true);
     }
 
     public function test_the_data_migration_is_idempotent_over_the_seeded_content(): void
@@ -56,7 +59,22 @@ class PrebalancePublicationTest extends TestCase
         $this->runDataMigration();
         $this->runDataMigration();
 
-        $this->assertPublished();
+        $this->assertPublished(toolListed: true);
+    }
+
+    public function test_the_follow_up_migration_removes_the_tool_link_from_the_adm_sector(): void
+    {
+        $this->seed(SectorLinksSeeder::class);
+        $this->seed(FrenteSeeder::class);
+        $this->runDataMigration();
+
+        $this->assertCount(1, SectorItem::query()->where('url', '/adm/prebalance')->get());
+
+        (require base_path(self::REMOVAL_MIGRATION))->up();
+
+        $this->assertSame(0, SectorItem::query()->where('url', '/adm/prebalance')->count());
+        // The public documentation entry stays.
+        $this->assertCount(1, SectorItem::query()->where('label', 'Pre-Balance de Módulos — documentación')->get());
     }
 
     private function runDataMigration(): void
@@ -64,7 +82,7 @@ class PrebalancePublicationTest extends TestCase
         (require base_path(self::MIGRATION))->up();
     }
 
-    private function assertPublished(): void
+    private function assertPublished(bool $toolListed): void
     {
         $block = SectorGroup::query()
             ->where('sector', 'adm')
@@ -74,10 +92,15 @@ class PrebalancePublicationTest extends TestCase
         $this->assertCount(1, $block, 'The adm block must exist exactly once.');
 
         $tool = SectorItem::query()->where('label', 'Pre-Balance de Módulos — herramienta')->get();
-        $this->assertCount(1, $tool);
-        $this->assertSame('/adm/prebalance', $tool->first()?->url);
-        $this->assertSame('En prueba — Contabilidad', $tool->first()?->badge);
-        $this->assertStringContainsString('prebalance', (string) $tool->first()?->keywords);
+
+        if ($toolListed) {
+            $this->assertCount(1, $tool);
+            $this->assertSame('/adm/prebalance', $tool->first()?->url);
+            $this->assertSame('En prueba — Contabilidad', $tool->first()?->badge);
+            $this->assertStringContainsString('prebalance', (string) $tool->first()?->keywords);
+        } else {
+            $this->assertCount(0, $tool);
+        }
 
         $this->assertCount(1, SectorItem::query()->where('label', 'Pre-Balance de Módulos — documentación')->get());
 

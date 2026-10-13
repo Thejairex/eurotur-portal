@@ -7,6 +7,7 @@ use App\Http\Controllers\Portal\FrenteController;
 use App\Http\Controllers\Portal\IniciativaController;
 use App\Http\Controllers\Portal\InnovacionController;
 use App\Http\Controllers\Portal\MeetingRoomController;
+use App\Http\Controllers\Portal\OrganigramaVerRedirectController;
 use App\Http\Controllers\Portal\ReceiptOcrController;
 use App\Http\Controllers\Portal\SearchAdminController;
 use App\Http\Controllers\Portal\SearchController;
@@ -25,8 +26,13 @@ Route::get('search', SearchController::class)->name('portal.search');
 Route::get('busqueda', SearchResultsController::class)->name('portal.search-results');
 Route::inertia('institucional', 'portal/institucional')->name('portal.institucional');
 Route::get('rrhh', [SectorPageController::class, 'rrhh'])->name('portal.rrhh');
+// Organigrama navegable (lectura, publica): vive en su propia app; esta ruta estable es la que
+// enlazan RRHH, Travel Designers y el buscador. Acepta ?empresa=TD etc. y los pasa a la app.
+Route::get('organigrama', OrganigramaVerRedirectController::class)->name('portal.organigrama');
 Route::get('adm', [SectorPageController::class, 'adm'])->name('portal.adm');
-Route::inertia('adm/prebalance', 'portal/adm-prebalance')->name('portal.adm.prebalance');
+// Pre-Balance se mudo al Back Office (Herramientas, permiso prebalance.use). La ruta
+// vieja redirige para no romper favoritos ni enlaces; el acceso lo controla la nueva.
+Route::redirect('adm/prebalance', '/administracion/crm/pre-balance')->name('portal.adm.prebalance');
 Route::inertia('adm/rendicion-gastos', 'portal/adm-rendicion-gastos')->name('portal.adm.rendicion');
 Route::get('contrataciones', [SectorPageController::class, 'contrataciones'])->name('portal.contrataciones');
 Route::get('operaciones', [SectorPageController::class, 'operaciones'])->name('portal.operaciones');

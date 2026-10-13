@@ -1,0 +1,51 @@
+# syntax=docker/dockerfile:1
+#
+# Imagen DESCARTABLE para correr las pruebas y los chequeos del portal sin instalar
+# PHP ni Node en la PC. No se despliega: solo sirve para validar antes de pasar de
+# preprod a produccion (ver "Regla de despliegue" en el README).
+#
+# Desde la carpeta del repo:
+#     rm -f .dockerignore        # ver la nota de abajo
+#     docker build -f docker/Dockerfile.test -t portal-tests .
+#     docker run --rm portal-tests
+#
+# IMPORTANTE: el .dockerignore principal deja afuera tests/, y solo BuildKit sabe usar el ignore propio de
+# esta imagen (docker/Dockerfile.test.dockerignore). Si el servidor no tiene buildx (ERROR: BuildKit is
+# enabled but the buildx component is missing), el constructor clasico usa el principal y PHPUnit falla con
+# "Test directory not found": se arregla borrando el .dockerignore del contexto ANTES de construir
+# (rm -f .dockerignore). Esa copia del contexto es descartable: no se despliega.
+#
+# Corre TODOS los chequeos sin cortarse en el primero que falle (docker/ci-diagnostico.sh): build,
+# ESLint, Prettier, tsc, Pint, PHPStan y PHPUnit, mostrando de cada uno solo lo necesario para arreglarlo.
+# Las pruebas usan SQLite en memoria (phpunit.xml): no tocan ninguna base real.
+# Se arma con su propio ignore (docker/Dockerfile.test.dockerignore) porque el
+# .dockerignore principal deja afuera la carpeta tests/.
+
+FROM php:8.3-cli-alpine
+
+RUN apk add --no-cache nodejs npm git unzip icu-dev libzip-dev oniguruma-dev sqlite-dev postgresql-dev \
+        libpng-dev libjpeg-turbo-dev freetype-dev $PHPIZE_DEPS \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo_sqlite pdo_pgsql intl zip bcmath pcntl gd
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /app
+
+COPY composer.json composer.lock ./
+RUN composer install --no-interaction --no-progress --no-scripts
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+
+RUN composer dump-autoload --no-interaction \
+    && cp .env.example .env \
+    && mkdir -p database/data \
+    && touch database/data/database.sqlite \
+    && php artisan key:generate --force
+
+# El build de Vite genera los tipos de rutas (Wayfinder) que necesita `tsc`, y el
+# manifiesto que esperan las paginas en las pruebas.
+CMD ["sh", "docker/ci-diagnostico.sh"]
