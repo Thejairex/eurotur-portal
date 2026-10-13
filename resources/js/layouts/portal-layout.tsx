@@ -56,7 +56,7 @@ export default function PortalLayout({
 
             <style>{`
                 .eurotur-portal ::selection { background: ${RED}; color: #fff; }
-                /* !important: los links del menu llevan `all: unset` inline, que le gana a cualquier regla de hoja de estilos */
+                /* !important: los links del menu llevan all: unset inline, que le gana a cualquier regla de hoja de estilos */
                 .eurotur-portal .nav-item:hover { background: ${RED} !important; color: #fff !important; transform: translateX(5px) !important; }
                 .eurotur-portal .nav-item:active { transform: translateX(2px) !important; }
                 .eurotur-portal .nav-item:focus-visible { outline: 2px solid ${RED}; outline-offset: 2px; }
