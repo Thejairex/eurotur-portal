@@ -34,4 +34,9 @@ export const sectorPermission = (sector: string) => `sector.${sector}.edit`;
  * list so every place gating access to it (portal sidebar, backoffice
  * sidebar) stays in sync when a new tool permission is added.
  */
-export const TOOLS_PERMISSIONS = ['invoice-loader.manage', 'prepagos.manage'];
+export const TOOLS_PERMISSIONS = [
+    'invoice-loader.manage',
+    'prepagos.manage',
+    'balanz.manage',
+    'prebalance.use',
+];

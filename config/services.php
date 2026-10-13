@@ -56,6 +56,10 @@ return [
         'url' => env('PREPAGOS_URL', 'http://192.168.98.4:8498'),
     ],
 
+    'balanz' => [
+        'url' => env('BALANZ_URL', 'http://192.168.98.4:8499'),
+    ],
+
     'meeting_room' => [
         'calendar_url' => env('MEETING_ROOM_CALENDAR_URL'),
         'instructivo_url' => env('MEETING_ROOM_INSTRUCTIVO_URL'),

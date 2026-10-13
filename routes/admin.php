@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Crm\InvoiceExecutionController;
 use App\Http\Controllers\Admin\Crm\InvoiceLoaderHistoryController;
 use App\Http\Controllers\Admin\Crm\InvoiceLoaderPageController;
 use App\Http\Controllers\Admin\Crm\InvoiceProposalController;
+use App\Http\Controllers\Admin\BalanzRedirectController;
 use App\Http\Controllers\Admin\PrepagosRedirectController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
@@ -23,6 +24,8 @@ Route::middleware(['auth', 'verified'])->prefix('administracion')->name('admin.'
     });
 
     Route::middleware('can:prepagos.manage')->get('prepagos', PrepagosRedirectController::class)->name('prepagos');
+
+    Route::middleware('can:balanz.manage')->get('balanz', BalanzRedirectController::class)->name('balanz');
 
     Route::middleware('can:herramientas.view')->prefix('crm')->name('crm.')->group(function () {
         Route::get('/', CrmIndexController::class)->name('index');

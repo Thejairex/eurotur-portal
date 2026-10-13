@@ -293,11 +293,7 @@ export const ADM_DATA: SectorIndexData = {
         {
             title: 'Contabilidad · Cierre mensual',
             items: [
-                {
-                    t: 'Pre-Balance de Módulos — herramienta',
-                    h: '/adm/prebalance',
-                    badge: 'En prueba — Contabilidad',
-                },
+                // La herramienta ya no se lista aca: se abre desde Back Office > Herramientas.
                 L(
                     'Pre-Balance de Módulos — documentación',
                     '/documentos/prebalance-modulos.docx',

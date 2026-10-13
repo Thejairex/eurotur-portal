@@ -2,7 +2,7 @@ import { Head, Link } from '@inertiajs/react';
 import InvoiceLoaderPageController from '@/actions/App/Http/Controllers/Admin/Crm/InvoiceLoaderPageController';
 import { PageHeader } from '@/components/backoffice/page-header';
 import { usePermissions } from '@/hooks/use-permissions';
-import { prepagos } from '@/routes/admin';
+import { balanz, prepagos } from '@/routes/admin';
 import type { RouteDefinition } from '@/wayfinder';
 
 type CrmTool = {
@@ -31,7 +31,28 @@ const TOOLS: CrmTool[] = [
         permission: 'prepagos.manage',
         external: true,
     },
+    {
+        label: 'Generador de Asientos Balanz',
+        description:
+            'Convertí los movimientos de la cuenta comitente de Balanz en asientos bimonetarios para Tango Gestión.',
+        href: balanz(),
+        permission: 'balanz.manage',
+        external: true,
+    },
+    {
+        label: 'Pre-Balance de Módulos',
+        description:
+            'Armá el Pre-Balance con los reportes de Tango (Sumas y Saldos y módulos) y revisá los 15 controles.',
+        href: PREBALANCE_HREF,
+        permission: 'prebalance.use',
+    },
 ];
+
+/** Pre-Balance vive en la ruta /adm/prebalance del portal (con su propio layout), protegida por permiso. */
+const PREBALANCE_HREF = {
+    url: '/adm/prebalance',
+    method: 'get',
+} as RouteDefinition<'get'>;
 
 export default function CrmIndex() {
     const { can } = usePermissions();

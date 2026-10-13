@@ -135,13 +135,9 @@ class SectorLinksSeeder extends Seeder
                     $l('Pre-Balance de Módulos — cómo se usa', '/documentos/prebalance-modulos.docx'),
                     $l('Rendición de gastos — manual de uso', '/documentos/rendicion-gastos-manual.docx'),
                 ]],
+                // La herramienta de Pre-Balance ya no se lista aca: requiere sesion y el permiso
+                // prebalance.use, y se abre desde Back Office > Herramientas.
                 ['title' => 'Contabilidad · Cierre mensual', 'items' => [
-                    [
-                        't' => 'Pre-Balance de Módulos — herramienta',
-                        'h' => '/adm/prebalance',
-                        'badge' => 'En prueba — Contabilidad',
-                        'keywords' => 'prebalance, pre-balance, balance de módulos, cierre contable, Tango, sumas y saldos',
-                    ],
                     $l('Pre-Balance de Módulos — documentación', '/documentos/prebalance-modulos.docx'),
                 ]],
             ],

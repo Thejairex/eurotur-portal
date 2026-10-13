@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Internal\HerramientaSessionController;
 use App\Http\Controllers\Internal\PrepagosSessionController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // 2xx/401/403.
 Route::get('/internal/prepagos/validar-sesion', PrepagosSessionController::class)
     ->name('internal.prepagos.validar-sesion');
+
+// Same idea, generic: any other tool hosted outside the portal (Balanz, ...) whose
+// proxy checks the session here. See HerramientaSessionController::TOOLS.
+Route::get('/internal/herramientas/{herramienta}/validar-sesion', HerramientaSessionController::class)
+    ->name('internal.herramientas.validar-sesion');
 
 require __DIR__.'/admin.php';
 require __DIR__.'/portal.php';

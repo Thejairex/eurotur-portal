@@ -8,7 +8,7 @@ import type {
     ReporteTipo,
     Resultado,
 } from '@/lib/prebalance/engine';
-import { adm } from '@/routes/portal';
+import { index as crmIndex } from '@/routes/admin/crm';
 
 const RED = '#E30613';
 const HTML_FALLBACK = '/herramientas/prebalance-modulos.html';
@@ -702,7 +702,7 @@ function Encabezado() {
                     versión offline ↗
                 </a>
                 <Link
-                    href={adm()}
+                    href={crmIndex()}
                     className="doc-link"
                     style={{
                         ...mono,
@@ -712,7 +712,7 @@ function Encabezado() {
                         color: '#666',
                     }}
                 >
-                    ← volver a administración
+                    ← volver a herramientas
                 </Link>
             </div>
         </div>
