@@ -110,7 +110,10 @@ export function BackofficeSidebar({ onNavigate }: { onNavigate?: () => void }) {
                                 key={group.area.id}
                                 className="mt-[14px] flex flex-col gap-[2px]"
                             >
-                                <div className="px-[6px] pb-[2px] bo-eyebrow">
+                                <div
+                                    className="px-[6px] pb-[2px] text-[10px] font-bold tracking-[0.14em] text-foreground uppercase"
+                                    style={{ fontFamily: 'var(--bo-mono)' }}
+                                >
                                     {group.area.label}
                                 </div>
 
@@ -122,7 +125,7 @@ export function BackofficeSidebar({ onNavigate }: { onNavigate?: () => void }) {
                                             target="_blank"
                                             rel="noreferrer"
                                             onClick={onNavigate}
-                                            className={LINK_CLASS + 'text-foreground'}
+                                            className={LINK_CLASS + 'text-muted-foreground'}
                                         >
                                             {tool.navLabel}{' '}
                                             <span aria-hidden="true">↗</span>
@@ -137,7 +140,7 @@ export function BackofficeSidebar({ onNavigate }: { onNavigate?: () => void }) {
                                                 (tool.match !== undefined &&
                                                 url.startsWith(tool.match)
                                                     ? 'bg-primary text-primary-foreground'
-                                                    : 'text-foreground')
+                                                    : 'text-muted-foreground')
                                             }
                                         >
                                             {tool.navLabel}
