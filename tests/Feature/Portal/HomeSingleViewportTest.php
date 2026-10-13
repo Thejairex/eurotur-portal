@@ -9,7 +9,6 @@ class HomeSingleViewportTest extends TestCase
 {
     use RefreshDatabase;
 
-
     public function test_home_renders_without_error(): void
     {
         $this->get('/')->assertOk()->assertInertia(fn ($p) => $p->component('portal/home'));

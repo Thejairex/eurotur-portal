@@ -312,9 +312,6 @@ export default function Home() {
                                             style={{
                                                 borderRight: '1px dotted #ccc',
                                                 paddingRight: '12px',
-                                                ':last-child': {
-                                                    borderRight: 'none',
-                                                },
                                             }}
                                         >
                                             <div
