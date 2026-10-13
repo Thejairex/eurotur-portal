@@ -203,13 +203,15 @@ PHPUnit). Las pruebas usan SQLite en memoria: no tocan ninguna base real.
 Desde la carpeta del repo:
 
 ```bash
-DOCKER_BUILDKIT=1 docker build -f docker/Dockerfile.test -t portal-tests .
+rm -f .dockerignore   # solo en una copia descartable del repo (ver docker/Dockerfile.test)
+docker build -f docker/Dockerfile.test -t portal-tests .
 docker run --rm portal-tests
 ```
 
 Es el chequeo que corresponde antes de pasar de `preprod` a `main`. Corre build, ESLint, Prettier,
 `tsc`, Pint, PHPStan y PHPUnit **sin cortarse en el primero que falle** y termina con un resumen
-("TODO VERDE" o la lista de lo que falló). Usar `DOCKER_BUILDKIT=1` es obligatorio (ver `docker/Dockerfile.test`).
+("TODO VERDE" o la lista de lo que falló). Si el servidor no tiene `buildx`, hay que borrar el `.dockerignore` de
+la copia antes de construir (ver `docker/Dockerfile.test`).
 Conviene armar el contexto desde Git (`git archive`) y no desde una carpeta de Windows: los saltos de línea
 CRLF hacen fallar a Pint y Prettier en Linux.
 

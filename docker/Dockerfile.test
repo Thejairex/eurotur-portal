@@ -5,11 +5,15 @@
 # preprod a produccion (ver "Regla de despliegue" en el README).
 #
 # Desde la carpeta del repo:
-#     DOCKER_BUILDKIT=1 docker build -f docker/Dockerfile.test -t portal-tests .
+#     rm -f .dockerignore        # ver la nota de abajo
+#     docker build -f docker/Dockerfile.test -t portal-tests .
 #     docker run --rm portal-tests
 #
-# IMPORTANTE: con DOCKER_BUILDKIT=1. El constructor viejo de Docker ignora docker/Dockerfile.test.dockerignore
-# y usa el .dockerignore principal, que deja afuera tests/: PHPUnit falla con "Test directory not found".
+# IMPORTANTE: el .dockerignore principal deja afuera tests/, y solo BuildKit sabe usar el ignore propio de
+# esta imagen (docker/Dockerfile.test.dockerignore). Si el servidor no tiene buildx (ERROR: BuildKit is
+# enabled but the buildx component is missing), el constructor clasico usa el principal y PHPUnit falla con
+# "Test directory not found": se arregla borrando el .dockerignore del contexto ANTES de construir
+# (rm -f .dockerignore). Esa copia del contexto es descartable: no se despliega.
 #
 # Corre TODOS los chequeos sin cortarse en el primero que falle (docker/ci-diagnostico.sh): build,
 # ESLint, Prettier, tsc, Pint, PHPStan y PHPUnit, mostrando de cada uno solo lo necesario para arreglarlo.
