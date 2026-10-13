@@ -1,5 +1,6 @@
 import { usePage } from '@inertiajs/react';
 import { useCallback, useMemo } from 'react';
+import { BACKOFFICE_TOOLS } from '@/lib/backoffice-tools';
 
 /**
  * Reads the permission slugs shared by HandleInertiaRequests. Admins receive
@@ -30,15 +31,9 @@ export const sectorPermission = (sector: string) => `sector.${sector}.edit`;
 
 /**
  * Permissions that unlock at least one card on the "Herramientas" hub —
- * mirrors the backend's `Permission::toolsPermissions()`. Kept as a single
- * list so every place gating access to it (portal sidebar, backoffice
- * sidebar) stays in sync when a new tool permission is added.
+ * mirrors the backend's `Permission::toolsPermissions()`. Derived from the
+ * single list of tools (lib/backoffice-tools.ts), so every place gating access
+ * to the hub (portal sidebar, backoffice sidebar) stays in sync when a tool is
+ * added there.
  */
-export const TOOLS_PERMISSIONS = [
-    'invoice-loader.manage',
-    'prepagos.manage',
-    'balanz.manage',
-    'prebalance.use',
-    'big-brother.ver',
-    'organigrama.editar',
-];
+export const TOOLS_PERMISSIONS = BACKOFFICE_TOOLS.map((tool) => tool.permission);

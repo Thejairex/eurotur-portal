@@ -1,7 +1,8 @@
 import { Link, usePage } from '@inertiajs/react';
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
-import { TOOLS_PERMISSIONS, usePermissions } from '@/hooks/use-permissions';
+import { usePermissions } from '@/hooks/use-permissions';
+import { BACKOFFICE_TOOLS, TOOL_AREAS } from '@/lib/backoffice-tools';
 import { home } from '@/routes';
 import { index as crmIndex } from '@/routes/admin/crm';
 import { index as rolesIndex } from '@/routes/admin/roles';
@@ -15,10 +16,10 @@ type NavEntry = {
     match: string;
 };
 
-const TOOLS: NavEntry = {
+/** Pantalla de inicio de las herramientas (todas las tarjetas, por área). */
+const HUB = {
     label: 'Herramientas',
     href: crmIndex(),
-    permission: TOOLS_PERMISSIONS,
     match: '/administracion/crm',
 };
 
@@ -55,7 +56,14 @@ export function BackofficeSidebar({ onNavigate }: { onNavigate?: () => void }) {
             ? canAny(...item.permission)
             : can(item.permission);
 
-    const showTools = allowed(TOOLS);
+    // Herramientas habilitadas para este usuario, agrupadas por área (las áreas vacías no se muestran).
+    const tools = BACKOFFICE_TOOLS.filter((tool) => can(tool.permission));
+    const areas = TOOL_AREAS.map((area) => ({
+        area,
+        tools: tools.filter((tool) => tool.area === area.id),
+    })).filter((group) => group.tools.length > 0);
+    const hubActive = url.split('?')[0].replace(/\/+$/, '') === HUB.match;
+
     const configItems = CONFIG_ITEMS.filter(allowed);
     const configActive = configItems.some((item) => url.startsWith(item.match));
 
@@ -82,19 +90,63 @@ export function BackofficeSidebar({ onNavigate }: { onNavigate?: () => void }) {
             <div className="my-[24px] h-px bg-foreground" />
 
             <nav className="flex flex-1 flex-col gap-[2px]">
-                {showTools && (
-                    <Link
-                        href={TOOLS.href}
-                        onClick={onNavigate}
-                        className={
-                            LINK_CLASS +
-                            (url.startsWith(TOOLS.match)
-                                ? 'bg-primary text-primary-foreground'
-                                : 'text-foreground')
-                        }
-                    >
-                        {TOOLS.label}
-                    </Link>
+                {tools.length > 0 && (
+                    <>
+                        <Link
+                            href={HUB.href}
+                            onClick={onNavigate}
+                            className={
+                                LINK_CLASS +
+                                (hubActive
+                                    ? 'bg-primary text-primary-foreground'
+                                    : 'text-foreground')
+                            }
+                        >
+                            {HUB.label}
+                        </Link>
+
+                        {areas.map((group) => (
+                            <div
+                                key={group.area.id}
+                                className="mt-[14px] flex flex-col gap-[2px]"
+                            >
+                                <div className="px-[6px] pb-[2px] bo-eyebrow">
+                                    {group.area.label}
+                                </div>
+
+                                {group.tools.map((tool) =>
+                                    tool.external ? (
+                                        <a
+                                            key={tool.id}
+                                            href={tool.href.url}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            onClick={onNavigate}
+                                            className={LINK_CLASS + 'text-foreground'}
+                                        >
+                                            {tool.navLabel}{' '}
+                                            <span aria-hidden="true">↗</span>
+                                        </a>
+                                    ) : (
+                                        <Link
+                                            key={tool.id}
+                                            href={tool.href}
+                                            onClick={onNavigate}
+                                            className={
+                                                LINK_CLASS +
+                                                (tool.match !== undefined &&
+                                                url.startsWith(tool.match)
+                                                    ? 'bg-primary text-primary-foreground'
+                                                    : 'text-foreground')
+                                            }
+                                        >
+                                            {tool.navLabel}
+                                        </Link>
+                                    ),
+                                )}
+                            </div>
+                        ))}
+                    </>
                 )}
             </nav>
 

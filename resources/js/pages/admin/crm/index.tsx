@@ -1,73 +1,52 @@
 import { Head, Link } from '@inertiajs/react';
-import InvoiceLoaderPageController from '@/actions/App/Http/Controllers/Admin/Crm/InvoiceLoaderPageController';
 import { PageHeader } from '@/components/backoffice/page-header';
 import { usePermissions } from '@/hooks/use-permissions';
-import { balanz, bigBrother, organigrama, prepagos } from '@/routes/admin';
-import { prebalance } from '@/routes/admin/crm';
-import type { RouteDefinition } from '@/wayfinder';
+import { BACKOFFICE_TOOLS, TOOL_AREAS } from '@/lib/backoffice-tools';
+import type { BackofficeTool } from '@/lib/backoffice-tools';
 
-type CrmTool = {
-    label: string;
-    description: string;
-    href: RouteDefinition<'get'>;
-    permission: string;
-    /** Opens in a new tab instead of an Inertia visit — for tools hosted outside the portal. */
-    external?: boolean;
-};
+function ToolCard({ tool }: { tool: BackofficeTool }) {
+    const className =
+        'block border border-border p-5 transition-colors hover:border-primary';
 
-/** Ordered — the first entry is the first option under Herramientas. */
-const TOOLS: CrmTool[] = [
-    {
-        label: 'Cargador de Facturas',
-        description:
-            'Subí el Excel de Tango, revisá la propuesta y cargá las facturas de proveedores en Tourplan.',
-        href: InvoiceLoaderPageController.index(),
-        permission: 'invoice-loader.manage',
-    },
-    {
-        label: 'Panel de Prepagos',
-        description:
-            'Calculá los importes a pagar a proveedores, revisá riesgos de sobrepago y gestioná la bandeja del analista.',
-        href: prepagos(),
-        permission: 'prepagos.manage',
-        external: true,
-    },
-    {
-        label: 'Generador de Asientos Balanz',
-        description:
-            'Convertí los movimientos de la cuenta comitente de Balanz en asientos bimonetarios para Tango Gestión.',
-        href: balanz(),
-        permission: 'balanz.manage',
-        external: true,
-    },
-    {
-        label: 'Big Brother — Vencimientos',
-        description:
-            'Seguí el estado de los vencimientos no rutinarios de las unidades: vencidos, por vencer y datos que faltan.',
-        href: bigBrother(),
-        permission: 'big-brother.ver',
-        external: true,
-    },
-    {
-        label: 'Organigrama — Edición',
-        description:
-            'Da de alta, baja y mueve personas, sube fotos e importa planillas del organigrama. La lectura es pública en el sector RRHH.',
-        href: organigrama(),
-        permission: 'organigrama.editar',
-        external: true,
-    },
-    {
-        label: 'Pre-Balance de Módulos',
-        description:
-            'Armá el Pre-Balance con los reportes de Tango (Sumas y Saldos y módulos) y revisá los 15 controles.',
-        href: prebalance(),
-        permission: 'prebalance.use',
-    },
-];
+    const content = (
+        <>
+            <div className="text-[15px] font-bold">{tool.label}</div>
+            <p className="mt-2 text-sm text-muted-foreground">
+                {tool.description}
+            </p>
+        </>
+    );
+
+    // Las herramientas que viven fuera del portal se abren en otra pestaña.
+    if (tool.external) {
+        return (
+            <a
+                href={tool.href.url}
+                target="_blank"
+                rel="noreferrer"
+                className={className}
+            >
+                {content}
+            </a>
+        );
+    }
+
+    return (
+        <Link href={tool.href} className={className}>
+            {content}
+        </Link>
+    );
+}
 
 export default function CrmIndex() {
     const { can } = usePermissions();
-    const tools = TOOLS.filter((tool) => can(tool.permission));
+    const tools = BACKOFFICE_TOOLS.filter((tool) => can(tool.permission));
+
+    // Solo se muestran las áreas que tienen alguna herramienta habilitada para este usuario.
+    const groups = TOOL_AREAS.map((area) => ({
+        area,
+        tools: tools.filter((tool) => tool.area === area.id),
+    })).filter((group) => group.tools.length > 0);
 
     return (
         <>
@@ -76,41 +55,20 @@ export default function CrmIndex() {
             <PageHeader
                 eyebrow="Administración"
                 title="Herramientas"
-                description="Herramientas de integración con sistemas externos."
+                description="Las herramientas a las que tenés acceso, por área."
             />
 
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {tools.map((tool) =>
-                    tool.external ? (
-                        <a
-                            key={tool.label}
-                            href={tool.href.url}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="block border border-border p-5 transition-colors hover:border-primary"
-                        >
-                            <div className="text-[15px] font-bold">
-                                {tool.label}
-                            </div>
-                            <p className="mt-2 text-sm text-muted-foreground">
-                                {tool.description}
-                            </p>
-                        </a>
-                    ) : (
-                        <Link
-                            key={tool.label}
-                            href={tool.href}
-                            className="block border border-border p-5 transition-colors hover:border-primary"
-                        >
-                            <div className="text-[15px] font-bold">
-                                {tool.label}
-                            </div>
-                            <p className="mt-2 text-sm text-muted-foreground">
-                                {tool.description}
-                            </p>
-                        </Link>
-                    ),
-                )}
+            <div className="mt-6 flex flex-col gap-8">
+                {groups.map((group) => (
+                    <section key={group.area.id}>
+                        <h2 className="mb-3 bo-eyebrow">{group.area.label}</h2>
+                        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                            {group.tools.map((tool) => (
+                                <ToolCard key={tool.id} tool={tool} />
+                            ))}
+                        </div>
+                    </section>
+                ))}
             </div>
         </>
     );
