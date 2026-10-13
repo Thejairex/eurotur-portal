@@ -1,6 +1,7 @@
 import InvoiceLoaderPageController from '@/actions/App/Http/Controllers/Admin/Crm/InvoiceLoaderPageController';
-import { balanz, bigBrother, organigrama, prepagos } from '@/routes/admin';
+import { balanz, organigrama, prepagos } from '@/routes/admin';
 import { prebalance } from '@/routes/admin/crm';
+import { embebida } from '@/routes/admin/herramientas';
 import type { RouteDefinition } from '@/wayfinder';
 
 /**
@@ -46,7 +47,10 @@ export type BackofficeTool = {
     description: string;
     href: RouteDefinition<'get'>;
     permission: string;
-    /** Se abre en otra pestaña (herramientas que viven fuera del portal). */
+    /**
+     * Se abre en otra pestaña (herramientas externas que todavía no se muestran dentro del Back Office).
+     * Las que sí se muestran adentro usan la ruta `herramientas.embebida` y NO llevan este campo.
+     */
     external?: boolean;
     /** Prefijo de URL para marcar la opción como activa (solo herramientas dentro del portal). */
     match?: string;
@@ -115,8 +119,9 @@ export const BACKOFFICE_TOOLS: BackofficeTool[] = [
         navLabel: 'Big Brother',
         description:
             'Seguí el estado de los vencimientos no rutinarios de las unidades: vencidos, por vencer y datos que faltan.',
-        href: bigBrother(),
+        // Se muestra dentro del Back Office (ver HerramientaEmbebidaController).
+        href: embebida({ herramienta: 'big-brother' }),
         permission: 'big-brother.ver',
-        external: true,
+        match: '/administracion/herramientas/big-brother',
     },
 ];

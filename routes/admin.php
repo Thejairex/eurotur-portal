@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Crm\InvoiceLoaderPageController;
 use App\Http\Controllers\Admin\Crm\InvoiceProposalController;
 use App\Http\Controllers\Admin\BalanzRedirectController;
 use App\Http\Controllers\Admin\BigBrotherRedirectController;
+use App\Http\Controllers\Admin\HerramientaEmbebidaController;
 use App\Http\Controllers\Admin\OrganigramaEditarRedirectController;
 use App\Http\Controllers\Admin\PrepagosRedirectController;
 use App\Http\Controllers\Admin\RoleController;
@@ -32,6 +33,10 @@ Route::middleware(['auth', 'verified'])->prefix('administracion')->name('admin.'
     Route::middleware('can:big-brother.ver')->get('big-brother', BigBrotherRedirectController::class)->name('big-brother');
 
     Route::middleware('can:organigrama.editar')->get('organigrama', OrganigramaEditarRedirectController::class)->name('organigrama');
+
+    // Una herramienta externa mostrada DENTRO del Back Office (misma pestaña, menu al costado). El permiso
+    // lo chequea el controlador, segun la herramienta. Las rutas de arriba siguen abriendola directo.
+    Route::get('herramientas/{herramienta}', HerramientaEmbebidaController::class)->name('herramientas.embebida');
 
     Route::middleware('can:herramientas.view')->prefix('crm')->name('crm.')->group(function () {
         Route::get('/', CrmIndexController::class)->name('index');
