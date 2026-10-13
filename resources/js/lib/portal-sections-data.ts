@@ -758,7 +758,9 @@ export const TRAVELDESIGNERS_DATA: SectorIndexData = {
         },
         {
             title: 'Organigrama',
-            items: [L('Organigrama Travel Designers', '/organigrama?empresa=TD')],
+            items: [
+                L('Organigrama Travel Designers', '/organigrama?empresa=TD'),
+            ],
         },
         {
             title: 'Dirección',

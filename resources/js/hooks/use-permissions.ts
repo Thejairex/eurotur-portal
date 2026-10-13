@@ -36,4 +36,6 @@ export const sectorPermission = (sector: string) => `sector.${sector}.edit`;
  * to the hub (portal sidebar, backoffice sidebar) stays in sync when a tool is
  * added there.
  */
-export const TOOLS_PERMISSIONS = BACKOFFICE_TOOLS.map((tool) => tool.permission);
+export const TOOLS_PERMISSIONS = BACKOFFICE_TOOLS.map(
+    (tool) => tool.permission,
+);

@@ -16,10 +16,7 @@ import type { RouteDefinition } from '@/wayfinder';
  */
 
 export type ToolAreaId =
-    | 'cuentas-a-pagar'
-    | 'contabilidad'
-    | 'rrhh'
-    | 'administracion';
+    'cuentas-a-pagar' | 'contabilidad' | 'rrhh' | 'administracion';
 
 export type ToolArea = {
     id: ToolAreaId;

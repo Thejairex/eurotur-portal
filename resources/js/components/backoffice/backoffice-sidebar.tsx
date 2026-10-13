@@ -125,7 +125,10 @@ export function BackofficeSidebar({ onNavigate }: { onNavigate?: () => void }) {
                                             target="_blank"
                                             rel="noreferrer"
                                             onClick={onNavigate}
-                                            className={LINK_CLASS + 'text-muted-foreground'}
+                                            className={
+                                                LINK_CLASS +
+                                                'text-muted-foreground'
+                                            }
                                         >
                                             {tool.navLabel}{' '}
                                             <span aria-hidden="true">↗</span>
@@ -170,7 +173,8 @@ export function BackofficeSidebar({ onNavigate }: { onNavigate?: () => void }) {
                             style={{
                                 WebkitMaskImage:
                                     "url('/img/icons/configuracion.png')",
-                                maskImage: "url('/img/icons/configuracion.png')",
+                                maskImage:
+                                    "url('/img/icons/configuracion.png')",
                                 WebkitMaskSize: 'contain',
                                 maskSize: 'contain',
                                 WebkitMaskRepeat: 'no-repeat',
