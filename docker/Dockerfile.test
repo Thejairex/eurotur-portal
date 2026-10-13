@@ -1,0 +1,41 @@
+# syntax=docker/dockerfile:1
+#
+# Imagen DESCARTABLE para correr las pruebas y los chequeos del portal sin instalar
+# PHP ni Node en la PC. No se despliega: solo sirve para validar antes de pasar de
+# preprod a produccion (ver "Regla de despliegue" en el README).
+#
+# Desde la carpeta del repo:
+#     docker build -f docker/Dockerfile.test -t portal-tests .
+#     docker run --rm portal-tests
+#
+# Corre `composer run ci:check`: ESLint, Prettier, tsc, Pint, PHPStan y PHPUnit.
+# Las pruebas usan SQLite en memoria (phpunit.xml): no tocan ninguna base real.
+# Se arma con su propio ignore (docker/Dockerfile.test.dockerignore) porque el
+# .dockerignore principal deja afuera la carpeta tests/.
+
+FROM php:8.3-cli-alpine
+
+RUN apk add --no-cache nodejs npm git unzip icu-dev libzip-dev oniguruma-dev sqlite-dev postgresql-dev $PHPIZE_DEPS \
+    && docker-php-ext-install pdo_sqlite pdo_pgsql intl zip bcmath pcntl
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /app
+
+COPY composer.json composer.lock ./
+RUN composer install --no-interaction --no-progress --no-scripts
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+
+RUN composer dump-autoload --no-interaction \
+    && cp .env.example .env \
+    && mkdir -p database/data \
+    && touch database/data/database.sqlite \
+    && php artisan key:generate --force
+
+# El build de Vite genera los tipos de rutas (Wayfinder) que necesita `tsc`, y el
+# manifiesto que esperan las paginas en las pruebas.
+CMD ["sh", "-c", "npm run build && composer run ci:check"]

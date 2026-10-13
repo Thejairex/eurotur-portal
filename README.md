@@ -195,6 +195,20 @@ php artisan test --compact tests/Feature/Admin/Crm   # una carpeta puntual
 php artisan test --compact --filter=nombreDelTest     # un test puntual
 ```
 
+### Sin instalar PHP ni Node: con Docker
+
+`docker/Dockerfile.test` arma una imagen descartable que corre
+`composer run ci:check` completo (ESLint, Prettier, tsc, Pint, PHPStan y
+PHPUnit). Las pruebas usan SQLite en memoria: no tocan ninguna base real.
+Desde la carpeta del repo:
+
+```bash
+docker build -f docker/Dockerfile.test -t portal-tests .
+docker run --rm portal-tests
+```
+
+Es el chequeo que corresponde antes de pasar de `preprod` a `main`.
+
 ## Despliegue (producción)
 
 El proyecto se despliega vía Docker (`Dockerfile`, `docker-compose.yml`,
