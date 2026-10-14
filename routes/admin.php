@@ -15,6 +15,9 @@ use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->prefix('administracion')->name('admin.')->group(function () {
+    // /administracion a secas no existia (404): lleva al inicio del Back Office.
+    Route::redirect('/', '/administracion/crm');
+
     Route::middleware('can:users.manage')->group(function () {
         Route::resource('usuarios', UserController::class)
             ->parameters(['usuarios' => 'user'])

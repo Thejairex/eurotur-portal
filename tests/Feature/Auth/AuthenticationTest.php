@@ -19,6 +19,15 @@ class AuthenticationTest extends TestCase
         $response->assertOk();
     }
 
+    public function test_authenticated_users_visiting_the_login_screen_go_to_the_portal_not_the_dashboard()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('login'));
+
+        $response->assertRedirect('/');
+    }
+
     public function test_users_can_authenticate_using_the_login_screen()
     {
         $user = User::factory()->create();

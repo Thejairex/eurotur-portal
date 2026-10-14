@@ -17,6 +17,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 
+        // Quien ya tiene sesion y llega a una pantalla de invitados (/login, ...) vuelve
+        // al portal, no a /dashboard (pagina sobrante del starter kit).
+        $middleware->redirectUsersTo('/');
+
         $middleware->web(append: [
             HandleAppearance::class,
             HandleInertiaRequests::class,
