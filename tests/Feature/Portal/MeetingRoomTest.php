@@ -2,11 +2,14 @@
 
 namespace Tests\Feature\Portal;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 
 class MeetingRoomTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_it_renders_the_meeting_room_page_with_the_calendar_embed(): void
     {
         Config::set('services.meeting_room.calendar_url', 'https://www.google.com/calendar/embed?src=calendar-id@group.calendar.google.com');

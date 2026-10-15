@@ -1,6 +1,7 @@
 import { Form, Head, Link, router, usePage } from '@inertiajs/react';
+import { Facebook, Instagram, Linkedin, Youtube } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import type { ReactNode } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 import { PortalTour } from '@/components/portal/portal-tour';
 import { TOOLS_PERMISSIONS, usePermissions } from '@/hooks/use-permissions';
 import { isRateStale } from '@/lib/exchange-rates';
@@ -69,6 +70,7 @@ export default function PortalLayout({
                 .eurotur-portal .tile:hover { background-image: linear-gradient(rgba(227,6,19,.55),rgba(227,6,19,.55)),var(--tile-photo); color: #fff; transform: translateY(-5px); }
                 .eurotur-portal .doc-link:hover { color: ${RED}; border-color: ${RED}; transform: translateX(3px); }
                 .eurotur-portal .search-result:hover { background: ${RED}; color: #fff; }
+                .eurotur-portal .social-link:hover { color: ${RED}; }
                 .eurotur-portal .search-result:hover div { color: #fff !important; }
                 .eurotur-portal .search-result-active { background: ${RED}; color: #fff; }
                 .eurotur-portal .search-result-active div { color: #fff !important; }
@@ -918,20 +920,51 @@ function Header({
 
 const PORTAL_PHONE = 'tel:+541143126077';
 
-const SOCIAL_LINKS: { label: string; href: string }[] = [
-    { label: 'facebook', href: 'https://www.facebook.com/Eurotur.Incoming' },
+/** Flickr no está en lucide: su logo son dos puntos. */
+function FlickrIcon({ size = 16 }: { size?: number }) {
+    return (
+        <svg
+            width={size}
+            height={size}
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+        >
+            <circle cx="7" cy="12" r="5" />
+            <circle cx="17" cy="12" r="5" />
+        </svg>
+    );
+}
+
+const SOCIAL_LINKS: {
+    label: string;
+    href: string;
+    icon: ComponentType<{ size?: number }>;
+}[] = [
     {
-        label: 'instagram',
+        label: 'Facebook',
+        href: 'https://www.facebook.com/Eurotur.Incoming',
+        icon: Facebook,
+    },
+    {
+        label: 'Instagram',
         href: 'https://www.instagram.com/eurotur.incoming/',
+        icon: Instagram,
     },
     {
-        label: 'linkedin',
+        label: 'LinkedIn',
         href: 'https://www.linkedin.com/company/euroturincoming',
+        icon: Linkedin,
     },
-    { label: 'youtube', href: 'https://www.youtube.com/c/Euroturincoming' },
     {
-        label: 'flickr',
+        label: 'YouTube',
+        href: 'https://www.youtube.com/c/Euroturincoming',
+        icon: Youtube,
+    },
+    {
+        label: 'Flickr',
         href: 'https://www.flickr.com/photos/182100254@N02/',
+        icon: FlickrIcon,
     },
 ];
 
@@ -972,51 +1005,61 @@ function Footer() {
                     <span style={{ color: '#999' }}>email</span>
                     &nbsp;&nbsp;
                     <a
-                        href="mailto:correo@eurotur.tur.ar"
+                        href="mailto:valentina.homez@eurotur.tur.ar"
                         style={{ color: 'inherit', textDecoration: 'none' }}
                     >
-                        correo@eurotur.tur.ar
+                        valentina.homez@eurotur.tur.ar
                     </a>
                 </span>
                 <span style={{ color: '#999' }}>
-                    Viamonte 486 (C1053ABJ) Buenos Aires, Argentina
+                    Tucumán 825, piso 5, Capital Federal, Argentina
                 </span>
             </div>
             <div
                 style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '16px',
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: '10px',
-                    letterSpacing: '0.08em',
-                    textTransform: 'uppercase',
-                    color: '#999',
+                    gap: '28px',
                 }}
             >
-                <span>redes —</span>
-                {SOCIAL_LINKS.map((social) => (
-                    <a
-                        key={social.label}
-                        href={social.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{
-                            color: 'inherit',
-                            textDecoration: 'none',
-                            borderBottom: '1px dotted #999',
-                            transition: 'color .12s',
-                        }}
-                    >
-                        {social.label}
-                    </a>
-                ))}
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '16px',
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '10px',
+                        letterSpacing: '0.08em',
+                        textTransform: 'uppercase',
+                        color: '#999',
+                    }}
+                >
+                    <span>redes —</span>
+                    {SOCIAL_LINKS.map((social) => (
+                        <a
+                            key={social.label}
+                            href={social.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label={social.label}
+                            title={social.label}
+                            className="social-link"
+                            style={{
+                                display: 'inline-flex',
+                                color: 'inherit',
+                                transition: 'color .12s',
+                            }}
+                        >
+                            <social.icon size={16} />
+                        </a>
+                    ))}
+                </div>
+                <img
+                    src="/eurotur-logo.png"
+                    alt="Eurotur"
+                    style={{ height: '38px', width: 'auto', display: 'block' }}
+                />
             </div>
-            <img
-                src="/eurotur-logo.png"
-                alt="Eurotur"
-                style={{ height: '38px', width: 'auto', display: 'block' }}
-            />
         </footer>
     );
 }

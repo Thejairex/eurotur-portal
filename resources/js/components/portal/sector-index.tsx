@@ -1,9 +1,10 @@
-import { Form } from '@inertiajs/react';
+import { Form, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import SectorGroupController from '@/actions/App/Http/Controllers/Portal/SectorGroupController';
 import SectorItemController from '@/actions/App/Http/Controllers/Portal/SectorItemController';
 import InputError from '@/components/input-error';
 import { sectorPermission, usePermissions } from '@/hooks/use-permissions';
+import { formatMaintLine } from '@/lib/sector-updated';
 
 const RED = '#E30613';
 const LINK_UNDERLINE = '1px solid #c4c4c4';
@@ -56,6 +57,7 @@ export function SectorIndex({
     sector: string;
 }) {
     const { can } = usePermissions();
+    const { sectorUpdates } = usePage().props;
     // Editing is scoped to the sector this index renders, not to the portal
     // as a whole: a sector editor must not see controls they cannot use.
     const canEdit = can(sectorPermission(sector));
@@ -189,7 +191,8 @@ export function SectorIndex({
                         color: '#666',
                     }}
                 >
-                    mantiene— {data.maint}
+                    mantiene—{' '}
+                    {formatMaintLine(data.maint, sectorUpdates[sector])}
                 </div>
             </div>
         </section>

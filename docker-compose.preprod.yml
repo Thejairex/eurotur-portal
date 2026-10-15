@@ -37,6 +37,9 @@ services:
             APP_DEBUG: 'false'
             # Distintivo visual: cinta naranja + [PREPRO] en el titulo.
             APP_PREPROD: 'true'
+            # Mesa de Informacion: lee las dos hojas de Google (solo lectura) con la cuenta de servicio
+            # montada abajo. Para probar con datos ficticios: MESA_DATOS_EJEMPLO: 'true'.
+            GOOGLE_SERVICE_ACCOUNT_FILE: /run/secrets/google-mesa.json
             APP_URL: http://192.168.98.4:8200
             DB_CONNECTION: pgsql
             DB_HOST: global-postgres
@@ -75,6 +78,9 @@ services:
             ORGANIGRAMA_URL: http://192.168.98.4:8240
         volumes:
             - storage-data:/var/www/html/storage
+            # Clave de la cuenta de servicio (solo lectura). Copiarla ANTES de levantar: si el archivo no
+            # existe en el servidor, Docker crea una carpeta con ese nombre.
+            - /home/vhomez/secretos/google-mesa.json:/run/secrets/google-mesa.json:ro
         networks:
             - default
             - proxy

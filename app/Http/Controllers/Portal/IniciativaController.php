@@ -7,6 +7,7 @@ use App\Http\Requests\Portal\StoreIniciativaRequest;
 use App\Http\Requests\Portal\UpdateIniciativaRequest;
 use App\Models\Frente;
 use App\Models\Iniciativa;
+use App\Services\SectorUpdates;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -30,6 +31,8 @@ class IniciativaController extends Controller
             'file_path' => $this->storeFile($request),
             'sort_order' => $nextSortOrder,
         ]);
+
+        SectorUpdates::registrar('innovacion');
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Iniciativa agregada.')]);
 
@@ -67,6 +70,8 @@ class IniciativaController extends Controller
 
         $iniciativa->update($attributes);
 
+        SectorUpdates::registrar('innovacion');
+
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Iniciativa actualizada.')]);
 
         return back();
@@ -82,6 +87,8 @@ class IniciativaController extends Controller
         }
 
         $iniciativa->delete();
+
+        SectorUpdates::registrar('innovacion');
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Iniciativa eliminada.')]);
 

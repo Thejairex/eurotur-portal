@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Portal\StoreFrenteRequest;
 use App\Http\Requests\Portal\UpdateFrenteRequest;
 use App\Models\Frente;
+use App\Services\SectorUpdates;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 
@@ -23,6 +24,8 @@ class FrenteController extends Controller
             'sort_order' => $nextSortOrder,
         ]);
 
+        SectorUpdates::registrar('innovacion');
+
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Frente agregado.')]);
 
         return back();
@@ -35,6 +38,8 @@ class FrenteController extends Controller
     {
         $frente->update($request->validated());
 
+        SectorUpdates::registrar('innovacion');
+
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Frente actualizado.')]);
 
         return back();
@@ -46,6 +51,8 @@ class FrenteController extends Controller
     public function destroy(Frente $frente): RedirectResponse
     {
         $frente->delete();
+
+        SectorUpdates::registrar('innovacion');
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Frente eliminado.')]);
 

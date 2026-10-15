@@ -7,6 +7,7 @@ use App\Http\Controllers\Portal\FrenteController;
 use App\Http\Controllers\Portal\IniciativaController;
 use App\Http\Controllers\Portal\InnovacionController;
 use App\Http\Controllers\Portal\MeetingRoomController;
+use App\Http\Controllers\Portal\MesaDatosController;
 use App\Http\Controllers\Portal\OrganigramaVerRedirectController;
 use App\Http\Controllers\Portal\ReceiptOcrController;
 use App\Http\Controllers\Portal\SearchAdminController;
@@ -43,6 +44,7 @@ Route::get('sales', [SectorPageController::class, 'sales'])->name('portal.sales'
 Route::get('traveldesigners', [SectorPageController::class, 'traveldesigners'])->name('portal.traveldesigners');
 Route::get('it', [SectorPageController::class, 'it'])->name('portal.it');
 Route::inertia('mesa', 'portal/mesa')->name('portal.mesa');
+Route::get('mesa/datos', MesaDatosController::class)->middleware('throttle:120,1')->name('portal.mesa.datos');
 Route::get('sala-de-reuniones', MeetingRoomController::class)->name('portal.meeting-room');
 Route::get('responsables', [SectorPageController::class, 'responsables'])->name('portal.responsables');
 Route::get('innovacion', InnovacionController::class)->name('portal.innovacion');

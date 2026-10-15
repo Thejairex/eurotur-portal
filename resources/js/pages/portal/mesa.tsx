@@ -1,7 +1,19 @@
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { useRef, useState } from 'react';
-import type { ReactNode } from 'react';
-import { ImageSlot } from '@/components/portal/image-slot';
+import type { CSSProperties } from 'react';
+import { MesaEnVivo } from '@/components/portal/mesa-en-vivo';
+import {
+    Aviso,
+    Guia,
+    IndiceAyuda,
+    MesaEstilos,
+    Paso,
+    Revelar,
+    Rico,
+    Subtitulo,
+} from '@/components/portal/mesa-guias';
+import type { AtajoAyuda } from '@/components/portal/mesa-guias';
+import { copyText } from '@/lib/copy-text';
 
 const RED = '#E30613';
 
@@ -22,37 +34,115 @@ const CREDENTIALS: Credential[] = [
     },
 ];
 
-function StepRow({ n, children }: { n: string; children: ReactNode }) {
+const ATAJOS: AtajoAyuda[] = [
+    { id: 'llamadas', emoji: '📞', texto: 'Hacer o pasar una llamada' },
+    { id: 'vpn', emoji: '🔒', texto: 'Mi VPN no conecta' },
+    { id: 'apagado', emoji: '💤', texto: 'La pantalla se apaga sola' },
+    { id: 'contrasena', emoji: '🔑', texto: 'Cambiar mi contraseña' },
+    {
+        id: 'pantallas',
+        emoji: '🖥️',
+        texto: 'Usar un monitor con la notebook',
+    },
+    {
+        id: 'sonido',
+        emoji: '🔊',
+        texto: 'No se escucha en la Sala de Reuniones',
+    },
+];
+
+const PREFIJOS = [
+    {
+        codigo: '9',
+        titulo: 'Nacionales y celulares',
+        detalle: 'Si llamás a un celular, agregá 15 antes del número.',
+    },
+    {
+        codigo: '803',
+        titulo: 'Internacionales',
+        detalle: 'Para llamar a otro país.',
+    },
+    {
+        codigo: '804',
+        titulo: 'Internacionales',
+        detalle: 'Otra línea para llamar a otro país.',
+    },
+];
+
+const PASOS_TRANSFERIR = [
+    'Con la persona en línea, tocá [[*]] [[*]] (dos veces la tecla asterisco).',
+    'Escribí el **número de interno** al que querés pasar la llamada. Por ejemplo: 101.',
+    'Tocá la tecla [[#]] (numeral). Listo: la llamada se transfiere.',
+];
+
+const PASOS_VPN = [
+    'No sigas intentando conectarte: cada intento fallido te acerca al bloqueo.',
+    'Avisale al **equipo de Sistemas** y pedile que desbloquee tu VPN.',
+];
+
+const PASOS_APAGADO = [
+    'Hacé clic en el botón **Inicio** (la ventanita de Windows), escribí **Configuración** y abrila.',
+    'Entrá en **Sistema**.',
+    'Elegí **Energía y batería**.',
+    'Buscá **Tiempo de espera de hibernación, suspensión y pantalla**. Vas a ver dos opciones: **Desactivar pantalla después de** (cuándo se apaga la pantalla) y **Hacer que mi dispositivo entre en suspensión después de** (cuándo se duerme la notebook).',
+    'Elegí el tiempo que prefieras: por ejemplo 5, 10 o 45 minutos, o **Nunca**.',
+];
+
+const PASOS_CONTRASENA = [
+    'Presioná a la vez [[Ctrl]] + [[Alt]] + [[Supr]]. Aparece un menú de opciones.',
+    'Elegí **Cambiar una contraseña**.',
+    'Escribí tu **contraseña actual**.',
+    'Escribí la **contraseña nueva** y repetila para confirmarla.',
+];
+
+const PASOS_PANTALLAS = [
+    'En la notebook, hacé **clic derecho** sobre el escritorio.',
+    'Elegí **Configuración de pantalla**.',
+    'Buscá **Varias pantallas** y elegí cómo querés verlas:',
+];
+
+const OPCIONES_PANTALLAS = [
+    '🪞 **Duplicar estas pantallas**: se ve lo mismo en la notebook y en el monitor.',
+    '↔️ **Extender estas pantallas**: trabajás con las dos pantallas a la vez (lo recomendado).',
+    '1️⃣ **Mostrar únicamente en 1**: solo se ve en la notebook.',
+    '2️⃣ **Mostrar únicamente en 2**: solo se ve en el monitor externo.',
+];
+
+const PASOS_SONIDO = [
+    'Verificá que estén conectados el **cable de audio** y el **cable HDMI**.',
+    'Hacé clic en el ícono del parlante 🔊 (abajo a la derecha, junto al reloj).',
+    'En la lista, elegí **Auriculares (Realtek(R) Audio)**.',
+];
+
+const LINEA: CSSProperties = {
+    margin: '8px 0',
+    fontSize: '16.5px',
+    lineHeight: 1.5,
+};
+
+const BOTON_CLARO: CSSProperties = {
+    fontFamily: "'Space Mono', monospace",
+    fontSize: '11px',
+    letterSpacing: '0.08em',
+    textTransform: 'uppercase',
+    border: '1px solid #000',
+    background: 'transparent',
+    padding: '9px 14px',
+    cursor: 'pointer',
+};
+
+function Linea({ texto }: { texto: string }) {
     return (
-        <div
-            style={{
-                display: 'grid',
-                gridTemplateColumns: 'auto 1fr',
-                gap: '18px',
-                padding: '15px 0',
-                borderBottom: '1px solid #ececec',
-                fontSize: '14px',
-                lineHeight: 1.5,
-            }}
-        >
-            <span
-                style={{
-                    fontFamily: "'Archivo', sans-serif",
-                    fontWeight: 900,
-                    fontSize: '17px',
-                    color: RED,
-                }}
-            >
-                {n}
-            </span>
-            <span>{children}</span>
-        </div>
+        <p style={LINEA}>
+            <Rico texto={texto} />
+        </p>
     );
 }
 
 export default function Mesa() {
     const [revealed, setRevealed] = useState<Record<string, boolean>>({});
     const [copied, setCopied] = useState<string | null>(null);
+    const [copyFailed, setCopyFailed] = useState(false);
     const copyTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(
         undefined,
     );
@@ -61,1276 +151,435 @@ export default function Mesa() {
         setRevealed((prev) => ({ ...prev, [id]: !prev[id] }));
     }
 
-    function copyValue(id: string, value: string) {
-        if (navigator.clipboard?.writeText) {
-            navigator.clipboard.writeText(value).catch(() => {});
-        }
+    async function copyValue(id: string, value: string) {
+        const ok = await copyText(value);
 
+        setCopyFailed(!ok);
         setCopied(id);
         clearTimeout(copyTimeout.current);
-        copyTimeout.current = setTimeout(() => setCopied(null), 1500);
+        copyTimeout.current = setTimeout(() => setCopied(null), 2500);
     }
 
     return (
         <>
             <Head title="Mesa de Información" />
+            <MesaEstilos />
 
             <section>
-                <div
-                    style={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        justifyContent: 'space-between',
-                        gap: '40px',
-                        marginBottom: '24px',
-                    }}
-                >
-                    <div style={{ maxWidth: '600px' }}>
-                        <div
-                            style={{
-                                fontFamily: "'Space Mono', monospace",
-                                fontSize: '10px',
-                                letterSpacing: '0.16em',
-                                textTransform: 'uppercase',
-                                color: '#666',
-                                marginBottom: '12px',
-                            }}
-                        >
-                            ayuda rápida · faq técnico
-                        </div>
-                        <h1
-                            style={{
-                                fontFamily: "'Anton', sans-serif",
-                                fontWeight: 400,
-                                fontSize: 'clamp(64px,9vw,132px)',
-                                lineHeight: 0.86,
-                                margin: 0,
-                                letterSpacing: '-0.005em',
-                            }}
-                        >
-                            Mesa de
-                            <br />
-                            información
-                            <span style={{ color: RED }}>.</span>
-                        </h1>
-                        <p
-                            style={{
-                                maxWidth: '480px',
-                                margin: '16px 0 0',
-                                fontSize: '14px',
-                                lineHeight: 1.5,
-                                fontWeight: 500,
-                                color: '#111',
-                            }}
-                        >
-                            Todo lo que podés resolver solo: telefonía, VPN,
-                            contraseñas, pantallas y sonido. Guías paso a paso.
-                        </p>
-                    </div>
-                    <div
-                        style={{
-                            fontFamily: "'Archivo', sans-serif",
-                            fontWeight: 900,
-                            fontSize: 'clamp(80px,10vw,140px)',
-                            lineHeight: 0.72,
-                        }}
-                    >
-                        12
-                    </div>
-                </div>
-
-                <div style={{ border: '1px solid #000', marginBottom: '34px' }}>
-                    <div
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            background: '#000',
-                            color: '#fff',
-                            padding: '12px 18px',
-                        }}
-                    >
-                        <span
-                            style={{
-                                fontFamily: "'Archivo', sans-serif",
-                                fontWeight: 800,
-                                fontSize: '16px',
-                                letterSpacing: '-0.01em',
-                            }}
-                        >
-                            Accesos de red · Tucumán
-                        </span>
-                        <span
-                            style={{
-                                fontFamily: "'Space Mono', monospace",
-                                fontSize: '9px',
-                                letterSpacing: '0.12em',
-                                textTransform: 'uppercase',
-                                color: '#ff6a72',
-                            }}
-                        >
-                            ● acceso interno
-                        </span>
-                    </div>
-                    {CREDENTIALS.map((c) => {
-                        const shown = !!revealed[c.id];
-
-                        return (
-                            <div
-                                key={c.id}
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between',
-                                    gap: '20px',
-                                    padding: '14px 18px',
-                                    borderTop: '1px solid #ececec',
-                                    flexWrap: 'wrap',
-                                }}
-                            >
-                                <div style={{ minWidth: 0 }}>
-                                    <div
-                                        style={{
-                                            fontFamily: "'Archivo', sans-serif",
-                                            fontWeight: 700,
-                                            fontSize: '14px',
-                                        }}
-                                    >
-                                        {c.label}
-                                    </div>
-                                    <div
-                                        style={{
-                                            fontFamily:
-                                                "'Space Mono', monospace",
-                                            fontSize: '10.5px',
-                                            color: '#888',
-                                            marginTop: '3px',
-                                        }}
-                                    >
-                                        {c.sub}
-                                    </div>
-                                </div>
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '10px',
-                                        flex: '0 0 auto',
-                                    }}
-                                >
-                                    <span
-                                        style={{
-                                            fontFamily:
-                                                "'Space Mono', monospace",
-                                            fontSize: '15px',
-                                            fontWeight: 700,
-                                            letterSpacing: '0.08em',
-                                            minWidth: '120px',
-                                            textAlign: 'right',
-                                            color: '#111',
-                                        }}
-                                    >
-                                        {shown ? c.pass : '••••••••'}
-                                    </span>
-                                    <button
-                                        type="button"
-                                        onClick={() => toggleReveal(c.id)}
-                                        className="mesa-cred-btn"
-                                        style={{
-                                            fontFamily:
-                                                "'Space Mono', monospace",
-                                            fontSize: '10px',
-                                            letterSpacing: '0.08em',
-                                            textTransform: 'uppercase',
-                                            border: '1px solid #000',
-                                            background: 'transparent',
-                                            padding: '7px 11px',
-                                            cursor: 'pointer',
-                                        }}
-                                    >
-                                        {shown ? 'Ocultar' : 'Mostrar'}
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => copyValue(c.id, c.pass)}
-                                        className="mesa-copy-btn"
-                                        style={{
-                                            fontFamily:
-                                                "'Space Mono', monospace",
-                                            fontSize: '10px',
-                                            letterSpacing: '0.08em',
-                                            textTransform: 'uppercase',
-                                            border: '1px solid #000',
-                                            background: 'transparent',
-                                            padding: '7px 11px',
-                                            cursor: 'pointer',
-                                        }}
-                                    >
-                                        {copied === c.id
-                                            ? '¡Copiado!'
-                                            : 'Copiar'}
-                                    </button>
-                                </div>
-                            </div>
-                        );
-                    })}
-                    <div
-                        style={{
-                            fontFamily: "'Space Mono', monospace",
-                            fontSize: '9.5px',
-                            letterSpacing: '0.05em',
-                            color: '#999',
-                            padding: '11px 18px',
-                            borderTop: '1px solid #ececec',
-                            background: '#faf7f7',
-                            lineHeight: 1.5,
-                        }}
-                    >
-                        Las claves quedan ocultas por defecto. Tocá «Mostrar»
-                        solo cuando las necesites y evitá compartir capturas con
-                        la clave a la vista.
-                    </div>
-                </div>
-
-                <div
-                    style={{
-                        display: 'flex',
-                        alignItems: 'baseline',
-                        justifyContent: 'space-between',
-                        borderBottom: '3px solid #000',
-                        paddingBottom: '10px',
-                        margin: '8px 0 0',
-                    }}
-                >
-                    <div
-                        style={{
-                            fontFamily: "'Archivo', sans-serif",
-                            fontWeight: 900,
-                            fontSize: '19px',
-                            letterSpacing: '-0.01em',
-                        }}
-                    >
-                        Guías paso a paso
-                        <span style={{ color: RED }}>—</span>
-                    </div>
+                <div style={{ marginBottom: '28px' }}>
                     <div
                         style={{
                             fontFamily: "'Space Mono', monospace",
                             fontSize: '10px',
-                            letterSpacing: '0.12em',
+                            letterSpacing: '0.16em',
                             textTransform: 'uppercase',
-                            color: '#999',
+                            color: '#666',
+                            marginBottom: '10px',
                         }}
                     >
-                        telefonía · vpn · pantallas · sonido
+                        centro de ayuda · tecnología
                     </div>
+                    <h1
+                        style={{
+                            fontFamily: "'Anton', sans-serif",
+                            fontWeight: 400,
+                            fontSize: 'clamp(46px,6vw,84px)',
+                            lineHeight: 0.92,
+                            margin: 0,
+                        }}
+                    >
+                        Mesa de información
+                        <span style={{ color: RED }}>.</span>
+                    </h1>
+                    <p
+                        style={{
+                            maxWidth: '640px',
+                            margin: '14px 0 0',
+                            fontSize: '17px',
+                            lineHeight: 1.5,
+                            color: '#111',
+                        }}
+                    >
+                        Elegí lo que necesitás y seguí los pasos, uno por uno.
+                        Si algo no se resuelve, avisá al equipo de Sistemas.
+                    </p>
                 </div>
 
-                {/* 02 · Salidas de llamadas */}
-                <div
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: '0.82fr 1.18fr',
-                        gap: 'clamp(24px,4vw,56px)',
-                        padding: '34px 0 44px',
-                        borderBottom: '1px solid #d8d8d8',
-                        alignItems: 'start',
-                    }}
-                >
-                    <div>
-                        <div
-                            style={{
-                                fontFamily: "'Space Mono', monospace",
-                                fontSize: '10px',
-                                letterSpacing: '0.16em',
-                                textTransform: 'uppercase',
-                                color: '#666',
-                            }}
-                        >
-                            telefonía
-                        </div>
-                        <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'flex-start',
-                                gap: '16px',
-                                marginTop: '12px',
-                            }}
-                        >
-                            <span
-                                style={{
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: 'clamp(40px,5vw,66px)',
-                                    lineHeight: 0.78,
-                                    letterSpacing: '-0.03em',
-                                    color: RED,
-                                }}
-                            >
-                                02
-                            </span>
-                            <h2
-                                style={{
-                                    margin: 0,
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: 'clamp(26px,3.3vw,40px)',
-                                    lineHeight: 0.92,
-                                    letterSpacing: '-0.02em',
-                                    textTransform: 'uppercase',
-                                }}
-                            >
-                                Salidas de
-                                <br />
-                                llamadas
-                            </h2>
-                        </div>
-                        <p
-                            style={{
-                                margin: '18px 0 0',
-                                fontSize: '13.5px',
-                                lineHeight: 1.55,
-                                color: '#333',
-                                maxWidth: '320px',
-                            }}
-                        >
-                            Tabla de discado interno. Antepené el prefijo según
-                            el tipo de llamada que necesites hacer.
-                        </p>
-                    </div>
-                    <div style={{ paddingTop: '4px' }}>
-                        <div style={{ borderTop: '2px solid #000' }}>
-                            <div
-                                style={{
-                                    display: 'grid',
-                                    gridTemplateColumns: 'auto 1fr',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <div
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontWeight: 900,
-                                        fontSize: '38px',
-                                        letterSpacing: '-0.03em',
-                                        color: RED,
-                                        padding: '15px 24px 15px 0',
-                                        borderBottom: '1px solid #ececec',
-                                    }}
-                                >
-                                    9
-                                </div>
-                                <div
-                                    style={{
-                                        padding: '15px 0',
-                                        borderBottom: '1px solid #ececec',
-                                        fontSize: '14px',
-                                        lineHeight: 1.4,
-                                    }}
-                                >
-                                    <b>Nacionales y móvil</b> — con 15.
-                                </div>
-                                <div
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontWeight: 900,
-                                        fontSize: '38px',
-                                        letterSpacing: '-0.03em',
-                                        padding: '15px 24px 15px 0',
-                                        borderBottom: '1px solid #ececec',
-                                    }}
-                                >
-                                    803
-                                </div>
-                                <div
-                                    style={{
-                                        padding: '15px 0',
-                                        borderBottom: '1px solid #ececec',
-                                        fontSize: '14px',
-                                        lineHeight: 1.4,
-                                    }}
-                                >
-                                    <b>Internacionales</b>
-                                </div>
-                                <div
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontWeight: 900,
-                                        fontSize: '38px',
-                                        letterSpacing: '-0.03em',
-                                        padding: '15px 24px 15px 0',
-                                        borderBottom: '1px solid #ececec',
-                                    }}
-                                >
-                                    804
-                                </div>
-                                <div
-                                    style={{
-                                        padding: '15px 0',
-                                        borderBottom: '1px solid #ececec',
-                                        fontSize: '14px',
-                                        lineHeight: 1.4,
-                                    }}
-                                >
-                                    <b>Internacionales</b>
-                                </div>
-                                <div
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontWeight: 800,
-                                        fontSize: '16px',
-                                        textTransform: 'uppercase',
-                                        padding: '15px 24px 15px 0',
-                                    }}
-                                >
-                                    Transferir
-                                </div>
-                                <div style={{ padding: '15px 0' }}>
-                                    <span
-                                        style={{
-                                            fontFamily:
-                                                "'Space Mono', monospace",
-                                            fontWeight: 700,
-                                            fontSize: '18px',
-                                            color: RED,
-                                        }}
-                                    >
-                                        **(interno)#
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <a
-                            href="https://docs.google.com/spreadsheets/d/1h7AeaE-jK7ddSE0KTYSyYm6RC2IErJLl4OQ-2DeygcM/edit"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="doc-link"
-                            style={{
-                                display: 'inline-flex',
-                                alignItems: 'baseline',
-                                gap: '6px',
-                                marginTop: '22px',
-                                textDecoration: 'none',
-                                color: '#000',
-                                fontFamily: "'Archivo', sans-serif",
-                                fontWeight: 700,
-                                fontSize: '13px',
-                                borderBottom: '1px solid #c4c4c4',
-                                paddingBottom: '3px',
-                                transition:
-                                    'color .1s,border-color .1s,transform .1s',
-                            }}
-                        >
-                            Tabla de discar
-                            <span
-                                style={{
-                                    fontFamily: "'Space Mono', monospace",
-                                    fontSize: '10px',
-                                    color: RED,
-                                }}
-                            >
-                                ↗
-                            </span>
-                        </a>
-                    </div>
-                </div>
+                <IndiceAyuda atajos={ATAJOS} />
 
-                {/* 03 · Bloqueo de VPN */}
-                <div
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: '1.08fr 0.92fr',
-                        background: '#000',
-                        color: '#fff',
-                        margin: '44px 0',
-                        alignItems: 'stretch',
-                    }}
-                >
-                    <div style={{ padding: 'clamp(28px,4vw,52px)' }}>
-                        <div
-                            style={{
-                                fontFamily: "'Space Mono', monospace",
-                                fontSize: '10px',
-                                letterSpacing: '0.16em',
-                                textTransform: 'uppercase',
-                                color: '#ff6a72',
-                            }}
-                        >
-                            03 · red · vpn
-                        </div>
-                        <h2
-                            style={{
-                                margin: '10px 0 0',
-                                fontFamily: "'Archivo', sans-serif",
-                                fontWeight: 900,
-                                fontSize: 'clamp(30px,4.4vw,58px)',
-                                lineHeight: 0.9,
-                                letterSpacing: '-0.02em',
-                                textTransform: 'uppercase',
-                            }}
-                        >
-                            Bloqueo
-                            <br />
-                            de VPN
-                        </h2>
-                        <div
-                            style={{
-                                width: '56px',
-                                height: '7px',
-                                background: RED,
-                                margin: '20px 0 26px',
-                            }}
-                        />
-                        <p
-                            style={{
-                                margin: 0,
-                                fontSize: '14.5px',
-                                lineHeight: 1.6,
-                                color: '#cfcfcf',
-                            }}
-                        >
-                            Si el proceso de conexión{' '}
-                            <b style={{ color: '#fff' }}>no avanza</b> (queda
-                            estancado) o{' '}
-                            <b style={{ color: '#fff' }}>
-                                llega al 45% y no progresa
-                            </b>
-                            , la VPN está bloqueada.
-                        </p>
-                        <div
-                            style={{
-                                borderLeft: `3px solid ${RED}`,
-                                padding: '2px 0 2px 16px',
-                                margin: '24px 0',
-                            }}
-                        >
-                            <div
-                                style={{
-                                    fontFamily: "'Space Mono', monospace",
-                                    fontSize: '10px',
-                                    letterSpacing: '0.14em',
-                                    textTransform: 'uppercase',
-                                    color: '#ff6a72',
-                                }}
-                            >
-                                importante
-                            </div>
-                            <p
-                                style={{
-                                    margin: '8px 0 0',
-                                    fontSize: '13.5px',
-                                    lineHeight: 1.55,
-                                    color: '#cfcfcf',
-                                }}
-                            >
-                                La VPN es muy sensible. Tras{' '}
-                                <b style={{ color: '#fff' }}>
-                                    3 intentos fallidos
-                                </b>{' '}
-                                consecutivos se bloquea automáticamente.
-                            </p>
-                        </div>
-                        <p
-                            style={{
-                                margin: 0,
-                                fontSize: '13.5px',
-                                lineHeight: 1.55,
-                                color: '#cfcfcf',
-                            }}
-                        >
-                            Contactá de inmediato al equipo de{' '}
-                            <b style={{ color: '#fff' }}>Sistemas</b> para
-                            solicitar el desbloqueo.
-                        </p>
-                    </div>
+                <Revelar>
                     <div
                         style={{
-                            position: 'relative',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            background: '#111',
-                            borderLeft: '1px solid #333',
-                            padding: '18px',
+                            border: '1px solid #000',
+                            marginBottom: '34px',
                         }}
                     >
-                        <ImageSlot
-                            src="/img/mesa-vpn.webp"
-                            placeholder="Captura: VPN estancada al 45%"
-                            contain
-                        />
-                    </div>
-                </div>
-
-                {/* 04 · Apagado de pantalla */}
-                <div
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: '0.82fr 1.18fr',
-                        gap: 'clamp(24px,4vw,56px)',
-                        padding: '34px 0 44px',
-                        borderBottom: '1px solid #d8d8d8',
-                        alignItems: 'start',
-                    }}
-                >
-                    <div>
-                        <div
-                            style={{
-                                fontFamily: "'Space Mono', monospace",
-                                fontSize: '10px',
-                                letterSpacing: '0.16em',
-                                textTransform: 'uppercase',
-                                color: '#666',
-                            }}
-                        >
-                            windows
-                        </div>
-                        <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'flex-start',
-                                gap: '16px',
-                                marginTop: '12px',
-                            }}
-                        >
-                            <span
-                                style={{
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: 'clamp(40px,5vw,66px)',
-                                    lineHeight: 0.78,
-                                    letterSpacing: '-0.03em',
-                                    color: RED,
-                                }}
-                            >
-                                04
-                            </span>
-                            <h2
-                                style={{
-                                    margin: 0,
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: 'clamp(24px,3vw,36px)',
-                                    lineHeight: 0.92,
-                                    letterSpacing: '-0.02em',
-                                    textTransform: 'uppercase',
-                                }}
-                            >
-                                Apagado de
-                                <br />
-                                pantalla
-                            </h2>
-                        </div>
-                        <p
-                            style={{
-                                margin: '18px 0 0',
-                                fontSize: '13.5px',
-                                lineHeight: 1.55,
-                                color: '#333',
-                                maxWidth: '320px',
-                            }}
-                        >
-                            Ajustá en cuánto tiempo se apaga la pantalla o entra
-                            en suspensión la notebook.
-                        </p>
-                    </div>
-                    <div style={{ borderTop: '2px solid #000' }}>
-                        <StepRow n="01">
-                            Clic en <b>Inicio</b> → escribí <b>Configuración</b>{' '}
-                            y abrí la app.
-                        </StepRow>
-                        <StepRow n="02">
-                            Andá a <b>Sistema</b> → <b>Pantalla</b>.
-                        </StepRow>
-                        <StepRow n="03">
-                            En el menú lateral: <b>Energía y batería</b> →{' '}
-                            <b>
-                                Tiempo de espera de hibernación, suspensión y
-                                pantalla
-                            </b>
-                            .
-                        </StepRow>
-                        <StepRow n="04">
-                            Vas a ver: <b>Desactivar pantalla después de</b> y{' '}
-                            <b>Suspensión después de</b>.
-                        </StepRow>
-                        <div
-                            style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'auto 1fr',
-                                gap: '18px',
-                                padding: '15px 0',
-                                fontSize: '14px',
-                                lineHeight: 1.5,
-                            }}
-                        >
-                            <span
-                                style={{
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: '17px',
-                                    color: RED,
-                                }}
-                            >
-                                05
-                            </span>
-                            <span>
-                                Elegí el tiempo que prefieras:{' '}
-                                <b>5, 10, 45 minutos</b> o <b>«Nunca»</b>.
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                {/* 05 · Cambio de contraseña */}
-                <div
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: '0.82fr 1.18fr',
-                        gap: 'clamp(24px,4vw,56px)',
-                        padding: '34px 0 44px',
-                        borderBottom: '1px solid #d8d8d8',
-                        alignItems: 'start',
-                    }}
-                >
-                    <div>
-                        <div
-                            style={{
-                                fontFamily: "'Space Mono', monospace",
-                                fontSize: '10px',
-                                letterSpacing: '0.16em',
-                                textTransform: 'uppercase',
-                                color: '#666',
-                            }}
-                        >
-                            seguridad
-                        </div>
-                        <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'flex-start',
-                                gap: '16px',
-                                marginTop: '12px',
-                            }}
-                        >
-                            <span
-                                style={{
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: 'clamp(40px,5vw,66px)',
-                                    lineHeight: 0.78,
-                                    letterSpacing: '-0.03em',
-                                    color: RED,
-                                }}
-                            >
-                                05
-                            </span>
-                            <h2
-                                style={{
-                                    margin: 0,
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: 'clamp(24px,3vw,36px)',
-                                    lineHeight: 0.92,
-                                    letterSpacing: '-0.02em',
-                                    textTransform: 'uppercase',
-                                }}
-                            >
-                                Cambio de
-                                <br />
-                                contraseña
-                            </h2>
-                        </div>
-                        <p
-                            style={{
-                                margin: '18px 0 0',
-                                fontSize: '13.5px',
-                                lineHeight: 1.55,
-                                color: '#333',
-                                maxWidth: '320px',
-                            }}
-                        >
-                            Desde la notebook. El cambio se propaga a todos los
-                            accesos.
-                        </p>
-                        <div
-                            style={{
-                                border: '1px solid #000',
-                                padding: '15px 18px',
-                                marginTop: '22px',
-                            }}
-                        >
-                            <div
-                                style={{
-                                    fontFamily: "'Space Mono', monospace",
-                                    fontSize: '10px',
-                                    letterSpacing: '0.14em',
-                                    textTransform: 'uppercase',
-                                    color: RED,
-                                }}
-                            >
-                                importante
-                            </div>
-                            <p
-                                style={{
-                                    margin: '8px 0 0',
-                                    fontSize: '13px',
-                                    lineHeight: 1.5,
-                                    color: '#333',
-                                }}
-                            >
-                                Debe ser segura: letras, números y símbolos. Una
-                                vez actualizada, aplica en <b>TS, VPN, Spark</b>
-                                , etc.
-                            </p>
-                        </div>
-                    </div>
-                    <div style={{ borderTop: '2px solid #000' }}>
-                        <StepRow n="01">
-                            Presioná <b>Ctrl + Alt + Supr</b> → aparece el menú
-                            de opciones.
-                        </StepRow>
-                        <StepRow n="02">
-                            Seleccioná <b>«Cambiar contraseña»</b>.
-                        </StepRow>
-                        <StepRow n="03">
-                            Ingresá tu <b>contraseña actual</b>.
-                        </StepRow>
-                        <div
-                            style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'auto 1fr',
-                                gap: '18px',
-                                padding: '15px 0',
-                                fontSize: '14px',
-                                lineHeight: 1.5,
-                            }}
-                        >
-                            <span
-                                style={{
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: '17px',
-                                    color: RED,
-                                }}
-                            >
-                                04
-                            </span>
-                            <span>
-                                Escribí la <b>nueva contraseña</b> y confirmala.
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                {/* 06 · Configuración de pantallas */}
-                <div
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: '0.82fr 1.18fr',
-                        gap: 'clamp(24px,4vw,56px)',
-                        padding: '34px 0 44px',
-                        borderBottom: '1px solid #d8d8d8',
-                        alignItems: 'start',
-                    }}
-                >
-                    <div>
-                        <div
-                            style={{
-                                fontFamily: "'Space Mono', monospace",
-                                fontSize: '10px',
-                                letterSpacing: '0.16em',
-                                textTransform: 'uppercase',
-                                color: '#666',
-                            }}
-                        >
-                            hardware
-                        </div>
-                        <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'flex-start',
-                                gap: '16px',
-                                marginTop: '12px',
-                            }}
-                        >
-                            <span
-                                style={{
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: 'clamp(40px,5vw,66px)',
-                                    lineHeight: 0.78,
-                                    letterSpacing: '-0.03em',
-                                    color: RED,
-                                }}
-                            >
-                                06
-                            </span>
-                            <h2
-                                style={{
-                                    margin: 0,
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: 'clamp(23px,2.9vw,34px)',
-                                    lineHeight: 0.92,
-                                    letterSpacing: '-0.02em',
-                                    textTransform: 'uppercase',
-                                }}
-                            >
-                                Config. de
-                                <br />
-                                pantallas
-                            </h2>
-                        </div>
-                        <p
-                            style={{
-                                margin: '18px 0 0',
-                                fontSize: '13.5px',
-                                lineHeight: 1.55,
-                                color: '#333',
-                                maxWidth: '320px',
-                            }}
-                        >
-                            Notebook + monitor externo. Clic derecho en el
-                            escritorio → <b>Configuración de pantalla</b>.
-                        </p>
                         <div
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: 'center',
-                                background: '#111',
-                                padding: '16px',
-                                marginTop: '22px',
+                                justifyContent: 'space-between',
+                                background: '#000',
+                                color: '#fff',
+                                padding: '12px 18px',
                             }}
                         >
-                            <ImageSlot
-                                src="/img/mesa-pantallas.webp"
-                                placeholder="Captura: configuración de pantallas"
-                                contain
-                            />
+                            <span
+                                style={{
+                                    fontFamily: "'Archivo', sans-serif",
+                                    fontWeight: 800,
+                                    fontSize: '16px',
+                                    letterSpacing: '-0.01em',
+                                }}
+                            >
+                                📶 Accesos de red · Tucumán
+                            </span>
+                            <span
+                                style={{
+                                    fontFamily: "'Space Mono', monospace",
+                                    fontSize: '9px',
+                                    letterSpacing: '0.12em',
+                                    textTransform: 'uppercase',
+                                    color: '#ff6a72',
+                                }}
+                            >
+                                ● acceso interno
+                            </span>
                         </div>
-                    </div>
-                    <div>
-                        <div
-                            style={{
-                                display: 'grid',
-                                gridTemplateColumns: '1fr 1fr',
-                                gap: 0,
-                                borderTop: '2px solid #000',
-                                borderLeft: '1px solid #000',
-                            }}
-                        >
-                            <div
-                                style={{
-                                    borderRight: '1px solid #000',
-                                    borderBottom: '1px solid #000',
-                                    padding: '16px',
-                                }}
-                            >
-                                <div
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontWeight: 800,
-                                        fontSize: '15px',
-                                        textTransform: 'uppercase',
-                                    }}
-                                >
-                                    Duplicar
-                                </div>
-                                <p
-                                    style={{
-                                        margin: '8px 0 0',
-                                        fontSize: '12.5px',
-                                        lineHeight: 1.5,
-                                        color: '#333',
-                                    }}
-                                >
-                                    Muestra lo mismo en la notebook y el
-                                    monitor.
-                                </p>
-                            </div>
-                            <div
-                                style={{
-                                    position: 'relative',
-                                    borderRight: '1px solid #000',
-                                    borderBottom: '1px solid #000',
-                                    padding: '16px',
-                                }}
-                            >
-                                <div
-                                    style={{
-                                        position: 'absolute',
-                                        top: '12px',
-                                        right: '12px',
-                                        fontFamily: "'Space Mono', monospace",
-                                        fontSize: '9px',
-                                        letterSpacing: '0.12em',
-                                        textTransform: 'uppercase',
-                                        color: RED,
-                                    }}
-                                >
-                                    recomendado
-                                </div>
-                                <div
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontWeight: 800,
-                                        fontSize: '15px',
-                                        textTransform: 'uppercase',
-                                        color: RED,
-                                    }}
-                                >
-                                    Extender
-                                </div>
-                                <p
-                                    style={{
-                                        margin: '8px 0 0',
-                                        fontSize: '12.5px',
-                                        lineHeight: 1.5,
-                                        color: '#333',
-                                    }}
-                                >
-                                    Trabajás con ambas pantallas.
-                                </p>
-                            </div>
-                            <div
-                                style={{
-                                    borderRight: '1px solid #000',
-                                    borderBottom: '1px solid #000',
-                                    padding: '16px',
-                                }}
-                            >
-                                <div
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontWeight: 800,
-                                        fontSize: '15px',
-                                        textTransform: 'uppercase',
-                                    }}
-                                >
-                                    Sólo en 1
-                                </div>
-                                <p
-                                    style={{
-                                        margin: '8px 0 0',
-                                        fontSize: '12.5px',
-                                        lineHeight: 1.5,
-                                        color: '#333',
-                                    }}
-                                >
-                                    Se ve únicamente en la notebook.
-                                </p>
-                            </div>
-                            <div
-                                style={{
-                                    borderRight: '1px solid #000',
-                                    borderBottom: '1px solid #000',
-                                    padding: '16px',
-                                }}
-                            >
-                                <div
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontWeight: 800,
-                                        fontSize: '15px',
-                                        textTransform: 'uppercase',
-                                    }}
-                                >
-                                    Sólo en 2
-                                </div>
-                                <p
-                                    style={{
-                                        margin: '8px 0 0',
-                                        fontSize: '12.5px',
-                                        lineHeight: 1.5,
-                                        color: '#333',
-                                    }}
-                                >
-                                    Se ve únicamente en el monitor externo.
-                                </p>
-                            </div>
-                        </div>
-                        <div
-                            style={{
-                                display: 'grid',
-                                gridTemplateColumns: '1fr 1fr',
-                                gap: '22px',
-                                marginTop: '20px',
-                            }}
-                        >
-                            <div>
-                                <div
-                                    style={{
-                                        fontFamily: "'Space Mono', monospace",
-                                        fontSize: '10px',
-                                        letterSpacing: '0.12em',
-                                        textTransform: 'uppercase',
-                                        color: RED,
-                                    }}
-                                >
-                                    desde el ts
-                                </div>
-                                <p
-                                    style={{
-                                        margin: '6px 0 0',
-                                        fontSize: '12.5px',
-                                        lineHeight: 1.5,
-                                        color: '#333',
-                                    }}
-                                >
-                                    No está permitido extender, sólo duplicar.
-                                </p>
-                            </div>
-                            <div>
-                                <div
-                                    style={{
-                                        fontFamily: "'Space Mono', monospace",
-                                        fontSize: '10px',
-                                        letterSpacing: '0.12em',
-                                        textTransform: 'uppercase',
-                                        color: RED,
-                                    }}
-                                >
-                                    tapa cerrada
-                                </div>
-                                <p
-                                    style={{
-                                        margin: '6px 0 0',
-                                        fontSize: '12.5px',
-                                        lineHeight: 1.5,
-                                        color: '#333',
-                                    }}
-                                >
-                                    Config. → Sistema → Energía y batería → «Al
-                                    cerrar la tapa» → <b>No hacer nada</b>.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        {CREDENTIALS.map((c) => {
+                            const shown = !!revealed[c.id];
 
-                {/* 07 · Configuración de sonido */}
-                <div
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: '0.82fr 1.18fr',
-                        gap: 'clamp(24px,4vw,56px)',
-                        padding: '34px 0 8px',
-                        alignItems: 'center',
-                    }}
-                >
-                    <div>
+                            return (
+                                <div
+                                    key={c.id}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                        gap: '20px',
+                                        padding: '16px 18px',
+                                        borderTop: '1px solid #ececec',
+                                        flexWrap: 'wrap',
+                                    }}
+                                >
+                                    <div style={{ minWidth: 0 }}>
+                                        <div
+                                            style={{
+                                                fontWeight: 700,
+                                                fontSize: '16px',
+                                            }}
+                                        >
+                                            {c.label}
+                                        </div>
+                                        <div
+                                            style={{
+                                                fontFamily:
+                                                    "'Space Mono', monospace",
+                                                fontSize: '11px',
+                                                color: '#888',
+                                                marginTop: '3px',
+                                            }}
+                                        >
+                                            {c.sub}
+                                        </div>
+                                    </div>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '10px',
+                                            flex: '0 0 auto',
+                                        }}
+                                    >
+                                        <span
+                                            style={{
+                                                fontFamily:
+                                                    "'Space Mono', monospace",
+                                                fontSize: '16px',
+                                                fontWeight: 700,
+                                                letterSpacing: '0.08em',
+                                                minWidth: '130px',
+                                                textAlign: 'right',
+                                            }}
+                                        >
+                                            {shown ? c.pass : '••••••••'}
+                                        </span>
+                                        <button
+                                            type="button"
+                                            onClick={() => toggleReveal(c.id)}
+                                            className="mesa-cred-btn"
+                                            style={BOTON_CLARO}
+                                        >
+                                            {shown ? 'Ocultar' : 'Mostrar'}
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                copyValue(c.id, c.pass)
+                                            }
+                                            className="mesa-copy-btn"
+                                            style={BOTON_CLARO}
+                                        >
+                                            {copied === c.id && !copyFailed
+                                                ? '¡Copiado!'
+                                                : 'Copiar'}
+                                        </button>
+                                    </div>
+                                    {copied === c.id && copyFailed && (
+                                        <div
+                                            style={{
+                                                width: '100%',
+                                                fontSize: '13px',
+                                                color: RED,
+                                            }}
+                                        >
+                                            No se pudo copiar solo. Tocá
+                                            «Mostrar» y copiala a mano.
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
                         <div
                             style={{
                                 fontFamily: "'Space Mono', monospace",
                                 fontSize: '10px',
-                                letterSpacing: '0.16em',
-                                textTransform: 'uppercase',
-                                color: '#666',
+                                letterSpacing: '0.05em',
+                                color: '#999',
+                                padding: '11px 18px',
+                                borderTop: '1px solid #ececec',
+                                background: '#faf7f7',
+                                lineHeight: 1.5,
                             }}
                         >
-                            sala de reuniones
-                        </div>
-                        <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'flex-start',
-                                gap: '16px',
-                                marginTop: '12px',
-                            }}
-                        >
-                            <span
-                                style={{
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: 'clamp(40px,5vw,66px)',
-                                    lineHeight: 0.78,
-                                    letterSpacing: '-0.03em',
-                                    color: RED,
-                                }}
-                            >
-                                07
-                            </span>
-                            <h2
-                                style={{
-                                    margin: 0,
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: 'clamp(26px,3.3vw,40px)',
-                                    lineHeight: 0.92,
-                                    letterSpacing: '-0.02em',
-                                    textTransform: 'uppercase',
-                                }}
-                            >
-                                Config. de
-                                <br />
-                                sonido
-                            </h2>
+                            Las claves quedan ocultas por defecto. Tocá
+                            «Mostrar» solo cuando las necesites y evitá
+                            compartir capturas con la clave a la vista.
                         </div>
                     </div>
-                    <div style={{ borderTop: '2px solid #000' }}>
-                        <div
-                            style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'auto 1fr',
-                                gap: '18px',
-                                padding: '15px 0',
-                                borderBottom: '1px solid #ececec',
-                                fontSize: '14.5px',
-                                lineHeight: 1.5,
-                            }}
-                        >
-                            <span
+                </Revelar>
+
+                <Revelar>
+                    <MesaEnVivo />
+                </Revelar>
+
+                <Guia
+                    id="llamadas"
+                    emoji="📞"
+                    categoria="telefonía"
+                    titulo="Hacer o pasar una llamada"
+                    resumen="Para llamar hacia afuera, marcá primero el prefijo que corresponde y después el número al que querés llamar."
+                >
+                    <div
+                        style={{
+                            display: 'grid',
+                            gridTemplateColumns:
+                                'repeat(auto-fit, minmax(190px, 1fr))',
+                            gap: '14px',
+                        }}
+                    >
+                        {PREFIJOS.map((prefijo, index) => (
+                            <div
+                                key={index}
+                                className="mesa-tarjeta"
                                 style={{
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: '17px',
-                                    color: RED,
+                                    border: '1px solid #000',
+                                    padding: '16px',
+                                    background: '#fff',
                                 }}
                             >
-                                01
-                            </span>
-                            <span>
-                                Conectá el <b>cable de audio</b> y <b>HDMI</b>.
-                            </span>
-                        </div>
-                        <div
-                            style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'auto 1fr',
-                                gap: '18px',
-                                padding: '15px 0',
-                                fontSize: '14.5px',
-                                lineHeight: 1.5,
-                            }}
-                        >
-                            <span
-                                style={{
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: '17px',
-                                    color: RED,
-                                }}
-                            >
-                                02
-                            </span>
-                            <span>
-                                Seleccioná <b>AURICULARES</b>{' '}
-                                <span
+                                <div
                                     style={{
-                                        fontFamily: "'Space Mono', monospace",
-                                        fontWeight: 700,
-                                        color: RED,
+                                        fontFamily: "'Archivo', sans-serif",
+                                        fontWeight: 900,
+                                        fontSize: '34px',
+                                        lineHeight: 1,
                                     }}
                                 >
-                                    (Realtek(R) Audio)
-                                </span>
-                                .
-                            </span>
-                        </div>
+                                    {prefijo.codigo}
+                                </div>
+                                <div
+                                    style={{
+                                        margin: '8px 0 4px',
+                                        fontWeight: 800,
+                                        fontSize: '16.5px',
+                                    }}
+                                >
+                                    {prefijo.titulo}
+                                </div>
+                                <div
+                                    style={{
+                                        fontSize: '14.5px',
+                                        lineHeight: 1.45,
+                                        color: '#444',
+                                    }}
+                                >
+                                    {prefijo.detalle}
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                </div>
+
+                    <Subtitulo
+                        emoji="📲"
+                        texto="Pasar la llamada a otro interno"
+                    />
+                    {PASOS_TRANSFERIR.map((texto, index) => (
+                        <Paso key={index} n={index + 1} texto={texto} />
+                    ))}
+                    <Aviso
+                        emoji="💡"
+                        texto="**Resumen:** [[*]] [[*]] + número de interno + [[#]]. Para el interno 101 sería [[*]] [[*]] [[1]] [[0]] [[1]] [[#]]."
+                    />
+
+                    <a
+                        href="https://docs.google.com/spreadsheets/d/1h7AeaE-jK7ddSE0KTYSyYm6RC2IErJLl4OQ-2DeygcM/edit"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="doc-link"
+                        style={{
+                            display: 'inline-block',
+                            marginTop: '20px',
+                            color: '#000',
+                            textDecoration: 'none',
+                            fontWeight: 700,
+                            fontSize: '15px',
+                            borderBottom: '1px solid #c4c4c4',
+                            paddingBottom: '3px',
+                        }}
+                    >
+                        📋 Ver la tabla de discado completa{' '}
+                        <span style={{ color: RED }}>↗</span>
+                    </a>
+                </Guia>
+
+                <Guia
+                    id="vpn"
+                    emoji="🔒"
+                    categoria="red · vpn"
+                    titulo="Mi VPN no conecta (bloqueo de VPN)"
+                    resumen="Si la VPN se queda trabada al conectarse, probablemente quedó bloqueada. Esto es lo que tenés que hacer."
+                    imagen={{
+                        src: '/img/mesa-vpn.webp',
+                        alt: 'Pantalla de la VPN trabada',
+                        pie: 'Así se ve la pantalla cuando la VPN está bloqueada: queda trabada en 10 % o en 45 %.',
+                    }}
+                >
+                    <Subtitulo emoji="❓" texto="¿Qué te pasa?" />
+                    <Linea texto="⏳ La conexión **no avanza**: se queda trabada en un punto." />
+                    <Linea texto="📶 **Llega al 45 %** y no progresa más (como en la imagen)." />
+
+                    <Subtitulo emoji="🔒" texto="¿Qué significa?" />
+                    <Linea texto="Tu VPN está **bloqueada**. Es muy sensible: después de **3 intentos fallidos seguidos** se bloquea sola." />
+
+                    <Subtitulo emoji="✅" texto="¿Qué tenés que hacer?" />
+                    {PASOS_VPN.map((texto, index) => (
+                        <Paso key={index} n={index + 1} texto={texto} />
+                    ))}
+
+                    <Link
+                        href="/it"
+                        style={{
+                            display: 'inline-block',
+                            marginTop: '18px',
+                            padding: '12px 18px',
+                            background: '#000',
+                            color: '#fff',
+                            textDecoration: 'none',
+                            fontWeight: 700,
+                            fontSize: '15px',
+                        }}
+                    >
+                        Ir a la página de Sistemas (IT) →
+                    </Link>
+                </Guia>
+
+                <Guia
+                    id="apagado"
+                    emoji="💤"
+                    categoria="windows"
+                    titulo="La pantalla se apaga o la notebook se duerme"
+                    resumen="Si la pantalla se apaga o la notebook se duerme muy rápido, podés elegir cuánto tiempo esperar."
+                    imagen={{
+                        src: '/img/mesa-apagado.webp',
+                        alt: 'Opciones de energía de Windows',
+                        pie: 'Acá se elige después de cuánto tiempo se apaga la pantalla.',
+                    }}
+                >
+                    {PASOS_APAGADO.map((texto, index) => (
+                        <Paso key={index} n={index + 1} texto={texto} />
+                    ))}
+                </Guia>
+
+                <Guia
+                    id="contrasena"
+                    emoji="🔑"
+                    categoria="seguridad"
+                    titulo="Cambiar mi contraseña"
+                    resumen="Se hace desde la notebook y vale para todos tus accesos: TS, VPN, Spark y los demás."
+                    imagen={{
+                        src: '/img/mesa-contrasena.png',
+                        alt: 'Menú de Ctrl Alt Supr',
+                        pie: 'Este menú aparece al presionar Ctrl + Alt + Supr.',
+                    }}
+                >
+                    {PASOS_CONTRASENA.map((texto, index) => (
+                        <Paso key={index} n={index + 1} texto={texto} />
+                    ))}
+                    <Aviso
+                        emoji="⚠️"
+                        texto="La contraseña tiene que ser **segura**: con letras, números y símbolos."
+                    />
+                    <Aviso
+                        emoji="💡"
+                        texto="Una vez cambiada, la nueva contraseña se aplica en **todos tus accesos**: TS, VPN, Spark, etc."
+                    />
+                </Guia>
+
+                <Guia
+                    id="pantallas"
+                    emoji="🖥️"
+                    categoria="hardware"
+                    titulo="Usar un monitor con la notebook"
+                    resumen="Cuando conectás un monitor externo, podés elegir cómo mostrar la imagen."
+                    imagen={{
+                        src: '/img/mesa-pantallas.webp',
+                        alt: 'Notebook con monitor externo',
+                        pie: 'Notebook con un monitor externo conectado.',
+                    }}
+                >
+                    {PASOS_PANTALLAS.map((texto, index) => (
+                        <Paso key={index} n={index + 1} texto={texto} />
+                    ))}
+                    {OPCIONES_PANTALLAS.map((texto, index) => (
+                        <Linea key={index} texto={texto} />
+                    ))}
+                    <Aviso
+                        emoji="⚠️"
+                        texto="Desde el **TS (Terminal Server)** no se puede extender, solo duplicar."
+                    />
+                    <Aviso
+                        emoji="📌"
+                        texto="Si querés usar **solo el monitor externo** con la notebook cerrada: abrí **Configuración → Sistema → Energía y batería** y, en **Al cerrar la tapa**, elegí **No hacer nada**."
+                    />
+                </Guia>
+
+                <Guia
+                    id="sonido"
+                    emoji="🔊"
+                    categoria="sala de reuniones"
+                    titulo="No se escucha en la Sala de Reuniones"
+                    resumen="En la Sala de Reuniones el sonido sale por el equipo conectado. Revisá estos pasos."
+                    imagen={{
+                        src: '/img/mesa-sonido.png',
+                        alt: 'Lista de salidas de audio',
+                        pie: 'La opción correcta es «Auriculares (Realtek(R) Audio)».',
+                    }}
+                >
+                    {PASOS_SONIDO.map((texto, index) => (
+                        <Paso key={index} n={index + 1} texto={texto} />
+                    ))}
+                </Guia>
 
                 <div
                     style={{
@@ -1344,7 +593,7 @@ export default function Mesa() {
                         color: '#666',
                     }}
                 >
-                    mantiene— IT · Mesa de Información · act. 07·2026
+                    mantiene— IT · Mesa de Información · act. 10·2026
                 </div>
             </section>
         </>
