@@ -68,6 +68,18 @@ return [
         'url' => env('ORGANIGRAMA_URL', 'http://192.168.98.4:8003'),
     ],
 
+    // Mesa de Información: sensores y teléfonos, leídos de dos hojas de Google con una cuenta de
+    // servicio de solo lectura (GOOGLE_SERVICE_ACCOUNT_FILE = ruta al JSON dentro del contenedor).
+    // MESA_DATOS_EJEMPLO=true muestra datos ficticios (preprod).
+    'mesa' => [
+        'datos_ejemplo' => (bool) env('MESA_DATOS_EJEMPLO', false),
+        'credenciales' => env('GOOGLE_SERVICE_ACCOUNT_FILE'),
+        'sensores_sheet_id' => env('MESA_SENSORES_SHEET_ID', '1R4cxK-mzpPb5ky5brcHvlwND1-o2QiD8TqNkJA-Isjw'),
+        'telefonos_sheet_id' => env('MESA_TELEFONOS_SHEET_ID', '1WK6_rtiJfIVmYbW25lNPFZyXdNkMo9IKY6nzg-faoHo'),
+        'sensores_rango' => env('MESA_SENSORES_RANGO', 'Actual!A1:D30'),
+        'telefonos_rango' => env('MESA_TELEFONOS_RANGO', 'Telefonos!A1:B300'),
+    ],
+
     'meeting_room' => [
         'calendar_url' => env('MEETING_ROOM_CALENDAR_URL'),
         'instructivo_url' => env('MEETING_ROOM_INSTRUCTIVO_URL'),

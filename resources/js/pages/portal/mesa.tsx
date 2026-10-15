@@ -2,6 +2,7 @@ import { Head } from '@inertiajs/react';
 import { useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { ImageSlot } from '@/components/portal/image-slot';
+import { MesaEnVivo } from '@/components/portal/mesa-en-vivo';
 
 const RED = '#E30613';
 
@@ -76,6 +77,8 @@ export default function Mesa() {
             <Head title="Mesa de Información" />
 
             <section>
+                <MesaEnVivo />
+
                 <div
                     style={{
                         display: 'flex',
