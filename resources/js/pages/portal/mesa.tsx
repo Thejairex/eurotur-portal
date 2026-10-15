@@ -77,8 +77,6 @@ export default function Mesa() {
             <Head title="Mesa de Información" />
 
             <section>
-                <MesaEnVivo />
-
                 <div
                     style={{
                         display: 'flex',
@@ -294,6 +292,8 @@ export default function Mesa() {
                         la clave a la vista.
                     </div>
                 </div>
+
+                <MesaEnVivo />
 
                 <div
                     style={{
