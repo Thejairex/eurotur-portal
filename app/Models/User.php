@@ -23,6 +23,8 @@ use Illuminate\Support\Carbon;
  * @property-read Role|null $role
  * @property int|null $prepagos_analista_codigo
  * @property Carbon|null $email_verified_at
+ * @property Carbon|null $portal_tour_completed_at
+ * @property Carbon|null $backoffice_tour_completed_at
  * @property string $password
  * @property string|null $two_factor_secret
  * @property string|null $two_factor_recovery_codes
@@ -132,6 +134,8 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'portal_tour_completed_at' => 'datetime',
+            'backoffice_tour_completed_at' => 'datetime',
             'password' => 'hashed',
         ];
     }

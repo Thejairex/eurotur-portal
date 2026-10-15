@@ -89,10 +89,14 @@ export function BackofficeSidebar({ onNavigate }: { onNavigate?: () => void }) {
 
             <div className="my-[24px] h-px bg-foreground" />
 
-            <nav className="flex flex-1 flex-col gap-[2px]">
+            <nav
+                className="flex flex-1 flex-col gap-[2px]"
+                data-tour="tour-areas"
+            >
                 {tools.length > 0 && (
                     <>
                         <Link
+                            data-tour="tour-herramientas"
                             href={HUB.href}
                             onClick={onNavigate}
                             className={
@@ -157,7 +161,10 @@ export function BackofficeSidebar({ onNavigate }: { onNavigate?: () => void }) {
             </nav>
 
             {configItems.length > 0 && (
-                <div className="mt-[16px] flex flex-col gap-[2px]">
+                <div
+                    className="mt-[16px] flex flex-col gap-[2px]"
+                    data-tour="tour-config"
+                >
                     <button
                         type="button"
                         aria-expanded={open}
@@ -217,6 +224,7 @@ export function BackofficeSidebar({ onNavigate }: { onNavigate?: () => void }) {
             <div className="mt-[24px] h-px bg-foreground" />
 
             <Link
+                data-tour="tour-volver"
                 href={home()}
                 onClick={onNavigate}
                 className="mt-[16px] bo-label transition-colors duration-[120ms] hover:text-primary"

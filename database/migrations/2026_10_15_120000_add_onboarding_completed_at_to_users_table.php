@@ -1,0 +1,26 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Cuándo terminó cada usuario el recorrido guiado del Back Office. Null = todavía
+     * no lo hizo (lo verá la próxima vez que entre al Back Office).
+     */
+    public function up(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->timestamp('onboarding_completed_at')->nullable()->after('remember_token');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('onboarding_completed_at');
+        });
+    }
+};
