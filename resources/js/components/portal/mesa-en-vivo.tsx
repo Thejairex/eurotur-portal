@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
 const RED = '#E30613';
 const REFRESH_MS = 60_000;
@@ -22,40 +22,17 @@ type Datos = {
     desactualizado: boolean;
 };
 
-const LEVEL_STYLE: Record<Sensor['nivel'], CSSProperties> = {
-    ok: { background: '#e7f5ec', color: '#14612f' },
-    alerta: { background: '#fde8ea', color: RED },
-    desconocido: { background: '#eee', color: '#555' },
+/** Color de la barra lateral y de la etiqueta de cada sensor según su estado. */
+const LEVEL: Record<Sensor['nivel'], { bar: string; chip: CSSProperties }> = {
+    ok: { bar: '#2e9d57', chip: { background: '#e7f5ec', color: '#14612f' } },
+    alerta: { bar: RED, chip: { background: '#fde8ea', color: RED } },
+    desconocido: { bar: '#bbb', chip: { background: '#eee', color: '#555' } },
 };
 
-const EYEBROW: CSSProperties = {
-    fontFamily: "'Space Mono', monospace",
-    fontSize: '10px',
-    letterSpacing: '0.16em',
-    textTransform: 'uppercase',
-    color: '#666',
-};
-
-const CARD_TITLE: CSSProperties = {
-    margin: '10px 0 0',
-    fontFamily: "'Archivo', sans-serif",
-    fontWeight: 900,
-    fontSize: '22px',
-    letterSpacing: '-0.01em',
-    textTransform: 'uppercase',
-};
+const MONO: CSSProperties = { fontFamily: "'Space Mono', monospace" };
 
 function formatDecimal(value: number): string {
     return value.toLocaleString('es-AR', { maximumFractionDigits: 1 });
-}
-
-function formatReading(sensor: Sensor): string {
-    return (
-        formatDecimal(sensor.temperatura) +
-        ' °C · ' +
-        formatDecimal(sensor.humedad) +
-        ' %'
-    );
 }
 
 function formatUpdated(iso: string): string {
@@ -65,6 +42,127 @@ function formatUpdated(iso: string): string {
         hour: '2-digit',
         minute: '2-digit',
     });
+}
+
+/** Tarjeta con barra negra de título, igual que "Accesos de red". */
+function Card({
+    title,
+    badge,
+    children,
+}: {
+    title: string;
+    badge: string;
+    children: ReactNode;
+}) {
+    return (
+        <div style={{ border: '1px solid #000', background: '#fff' }}>
+            <div
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    background: '#000',
+                    color: '#fff',
+                    padding: '12px 18px',
+                }}
+            >
+                <span
+                    style={{
+                        fontFamily: "'Archivo', sans-serif",
+                        fontWeight: 800,
+                        fontSize: '16px',
+                        letterSpacing: '-0.01em',
+                    }}
+                >
+                    {title}
+                </span>
+                <span
+                    style={{
+                        ...MONO,
+                        fontSize: '9px',
+                        letterSpacing: '0.12em',
+                        textTransform: 'uppercase',
+                        color: '#ff6a72',
+                    }}
+                >
+                    ● {badge}
+                </span>
+            </div>
+            {children}
+        </div>
+    );
+}
+
+function Message({ children }: { children: ReactNode }) {
+    return (
+        <p
+            style={{
+                margin: 0,
+                padding: '22px 18px',
+                fontSize: '13.5px',
+                color: '#555',
+            }}
+        >
+            {children}
+        </p>
+    );
+}
+
+function SensorTile({ sensor }: { sensor: Sensor }) {
+    const level = LEVEL[sensor.nivel];
+
+    return (
+        <div
+            style={{
+                borderLeft: '4px solid ' + level.bar,
+                background: '#fafafa',
+                padding: '14px 16px',
+            }}
+        >
+            <div
+                style={{
+                    ...MONO,
+                    fontSize: '10px',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    color: '#666',
+                }}
+            >
+                {sensor.nombre}
+            </div>
+            <div
+                style={{
+                    margin: '6px 0 2px',
+                    fontFamily: "'Archivo', sans-serif",
+                    fontWeight: 900,
+                    fontSize: '34px',
+                    lineHeight: 1,
+                    letterSpacing: '-0.02em',
+                }}
+            >
+                {formatDecimal(sensor.temperatura)}
+                <span style={{ fontSize: '16px', marginLeft: '3px' }}>°C</span>
+            </div>
+            <div style={{ fontSize: '13px', color: '#333' }}>
+                Humedad <b>{formatDecimal(sensor.humedad)} %</b>
+            </div>
+            <span
+                style={{
+                    ...level.chip,
+                    ...MONO,
+                    display: 'inline-block',
+                    marginTop: '10px',
+                    padding: '4px 9px',
+                    fontSize: '9.5px',
+                    fontWeight: 700,
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                }}
+            >
+                {sensor.estado || 'sin estado'}
+            </span>
+        </div>
+    );
 }
 
 /**
@@ -114,9 +212,8 @@ export function MesaEnVivo() {
     }, []);
 
     const unavailable =
-        failed ||
-        datos?.modo === 'error' ||
-        datos?.modo === 'no-configurado';
+        failed || datos?.modo === 'error' || datos?.modo === 'no-configurado';
+    const badge = datos?.modo === 'ejemplo' ? 'datos de ejemplo' : 'en vivo';
     const needle = query.trim().toLowerCase();
     const phones = (datos?.telefonos ?? []).filter(
         (phone) =>
@@ -130,130 +227,97 @@ export function MesaEnVivo() {
             data-testid="mesa-en-vivo"
             style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: 'clamp(24px,4vw,56px)',
-                padding: '34px 0 44px',
-                borderBottom: '1px solid #d8d8d8',
-                alignItems: 'start',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+                gap: '24px',
+                alignItems: 'stretch',
+                marginBottom: '34px',
             }}
         >
-            <div>
-                <div style={EYEBROW}>
-                    en vivo
-                    {datos?.modo === 'ejemplo' && ' · datos de ejemplo'}
-                </div>
-                <h2 style={CARD_TITLE}>Sensores</h2>
-
+            <Card title="Sensores · Tucumán" badge={badge}>
                 {unavailable && (
-                    <p style={{ fontSize: '13.5px', color: '#555' }}>
+                    <Message>
                         Los datos no están disponibles por el momento.
-                    </p>
+                    </Message>
                 )}
-
-                {!unavailable && datos === null && (
-                    <p style={{ fontSize: '13.5px', color: '#555' }}>
-                        Cargando…
-                    </p>
-                )}
-
+                {!unavailable && datos === null && <Message>Cargando…</Message>}
                 {!unavailable && datos !== null && (
                     <>
-                        <div style={{ borderTop: '2px solid #000' }}>
+                        <div
+                            style={{
+                                display: 'grid',
+                                gridTemplateColumns:
+                                    'repeat(auto-fit, minmax(150px, 1fr))',
+                                gap: '12px',
+                                padding: '16px 18px',
+                            }}
+                        >
                             {datos.sensores.map((sensor) => (
-                                <div
+                                <SensorTile
                                     key={sensor.nombre}
-                                    style={{
-                                        display: 'grid',
-                                        gridTemplateColumns: '1fr auto auto',
-                                        alignItems: 'center',
-                                        gap: '18px',
-                                        padding: '14px 0',
-                                        borderBottom: '1px solid #ececec',
-                                    }}
-                                >
-                                    <b style={{ fontSize: '14px' }}>
-                                        {sensor.nombre}
-                                    </b>
-                                    <span
-                                        style={{
-                                            fontFamily:
-                                                "'Space Mono', monospace",
-                                            fontSize: '13px',
-                                        }}
-                                    >
-                                        {formatReading(sensor)}
-                                    </span>
-                                    <span
-                                        style={{
-                                            ...LEVEL_STYLE[sensor.nivel],
-                                            padding: '4px 10px',
-                                            fontFamily:
-                                                "'Space Mono', monospace",
-                                            fontSize: '10px',
-                                            fontWeight: 700,
-                                            letterSpacing: '0.08em',
-                                            textTransform: 'uppercase',
-                                        }}
-                                    >
-                                        {sensor.estado || 'sin estado'}
-                                    </span>
-                                </div>
+                                    sensor={sensor}
+                                />
                             ))}
                         </div>
-
-                        <p
+                        <div
                             style={{
-                                margin: '12px 0 0',
-                                fontFamily: "'Space Mono', monospace",
+                                ...MONO,
+                                padding: '12px 18px',
+                                borderTop: '1px solid #ececec',
                                 fontSize: '10px',
                                 letterSpacing: '0.04em',
                                 color: datos.desactualizado ? RED : '#888',
                             }}
                         >
                             {datos.actualizado
-                                ? 'Última actualización de la hoja: ' +
+                                ? 'Última actualización: ' +
                                   formatUpdated(datos.actualizado)
                                 : 'La hoja no informa su última actualización.'}
                             {datos.desactualizado &&
                                 ' · Sin actualizar hace un rato: conviene revisar los sensores.'}
-                        </p>
+                        </div>
                     </>
                 )}
-            </div>
+            </Card>
 
-            <div>
-                <div style={EYEBROW}>directorio</div>
-                <h2 style={CARD_TITLE}>Teléfonos Eurotur</h2>
-
+            <Card title="Teléfonos Eurotur" badge="directorio">
+                {unavailable && (
+                    <Message>
+                        Los datos no están disponibles por el momento.
+                    </Message>
+                )}
+                {!unavailable && datos === null && <Message>Cargando…</Message>}
                 {!unavailable && datos !== null && (
                     <>
-                        <input
-                            type="search"
-                            value={query}
-                            onChange={(event) => setQuery(event.target.value)}
-                            placeholder="Buscar por nombre o número…"
-                            aria-label="Buscar en el directorio de teléfonos"
-                            style={{
-                                boxSizing: 'border-box',
-                                width: '100%',
-                                margin: '14px 0 12px',
-                                padding: '9px 10px',
-                                border: '1px solid #000',
-                                borderRadius: 0,
-                                fontFamily: "'Archivo', sans-serif",
-                                fontSize: '13px',
-                            }}
-                        />
-                        <div style={{ borderTop: '2px solid #000' }}>
+                        <div style={{ padding: '14px 18px' }}>
+                            <input
+                                type="search"
+                                value={query}
+                                onChange={(event) =>
+                                    setQuery(event.target.value)
+                                }
+                                placeholder="Buscar por nombre o número…"
+                                aria-label="Buscar en el directorio de teléfonos"
+                                style={{
+                                    boxSizing: 'border-box',
+                                    width: '100%',
+                                    padding: '9px 10px',
+                                    border: '1px solid #000',
+                                    borderRadius: 0,
+                                    fontFamily: "'Archivo', sans-serif",
+                                    fontSize: '13px',
+                                }}
+                            />
+                        </div>
+                        <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
                             {phones.map((phone, index) => (
                                 <div
                                     key={phone.nombre + phone.numero + index}
                                     style={{
-                                        display: 'grid',
-                                        gridTemplateColumns: '1fr auto',
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
                                         gap: '18px',
-                                        padding: '11px 0',
-                                        borderBottom: '1px solid #ececec',
+                                        padding: '11px 18px',
+                                        borderTop: '1px solid #ececec',
                                         fontSize: '14px',
                                     }}
                                 >
@@ -261,10 +325,9 @@ export function MesaEnVivo() {
                                     <a
                                         href={'tel:' + phone.numero}
                                         style={{
+                                            ...MONO,
                                             color: '#000',
                                             textDecoration: 'none',
-                                            fontFamily:
-                                                "'Space Mono', monospace",
                                             fontWeight: 700,
                                             fontSize: '13px',
                                         }}
@@ -274,21 +337,15 @@ export function MesaEnVivo() {
                                 </div>
                             ))}
                             {phones.length === 0 && (
-                                <p style={{ fontSize: '13.5px', color: '#555' }}>
+                                <Message>
                                     No hay teléfonos que coincidan con la
                                     búsqueda.
-                                </p>
+                                </Message>
                             )}
                         </div>
                     </>
                 )}
-
-                {unavailable && (
-                    <p style={{ fontSize: '13.5px', color: '#555' }}>
-                        Los datos no están disponibles por el momento.
-                    </p>
-                )}
-            </div>
+            </Card>
         </div>
     );
 }
