@@ -128,16 +128,6 @@ export default function Mesa() {
                             contraseñas, pantallas y sonido. Guías paso a paso.
                         </p>
                     </div>
-                    <div
-                        style={{
-                            fontFamily: "'Archivo', sans-serif",
-                            fontWeight: 900,
-                            fontSize: 'clamp(80px,10vw,140px)',
-                            lineHeight: 0.72,
-                        }}
-                    >
-                        12
-                    </div>
                 </div>
 
                 <div style={{ border: '1px solid #000', marginBottom: '34px' }}>
@@ -360,18 +350,6 @@ export default function Mesa() {
                                 marginTop: '12px',
                             }}
                         >
-                            <span
-                                style={{
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: 'clamp(40px,5vw,66px)',
-                                    lineHeight: 0.78,
-                                    letterSpacing: '-0.03em',
-                                    color: RED,
-                                }}
-                            >
-                                02
-                            </span>
                             <h2
                                 style={{
                                     margin: 0,
@@ -562,7 +540,7 @@ export default function Mesa() {
                                 color: '#ff6a72',
                             }}
                         >
-                            03 · red · vpn
+                            red · vpn
                         </div>
                         <h2
                             style={{
@@ -699,18 +677,6 @@ export default function Mesa() {
                                 marginTop: '12px',
                             }}
                         >
-                            <span
-                                style={{
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: 'clamp(40px,5vw,66px)',
-                                    lineHeight: 0.78,
-                                    letterSpacing: '-0.03em',
-                                    color: RED,
-                                }}
-                            >
-                                04
-                            </span>
                             <h2
                                 style={{
                                     margin: 0,
@@ -819,18 +785,6 @@ export default function Mesa() {
                                 marginTop: '12px',
                             }}
                         >
-                            <span
-                                style={{
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: 'clamp(40px,5vw,66px)',
-                                    lineHeight: 0.78,
-                                    letterSpacing: '-0.03em',
-                                    color: RED,
-                                }}
-                            >
-                                05
-                            </span>
                             <h2
                                 style={{
                                     margin: 0,
@@ -960,18 +914,6 @@ export default function Mesa() {
                                 marginTop: '12px',
                             }}
                         >
-                            <span
-                                style={{
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: 'clamp(40px,5vw,66px)',
-                                    lineHeight: 0.78,
-                                    letterSpacing: '-0.03em',
-                                    color: RED,
-                                }}
-                            >
-                                06
-                            </span>
                             <h2
                                 style={{
                                     margin: 0,
@@ -1246,18 +1188,6 @@ export default function Mesa() {
                                 marginTop: '12px',
                             }}
                         >
-                            <span
-                                style={{
-                                    fontFamily: "'Archivo', sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: 'clamp(40px,5vw,66px)',
-                                    lineHeight: 0.78,
-                                    letterSpacing: '-0.03em',
-                                    color: RED,
-                                }}
-                            >
-                                07
-                            </span>
                             <h2
                                 style={{
                                     margin: 0,
