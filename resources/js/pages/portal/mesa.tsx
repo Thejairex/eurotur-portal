@@ -403,7 +403,7 @@ export default function Mesa() {
                             <div
                                 style={{
                                     display: 'grid',
-                                    gridTemplateColumns: '190px 1fr',
+                                    gridTemplateColumns: '150px 1fr',
                                     alignItems: 'center',
                                 }}
                             >
@@ -411,7 +411,7 @@ export default function Mesa() {
                                     style={{
                                         fontFamily: "'Archivo', sans-serif",
                                         fontWeight: 900,
-                                        fontSize: '38px',
+                                        fontSize: '22px',
                                         letterSpacing: '-0.03em',
                                         padding: '15px 24px 15px 0',
                                         borderBottom: '1px solid #ececec',
@@ -433,7 +433,7 @@ export default function Mesa() {
                                     style={{
                                         fontFamily: "'Archivo', sans-serif",
                                         fontWeight: 900,
-                                        fontSize: '38px',
+                                        fontSize: '22px',
                                         letterSpacing: '-0.03em',
                                         padding: '15px 24px 15px 0',
                                         borderBottom: '1px solid #ececec',
@@ -455,7 +455,7 @@ export default function Mesa() {
                                     style={{
                                         fontFamily: "'Archivo', sans-serif",
                                         fontWeight: 900,
-                                        fontSize: '38px',
+                                        fontSize: '22px',
                                         letterSpacing: '-0.03em',
                                         padding: '15px 24px 15px 0',
                                         borderBottom: '1px solid #ececec',

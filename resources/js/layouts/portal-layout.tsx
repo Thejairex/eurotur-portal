@@ -1005,53 +1005,61 @@ function Footer() {
                     <span style={{ color: '#999' }}>email</span>
                     &nbsp;&nbsp;
                     <a
-                        href="mailto:correo@eurotur.tur.ar"
+                        href="mailto:valentina.homez@eurotur.tur.ar"
                         style={{ color: 'inherit', textDecoration: 'none' }}
                     >
-                        correo@eurotur.tur.ar
+                        valentina.homez@eurotur.tur.ar
                     </a>
                 </span>
                 <span style={{ color: '#999' }}>
-                    Tucumán 825 5, Capital Federal, Argentina
+                    Tucumán 825, piso 5, Capital Federal, Argentina
                 </span>
             </div>
             <div
                 style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '16px',
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: '10px',
-                    letterSpacing: '0.08em',
-                    textTransform: 'uppercase',
-                    color: '#999',
+                    gap: '28px',
                 }}
             >
-                <span>redes —</span>
-                {SOCIAL_LINKS.map((social) => (
-                    <a
-                        key={social.label}
-                        href={social.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={social.label}
-                        title={social.label}
-                        className="social-link"
-                        style={{
-                            display: 'inline-flex',
-                            color: 'inherit',
-                            transition: 'color .12s',
-                        }}
-                    >
-                        <social.icon size={16} />
-                    </a>
-                ))}
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '16px',
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '10px',
+                        letterSpacing: '0.08em',
+                        textTransform: 'uppercase',
+                        color: '#999',
+                    }}
+                >
+                    <span>redes —</span>
+                    {SOCIAL_LINKS.map((social) => (
+                        <a
+                            key={social.label}
+                            href={social.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label={social.label}
+                            title={social.label}
+                            className="social-link"
+                            style={{
+                                display: 'inline-flex',
+                                color: 'inherit',
+                                transition: 'color .12s',
+                            }}
+                        >
+                            <social.icon size={16} />
+                        </a>
+                    ))}
+                </div>
+                <img
+                    src="/eurotur-logo.png"
+                    alt="Eurotur"
+                    style={{ height: '38px', width: 'auto', display: 'block' }}
+                />
             </div>
-            <img
-                src="/eurotur-logo.png"
-                alt="Eurotur"
-                style={{ height: '38px', width: 'auto', display: 'block' }}
-            />
         </footer>
     );
 }
