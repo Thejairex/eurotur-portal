@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
+import { formatPhone } from '@/lib/format-phone';
 
 const RED = '#E30613';
 const REFRESH_MS = 60_000;
@@ -48,14 +49,23 @@ function formatUpdated(iso: string): string {
 function Card({
     title,
     badge,
+    center,
     children,
 }: {
     title: string;
     badge: string;
+    center?: boolean;
     children: ReactNode;
 }) {
     return (
-        <div style={{ border: '1px solid #000', background: '#fff' }}>
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                border: '1px solid #000',
+                background: '#fff',
+            }}
+        >
             <div
                 style={{
                     display: 'flex',
@@ -85,10 +95,22 @@ function Card({
                         color: '#ff6a72',
                     }}
                 >
-                    ● {badge}
+                    <span className={badge === 'en vivo' ? 'mesa-pulso' : undefined}>
+                        ●
+                    </span>{' '}
+                    {badge}
                 </span>
             </div>
-            {children}
+            <div
+                style={{
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: center ? 'center' : 'flex-start',
+                }}
+            >
+                {children}
+            </div>
         </div>
     );
 }
@@ -117,6 +139,7 @@ function SensorTile({ sensor }: { sensor: Sensor }) {
                 borderLeft: '4px solid ' + level.bar,
                 background: '#fafafa',
                 padding: '14px 16px',
+                textAlign: 'center',
             }}
         >
             <div
@@ -215,11 +238,12 @@ export function MesaEnVivo() {
         failed || datos?.modo === 'error' || datos?.modo === 'no-configurado';
     const badge = datos?.modo === 'ejemplo' ? 'datos de ejemplo' : 'en vivo';
     const needle = query.trim().toLowerCase();
+    const digits = needle.replace(/\D/g, '');
     const phones = (datos?.telefonos ?? []).filter(
         (phone) =>
             needle === '' ||
             phone.nombre.toLowerCase().includes(needle) ||
-            phone.numero.includes(needle),
+            (digits !== '' && phone.numero.replace(/\D/g, '').includes(digits)),
     );
 
     return (
@@ -233,7 +257,7 @@ export function MesaEnVivo() {
                 marginBottom: '34px',
             }}
         >
-            <Card title="Sensores · Tucumán" badge={badge}>
+            <Card title="Sensores · Tucumán" badge={badge} center>
                 {unavailable && (
                     <Message>
                         Los datos no están disponibles por el momento.
@@ -308,7 +332,7 @@ export function MesaEnVivo() {
                                 }}
                             />
                         </div>
-                        <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                        <div style={{ maxHeight: '260px', overflowY: 'auto' }}>
                             {phones.map((phone, index) => (
                                 <div
                                     key={phone.nombre + phone.numero + index}
@@ -332,7 +356,7 @@ export function MesaEnVivo() {
                                             fontSize: '13px',
                                         }}
                                     >
-                                        {phone.numero}
+                                        {formatPhone(phone.numero)}
                                     </a>
                                 </div>
                             ))}
