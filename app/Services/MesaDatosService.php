@@ -16,6 +16,8 @@ use Throwable;
  *
  * Modos (`modo`): "vivo" (leído de las hojas), "ejemplo" (datos ficticios, para preprod),
  * "no-configurado" (faltan credenciales o ids de hoja) y "error" (Google no respondió).
+ *
+ * @phpstan-type Datos array{modo: string, sensores: list<array<string, mixed>>, telefonos: list<array{nombre: string, numero: string}>, actualizado: string|null, desactualizado: bool}
  */
 class MesaDatosService
 {
@@ -32,10 +34,11 @@ class MesaDatosService
     private const TIMEZONE = 'America/Argentina/Buenos_Aires';
 
     /**
-     * @return array{modo: string, sensores: list<array<string, mixed>>, telefonos: list<array{nombre: string, numero: string}>, actualizado: string|null, desactualizado: bool}
+     * @return Datos
      */
     public function datos(): array
     {
+        /** @var Datos|null $cached */
         $cached = Cache::get('mesa.datos');
 
         if (is_array($cached)) {
@@ -51,7 +54,7 @@ class MesaDatosService
     }
 
     /**
-     * @return array{modo: string, sensores: list<array<string, mixed>>, telefonos: list<array{nombre: string, numero: string}>, actualizado: string|null, desactualizado: bool}
+     * @return Datos
      */
     private function leer(): array
     {
@@ -248,7 +251,7 @@ class MesaDatosService
     }
 
     /**
-     * @return array{modo: string, sensores: list<array<string, mixed>>, telefonos: list<array{nombre: string, numero: string}>, actualizado: string|null, desactualizado: bool}
+     * @return Datos
      */
     private function vacio(string $modo): array
     {
@@ -258,7 +261,7 @@ class MesaDatosService
     /**
      * Datos ficticios para probar el panel en preprod sin tocar las hojas reales.
      *
-     * @return array{modo: string, sensores: list<array<string, mixed>>, telefonos: list<array{nombre: string, numero: string}>, actualizado: string|null, desactualizado: bool}
+     * @return Datos
      */
     private function ejemplo(): array
     {

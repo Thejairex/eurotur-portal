@@ -60,7 +60,16 @@ class MesaDatosTest extends TestCase
                 ['Guardias', '1168781562'],
                 ['', ''],
             ]]),
+            // El portal consulta el dolar y la cotizacion en cada pagina: se finge para no salir a internet.
+            '*' => Http::response([]),
         ]);
+    }
+
+    private function peticionesAGoogle(): int
+    {
+        return Http::recorded()
+            ->filter(fn (array $par) => str_contains($par[0]->url(), 'googleapis.com'))
+            ->count();
     }
 
     public function test_it_reads_the_sensors_and_phones_from_the_sheets_without_login(): void
@@ -115,12 +124,15 @@ class MesaDatosTest extends TestCase
         $this->getJson(route('portal.mesa.datos'))->assertOk();
 
         // 1 token + 1 hoja de sensores + 1 hoja de telefonos, una sola vez.
-        Http::assertSentCount(3);
+        $this->assertSame(3, $this->peticionesAGoogle());
     }
 
     public function test_it_reports_an_error_without_breaking_when_google_fails(): void
     {
-        Http::fake(['oauth2.googleapis.com/token' => Http::response('boom', 500)]);
+        Http::fake([
+            'oauth2.googleapis.com/token' => Http::response('boom', 500),
+            '*' => Http::response([]),
+        ]);
 
         $this->getJson(route('portal.mesa.datos'))
             ->assertOk()
@@ -132,26 +144,26 @@ class MesaDatosTest extends TestCase
     public function test_it_says_not_configured_when_there_are_no_credentials(): void
     {
         config(['services.mesa.credenciales' => null]);
-        Http::fake();
+        Http::fake(['*' => Http::response([])]);
 
         $this->getJson(route('portal.mesa.datos'))
             ->assertOk()
             ->assertJsonPath('modo', 'no-configurado');
 
-        Http::assertNothingSent();
+        $this->assertSame(0, $this->peticionesAGoogle());
     }
 
     public function test_example_mode_returns_fictitious_data_without_touching_google(): void
     {
         config(['services.mesa.datos_ejemplo' => true]);
-        Http::fake();
+        Http::fake(['*' => Http::response([])]);
 
         $this->getJson(route('portal.mesa.datos'))
             ->assertOk()
             ->assertJsonPath('modo', 'ejemplo')
             ->assertJsonPath('desactualizado', false);
 
-        Http::assertNothingSent();
+        $this->assertSame(0, $this->peticionesAGoogle());
     }
 
     public function test_the_mesa_page_still_renders(): void
