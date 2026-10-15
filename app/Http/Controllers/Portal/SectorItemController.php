@@ -9,6 +9,7 @@ use App\Http\Requests\Portal\StoreSectorItemRequest;
 use App\Http\Requests\Portal\UpdateSectorItemRequest;
 use App\Models\SectorGroup;
 use App\Models\SectorItem;
+use App\Services\SectorUpdates;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -31,6 +32,8 @@ class SectorItemController extends Controller
             'keywords' => $request->validated('keywords'),
             'sort_order' => $nextSortOrder,
         ]);
+
+        SectorUpdates::registrar($group->sector);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Link agregado.')]);
 
@@ -66,6 +69,8 @@ class SectorItemController extends Controller
 
         $item->update($attributes);
 
+        SectorUpdates::registrar($item->group->sector);
+
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Link actualizado.')]);
 
         return back();
@@ -83,6 +88,8 @@ class SectorItemController extends Controller
         }
 
         $item->delete();
+
+        SectorUpdates::registrar($item->group->sector);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Link eliminado.')]);
 

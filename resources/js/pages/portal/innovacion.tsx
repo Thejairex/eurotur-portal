@@ -5,6 +5,7 @@ import IniciativaController from '@/actions/App/Http/Controllers/Portal/Iniciati
 import InputError from '@/components/input-error';
 import type { BotMonitorProps } from '@/components/portal/bot-monitor';
 import { BotMonitor } from '@/components/portal/bot-monitor';
+import { formatMaintLine } from '@/lib/sector-updated';
 
 const RED = '#E30613';
 
@@ -130,7 +131,7 @@ const smallButtonStyle: React.CSSProperties = {
 type Props = BotMonitorProps & { frentes: Frente[] };
 
 export default function Innovacion({ frentes, summary, stats }: Props) {
-    const { canEdit } = usePage().props;
+    const { canEdit, sectorUpdates } = usePage().props;
     const [layout, setLayout] = useState<'a' | 'b'>('a');
     const [editing, setEditing] = useState(false);
     const [openFrentes, setOpenFrentes] = useState<Record<string, boolean>>({});
@@ -1218,7 +1219,11 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                         color: '#666',
                     }}
                 >
-                    mantiene— Homez, Valentina · actualizado 07·2026
+                    mantiene—{' '}
+                    {formatMaintLine(
+                        'Homez, Valentina · actualizado 07·2026',
+                        sectorUpdates.innovacion,
+                    )}
                 </div>
             </section>
         </>

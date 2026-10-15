@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Portal\StoreSectorGroupRequest;
 use App\Http\Requests\Portal\UpdateSectorGroupRequest;
 use App\Models\SectorGroup;
+use App\Services\SectorUpdates;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
@@ -27,6 +28,8 @@ class SectorGroupController extends Controller
             'sort_order' => $nextSortOrder,
         ]);
 
+        SectorUpdates::registrar($sector->value);
+
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Grupo agregado.')]);
 
         return back();
@@ -38,6 +41,8 @@ class SectorGroupController extends Controller
     public function update(SectorGroup $group, UpdateSectorGroupRequest $request): RedirectResponse
     {
         $group->update($request->validated());
+
+        SectorUpdates::registrar($group->sector);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Grupo actualizado.')]);
 
@@ -52,6 +57,8 @@ class SectorGroupController extends Controller
         Gate::authorize(Permission::forSector(EditableSector::from($group->sector))->value);
 
         $group->delete();
+
+        SectorUpdates::registrar($group->sector);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Grupo eliminado.')]);
 

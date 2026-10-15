@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Services\DolarOficialService;
 use App\Services\IataRateService;
+use App\Services\SectorUpdates;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -47,6 +48,8 @@ class HandleInertiaRequests extends Middleware
             ],
             'canEdit' => $request->user()?->canEditPortal() ?? false,
             // true = el usuario todavía no hizo ese recorrido guiado (cada uno se hace una sola vez).
+            // Fecha real de la última modificación de cada sector (pie de cada página).
+            'sectorUpdates' => fn () => SectorUpdates::todos(),
             'tours' => [
                 'portal' => $request->user() !== null && $request->user()->portal_tour_completed_at === null,
                 'backoffice' => $request->user() !== null && $request->user()->backoffice_tour_completed_at === null,
