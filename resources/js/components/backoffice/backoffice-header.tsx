@@ -48,7 +48,9 @@ export function BackofficeHeader({
             </div>
 
             <div className="flex items-center gap-4">
-                <ThemeToggle />
+                <div data-tour="tour-tema">
+                    <ThemeToggle />
+                </div>
                 {auth?.user && (
                     <span className="bo-label">{auth.user.name}</span>
                 )}

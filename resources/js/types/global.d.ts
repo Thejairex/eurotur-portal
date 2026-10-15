@@ -13,6 +13,7 @@ declare module '@inertiajs/core' {
             name: string;
             auth: Auth;
             canEdit: boolean;
+            onboardingPending: boolean;
             sidebarOpen: boolean;
             dolarOficial: {
                 venta: number;

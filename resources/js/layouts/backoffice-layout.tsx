@@ -1,6 +1,7 @@
 import { Head } from '@inertiajs/react';
 import { BackofficeHeader } from '@/components/backoffice/backoffice-header';
 import { BackofficeSidebar } from '@/components/backoffice/backoffice-sidebar';
+import { OnboardingTour } from '@/components/backoffice/onboarding-tour';
 import type { BreadcrumbItem } from '@/types';
 
 /**
@@ -39,6 +40,8 @@ export default function BackofficeLayout({
                     <BackofficeHeader breadcrumbs={breadcrumbs} />
                     <main className="flex-1 px-8 pt-6 pb-16">{children}</main>
                 </div>
+
+                <OnboardingTour />
             </div>
         </>
     );

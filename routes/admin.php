@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Crm\InvoiceLoaderHistoryController;
 use App\Http\Controllers\Admin\Crm\InvoiceLoaderPageController;
 use App\Http\Controllers\Admin\Crm\InvoiceProposalController;
 use App\Http\Controllers\Admin\HerramientaEmbebidaController;
+use App\Http\Controllers\Admin\OnboardingCompleteController;
 use App\Http\Controllers\Admin\OrganigramaEditarRedirectController;
 use App\Http\Controllers\Admin\PrepagosRedirectController;
 use App\Http\Controllers\Admin\RoleController;
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth', 'verified'])->prefix('administracion')->name('admin.')->group(function () {
     // /administracion a secas no existia (404): lleva al inicio del Back Office.
     Route::redirect('/', '/administracion/crm');
+
+    // Recorrido guiado de la primera vez: lo ve cualquier usuario, sin permiso especial.
+    Route::post('recorrido/completar', OnboardingCompleteController::class)->name('onboarding.complete');
 
     Route::middleware('can:users.manage')->group(function () {
         Route::resource('usuarios', UserController::class)
