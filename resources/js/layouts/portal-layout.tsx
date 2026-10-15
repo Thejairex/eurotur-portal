@@ -1,6 +1,7 @@
 import { Form, Head, Link, router, usePage } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
+import { PortalTour } from '@/components/portal/portal-tour';
 import { TOOLS_PERMISSIONS, usePermissions } from '@/hooks/use-permissions';
 import { isRateStale } from '@/lib/exchange-rates';
 import { SECTORS } from '@/lib/portal-sectors';
@@ -229,6 +230,8 @@ export default function PortalLayout({
                     <Footer />
                 </main>
             </div>
+
+            <PortalTour />
         </>
     );
 }
@@ -370,6 +373,7 @@ function Sidebar({
                     <Link
                         key={sector.id}
                         href={sector.href}
+                        data-tour={`portal-nav-${sector.id}`}
                         className="nav-item"
                         style={{
                             all: 'unset',

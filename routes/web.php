@@ -1,11 +1,17 @@
 <?php
 
+use App\Http\Controllers\Admin\OnboardingCompleteController;
 use App\Http\Controllers\Internal\HerramientaSessionController;
 use App\Http\Controllers\Internal\PrepagosSessionController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
+
+    // Recorridos guiados de la primera vez (portal y Back Office): los ve cualquier usuario, sin permiso especial.
+    Route::post('recorrido/{tour}/completar', OnboardingCompleteController::class)
+        ->whereIn('tour', array_keys(OnboardingCompleteController::COLUMNS))
+        ->name('onboarding.complete');
 });
 
 // Called server-to-server by the Panel de Prepagos reverse proxy (nginx

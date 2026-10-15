@@ -46,8 +46,11 @@ class HandleInertiaRequests extends Middleware
                 'permissions' => $request->user()?->permissionSlugs() ?? [],
             ],
             'canEdit' => $request->user()?->canEditPortal() ?? false,
-            // true = el usuario todavía no hizo el recorrido guiado del Back Office.
-            'onboardingPending' => $request->user() !== null && $request->user()->onboarding_completed_at === null,
+            // true = el usuario todavía no hizo ese recorrido guiado (cada uno se hace una sola vez).
+            'tours' => [
+                'portal' => $request->user() !== null && $request->user()->portal_tour_completed_at === null,
+                'backoffice' => $request->user() !== null && $request->user()->backoffice_tour_completed_at === null,
+            ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'dolarOficial' => app(DolarOficialService::class)->oficial(),
             'iataRate' => app(IataRateService::class)->rate(),
