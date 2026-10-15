@@ -90,62 +90,64 @@ const SYMBOL_KEYS: Record<string, string> = {
 export function Rico({ texto }: { texto: string }) {
     return (
         <>
-            {texto.split(/(\*\*[^*]+\*\*|\[\[[^\]]+\]\])/).map((parte, index) => {
-                if (parte.startsWith('**')) {
-                    return <b key={index}>{parte.slice(2, -2)}</b>;
-                }
+            {texto
+                .split(/(\*\*[^*]+\*\*|\[\[[^\]]+\]\])/)
+                .map((parte, index) => {
+                    if (parte.startsWith('**')) {
+                        return <b key={index}>{parte.slice(2, -2)}</b>;
+                    }
 
-                if (parte.startsWith('[[')) {
-                    const tecla = parte.slice(2, -2);
-                    const nombre = SYMBOL_KEYS[tecla];
+                    if (parte.startsWith('[[')) {
+                        const tecla = parte.slice(2, -2);
+                        const nombre = SYMBOL_KEYS[tecla];
 
-                    if (nombre) {
+                        if (nombre) {
+                            return (
+                                <kbd
+                                    key={index}
+                                    style={{
+                                        ...KEY_STYLE,
+                                        display: 'inline-flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        gap: '2px',
+                                        padding: '4px 10px',
+                                        verticalAlign: 'middle',
+                                    }}
+                                >
+                                    <span
+                                        style={{
+                                            fontSize: '24px',
+                                            fontWeight: 900,
+                                            lineHeight: '20px',
+                                        }}
+                                    >
+                                        {tecla}
+                                    </span>
+                                    <span
+                                        style={{
+                                            fontFamily: "'Archivo', sans-serif",
+                                            fontSize: '9px',
+                                            fontWeight: 700,
+                                            letterSpacing: '0.06em',
+                                            textTransform: 'uppercase',
+                                        }}
+                                    >
+                                        {nombre}
+                                    </span>
+                                </kbd>
+                            );
+                        }
+
                         return (
-                            <kbd
-                                key={index}
-                                style={{
-                                    ...KEY_STYLE,
-                                    display: 'inline-flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    gap: '2px',
-                                    padding: '4px 10px',
-                                    verticalAlign: 'middle',
-                                }}
-                            >
-                                <span
-                                    style={{
-                                        fontSize: '24px',
-                                        fontWeight: 900,
-                                        lineHeight: '20px',
-                                    }}
-                                >
-                                    {tecla}
-                                </span>
-                                <span
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
-                                        fontSize: '9px',
-                                        fontWeight: 700,
-                                        letterSpacing: '0.06em',
-                                        textTransform: 'uppercase',
-                                    }}
-                                >
-                                    {nombre}
-                                </span>
+                            <kbd key={index} style={KEY_STYLE}>
+                                {tecla}
                             </kbd>
                         );
                     }
 
-                    return (
-                        <kbd key={index} style={KEY_STYLE}>
-                            {tecla}
-                        </kbd>
-                    );
-                }
-
-                return parte;
-            })}
+                    return parte;
+                })}
         </>
     );
 }
@@ -183,7 +185,11 @@ export function Paso({ n, texto }: { n: number; texto: string }) {
                 {n}
             </span>
             <div
-                style={{ fontSize: '16.5px', lineHeight: 1.5, paddingTop: '4px' }}
+                style={{
+                    fontSize: '16.5px',
+                    lineHeight: 1.5,
+                    paddingTop: '4px',
+                }}
             >
                 <Rico texto={texto} />
             </div>

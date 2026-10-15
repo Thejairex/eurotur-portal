@@ -95,7 +95,11 @@ function Card({
                         color: '#ff6a72',
                     }}
                 >
-                    <span className={badge === 'en vivo' ? 'mesa-pulso' : undefined}>
+                    <span
+                        className={
+                            badge === 'en vivo' ? 'mesa-pulso' : undefined
+                        }
+                    >
                         ●
                     </span>{' '}
                     {badge}
