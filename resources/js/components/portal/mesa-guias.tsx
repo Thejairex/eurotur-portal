@@ -77,6 +77,12 @@ const KEY_STYLE: CSSProperties = {
     fontSize: '14px',
 };
 
+/** Nombre de las teclas que son un símbolo: solas se leen como puntos, así que llevan su nombre abajo. */
+const SYMBOL_KEYS: Record<string, string> = {
+    '*': 'asterisco',
+    '#': 'numeral',
+};
+
 /**
  * Texto con marcas simples: **negrita** y [[Tecla]] (se dibuja como una tecla del teclado).
  * Así todo el contenido de las guías vive en textos planos, fáciles de cambiar.
@@ -90,9 +96,50 @@ export function Rico({ texto }: { texto: string }) {
                 }
 
                 if (parte.startsWith('[[')) {
+                    const tecla = parte.slice(2, -2);
+                    const nombre = SYMBOL_KEYS[tecla];
+
+                    if (nombre) {
+                        return (
+                            <kbd
+                                key={index}
+                                style={{
+                                    ...KEY_STYLE,
+                                    display: 'inline-flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    gap: '2px',
+                                    padding: '4px 10px',
+                                    verticalAlign: 'middle',
+                                }}
+                            >
+                                <span
+                                    style={{
+                                        fontSize: '24px',
+                                        fontWeight: 900,
+                                        lineHeight: '20px',
+                                    }}
+                                >
+                                    {tecla}
+                                </span>
+                                <span
+                                    style={{
+                                        fontFamily: "'Archivo', sans-serif",
+                                        fontSize: '9px',
+                                        fontWeight: 700,
+                                        letterSpacing: '0.06em',
+                                        textTransform: 'uppercase',
+                                    }}
+                                >
+                                    {nombre}
+                                </span>
+                            </kbd>
+                        );
+                    }
+
                     return (
                         <kbd key={index} style={KEY_STYLE}>
-                            {parte.slice(2, -2)}
+                            {tecla}
                         </kbd>
                     );
                 }
