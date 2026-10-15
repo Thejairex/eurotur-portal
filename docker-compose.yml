@@ -19,8 +19,13 @@ services:
             SESSION_DRIVER: database
             CACHE_STORE: database
             QUEUE_CONNECTION: database
+            # Mesa de Informacion: lee las hojas de Google (solo lectura) con la cuenta de servicio montada abajo.
+            GOOGLE_SERVICE_ACCOUNT_FILE: /run/secrets/google-mesa.json
         volumes:
             - storage-data:/var/www/html/storage
+            # Clave de la cuenta de servicio (solo lectura). Copiarla ANTES de levantar: si el archivo no
+            # existe en el servidor, Docker crea una carpeta con ese nombre.
+            - /home/vhomez/secretos/google-mesa.json:/run/secrets/google-mesa.json:ro
         networks:
             - default
             - proxy
