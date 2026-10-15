@@ -403,7 +403,7 @@ export default function Mesa() {
                             <div
                                 style={{
                                     display: 'grid',
-                                    gridTemplateColumns: 'auto 1fr',
+                                    gridTemplateColumns: '190px 1fr',
                                     alignItems: 'center',
                                 }}
                             >
@@ -413,7 +413,6 @@ export default function Mesa() {
                                         fontWeight: 900,
                                         fontSize: '38px',
                                         letterSpacing: '-0.03em',
-                                        color: RED,
                                         padding: '15px 24px 15px 0',
                                         borderBottom: '1px solid #ececec',
                                     }}
@@ -477,26 +476,30 @@ export default function Mesa() {
                                 <div
                                     style={{
                                         fontFamily: "'Archivo', sans-serif",
-                                        fontWeight: 800,
-                                        fontSize: '16px',
+                                        fontWeight: 900,
+                                        fontSize: '22px',
+                                        letterSpacing: '-0.01em',
                                         textTransform: 'uppercase',
                                         padding: '15px 24px 15px 0',
                                     }}
                                 >
                                     Transferir
                                 </div>
-                                <div style={{ padding: '15px 0' }}>
-                                    <span
+                                <div
+                                    style={{
+                                        padding: '15px 0',
+                                        fontSize: '14px',
+                                        lineHeight: 1.4,
+                                    }}
+                                >
+                                    <b
                                         style={{
                                             fontFamily:
                                                 "'Space Mono', monospace",
-                                            fontWeight: 700,
-                                            fontSize: '18px',
-                                            color: RED,
                                         }}
                                     >
                                         **(interno)#
-                                    </span>
+                                    </b>
                                 </div>
                             </div>
                         </div>
