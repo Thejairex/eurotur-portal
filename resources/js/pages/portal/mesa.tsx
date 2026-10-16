@@ -71,8 +71,8 @@ const PREFIJOS = [
 
 const PASOS_TRANSFERIR = [
     'Con la persona en línea, tocá [[*]] [[*]] (dos veces la tecla asterisco).',
-    'Escribí el **número de interno** al que querés pasar la llamada. Por ejemplo: 101.',
-    'Tocá la tecla [[#]] (numeral). Listo: la llamada se transfiere.',
+    'Escribí el **número de interno** al que querés pasar la llamada (el número corto de cada persona, por ejemplo 101).',
+    'Tocá la tecla [[#]] (el numeral, también llamado "gato"). Listo: la llamada se transfiere.',
 ];
 
 const PASOS_VPN = [
@@ -109,7 +109,7 @@ const OPCIONES_PANTALLAS = [
 ];
 
 const PASOS_SONIDO = [
-    'Verificá que estén conectados el **cable de audio** y el **cable HDMI**.',
+    'Verificá que estén conectados el **cable de audio** y el **cable HDMI** (el cable de video).',
     'Hacé clic en el ícono del parlante 🔊 (abajo a la derecha, junto al reloj).',
     'En la lista, elegí **Auriculares (Realtek(R) Audio)**.',
 ];
@@ -458,7 +458,7 @@ export default function Mesa() {
                     emoji="🔒"
                     categoria="red · vpn"
                     titulo="Mi VPN no conecta (bloqueo de VPN)"
-                    resumen="Si la VPN se queda trabada al conectarse, probablemente quedó bloqueada. Esto es lo que tenés que hacer."
+                    resumen="La VPN es la conexión segura para trabajar con la red de Eurotur desde afuera de la oficina. Si se queda trabada al conectarse, probablemente quedó bloqueada. Esto es lo que tenés que hacer."
                     imagen={{
                         src: '/img/mesa-vpn.webp',
                         alt: 'Pantalla de la VPN trabada',
@@ -532,7 +532,7 @@ export default function Mesa() {
                     />
                     <Aviso
                         emoji="💡"
-                        texto="Una vez cambiada, la nueva contraseña se aplica en **todos tus accesos**: TS, VPN, Spark, etc."
+                        texto="Una vez cambiada, la nueva contraseña se aplica en **todos tus accesos**: TS (escritorio remoto), VPN (conexión segura), Spark, etc."
                     />
                 </Guia>
 
@@ -556,7 +556,7 @@ export default function Mesa() {
                     ))}
                     <Aviso
                         emoji="⚠️"
-                        texto="Desde el **TS (Terminal Server)** no se puede extender, solo duplicar."
+                        texto="Desde el **TS** (Terminal Server, el escritorio remoto) no se puede extender, solo duplicar."
                     />
                     <Aviso
                         emoji="📌"
@@ -593,7 +593,7 @@ export default function Mesa() {
                         color: '#666',
                     }}
                 >
-                    mantiene— IT · Mesa de Información · act. 10·2026
+                    mantiene— IT · Mesa de Información · actualizado 10·2026
                 </div>
             </section>
         </>
