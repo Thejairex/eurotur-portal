@@ -157,8 +157,7 @@ export const ADM_DATA: SectorIndexData = {
     title: 'Administración',
     num: '03',
     intro: 'Documentación legal, impositiva, bancaria, seguros y cuentas a pagar de Eurotur S.A. y Travel Designers S.A.',
-    maint:
-        'Quintana, Elsa · Agüero, Leonela · Flores, María B. · actualizado 07·2026',
+    maint: 'Quintana, Elsa · Agüero, Leonela · Flores, María B. · actualizado 07·2026',
     groups: [
         {
             title: 'Aspectos legales',
