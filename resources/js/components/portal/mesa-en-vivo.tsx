@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 import { formatPhone } from '@/lib/format-phone';
@@ -21,6 +22,7 @@ type Datos = {
     telefonos: Telefono[];
     actualizado: string | null;
     desactualizado: boolean;
+    minutosSinActualizar: number | null;
 };
 
 /** Color de la barra lateral y de la etiqueta de cada sensor según su estado. */
@@ -34,6 +36,30 @@ const MONO: CSSProperties = { fontFamily: "'Space Mono', monospace" };
 
 function formatDecimal(value: number): string {
     return value.toLocaleString('es-AR', { maximumFractionDigits: 1 });
+}
+
+function formatAge(minutes: number): string {
+    if (minutes < 60) {
+        return `${minutes} min`;
+    }
+
+    const hours = Math.floor(minutes / 60);
+
+    if (hours < 24) {
+        const rest = minutes % 60;
+
+        return rest === 0 ? `${hours} h` : `${hours} h ${rest} min`;
+    }
+
+    const days = Math.floor(hours / 24);
+
+    return days === 1 ? '1 día' : `${days} días`;
+}
+
+function staleMessage(minutes: number | null): string {
+    return minutes === null
+        ? 'Los sensores no informan su última lectura.'
+        : `Los sensores no informan desde hace ${formatAge(minutes)}.`;
 }
 
 function formatUpdated(iso: string): string {
@@ -300,9 +326,27 @@ export function MesaEnVivo() {
                                 ? 'Última actualización: ' +
                                   formatUpdated(datos.actualizado)
                                 : 'La hoja no informa su última actualización.'}
-                            {datos.desactualizado &&
-                                ' · Sin actualizar hace un rato: conviene revisar los sensores.'}
                         </div>
+                        {datos.desactualizado && (
+                            <div
+                                style={{
+                                    padding: '12px 18px',
+                                    background: '#fff6d6',
+                                    borderTop: '1px solid #f2b705',
+                                    fontSize: '14px',
+                                    lineHeight: 1.45,
+                                }}
+                            >
+                                ⚠️ {staleMessage(datos.minutosSinActualizar)}{' '}
+                                Avisá al equipo de Sistemas:{' '}
+                                <Link
+                                    href="/it"
+                                    style={{ color: '#000', fontWeight: 700 }}
+                                >
+                                    ir a la página de IT
+                                </Link>
+                            </div>
+                        )}
                     </>
                 )}
             </Card>

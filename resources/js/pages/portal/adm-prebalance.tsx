@@ -1247,7 +1247,7 @@ function Pie() {
                 envían a ningún servidor.
             </div>
             <div style={{ ...mono, color: '#666', whiteSpace: 'nowrap' }}>
-                mantiene— Quintana, Elsa · Basualdo, N. · act. 07·2026
+                mantiene— Quintana, Elsa · Basualdo, N. · actualizado 07·2026
             </div>
         </div>
     );

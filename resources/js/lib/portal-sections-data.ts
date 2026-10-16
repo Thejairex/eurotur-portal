@@ -157,7 +157,8 @@ export const ADM_DATA: SectorIndexData = {
     title: 'Administración',
     num: '03',
     intro: 'Documentación legal, impositiva, bancaria, seguros y cuentas a pagar de Eurotur S.A. y Travel Designers S.A.',
-    maint: 'Quintana, Elsa · Agüero, Leonela · Flores, María B. · act. 07·2026',
+    maint:
+        'Quintana, Elsa · Agüero, Leonela · Flores, María B. · actualizado 07·2026',
     groups: [
         {
             title: 'Aspectos legales',
@@ -309,7 +310,7 @@ export const CONTRATACIONES_DATA: SectorIndexData = {
     title: 'Contrataciones',
     num: '04',
     intro: 'Transportistas, hotelería, alta de proveedores, sucursales y procedimientos del sector.',
-    maint: 'Garrigo, Mariana · Dis, Paula · act. 06·2026',
+    maint: 'Garrigo, Mariana · Dis, Paula · actualizado 06·2026',
     groups: [
         {
             title: 'Servicios',
@@ -396,7 +397,7 @@ export const OPERACIONES_DATA: SectorIndexData = {
     title: 'Operaciones',
     num: '05',
     intro: 'Instrucciones, procedimientos e instructivos operativos por oficina — Buenos Aires y sucursales.',
-    maint: 'Juliano, María Valeria · act. 06·2026',
+    maint: 'Juliano, María Valeria · actualizado 06·2026',
     groups: [
         {
             title: 'Operaciones',
@@ -555,7 +556,7 @@ export const PRODUCTO_DATA: SectorIndexData = {
     title: 'Producto',
     num: '06',
     intro: 'Herramientas, fichas técnicas, reportes, novedades y fotos de producto.',
-    maint: 'Carrizo, C. · Aleu, M. · Carbajo, A. · act. 06·2026',
+    maint: 'Carrizo, C. · Aleu, M. · Carbajo, A. · actualizado 06·2026',
     groups: [
         {
             title: 'Herramientas',
@@ -774,7 +775,7 @@ export const IT_DATA: SectorIndexData = {
     title: 'IT',
     num: '11',
     intro: 'Ticketera, procedimientos, manuales e instructivos de sistemas, telefonía y acceso remoto.',
-    maint: 'Fuentes, Yenedier · act. 06·2026',
+    maint: 'Fuentes, Yenedier · actualizado 06·2026',
     groups: [
         {
             title: 'Ticketera & soporte',
@@ -903,7 +904,7 @@ export const RESPONSABLES_DATA: SectorIndexData = {
     title: 'Responsables del Portal',
     num: '13',
     intro: 'Quién mantiene cada sección del portal. Cada área figura también al pie de su página con «mantiene—».',
-    maint: 'De Bin, Aldo · act. 07·2026',
+    maint: 'De Bin, Aldo · actualizado 07·2026',
     groups: [
         { title: 'Institucional', items: [T('De Bin, Aldo')] },
         { title: 'RRHH', items: [T('Velázquez, Romina')] },

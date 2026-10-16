@@ -2604,7 +2604,7 @@ function Pie() {
                 comprobantes a ningún servidor.
             </div>
             <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#9ca3af', whiteSpace: 'nowrap' }}>
-                mantiene— Homez, Valentina · act. 07·2026
+                mantiene— Homez, Valentina · actualizado 07·2026
             </div>
         </div>
     );

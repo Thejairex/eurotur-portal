@@ -88,6 +88,7 @@ class MesaDatosTest extends TestCase
             ->assertJsonPath('sensores.1.nivel', 'ok')
             ->assertJsonPath('actualizado', '2026-10-15T13:40:00-03:00')
             ->assertJsonPath('desactualizado', false)
+            ->assertJsonPath('minutosSinActualizar', 10)
             ->assertJsonCount(2, 'telefonos')
             ->assertJsonPath('telefonos.0', ['nombre' => 'Operadora', 'numero' => '1155666250']);
     }
@@ -113,7 +114,8 @@ class MesaDatosTest extends TestCase
 
         $this->getJson(route('portal.mesa.datos'))
             ->assertOk()
-            ->assertJsonPath('desactualizado', true);
+            ->assertJsonPath('desactualizado', true)
+            ->assertJsonPath('minutosSinActualizar', 80);
     }
 
     public function test_it_reuses_the_reading_instead_of_calling_google_on_every_visit(): void

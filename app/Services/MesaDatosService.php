@@ -17,7 +17,7 @@ use Throwable;
  * Modos (`modo`): "vivo" (leído de las hojas), "ejemplo" (datos ficticios, para preprod),
  * "no-configurado" (faltan credenciales o ids de hoja) y "error" (Google no respondió).
  *
- * @phpstan-type Datos array{modo: string, sensores: list<array<string, mixed>>, telefonos: list<array{nombre: string, numero: string}>, actualizado: string|null, desactualizado: bool}
+ * @phpstan-type Datos array{modo: string, sensores: list<array<string, mixed>>, telefonos: list<array{nombre: string, numero: string}>, actualizado: string|null, desactualizado: bool, minutosSinActualizar: int|null}
  */
 class MesaDatosService
 {
@@ -81,12 +81,15 @@ class MesaDatosService
             return $this->vacio('error');
         }
 
+        $minutos = $this->minutosSin($sensores['actualizado']);
+
         return [
             'modo' => 'vivo',
             'sensores' => $sensores['items'],
             'telefonos' => $telefonos,
             'actualizado' => $sensores['actualizado'],
-            'desactualizado' => $this->estaDesactualizado($sensores['actualizado']),
+            'desactualizado' => $minutos === null || $minutos > self::STALE_MINUTES,
+            'minutosSinActualizar' => $minutos,
         ];
     }
 
@@ -185,13 +188,14 @@ class MesaDatosService
         return is_numeric($texto) ? (float) $texto : null;
     }
 
-    private function estaDesactualizado(?string $actualizado): bool
+    /** Minutos que pasaron desde la última actualización de la hoja (null si la hoja no la informa). */
+    private function minutosSin(?string $actualizado): ?int
     {
         if ($actualizado === null) {
-            return true;
+            return null;
         }
 
-        return CarbonImmutable::parse($actualizado)->diffInMinutes(now(), absolute: true) > self::STALE_MINUTES;
+        return (int) floor(CarbonImmutable::parse($actualizado)->diffInMinutes(now(), absolute: true));
     }
 
     /**
@@ -255,7 +259,7 @@ class MesaDatosService
      */
     private function vacio(string $modo): array
     {
-        return ['modo' => $modo, 'sensores' => [], 'telefonos' => [], 'actualizado' => null, 'desactualizado' => false];
+        return ['modo' => $modo, 'sensores' => [], 'telefonos' => [], 'actualizado' => null, 'desactualizado' => false, 'minutosSinActualizar' => null];
     }
 
     /**
@@ -282,6 +286,7 @@ class MesaDatosService
             ],
             'actualizado' => CarbonImmutable::now()->subMinutes(5)->toIso8601String(),
             'desactualizado' => false,
+            'minutosSinActualizar' => 5,
         ];
     }
 }
