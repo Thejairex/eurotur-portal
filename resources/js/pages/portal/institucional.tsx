@@ -1,5 +1,6 @@
 import { Head } from '@inertiajs/react';
 import { ImageSlot } from '@/components/portal/image-slot';
+import { MaintLine } from '@/components/portal/maint-line';
 
 const RED = '#E30613';
 
@@ -38,7 +39,9 @@ export default function Institucional() {
         <>
             <Head title="Institucional" />
 
-            <section>
+            <section
+                style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
+            >
                 <div
                     style={{
                         display: 'flex',
@@ -65,10 +68,10 @@ export default function Institucional() {
                             style={{
                                 fontFamily: "'Anton', sans-serif",
                                 fontWeight: 400,
-                                fontSize: 'clamp(64px,9vw,132px)',
-                                lineHeight: 0.84,
+                                fontSize: 'clamp(56px,7vw,100px)',
+                                lineHeight: 0.95,
                                 margin: 0,
-                                letterSpacing: '-0.005em',
+                                letterSpacing: '-1px',
                             }}
                         >
                             70 años
@@ -76,16 +79,6 @@ export default function Institucional() {
                             creando viajes
                             <span style={{ color: RED }}>.</span>
                         </h1>
-                    </div>
-                    <div
-                        style={{
-                            fontFamily: "'Archivo', sans-serif",
-                            fontWeight: 900,
-                            fontSize: 'clamp(96px,13vw,176px)',
-                            lineHeight: 0.72,
-                        }}
-                    >
-                        01
                     </div>
                 </div>
 
@@ -337,20 +330,7 @@ export default function Institucional() {
                     </div>
                 </div>
 
-                <div
-                    style={{
-                        marginTop: '34px',
-                        borderTop: '1px solid #000',
-                        paddingTop: '14px',
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: '10px',
-                        letterSpacing: '0.12em',
-                        textTransform: 'uppercase',
-                        color: '#666',
-                    }}
-                >
-                    mantiene— De Bin, Aldo · actualizado 06·2026
-                </div>
+                <MaintLine>De Bin, Aldo · actualizado 06·2026</MaintLine>
             </section>
         </>
     );

@@ -146,7 +146,6 @@ const RRHH_GROUPS: SectorGroup[] = [
 export const RRHH_DATA: SectorIndexData = {
     kicker: 'empleado · políticas · liquidación',
     title: 'Recursos Humanos',
-    num: '02',
     intro: 'Altas de personal, vacaciones, políticas, feriados, liquidación de sueldo y organigrama. Documentación oficial de Eurotur S.A. y Travel Designers S.A.',
     maint: 'Velázquez, Romina · actualizado 06·2026',
     groups: RRHH_GROUPS,
@@ -155,7 +154,6 @@ export const RRHH_DATA: SectorIndexData = {
 export const ADM_DATA: SectorIndexData = {
     kicker: 'legales · impositivos · bancarios · cuentas a pagar',
     title: 'Administración',
-    num: '03',
     intro: 'Documentación legal, impositiva, bancaria, seguros y cuentas a pagar de Eurotur S.A. y Travel Designers S.A.',
     maint: 'Quintana, Elsa · Agüero, Leonela · Flores, María B. · actualizado 07·2026',
     groups: [
@@ -307,7 +305,6 @@ export const ADM_DATA: SectorIndexData = {
 export const CONTRATACIONES_DATA: SectorIndexData = {
     kicker: 'servicios · hotelería · proveedores',
     title: 'Contrataciones',
-    num: '04',
     intro: 'Transportistas, hotelería, alta de proveedores, sucursales y procedimientos del sector.',
     maint: 'Garrigo, Mariana · Dis, Paula · actualizado 06·2026',
     groups: [
@@ -394,7 +391,6 @@ export const CONTRATACIONES_DATA: SectorIndexData = {
 export const OPERACIONES_DATA: SectorIndexData = {
     kicker: 'bue · fte · ush · sla',
     title: 'Operaciones',
-    num: '05',
     intro: 'Instrucciones, procedimientos e instructivos operativos por oficina — Buenos Aires y sucursales.',
     maint: 'Juliano, María Valeria · actualizado 06·2026',
     groups: [
@@ -553,7 +549,6 @@ export const OPERACIONES_DATA: SectorIndexData = {
 export const PRODUCTO_DATA: SectorIndexData = {
     kicker: 'herramientas · fichas · reportes',
     title: 'Producto',
-    num: '06',
     intro: 'Herramientas, fichas técnicas, reportes, novedades y fotos de producto.',
     maint: 'Carrizo, C. · Aleu, M. · Carbajo, A. · actualizado 06·2026',
     groups: [
@@ -649,7 +644,6 @@ export const PRODUCTO_DATA: SectorIndexData = {
 export const CUSTOMERCARE_DATA: SectorIndexData = {
     kicker: 'estandarización · pasajeros',
     title: 'Customer Care',
-    num: '07',
     intro: 'Estandarización de servicios, notas a pasajeros en 4 idiomas y procedimientos de atención.',
     maint: 'Customer Care · en revisión',
     groups: [
@@ -715,7 +709,6 @@ export const CUSTOMERCARE_DATA: SectorIndexData = {
 export const SALES_DATA: SectorIndexData = {
     kicker: 'clientes · comercial',
     title: 'Sales',
-    num: '09',
     intro: 'Clientes y material comercial. Sección en ampliación — candidata a fusión con otras áreas.',
     maint: 'Comercial · en ampliación',
     groups: [
@@ -735,7 +728,6 @@ export const SALES_DATA: SectorIndexData = {
 export const TRAVELDESIGNERS_DATA: SectorIndexData = {
     kicker: 'manuales · convivencia',
     title: 'Travel Designers',
-    num: '10',
     intro: 'Manuales y documentación de Travel Designers S.A. — Av. Montes de Oca 2238, CABA.',
     maint: 'Travel Designers · en revisión',
     groups: [
@@ -772,7 +764,6 @@ export const TRAVELDESIGNERS_DATA: SectorIndexData = {
 export const IT_DATA: SectorIndexData = {
     kicker: 'sistemas · soporte · telefonía',
     title: 'IT',
-    num: '11',
     intro: 'Ticketera, procedimientos, manuales e instructivos de sistemas, telefonía y acceso remoto.',
     maint: 'Fuentes, Yenedier · actualizado 06·2026',
     groups: [
@@ -901,7 +892,6 @@ export const IT_DATA: SectorIndexData = {
 export const RESPONSABLES_DATA: SectorIndexData = {
     kicker: 'mantenimiento del portal',
     title: 'Responsables del Portal',
-    num: '13',
     intro: 'Quién mantiene cada sección del portal. Cada área figura también al pie de su página con «mantiene—».',
     maint: 'De Bin, Aldo · actualizado 07·2026',
     groups: [

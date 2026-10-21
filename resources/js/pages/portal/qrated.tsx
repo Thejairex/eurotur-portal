@@ -1,5 +1,6 @@
 import { Head } from '@inertiajs/react';
 import { ImageSlot } from '@/components/portal/image-slot';
+import { MaintLine } from '@/components/portal/maint-line';
 
 const RED = '#E30613';
 const GOLD = '#b8933f';
@@ -45,7 +46,9 @@ export default function Qrated() {
         <>
             <Head title="Qrated" />
 
-            <section>
+            <section
+                style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
+            >
                 <div
                     style={{
                         display: 'flex',
@@ -72,10 +75,10 @@ export default function Qrated() {
                             style={{
                                 fontFamily: "'Anton', sans-serif",
                                 fontWeight: 400,
-                                fontSize: 'clamp(64px,9vw,132px)',
-                                lineHeight: 0.84,
+                                fontSize: 'clamp(56px,7vw,100px)',
+                                lineHeight: 0.95,
                                 margin: 0,
-                                letterSpacing: '-0.005em',
+                                letterSpacing: '-1px',
                                 color: GOLD,
                             }}
                         >
@@ -96,16 +99,6 @@ export default function Qrated() {
                             proveedores especiales, herramientas y contenido
                             creativo para experiencias de alta gama y MICE.
                         </p>
-                    </div>
-                    <div
-                        style={{
-                            fontFamily: "'Archivo', sans-serif",
-                            fontWeight: 900,
-                            fontSize: 'clamp(80px,10vw,140px)',
-                            lineHeight: 0.72,
-                        }}
-                    >
-                        08
                     </div>
                 </div>
 
@@ -284,20 +277,7 @@ export default function Qrated() {
                     ))}
                 </div>
 
-                <div
-                    style={{
-                        marginTop: '34px',
-                        borderTop: '1px solid #000',
-                        paddingTop: '14px',
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: '10px',
-                        letterSpacing: '0.12em',
-                        textTransform: 'uppercase',
-                        color: '#666',
-                    }}
-                >
-                    mantiene— Qrated · en desarrollo
-                </div>
+                <MaintLine>Qrated · en desarrollo</MaintLine>
             </section>
         </>
     );

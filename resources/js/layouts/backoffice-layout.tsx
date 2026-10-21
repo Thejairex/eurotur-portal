@@ -1,4 +1,3 @@
-import { Head } from '@inertiajs/react';
 import { BackofficeHeader } from '@/components/backoffice/backoffice-header';
 import { BackofficeSidebar } from '@/components/backoffice/backoffice-sidebar';
 import { OnboardingTour } from '@/components/backoffice/onboarding-tour';
@@ -18,19 +17,6 @@ export default function BackofficeLayout({
 }) {
     return (
         <>
-            <Head>
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link
-                    rel="preconnect"
-                    href="https://fonts.gstatic.com"
-                    crossOrigin=""
-                />
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap"
-                    rel="stylesheet"
-                />
-            </Head>
-
             <div className="eurotur-backoffice flex min-h-screen bg-background font-sans text-foreground">
                 <div className="hidden md:flex">
                     <BackofficeSidebar />

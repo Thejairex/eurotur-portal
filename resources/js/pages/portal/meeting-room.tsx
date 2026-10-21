@@ -1,4 +1,5 @@
 import { Head } from '@inertiajs/react';
+import { MaintLine } from '@/components/portal/maint-line';
 
 const RED = '#E30613';
 
@@ -17,7 +18,9 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
         <>
             <Head title="Sala de Reuniones" />
 
-            <section>
+            <section
+                style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
+            >
                 <div
                     style={{
                         display: 'flex',
@@ -44,10 +47,10 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
                             style={{
                                 fontFamily: "'Anton', sans-serif",
                                 fontWeight: 400,
-                                fontSize: 'clamp(56px,8vw,110px)',
-                                lineHeight: 0.86,
+                                fontSize: 'clamp(56px,7vw,100px)',
+                                lineHeight: 0.95,
                                 margin: 0,
-                                letterSpacing: '-0.005em',
+                                letterSpacing: '-1px',
                             }}
                         >
                             Sala de
@@ -69,16 +72,6 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
                             calendario. Mirá el instructivo antes de usarla por
                             primera vez.
                         </p>
-                    </div>
-                    <div
-                        style={{
-                            fontFamily: "'Archivo', sans-serif",
-                            fontWeight: 900,
-                            fontSize: 'clamp(80px,10vw,140px)',
-                            lineHeight: 0.72,
-                        }}
-                    >
-                        17
                     </div>
                 </div>
 
@@ -172,20 +165,9 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
                     </div>
                 )}
 
-                <div
-                    style={{
-                        marginTop: '34px',
-                        borderTop: '1px solid #000',
-                        paddingTop: '14px',
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: '10px',
-                        letterSpacing: '0.12em',
-                        textTransform: 'uppercase',
-                        color: '#666',
-                    }}
-                >
-                    mantiene— IT · Mesa de Información · actualizado 08·2026
-                </div>
+                <MaintLine>
+                    IT · Mesa de Información · actualizado 08·2026
+                </MaintLine>
             </section>
         </>
     );

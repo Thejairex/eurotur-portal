@@ -65,6 +65,7 @@ Route::middleware(['auth', 'can:editar-portal'])->group(function () {
 
     Route::post('{sector}/groups', [SectorGroupController::class, 'store'])->name('portal.groups.store');
     Route::put('groups/{group}', [SectorGroupController::class, 'update'])->name('portal.groups.update');
+    Route::post('groups/{group}/move', [SectorGroupController::class, 'move'])->name('portal.groups.move');
     Route::delete('groups/{group}', [SectorGroupController::class, 'destroy'])->name('portal.groups.destroy');
 
     Route::post('groups/{group}/items', [SectorItemController::class, 'store'])->name('portal.items.store');

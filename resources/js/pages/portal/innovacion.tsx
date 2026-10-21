@@ -5,6 +5,7 @@ import IniciativaController from '@/actions/App/Http/Controllers/Portal/Iniciati
 import InputError from '@/components/input-error';
 import type { BotMonitorProps } from '@/components/portal/bot-monitor';
 import { BotMonitor } from '@/components/portal/bot-monitor';
+import { MaintLine } from '@/components/portal/maint-line';
 import { formatMaintLine } from '@/lib/sector-updated';
 
 const RED = '#E30613';
@@ -183,7 +184,9 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
         <>
             <Head title="Innovación" />
 
-            <section>
+            <section
+                style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
+            >
                 <div
                     style={{
                         display: 'flex',
@@ -210,10 +213,10 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                             style={{
                                 fontFamily: "'Anton', sans-serif",
                                 fontWeight: 400,
-                                fontSize: 'clamp(64px,9vw,132px)',
-                                lineHeight: 0.86,
+                                fontSize: 'clamp(56px,7vw,100px)',
+                                lineHeight: 0.95,
                                 margin: 0,
-                                letterSpacing: '-0.005em',
+                                letterSpacing: '-1px',
                             }}
                         >
                             Innovación
@@ -234,16 +237,6 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                             instructivos para usarlas. Tocá cada bloque para ver
                             el detalle.
                         </p>
-                    </div>
-                    <div
-                        style={{
-                            fontFamily: "'Archivo', sans-serif",
-                            fontWeight: 900,
-                            fontSize: 'clamp(80px,10vw,140px)',
-                            lineHeight: 0.72,
-                        }}
-                    >
-                        14
                     </div>
                 </div>
 
@@ -1207,24 +1200,12 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                     })}
                 </div>
 
-                <div
-                    style={{
-                        marginTop: '34px',
-                        borderTop: '1px solid #000',
-                        paddingTop: '14px',
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: '10px',
-                        letterSpacing: '0.12em',
-                        textTransform: 'uppercase',
-                        color: '#666',
-                    }}
-                >
-                    mantiene—{' '}
+                <MaintLine>
                     {formatMaintLine(
                         'Homez, Valentina · actualizado 07·2026',
                         sectorUpdates.innovacion,
                     )}
-                </div>
+                </MaintLine>
             </section>
         </>
     );

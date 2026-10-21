@@ -1,5 +1,4 @@
 import { Head, Link, usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 
 import { SECTORS } from '@/lib/portal-sectors';
@@ -136,14 +135,6 @@ const QUICK_ACCESS: QuickAccess[] = [
     },
 ];
 
-type Clima = {
-    city: string;
-    temp: string;
-    cond: string;
-    hi: string;
-    lo: string;
-};
-
 function SectionHeading({
     label,
     hint,
@@ -216,19 +207,6 @@ export default function Home() {
             stale: boolean;
         } | null;
     };
-    const [clima, setClima] = useState<Clima[]>([]);
-
-    useEffect(() => {
-        fetch('/weather')
-            .then((r) => r.json())
-            .then((data) => {
-                if (Array.isArray(data)) {
-                    setClima(data);
-                }
-            })
-            .catch(() => {});
-    }, []);
-
     const visibleSectors = SECTORS.filter(
         (sector) =>
             (sector.id !== 'search-admin' || canEdit) &&
@@ -296,63 +274,6 @@ export default function Home() {
                                 Portal de eurotur
                                 <span style={{ color: RED }}>.</span>
                             </h1>
-                            {clima.length > 0 && (
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        gap: '12px',
-                                        flex: 1,
-                                        alignItems: 'flex-end',
-                                        paddingBottom: '2px',
-                                    }}
-                                >
-                                    {clima.map((c) => (
-                                        <div
-                                            key={c.city}
-                                            style={{
-                                                borderRight: '1px dotted #ccc',
-                                                paddingRight: '12px',
-                                            }}
-                                        >
-                                            <div
-                                                style={{
-                                                    fontFamily:
-                                                        "'Space Mono', monospace",
-                                                    fontSize: '8px',
-                                                    letterSpacing: '0.06em',
-                                                    textTransform: 'uppercase',
-                                                    color: '#888',
-                                                }}
-                                            >
-                                                {c.city}
-                                            </div>
-                                            <div
-                                                style={{
-                                                    fontFamily:
-                                                        "'Archivo', sans-serif",
-                                                    fontWeight: 900,
-                                                    fontSize: '18px',
-                                                    lineHeight: 1,
-                                                    margin: '2px 0 1px',
-                                                }}
-                                            >
-                                                {c.temp}°
-                                            </div>
-                                            <div
-                                                style={{
-                                                    fontFamily:
-                                                        "'Archivo', sans-serif",
-                                                    fontWeight: 600,
-                                                    fontSize: '9px',
-                                                    color: '#666',
-                                                }}
-                                            >
-                                                {c.cond}
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
                             <div
                                 data-testid="home-dollars"
                                 style={{
@@ -497,22 +418,10 @@ export default function Home() {
                                         <div
                                             style={{
                                                 fontFamily:
-                                                    "'Space Mono', monospace",
-                                                fontSize: '10px',
-                                                letterSpacing: '0.08em',
-                                                color: '#999',
-                                            }}
-                                        >
-                                            {q.num}
-                                        </div>
-                                        <div
-                                            style={{
-                                                fontFamily:
                                                     "'Archivo', sans-serif",
                                                 fontWeight: 800,
                                                 fontSize: '15px',
                                                 letterSpacing: '-0.01em',
-                                                marginTop: '4px',
                                                 lineHeight: 1.2,
                                             }}
                                         >

@@ -3,11 +3,12 @@ import { useState } from 'react';
 import SectorGroupController from '@/actions/App/Http/Controllers/Portal/SectorGroupController';
 import SectorItemController from '@/actions/App/Http/Controllers/Portal/SectorItemController';
 import InputError from '@/components/input-error';
+import { MaintLine } from '@/components/portal/maint-line';
 import { sectorPermission, usePermissions } from '@/hooks/use-permissions';
 import { formatMaintLine } from '@/lib/sector-updated';
 
-const RED = '#E30613';
-const LINK_UNDERLINE = '1px solid #c4c4c4';
+const RED = '#E3000F';
+const SECONDARY = '#6B6B68';
 
 export type SectorItem = {
     id?: number;
@@ -17,10 +18,19 @@ export type SectorItem = {
 };
 export type SectorGroup = { id?: number; title: string; items: SectorItem[] };
 
+function iconButtonStyle(color: string): React.CSSProperties {
+    return {
+        all: 'unset',
+        cursor: 'pointer',
+        fontFamily: "'Space Mono', monospace",
+        fontSize: '11px',
+        color,
+    };
+}
+
 export type SectorIndexData = {
     kicker: string;
     title: string;
-    num: string;
     intro: string;
     maint: string;
     groups: SectorGroup[];
@@ -64,79 +74,54 @@ export function SectorIndex({
     const [editing, setEditing] = useState(false);
 
     return (
-        <section>
-            <div
-                style={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    justifyContent: 'space-between',
-                    gap: '40px',
-                    marginBottom: '30px',
-                }}
-            >
-                <div style={{ maxWidth: '620px' }}>
-                    <div
-                        style={{
-                            fontFamily: "'Space Mono', monospace",
-                            fontSize: '10px',
-                            letterSpacing: '0.16em',
-                            textTransform: 'uppercase',
-                            color: '#666',
-                            marginBottom: '12px',
-                        }}
-                    >
-                        {data.kicker}
-                    </div>
+        <section
+            style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+            }}
+        >
+            <div style={{ marginBottom: '26px' }}>
+                <div
+                    style={{
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '12px',
+                        letterSpacing: '0.2em',
+                        textTransform: 'uppercase',
+                        color: SECONDARY,
+                        marginBottom: '14px',
+                    }}
+                >
+                    {data.kicker}
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        justifyContent: 'space-between',
+                        gap: '40px',
+                    }}
+                >
                     <h1
                         style={{
-                            fontFamily: "'Anton', sans-serif",
+                            fontFamily: "'Anton', Impact, sans-serif",
                             fontWeight: 400,
-                            fontSize: 'clamp(64px,9vw,132px)',
-                            lineHeight: 0.86,
+                            fontSize: 'clamp(56px,7vw,100px)',
+                            lineHeight: 0.95,
                             margin: 0,
-                            letterSpacing: '-0.005em',
+                            letterSpacing: '-1px',
                         }}
                     >
                         {data.title}
                         <span style={{ color: RED }}>.</span>
                     </h1>
-                    <p
-                        style={{
-                            maxWidth: '480px',
-                            margin: '18px 0 0',
-                            fontSize: '15px',
-                            lineHeight: 1.5,
-                            fontWeight: 500,
-                            color: '#111',
-                        }}
-                    >
-                        {data.intro}
-                    </p>
-                </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'flex-end',
-                        gap: '14px',
-                    }}
-                >
-                    <div
-                        style={{
-                            fontFamily: "'Archivo', sans-serif",
-                            fontWeight: 900,
-                            fontSize: 'clamp(80px,10vw,140px)',
-                            lineHeight: 0.72,
-                        }}
-                    >
-                        {data.num}
-                    </div>
                     {canEdit && (
                         <button
                             type="button"
                             onClick={() => setEditing((v) => !v)}
                             style={{
                                 ...smallButtonStyle,
+                                flex: '0 0 auto',
                                 background: editing ? RED : 'transparent',
                                 color: editing ? '#fff' : '#000',
                                 borderColor: editing ? RED : '#000',
@@ -146,22 +131,35 @@ export function SectorIndex({
                         </button>
                     )}
                 </div>
+                <p
+                    style={{
+                        maxWidth: '640px',
+                        margin: '18px 0 0',
+                        fontSize: '17px',
+                        lineHeight: 1.5,
+                        color: '#0B0B0B',
+                    }}
+                >
+                    {data.intro}
+                </p>
             </div>
 
             <div
                 style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(4,1fr)',
+                    gridTemplateColumns:
+                        'repeat(auto-fill, minmax(240px, 1fr))',
                     gap: 0,
-                    borderTop: '3px solid #000',
+                    borderTop: '4px solid #000',
                 }}
             >
                 {data.groups.map((g, i) => (
                     <SectorGroupColumn
                         key={g.id ?? g.title}
                         group={g}
-                        index={i}
                         editing={editing}
+                        isFirst={i === 0}
+                        isLast={i === data.groups.length - 1}
                     />
                 ))}
             </div>
@@ -172,51 +170,34 @@ export function SectorIndex({
                 </div>
             )}
 
-            <div
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'flex-end',
-                    marginTop: '34px',
-                    borderTop: '1px solid #000',
-                    paddingTop: '14px',
-                }}
-            >
-                <div
-                    style={{
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: '10px',
-                        letterSpacing: '0.12em',
-                        textTransform: 'uppercase',
-                        color: '#666',
-                    }}
-                >
-                    mantiene—{' '}
-                    {formatMaintLine(data.maint, sectorUpdates[sector])}
-                </div>
-            </div>
+            <MaintLine>
+                {formatMaintLine(data.maint, sectorUpdates[sector])}
+            </MaintLine>
         </section>
     );
 }
 
 function SectorGroupColumn({
     group,
-    index,
     editing,
+    isFirst,
+    isLast,
 }: {
     group: SectorGroup;
-    index: number;
     editing: boolean;
+    isFirst: boolean;
+    isLast: boolean;
 }) {
     const [addingItem, setAddingItem] = useState(false);
+    const [renaming, setRenaming] = useState(false);
 
     return (
         <div
+            className="sector-col"
             style={{
-                borderTop: '3px solid #000',
                 borderRight: '1px dotted #000',
-                padding: `14px 18px 26px ${index % 4 === 0 ? '0' : '18px'}`,
-                marginTop: '-3px',
+                borderBottom: '1px dotted #000',
+                padding: '16px 22px 26px',
                 minHeight: '120px',
             }}
         >
@@ -229,62 +210,103 @@ function SectorGroupColumn({
                     marginBottom: '12px',
                 }}
             >
-                <div
-                    style={{
-                        display: 'flex',
-                        alignItems: 'baseline',
-                        gap: '10px',
-                    }}
-                >
-                    <span
-                        style={{
-                            fontFamily: "'Space Mono', monospace",
-                            fontWeight: 700,
-                            fontSize: '11px',
-                        }}
+                {renaming && group.id ? (
+                    <Form
+                        {...SectorGroupController.update.form({
+                            group: group.id,
+                        })}
+                        onSuccess={() => setRenaming(false)}
+                        style={{ flex: 1 }}
                     >
-                        {String(index + 1).padStart(2, '0')}
-                    </span>
+                        {({ processing, errors }) => (
+                            <>
+                                <RequiredField
+                                    name="title"
+                                    placeholder="Título del bloque"
+                                    defaultValue={group.title}
+                                />
+                                <InputError message={errors.title} />
+                                <div style={{ display: 'flex', gap: '8px' }}>
+                                    <button
+                                        type="submit"
+                                        disabled={processing}
+                                        style={smallButtonStyle}
+                                    >
+                                        Guardar
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setRenaming(false)}
+                                        style={smallButtonStyle}
+                                    >
+                                        Cancelar
+                                    </button>
+                                </div>
+                            </>
+                        )}
+                    </Form>
+                ) : (
                     <span
                         style={{
                             fontFamily: "'Archivo', sans-serif",
-                            fontWeight: 800,
-                            fontSize: '16px',
+                            fontWeight: 700,
+                            fontSize: '19px',
                             letterSpacing: '-0.01em',
-                            lineHeight: 1.05,
+                            lineHeight: 1.1,
                         }}
                     >
                         {group.title}
                     </span>
-                </div>
-                {editing && group.id && (
-                    <Form
-                        {...SectorGroupController.destroy.form({
-                            group: group.id,
-                        })}
+                )}
+                {editing && group.id && !renaming && (
+                    <div
+                        style={{
+                            display: 'flex',
+                            gap: '8px',
+                            flex: '0 0 auto',
+                            whiteSpace: 'nowrap',
+                        }}
                     >
-                        {({ processing }) => (
-                            <button
-                                type="submit"
-                                disabled={processing}
-                                title="Eliminar grupo"
-                                style={{
-                                    all: 'unset',
-                                    cursor: 'pointer',
-                                    color: RED,
-                                    fontFamily: "'Space Mono', monospace",
-                                    fontSize: '11px',
-                                }}
-                            >
-                                ✕
-                            </button>
+                        {!isFirst && (
+                            <MoveGroupButton
+                                groupId={group.id}
+                                direction="up"
+                            />
                         )}
-                    </Form>
+                        {!isLast && (
+                            <MoveGroupButton
+                                groupId={group.id}
+                                direction="down"
+                            />
+                        )}
+                        <button
+                            type="button"
+                            onClick={() => setRenaming(true)}
+                            title="Renombrar bloque"
+                            style={iconButtonStyle(SECONDARY)}
+                        >
+                            ✎
+                        </button>
+                        <Form
+                            {...SectorGroupController.destroy.form({
+                                group: group.id,
+                            })}
+                        >
+                            {({ processing }) => (
+                                <button
+                                    type="submit"
+                                    disabled={processing}
+                                    title="Eliminar bloque"
+                                    style={iconButtonStyle(RED)}
+                                >
+                                    ✕
+                                </button>
+                            )}
+                        </Form>
+                    </div>
                 )}
             </div>
-            <div
-                style={{ display: 'flex', flexDirection: 'column', gap: '9px' }}
-            >
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {group.items.map((item) => (
                     <SectorItemRow
                         key={item.id ?? item.t}
@@ -313,6 +335,34 @@ function SectorGroupColumn({
                 </div>
             )}
         </div>
+    );
+}
+
+function MoveGroupButton({
+    groupId,
+    direction,
+}: {
+    groupId: number;
+    direction: 'up' | 'down';
+}) {
+    return (
+        <Form {...SectorGroupController.move.form({ group: groupId })}>
+            {({ processing }) => (
+                <>
+                    <input type="hidden" name="direction" value={direction} />
+                    <button
+                        type="submit"
+                        disabled={processing}
+                        title={
+                            direction === 'up' ? 'Subir bloque' : 'Bajar bloque'
+                        }
+                        style={iconButtonStyle(SECONDARY)}
+                    >
+                        {direction === 'up' ? '↑' : '↓'}
+                    </button>
+                </>
+            )}
+        </Form>
     );
 }
 
@@ -386,27 +436,19 @@ function SectorItemRow({
                     rel="noreferrer"
                     className="doc-link"
                     style={{
-                        textDecoration: 'none',
-                        color: '#000',
+                        flex: '1 1 auto',
                         fontFamily: "'Archivo', sans-serif",
                         fontWeight: 500,
-                        fontSize: '13px',
+                        fontSize: '15px',
                         lineHeight: 1.25,
-                        borderBottom: LINK_UNDERLINE,
-                        paddingBottom: '2px',
-                        alignSelf: 'flex-start',
-                        display: 'inline-flex',
-                        alignItems: 'baseline',
-                        gap: '5px',
-                        transition: 'color .1s,border-color .1s,transform .1s',
                     }}
                 >
-                    {item.t}
+                    <span>{item.t}</span>
                     <span
+                        className="doc-arrow"
                         style={{
                             fontFamily: "'Space Mono', monospace",
-                            fontSize: '10px',
-                            color: RED,
+                            fontSize: '11px',
                         }}
                     >
                         ↗
@@ -417,9 +459,10 @@ function SectorItemRow({
                     style={{
                         fontFamily: "'Archivo', sans-serif",
                         fontWeight: 500,
-                        fontSize: '12.5px',
+                        fontSize: '15px',
                         lineHeight: 1.4,
-                        color: '#777',
+                        color: SECONDARY,
+                        padding: '4px 6px 4px 9px',
                     }}
                 >
                     {item.t}

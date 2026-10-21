@@ -1,6 +1,7 @@
 import { Head, Link } from '@inertiajs/react';
 import { useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
+import { MaintLine } from '@/components/portal/maint-line';
 import { MesaEnVivo } from '@/components/portal/mesa-en-vivo';
 import {
     Aviso,
@@ -165,7 +166,9 @@ export default function Mesa() {
             <Head title="Mesa de Información" />
             <MesaEstilos />
 
-            <section>
+            <section
+                style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
+            >
                 <div style={{ marginBottom: '28px' }}>
                     <div
                         style={{
@@ -183,9 +186,10 @@ export default function Mesa() {
                         style={{
                             fontFamily: "'Anton', sans-serif",
                             fontWeight: 400,
-                            fontSize: 'clamp(46px,6vw,84px)',
-                            lineHeight: 0.92,
+                            fontSize: 'clamp(56px,7vw,100px)',
+                            lineHeight: 0.95,
                             margin: 0,
+                            letterSpacing: '-1px',
                         }}
                     >
                         Mesa de información
@@ -581,20 +585,9 @@ export default function Mesa() {
                     ))}
                 </Guia>
 
-                <div
-                    style={{
-                        marginTop: '34px',
-                        borderTop: '1px solid #000',
-                        paddingTop: '14px',
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: '10px',
-                        letterSpacing: '0.12em',
-                        textTransform: 'uppercase',
-                        color: '#666',
-                    }}
-                >
-                    mantiene— IT · Mesa de Información · actualizado 10·2026
-                </div>
+                <MaintLine>
+                    IT · Mesa de Información · actualizado 10·2026
+                </MaintLine>
             </section>
         </>
     );
