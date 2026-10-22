@@ -13,6 +13,21 @@ const FORMAT = new Intl.DateTimeFormat('es-AR', {
     hourCycle: 'h23',
 });
 
+/** "15·10·2026 18:18" (hora de Argentina), o null si la página nunca se editó desde el portal. */
+export function formatUpdateDate(
+    update: SectorUpdate | undefined,
+): string | null {
+    if (!update) {
+        return null;
+    }
+
+    const parts = FORMAT.formatToParts(new Date(update.en));
+    const get = (type: string) =>
+        parts.find((part) => part.type === type)?.value ?? '';
+
+    return `${get('day')}·${get('month')}·${get('year')} ${get('hour')}:${get('minute')}`;
+}
+
 /**
  * Línea "mantiene—" del pie de un sector. Si alguien modificó la página desde el portal,
  * muestra la fecha y hora reales de esa modificación (y quién la hizo) en lugar de la fecha
@@ -22,14 +37,12 @@ export function formatMaintLine(
     maint: string,
     update: SectorUpdate | undefined,
 ): string {
-    if (!update) {
+    const date = formatUpdateDate(update);
+
+    if (!update || date === null) {
         return maint;
     }
 
-    const parts = FORMAT.formatToParts(new Date(update.en));
-    const get = (type: string) =>
-        parts.find((part) => part.type === type)?.value ?? '';
-    const date = `${get('day')}·${get('month')}·${get('year')} ${get('hour')}:${get('minute')}`;
     const by = update.por ? ` por ${update.por}` : '';
 
     return `${maint.replace(OLD_DATE_SUFFIX, '')} · actualizado ${date}${by}`;

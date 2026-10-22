@@ -33,8 +33,8 @@ export function OnboardingTour() {
         {
             id: 'areas',
             target: '[data-tour="tour-areas"]',
-            title: 'Tus herramientas, por área',
-            body: 'El menú agrupa las herramientas por área: Cuentas a Pagar, Contabilidad y RRHH. Ves solo las que tu rol permite.',
+            title: 'Tu menú',
+            body: 'Desde el menú vas a Inicio y a tus herramientas. Ves solo lo que tu rol permite.',
         },
         {
             id: 'herramientas',
@@ -51,16 +51,10 @@ export function OnboardingTour() {
                     : 'Las herramientas de tu área se abren dentro del Back Office, con el menú al costado, sin salir del portal.',
         },
         {
-            id: 'tema',
-            target: '[data-tour="tour-tema"]',
-            title: 'Modo claro u oscuro',
-            body: 'Elige el aspecto que prefieras. Se recuerda en este navegador.',
-        },
-        {
             id: 'config',
             target: '[data-tour="tour-config"]',
             title: 'Configuración',
-            body: 'Desde acá se administran los usuarios y los roles del portal: altas, bajas, contraseñas y permisos de cada herramienta. Solo lo ven las personas con ese permiso.',
+            body: 'Acá elegís el aspecto (claro, oscuro o igual que tu sistema) y, si tenés permiso, administrás los usuarios y los roles del portal.',
         },
         {
             id: 'volver',
