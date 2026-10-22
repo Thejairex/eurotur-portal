@@ -1,9 +1,29 @@
 import { Head, Link, usePage } from '@inertiajs/react';
-import { FileText, Wrench } from 'lucide-react';
+import {
+    Calculator,
+    CalendarClock,
+    FileSpreadsheet,
+    FileText,
+    Network,
+    Scale,
+    Wallet,
+    Wrench,
+} from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { usePermissions } from '@/hooks/use-permissions';
 import { editablePagesFor } from '@/lib/backoffice-pages';
 import { BACKOFFICE_TOOLS } from '@/lib/backoffice-tools';
 import { formatUpdateDate } from '@/lib/sector-updated';
+
+/** Ícono de cada herramienta (las que no figuran usan la llave inglesa). */
+const TOOL_ICONS: Record<string, LucideIcon> = {
+    'cargador-facturas': FileSpreadsheet,
+    prepagos: Wallet,
+    balanz: Scale,
+    prebalance: Calculator,
+    organigrama: Network,
+    'big-brother': CalendarClock,
+};
 
 /**
  * Inicio del Back Office. Hoy muestra lo que ya existe de verdad: las páginas del portal que
@@ -79,10 +99,11 @@ export default function Inicio() {
                         </div>
                     )}
                     {tools.map((tool) => {
+                        const Icon = TOOL_ICONS[tool.id] ?? Wrench;
                         const body = (
                             <>
                                 <span className="bo-row-ico">
-                                    <Wrench size={18} aria-hidden="true" />
+                                    <Icon size={18} aria-hidden="true" />
                                 </span>
                                 <span>
                                     <b>{tool.label}</b>
