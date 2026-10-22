@@ -8,9 +8,7 @@ import { isRateStale } from '@/lib/exchange-rates';
 import { SECTORS } from '@/lib/portal-sectors';
 import type { ActiveView } from '@/lib/portal-sectors';
 import { home, login, logout } from '@/routes';
-import { index as crmIndex } from '@/routes/admin/crm';
-import { index as rolesIndex } from '@/routes/admin/roles';
-import { index as usersIndex } from '@/routes/admin/users';
+import { inicio } from '@/routes/admin';
 import { search, searchResults } from '@/routes/portal';
 
 const RED = '#E3000F';
@@ -738,13 +736,7 @@ function SessionBlock() {
         >
             {canAdminister && (
                 <Link
-                    href={
-                        can('users.manage')
-                            ? usersIndex()
-                            : can('roles.manage')
-                              ? rolesIndex()
-                              : crmIndex()
-                    }
+                    href={inicio()}
                     className="session-btn session-btn-red"
                 >
                     Back Office
