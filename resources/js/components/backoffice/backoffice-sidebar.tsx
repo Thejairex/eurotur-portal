@@ -67,7 +67,9 @@ export function BackofficeSidebar() {
             match: '/administracion/roles',
         },
     ].filter((link) => link.allowed);
-    const configActive = configLinks.some((link) => path.startsWith(link.match));
+    const configActive = configLinks.some((link) =>
+        path.startsWith(link.match),
+    );
     const [configOpen, setConfigOpen] = useState(configActive);
     const open = configOpen || configActive;
 
@@ -99,7 +101,11 @@ export function BackofficeSidebar() {
                     <Home size={18} aria-hidden="true" />
                     Inicio
                 </Link>
-                <PendingLink icon={Pencil} label="Editar páginas" note="pronto" />
+                <PendingLink
+                    icon={Pencil}
+                    label="Editar páginas"
+                    note="pronto"
+                />
                 <PendingLink icon={User} label="Mi perfil" note="pronto" />
                 <PendingLink icon={FileText} label="Novedades" note="pronto" />
 
@@ -129,7 +135,8 @@ export function BackofficeSidebar() {
                                     rel="noreferrer"
                                     className={className}
                                 >
-                                    {tool.navLabel} <span aria-hidden="true">↗</span>
+                                    {tool.navLabel}{' '}
+                                    <span aria-hidden="true">↗</span>
                                 </a>
                             ) : (
                                 <Link

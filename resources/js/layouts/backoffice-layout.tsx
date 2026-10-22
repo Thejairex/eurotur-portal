@@ -29,7 +29,11 @@ const readWelcomeFlag = (): boolean => {
  * abrirlo de cero), no al recargar ni al moverse entre pantallas. El recorrido guiado de
  * la primera vez espera a que la bienvenida termine.
  */
-export default function BackofficeLayout({ children }: { children: ReactNode }) {
+export default function BackofficeLayout({
+    children,
+}: {
+    children: ReactNode;
+}) {
     const { component, props } = usePage();
     const { can } = usePermissions();
     const [welcomeOpen, setWelcomeOpen] = useState(readWelcomeFlag);
@@ -74,7 +78,11 @@ export default function BackofficeLayout({ children }: { children: ReactNode }) 
 
             <div className="bo-main">
                 <BackofficeHeader />
-                {bare ? children : <main className="bo-surface">{children}</main>}
+                {bare ? (
+                    children
+                ) : (
+                    <main className="bo-surface">{children}</main>
+                )}
             </div>
 
             {welcomeOpen ? (
