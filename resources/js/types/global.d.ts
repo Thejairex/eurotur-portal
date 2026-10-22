@@ -14,6 +14,7 @@ declare module '@inertiajs/core' {
             auth: Auth;
             canEdit: boolean;
             tours: { portal: boolean; backoffice: boolean };
+            novedadesSinLeer: number;
             sectorUpdates: Record<string, { en: string; por: string | null }>;
             sidebarOpen: boolean;
             dolarOficial: {

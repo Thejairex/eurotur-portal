@@ -11,6 +11,11 @@ export type User = {
     role_id: number | null;
     role?: Role | null;
     avatar?: string;
+    puesto?: string | null;
+    area?: string | null;
+    sede?: string | null;
+    interno?: string | null;
+    foto_path?: string | null;
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;

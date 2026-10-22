@@ -42,8 +42,18 @@ export function BackofficeHeader() {
             </form>
             {auth?.user && (
                 <div className="bo-pill">
-                    <span className="bo-av" aria-hidden="true">
-                        {initialsOf(auth.user.name)}
+                    <span
+                        className="bo-av"
+                        aria-hidden="true"
+                        style={
+                            auth.user.foto_path
+                                ? {
+                                      backgroundImage: `url(/storage/${auth.user.foto_path})`,
+                                  }
+                                : undefined
+                        }
+                    >
+                        {auth.user.foto_path ? '' : initialsOf(auth.user.name)}
                     </span>
                     <span>{auth.user.name}</span>
                 </div>

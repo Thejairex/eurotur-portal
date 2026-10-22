@@ -3,6 +3,7 @@ import {
     ArrowLeft,
     ChevronDown,
     Clock,
+    Download,
     FileText,
     Home,
     LogOut,
@@ -47,7 +48,7 @@ function PendingLink({
  * Volver al portal y Salir de sesión.
  */
 export function BackofficeSidebar() {
-    const { url } = usePage();
+    const { url, props } = usePage();
     const { can } = usePermissions();
 
     const tools = BACKOFFICE_TOOLS.filter((tool) => can(tool.permission));
@@ -106,8 +107,44 @@ export function BackofficeSidebar() {
                     label="Editar páginas"
                     note="pronto"
                 />
-                <PendingLink icon={User} label="Mi perfil" note="pronto" />
-                <PendingLink icon={FileText} label="Novedades" note="pronto" />
+                <Link
+                    href="/administracion/perfil"
+                    className={
+                        path === '/administracion/perfil'
+                            ? 'bo-link bo-link-on'
+                            : 'bo-link'
+                    }
+                >
+                    <User size={18} aria-hidden="true" />
+                    Mi perfil
+                </Link>
+                <Link
+                    href="/administracion/novedades"
+                    className={
+                        path === '/administracion/novedades'
+                            ? 'bo-link bo-link-on'
+                            : 'bo-link'
+                    }
+                >
+                    <FileText size={18} aria-hidden="true" />
+                    Novedades
+                    {props.novedadesSinLeer > 0 && (
+                        <span className="bo-link-badge">
+                            {props.novedadesSinLeer}
+                        </span>
+                    )}
+                </Link>
+                <Link
+                    href="/administracion/descargas"
+                    className={
+                        path === '/administracion/descargas'
+                            ? 'bo-link bo-link-on'
+                            : 'bo-link'
+                    }
+                >
+                    <Download size={18} aria-hidden="true" />
+                    Descargas
+                </Link>
 
                 {tools.length > 0 && (
                     <>
