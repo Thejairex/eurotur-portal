@@ -1,6 +1,6 @@
 import { usePoll } from '@inertiajs/react';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 
 type PipelineStats = {
     running: boolean;
@@ -113,7 +113,8 @@ function panelButtonStyle(variant: 'start' | 'stop', disabled: boolean) {
         fontWeight: 700,
         letterSpacing: '0.06em',
         textTransform: 'uppercase',
-        padding: '7px 12px',
+        padding: '7px 14px',
+        borderRadius: '999px',
         border: variant === 'start' ? '1px solid #000' : `1px solid ${RED}`,
         background: variant === 'start' ? '#000' : '#fff',
         color: variant === 'start' ? '#fff' : RED,
@@ -209,7 +210,7 @@ export function BotMonitor({ summary, stats }: BotMonitorProps) {
                             gridTemplateColumns: '1fr 1fr',
                             gap: '18px',
                             marginTop: '6px',
-                            borderTop: '2px solid #000',
+                            borderTop: '1px solid #CFCFCB',
                         }}
                     >
                         <div

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 import { formatPhone } from '@/lib/format-phone';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 const REFRESH_MS = 60_000;
 
 type Sensor = {
@@ -90,8 +90,10 @@ function Card({
             style={{
                 display: 'flex',
                 flexDirection: 'column',
-                border: '1px solid #000',
                 background: '#fff',
+                borderRadius: '16px',
+                boxShadow: '0 1px 2px rgba(0,0,0,.05)',
+                overflow: 'hidden',
             }}
         >
             <div
@@ -99,9 +101,9 @@ function Card({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    background: '#000',
-                    color: '#fff',
-                    padding: '12px 18px',
+                    borderBottom: '1px solid #CFCFCB',
+                    color: '#111',
+                    padding: '14px 18px',
                 }}
             >
                 <span
@@ -121,7 +123,10 @@ function Card({
                         fontSize: '9px',
                         letterSpacing: '0.12em',
                         textTransform: 'uppercase',
-                        color: '#ff6a72',
+                        color: '#E3000F',
+                        border: '1px solid #E3000F',
+                        borderRadius: '999px',
+                        padding: '2px 10px',
                     }}
                 >
                     <span
@@ -169,8 +174,9 @@ function SensorTile({ sensor }: { sensor: Sensor }) {
     return (
         <div
             style={{
-                borderLeft: '4px solid ' + level.bar,
-                background: '#fafafa',
+                borderTop: '3px solid ' + level.bar,
+                borderRadius: '12px',
+                background: '#F6F6F4',
                 padding: '14px 16px',
                 textAlign: 'center',
             }}
@@ -377,8 +383,8 @@ export function MesaEnVivo() {
                                     boxSizing: 'border-box',
                                     width: '100%',
                                     padding: '9px 10px',
-                                    border: '1px solid #000',
-                                    borderRadius: 0,
+                                    border: '1px solid #CFCFCB',
+                                    borderRadius: '999px',
                                     fontFamily:
                                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '13px',

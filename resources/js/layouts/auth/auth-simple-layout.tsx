@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 import { home } from '@/routes';
 import type { AuthLayoutProps } from '@/types';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 
 export default function AuthSimpleLayout({
     children,

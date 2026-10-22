@@ -2,7 +2,7 @@ import { Head } from '@inertiajs/react';
 import { ImageSlot } from '@/components/portal/image-slot';
 import { MaintLine } from '@/components/portal/maint-line';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 
 type Valor = { n: string; t: string; d: string };
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-22 (2) — Acomodo, franja superior, sesión, tipo de cambio y rojos
+
+- Tarjetas de dos tamaños (hasta 4 links = chica, 5 o más = grande) con acomodo sin huecos (`packGrid`).
+- Franja superior de una línea: buscador a la izquierda (sale de la barra lateral) y bloque de sesión a la derecha («Iniciar sesión», o «Back Office» + menú con el nombre y «Salir de sesión»). Se sacaron Back Office y Salir de la barra lateral.
+- Tipo de cambio (dólar IATA, BNA y fecha) arriba a la derecha, debajo de los botones de sesión y a la altura del título; en flujo normal por debajo de 1100 px.
+- Esquinas redondeadas en todo el portal: Innovación (frentes en filas desplegables, contadores), Mesa de Información (íconos de línea en lugar de emojis, cuadros redondeados), Qrated (banner y categorías con foto).
+- Acentos rojos con variables `--red`, `--redsoft`, `--redtext`: ítem activo del menú, línea roja bajo los títulos, íconos de tarjetas y de Innovación, números de accesos rápidos y marca en los títulos de sección. Criterio: rojo para lo activo o tocable.
+- Color de marca unificado en `#E3000F`. Los prompts de esta tanda se copiaron a `docs/`.
+
 ## 2026-10-22 — Versión "amigable" del rediseño
 
 - Reemplaza el "mix" del 21/10: tarjetas blancas de 16 px sobre fondo `#E2E2DF`, íconos de línea, fuentes del sistema (se sacaron los woff2 de `public/fonts` y los `@font-face`).

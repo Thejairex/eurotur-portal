@@ -22,7 +22,7 @@ import {
 import type { Gasto, Header, RendicionTipo } from '@/lib/rendicion/engine';
 import { adm } from '@/routes/portal';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 const GREEN = '#22c55e';
 const YELLOW = '#d9a10a';
 const HTML_FALLBACK = '/herramientas/rendicion-gastos.html';

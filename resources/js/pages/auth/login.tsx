@@ -5,7 +5,7 @@ import TextLink from '@/components/text-link';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 
 const labelStyle: React.CSSProperties = {
     display: 'block',

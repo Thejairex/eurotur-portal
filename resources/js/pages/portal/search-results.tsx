@@ -1,6 +1,6 @@
 import { Head } from '@inertiajs/react';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 
 type SearchResult = {
     id: string;

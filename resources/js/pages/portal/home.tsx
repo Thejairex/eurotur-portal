@@ -50,6 +50,16 @@ function SectionHeading({ label }: { label: string }) {
                 textTransform: 'uppercase',
             }}
         >
+            <span
+                aria-hidden="true"
+                style={{
+                    width: '4px',
+                    height: '14px',
+                    borderRadius: '2px',
+                    background: RED,
+                    flex: '0 0 auto',
+                }}
+            />
             {label}
             <span
                 aria-hidden="true"
@@ -110,7 +120,7 @@ export default function Home() {
                         gap: '14px',
                     }}
                 >
-                    {QUICK_ACCESS.map((q) => {
+                    {QUICK_ACCESS.map((q, index) => {
                         const cardStyle: React.CSSProperties = {
                             display: 'flex',
                             flexDirection: 'column',
@@ -120,24 +130,37 @@ export default function Home() {
                             cursor: 'pointer',
                         };
                         const content = (
-                            <span
-                                style={{
-                                    fontSize: '16px',
-                                    fontWeight: 700,
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    gap: '8px',
-                                }}
-                            >
-                                {q.title}
-                                <span
-                                    className="q-arrow"
-                                    aria-hidden="true"
-                                    style={{ color: '#6B6B68' }}
+                            <>
+                                <small
+                                    style={{
+                                        display: 'block',
+                                        fontSize: '12px',
+                                        fontWeight: 700,
+                                        color: RED,
+                                        marginBottom: '4px',
+                                    }}
                                 >
-                                    {q.internal ? '→' : '↗'}
+                                    {String(index + 1).padStart(2, '0')}
+                                </small>
+                                <span
+                                    style={{
+                                        fontSize: '16px',
+                                        fontWeight: 700,
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        gap: '8px',
+                                    }}
+                                >
+                                    {q.title}
+                                    <span
+                                        className="q-arrow"
+                                        aria-hidden="true"
+                                        style={{ color: '#6B6B68' }}
+                                    >
+                                        {q.internal ? '→' : '↗'}
+                                    </span>
                                 </span>
-                            </span>
+                            </>
                         );
 
                         return q.internal ? (

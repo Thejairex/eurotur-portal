@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react';
 import { MaintLine } from '@/components/portal/maint-line';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 
 type Props = {
     calendarUrl: string | null;

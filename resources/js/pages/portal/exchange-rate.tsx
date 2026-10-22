@@ -13,7 +13,7 @@ import {
 import type { ExchangeRate } from '@/lib/exchange-rates';
 import { exchangeRate } from '@/routes/portal';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 
 function formatArs(value: number): string {
     return value.toLocaleString('es-AR', {

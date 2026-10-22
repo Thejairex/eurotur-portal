@@ -6,7 +6,7 @@ import SearchSynonymTermController from '@/actions/App/Http/Controllers/Portal/S
 import SectorItemController from '@/actions/App/Http/Controllers/Portal/SectorItemController';
 import InputError from '@/components/input-error';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 
 function staticEntryId(id: string): number {
     return Number(id.replace('static-', ''));

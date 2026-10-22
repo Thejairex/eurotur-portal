@@ -10,7 +10,7 @@ import type {
 } from '@/lib/prebalance/engine';
 import { index as crmIndex } from '@/routes/admin/crm';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 const HTML_FALLBACK = '/herramientas/prebalance-modulos.html';
 const DOC_URL = '/documentos/prebalance-modulos.docx';
 

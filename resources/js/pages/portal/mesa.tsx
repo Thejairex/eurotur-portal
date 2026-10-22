@@ -16,7 +16,7 @@ import {
 import type { AtajoAyuda } from '@/components/portal/mesa-guias';
 import { copyText } from '@/lib/copy-text';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 
 type Credential = { id: string; label: string; sub: string; pass: string };
 
@@ -103,7 +103,7 @@ const PASOS_PANTALLAS = [
 ];
 
 const OPCIONES_PANTALLAS = [
-    '🪞 **Duplicar estas pantallas**: se ve lo mismo en la notebook y en el monitor.',
+    '**Duplicar estas pantallas**: se ve lo mismo en la notebook y en el monitor.',
     '↔️ **Extender estas pantallas**: trabajás con las dos pantallas a la vez (lo recomendado).',
     '1️⃣ **Mostrar únicamente en 1**: solo se ve en la notebook.',
     '2️⃣ **Mostrar únicamente en 2**: solo se ve en el monitor externo.',
@@ -111,7 +111,7 @@ const OPCIONES_PANTALLAS = [
 
 const PASOS_SONIDO = [
     'Verificá que estén conectados el **cable de audio** y el **cable HDMI** (el cable de video).',
-    'Hacé clic en el ícono del parlante 🔊 (abajo a la derecha, junto al reloj).',
+    'Hacé clic en el ícono del parlante (abajo a la derecha, junto al reloj).',
     'En la lista, elegí **Auriculares (Realtek(R) Audio)**.',
 ];
 
@@ -126,7 +126,8 @@ const BOTON_CLARO: CSSProperties = {
     fontSize: '11px',
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
-    border: '1px solid #000',
+    border: '1px solid #CFCFCB',
+    borderRadius: '999px',
     background: 'transparent',
     padding: '9px 14px',
     cursor: 'pointer',
@@ -216,8 +217,11 @@ export default function Mesa() {
                 <Revelar>
                     <div
                         style={{
-                            border: '1px solid #000',
-                            marginBottom: '34px',
+                            background: '#fff',
+                            borderRadius: '16px',
+                            boxShadow: '0 1px 2px rgba(0,0,0,.05)',
+                            overflow: 'hidden',
+                            marginBottom: '24px',
                         }}
                     >
                         <div
@@ -225,21 +229,19 @@ export default function Mesa() {
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'space-between',
-                                background: '#000',
-                                color: '#fff',
-                                padding: '12px 18px',
+                                borderBottom: '1px solid #CFCFCB',
+                                color: '#111',
+                                padding: '14px 18px',
                             }}
                         >
                             <span
                                 style={{
-                                    fontFamily:
-                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontWeight: 800,
                                     fontSize: '16px',
                                     letterSpacing: '-0.01em',
                                 }}
                             >
-                                📶 Accesos de red · Tucumán
+                                Accesos de red · Tucumán
                             </span>
                             <span
                                 style={{
@@ -248,7 +250,7 @@ export default function Mesa() {
                                     fontSize: '9px',
                                     letterSpacing: '0.12em',
                                     textTransform: 'uppercase',
-                                    color: '#ff6a72',
+                                    color: '#E3000F',
                                 }}
                             >
                                 ● acceso interno
@@ -266,7 +268,7 @@ export default function Mesa() {
                                         justifyContent: 'space-between',
                                         gap: '20px',
                                         padding: '16px 18px',
-                                        borderTop: '1px solid #ececec',
+                                        borderTop: '1px solid #EFEFEC',
                                         flexWrap: 'wrap',
                                     }}
                                 >
@@ -356,7 +358,7 @@ export default function Mesa() {
                                 letterSpacing: '0.05em',
                                 color: '#999',
                                 padding: '11px 18px',
-                                borderTop: '1px solid #ececec',
+                                borderTop: '1px solid #EFEFEC',
                                 background: '#faf7f7',
                                 lineHeight: 1.5,
                             }}
@@ -392,9 +394,9 @@ export default function Mesa() {
                                 key={index}
                                 className="mesa-tarjeta"
                                 style={{
-                                    border: '1px solid #000',
+                                    borderRadius: '12px',
                                     padding: '16px',
-                                    background: '#fff',
+                                    background: '#F6F6F4',
                                 }}
                             >
                                 <div
@@ -458,7 +460,7 @@ export default function Mesa() {
                             paddingBottom: '3px',
                         }}
                     >
-                        📋 Ver la tabla de discado completa{' '}
+                        Ver la tabla de discado completa{' '}
                         <span style={{ color: RED }}>↗</span>
                     </a>
                 </Guia>
@@ -477,7 +479,7 @@ export default function Mesa() {
                 >
                     <Subtitulo emoji="❓" texto="¿Qué te pasa?" />
                     <Linea texto="⏳ La conexión **no avanza**: se queda trabada en un punto." />
-                    <Linea texto="📶 **Llega al 45 %** y no progresa más (como en la imagen)." />
+                    <Linea texto="**Llega al 45 %** y no progresa más (como en la imagen)." />
 
                     <Subtitulo emoji="🔒" texto="¿Qué significa?" />
                     <Linea texto="Tu VPN está **bloqueada**. Es muy sensible: después de **3 intentos fallidos seguidos** se bloquea sola." />
@@ -493,7 +495,8 @@ export default function Mesa() {
                             display: 'inline-block',
                             marginTop: '18px',
                             padding: '12px 18px',
-                            background: '#000',
+                            borderRadius: '999px',
+                            background: '#111',
                             color: '#fff',
                             textDecoration: 'none',
                             fontWeight: 700,

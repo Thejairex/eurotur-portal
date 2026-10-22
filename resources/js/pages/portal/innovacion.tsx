@@ -8,7 +8,7 @@ import { BotMonitor } from '@/components/portal/bot-monitor';
 import { MaintLine } from '@/components/portal/maint-line';
 import { formatMaintLine } from '@/lib/sector-updated';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 
 type BadgeClass = 'prod' | 'live' | 'dev' | 'test' | 'curso' | 'ana' | 'cero';
 
@@ -16,16 +16,40 @@ const BADGE_STYLE: Record<
     BadgeClass,
     { background: string; color: string; border: string }
 > = {
-    prod: { background: '#000', color: '#fff', border: '1px solid #000' },
-    live: { background: RED, color: '#fff', border: `1px solid ${RED}` },
-    dev: { background: '#fff', color: '#000', border: '1px solid #000' },
-    test: { background: '#fff', color: RED, border: `1px solid ${RED}` },
-    curso: { background: '#fff', color: '#000', border: '1px solid #000' },
-    ana: { background: '#fff', color: '#8a8a8a', border: '1px solid #d9d9d9' },
+    prod: {
+        background: '#E3F4E7',
+        color: '#1B6B2E',
+        border: '1px solid #E3F4E7',
+    },
+    live: {
+        background: '#E3F4E7',
+        color: '#1B6B2E',
+        border: '1px solid #E3F4E7',
+    },
+    dev: {
+        background: '#E8EEF9',
+        color: '#1F4D9B',
+        border: '1px solid #E8EEF9',
+    },
+    test: {
+        background: '#FFF3CD',
+        color: '#7A5600',
+        border: '1px solid #FFF3CD',
+    },
+    curso: {
+        background: '#E8EEF9',
+        color: '#1F4D9B',
+        border: '1px solid #E8EEF9',
+    },
+    ana: {
+        background: '#EFEFEC',
+        color: '#6B6B68',
+        border: '1px solid #EFEFEC',
+    },
     cero: {
-        background: '#f6f5f2',
-        color: '#8a8a8a',
-        border: '1px solid #d9d9d9',
+        background: '#EFEFEC',
+        color: '#6B6B68',
+        border: '1px solid #EFEFEC',
     },
 };
 
@@ -124,7 +148,8 @@ const smallButtonStyle: React.CSSProperties = {
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
     background: 'transparent',
-    border: '1px solid #000',
+    border: '1px solid #CFCFCB',
+    borderRadius: '999px',
     padding: '4px 8px',
     cursor: 'pointer',
 };
@@ -245,72 +270,49 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                 <div
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(4,1fr)',
-                        borderTop: '3px solid #000',
-                        borderBottom: '1px solid #000',
-                        borderLeft: '1px solid #000',
+                        gridTemplateColumns:
+                            'repeat(auto-fit, minmax(170px, 1fr))',
+                        gap: '14px',
                     }}
                 >
-                    {innovStats.map((s) => (
+                    {[
+                        ...innovStats,
+                        {
+                            k: String(INSTRUCTIVOS.length),
+                            l: 'instructivos ia',
+                        },
+                    ].map((st) => (
                         <div
-                            key={s.l}
+                            key={st.l}
                             style={{
-                                padding: '14px 18px 16px 18px',
-                                borderRight: '1px dotted #000',
+                                background: '#fff',
+                                borderRadius: '16px',
+                                boxShadow: '0 1px 2px rgba(0,0,0,.05)',
+                                padding: '16px 20px',
                             }}
                         >
                             <div
                                 style={{
-                                    fontFamily:
-                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                                    fontWeight: 900,
-                                    fontSize: '40px',
-                                    lineHeight: 0.8,
+                                    fontWeight: 800,
+                                    fontSize: '34px',
+                                    lineHeight: 1,
                                 }}
                             >
-                                {s.k}
+                                {st.k}
                             </div>
                             <div
                                 style={{
-                                    fontFamily:
-                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                                    fontSize: '10px',
+                                    fontSize: '11px',
                                     letterSpacing: '0.1em',
                                     textTransform: 'uppercase',
-                                    color: '#666',
+                                    color: '#6B6B68',
                                     marginTop: '8px',
                                 }}
                             >
-                                {s.l}
+                                {st.l}
                             </div>
                         </div>
                     ))}
-                    <div style={{ padding: '14px 18px 16px 18px' }}>
-                        <div
-                            style={{
-                                fontFamily:
-                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                                fontWeight: 900,
-                                fontSize: '40px',
-                                lineHeight: 0.8,
-                            }}
-                        >
-                            {INSTRUCTIVOS.length}
-                        </div>
-                        <div
-                            style={{
-                                fontFamily:
-                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                                fontSize: '10px',
-                                letterSpacing: '0.1em',
-                                textTransform: 'uppercase',
-                                color: '#666',
-                                marginTop: '8px',
-                            }}
-                        >
-                            instructivos ia
-                        </div>
-                    </div>
                 </div>
 
                 <div
@@ -319,22 +321,22 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         gap: '16px',
-                        borderBottom: '3px solid #000',
                         paddingBottom: '10px',
-                        margin: '38px 0 0',
+                        margin: '30px 0 12px',
                     }}
                 >
                     <div
                         style={{
                             fontFamily:
                                 "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                            fontWeight: 900,
-                            fontSize: '19px',
-                            letterSpacing: '-0.01em',
+                            fontWeight: 700,
+                            fontSize: '13px',
+                            letterSpacing: '0.14em',
+                            textTransform: 'uppercase',
+                            color: '#6B6B68',
                         }}
                     >
                         Automatizaciones
-                        <span style={{ color: RED }}>—</span>
                     </div>
                     <div
                         style={{
@@ -346,7 +348,9 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                         <div
                             style={{
                                 display: 'inline-flex',
-                                border: '1px solid #000',
+                                border: '1px solid #CFCFCB',
+                                borderRadius: '999px',
+                                overflow: 'hidden',
                             }}
                         >
                             <button
@@ -355,7 +359,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                 style={{
                                     ...segBase,
                                     background:
-                                        layout === 'a' ? '#000' : '#fff',
+                                        layout === 'a' ? '#111' : '#fff',
                                     color: layout === 'a' ? '#fff' : '#000',
                                 }}
                             >
@@ -367,7 +371,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                 style={{
                                     ...segBase,
                                     background:
-                                        layout === 'b' ? '#000' : '#fff',
+                                        layout === 'b' ? '#111' : '#fff',
                                     color: layout === 'b' ? '#fff' : '#000',
                                 }}
                             >
@@ -400,13 +404,11 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                 <div
                                     key={f.id}
                                     style={{
-                                        borderBottom: '1px solid #000',
-                                        background:
-                                            frenteIndex % 2 === 0
-                                                ? '#fff'
-                                                : '#faf7f7',
-                                        padding: '0 10px',
-                                        marginBottom: '8px',
+                                        background: '#fff',
+                                        borderRadius: '16px',
+                                        boxShadow: '0 1px 2px rgba(0,0,0,.05)',
+                                        padding: '0 14px',
+                                        marginBottom: '12px',
                                     }}
                                 >
                                     <div
@@ -426,35 +428,35 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                 width: '100%',
                                                 display: 'flex',
                                                 alignItems: 'center',
-                                                gap: '18px',
-                                                padding: '18px 4px',
+                                                gap: '14px',
+                                                padding: '16px 4px',
                                                 background: 'transparent',
                                                 border: 'none',
                                                 transition:
-                                                    'background .12s,transform .12s',
+                                                    'background-color .12s',
                                             }}
                                         >
-                                            <span
+                                            <svg
+                                                viewBox="0 0 24 24"
+                                                width="20"
+                                                height="20"
+                                                aria-hidden="true"
                                                 style={{
-                                                    fontFamily:
-                                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                                                    fontSize: '30px',
-                                                    color: RED,
-                                                    lineHeight: 1,
                                                     flex: '0 0 auto',
+                                                    stroke: RED,
+                                                    fill: 'none',
+                                                    strokeWidth: 1.8,
+                                                    strokeLinecap: 'round',
+                                                    strokeLinejoin: 'round',
                                                 }}
                                             >
-                                                {String(
-                                                    frenteIndex + 1,
-                                                ).padStart(2, '0')}
-                                            </span>
+                                                <path d="M13 2L4 14h7l-1 8 9-12h-7z" />
+                                            </svg>
                                             <span
                                                 style={{
-                                                    fontFamily:
-                                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                                                    fontWeight: 800,
-                                                    fontSize: '18px',
-                                                    letterSpacing: '-0.01em',
+                                                    fontWeight: 700,
+                                                    fontSize: '17px',
+                                                    textAlign: 'left',
                                                 }}
                                             >
                                                 {f.area}
@@ -464,18 +466,17 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                     marginLeft: 'auto',
                                                     display: 'flex',
                                                     alignItems: 'center',
-                                                    gap: '16px',
+                                                    gap: '14px',
                                                 }}
                                             >
                                                 <span
                                                     style={{
-                                                        fontFamily:
-                                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                                                        fontSize: '10px',
-                                                        letterSpacing: '0.06em',
-                                                        textTransform:
-                                                            'uppercase',
-                                                        color: '#666',
+                                                        fontSize: '12px',
+                                                        color: '#6B6B68',
+                                                        border: '1px solid #CFCFCB',
+                                                        borderRadius: '999px',
+                                                        padding: '2px 10px',
+                                                        whiteSpace: 'nowrap',
                                                     }}
                                                 >
                                                     {f.items.length === 1
@@ -483,18 +484,20 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                         : `${f.items.length} iniciativas`}
                                                 </span>
                                                 <span
+                                                    aria-hidden="true"
                                                     style={{
-                                                        fontFamily:
-                                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                                                        fontWeight: 900,
-                                                        fontSize: '26px',
-                                                        color: RED,
+                                                        fontSize: '18px',
+                                                        color: '#6B6B68',
                                                         lineHeight: 1,
-                                                        width: '18px',
-                                                        textAlign: 'center',
+                                                        display: 'inline-block',
+                                                        transform: open
+                                                            ? 'rotate(180deg)'
+                                                            : 'none',
+                                                        transition:
+                                                            'transform .15s',
                                                     }}
                                                 >
-                                                    {open ? '–' : '+'}
+                                                    ⌄
                                                 </span>
                                             </span>
                                         </button>
@@ -528,7 +531,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                     {open && (
                                         <div
                                             style={{
-                                                padding: '0 4px 22px 62px',
+                                                padding: '0 4px 18px 34px',
                                                 display: 'flex',
                                                 flexDirection: 'column',
                                             }}
@@ -624,7 +627,9 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                                             textTransform:
                                                                                 'uppercase',
                                                                             padding:
-                                                                                '4px 8px',
+                                                                                '4px 10px',
+                                                                            borderRadius:
+                                                                                '999px',
                                                                             whiteSpace:
                                                                                 'nowrap',
                                                                             ...BADGE_STYLE[
@@ -713,7 +718,9 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                                             textTransform:
                                                                                 'uppercase',
                                                                             padding:
-                                                                                '4px 8px',
+                                                                                '4px 10px',
+                                                                            borderRadius:
+                                                                                '999px',
                                                                             whiteSpace:
                                                                                 'nowrap',
                                                                             border: '1px solid #000',
@@ -812,16 +819,16 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                         style={{
                             display: 'grid',
                             gridTemplateColumns: 'repeat(4,1fr)',
-                            gap: 0,
-                            borderLeft: '1px solid #000',
+                            gap: '14px',
                         }}
                     >
                         {frentes.map((f, frenteIndex) => (
                             <div
                                 key={f.id}
                                 style={{
-                                    borderRight: '1px solid #000',
-                                    borderBottom: '1px solid #000',
+                                    background: '#fff',
+                                    borderRadius: '16px',
+                                    boxShadow: '0 1px 2px rgba(0,0,0,.05)',
                                     padding: '16px 14px',
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -963,8 +970,9 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                         alignItems: 'center',
                         gap: '16px',
                         marginTop: '26px',
-                        borderLeft: `3px solid ${RED}`,
-                        background: '#faf7f7',
+                        borderRadius: '16px',
+                        background: '#fff',
+                        boxShadow: '0 1px 2px rgba(0,0,0,.05)',
                         padding: '14px 18px',
                     }}
                 >
@@ -999,22 +1007,22 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                         display: 'flex',
                         alignItems: 'baseline',
                         justifyContent: 'space-between',
-                        borderBottom: '3px solid #000',
                         paddingBottom: '10px',
-                        margin: '40px 0 0',
+                        margin: '34px 0 12px',
                     }}
                 >
                     <div
                         style={{
                             fontFamily:
                                 "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                            fontWeight: 900,
-                            fontSize: '19px',
-                            letterSpacing: '-0.01em',
+                            fontWeight: 700,
+                            fontSize: '13px',
+                            letterSpacing: '0.14em',
+                            textTransform: 'uppercase',
+                            color: '#6B6B68',
                         }}
                     >
                         Instructivos IA
-                        <span style={{ color: RED }}>—</span>
                     </div>
                     <div
                         style={{
@@ -1033,8 +1041,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                     style={{
                         display: 'grid',
                         gridTemplateColumns: 'repeat(3,1fr)',
-                        gap: 0,
-                        borderLeft: '1px solid #000',
+                        gap: '14px',
                     }}
                 >
                     {INSTRUCTIVOS.map((i) => {
@@ -1045,8 +1052,9 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                 key={i.id}
                                 className="innov-instr-card"
                                 style={{
-                                    borderRight: '1px solid #000',
-                                    borderBottom: '1px solid #000',
+                                    background: '#fff',
+                                    borderRadius: '16px',
+                                    boxShadow: '0 1px 2px rgba(0,0,0,.05)',
                                     padding: '18px 18px 16px',
                                     display: 'flex',
                                     flexDirection: 'column',
