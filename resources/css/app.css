@@ -507,8 +507,7 @@
 }
 
 .bo-card-hot {
-    color: #fff;
-    background: linear-gradient(135deg, #b0000f 0%, #7d000a 100%);
+    border-top: 4px solid var(--bo-red);
 }
 
 .bo-hdr {
@@ -579,28 +578,6 @@
 .bo-row small {
     font-size: 12px;
     color: var(--muted-foreground);
-}
-
-.bo-card-hot .bo-row {
-    background: rgb(255 255 255 / 0.14);
-}
-
-.bo-card-hot .bo-row:hover {
-    color: var(--bo-red);
-    background: #fff;
-}
-
-.bo-card-hot .bo-row small {
-    color: rgb(255 255 255 / 0.8);
-}
-
-.bo-card-hot .bo-row:hover small {
-    color: var(--muted-foreground);
-}
-
-.bo-card-hot .bo-row-ico {
-    color: #fff;
-    background: rgb(255 255 255 / 0.2);
 }
 
 .bo-empty {
