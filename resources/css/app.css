@@ -506,10 +506,6 @@
     font-size: 16px;
 }
 
-.bo-card-hot {
-    border-top: 4px solid var(--bo-red);
-}
-
 .bo-hdr {
     display: flex;
     align-items: center;
@@ -584,6 +580,225 @@
     padding: 10px 8px;
     font-size: 13px;
     color: var(--muted-foreground);
+}
+
+/* Tarjeta destacada: rosado suave, franja roja arriba e íconos en rojo sólido */
+.bo-card-hot {
+    background: var(--bo-redsoft);
+    border-top: 6px solid var(--bo-red);
+}
+
+.bo-card-hot h2 {
+    color: var(--bo-red);
+}
+
+.dark .bo-card-hot h2 {
+    color: #ff6b73;
+}
+
+.bo-card-hot .bo-row {
+    background: rgb(255 255 255 / 0.65);
+}
+
+.dark .bo-card-hot .bo-row {
+    background: rgb(255 255 255 / 0.06);
+}
+
+.bo-card-hot .bo-row:hover {
+    background: #fff;
+}
+
+.dark .bo-card-hot .bo-row:hover {
+    background: rgb(255 255 255 / 0.12);
+}
+
+.bo-card-hot .bo-row-ico {
+    color: #fff;
+    background: var(--bo-red);
+}
+
+/* Perfil, novedades y descargas */
+.bo-grid3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.bo-prof {
+    display: flex;
+    gap: 26px;
+    align-items: flex-start;
+}
+
+.bo-avatar-lg {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 140px;
+    height: 140px;
+    font-size: 44px;
+    font-weight: 800;
+    color: #fff;
+    background: var(--bo-red);
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.bo-btn {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    padding: 9px 16px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    background: var(--bo-red);
+    border: 0;
+    border-radius: 999px;
+    transition: transform 0.12s;
+}
+
+.bo-btn:hover {
+    transform: translateY(-1px);
+}
+
+.bo-btn:disabled {
+    cursor: default;
+    opacity: 0.5;
+    transform: none;
+}
+
+.bo-btn-ghost {
+    color: var(--foreground);
+    background: var(--bo-soft);
+}
+
+.bo-btn-ghost:hover {
+    color: var(--bo-red);
+}
+
+.bo-link-text {
+    display: block;
+    margin: 8px auto 0;
+    padding: 0;
+    font: inherit;
+    font-size: 12px;
+    color: var(--muted-foreground);
+    cursor: pointer;
+    background: none;
+    border: 0;
+    text-decoration: underline;
+}
+
+.bo-icon-btn {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    color: var(--muted-foreground);
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+}
+
+.bo-icon-btn:hover {
+    color: var(--bo-red);
+    background: var(--bo-redsoft);
+}
+
+.bo-field {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 6px 10px;
+    align-items: center;
+    padding: 5px 0;
+    font-size: 14px;
+}
+
+.bo-field label {
+    color: var(--muted-foreground);
+}
+
+.bo-input {
+    width: 100%;
+    padding: 8px 10px;
+    font: inherit;
+    font-size: 14px;
+    color: var(--foreground);
+    background: var(--bo-soft);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.bo-input:focus {
+    outline: none;
+    border-color: var(--bo-red);
+}
+
+.bo-input[readonly] {
+    background: transparent;
+    border-color: transparent;
+}
+
+.bo-tag {
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--bo-red);
+    background: var(--bo-redsoft);
+    border-radius: 999px;
+}
+
+.bo-item {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 10px;
+    border-radius: 12px;
+    transition: background-color 0.12s;
+}
+
+.bo-item:hover {
+    background: var(--bo-redsoft);
+}
+
+.bo-item-date {
+    min-width: 76px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--bo-red);
+}
+
+.bo-item-text {
+    margin: 2px 0 0;
+    font-size: 13px;
+    color: var(--muted-foreground);
+}
+
+.bo-note {
+    font-size: 12px;
+    color: var(--muted-foreground);
+}
+
+.bo-error {
+    margin-top: 4px;
+    font-size: 12.5px;
+    color: var(--destructive);
+}
+
+.bo-link-badge {
+    margin-left: auto;
+    padding: 1px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--bo-side-from);
+    background: #fff;
+    border-radius: 999px;
 }
 
 /* Bienvenida: solo opacidad y transform */
@@ -743,8 +958,14 @@
 }
 
 @media (width <= 1100px) {
-    .bo-grid2 {
+    .bo-grid2,
+    .bo-grid3 {
         grid-template-columns: 1fr;
+    }
+
+    .bo-prof {
+        flex-direction: column;
+        align-items: center;
     }
 }
 

@@ -2,18 +2,37 @@ import { Head, Link, usePage } from '@inertiajs/react';
 import {
     Calculator,
     CalendarClock,
+    Clock,
+    Download,
     FileSpreadsheet,
     FileText,
     Network,
+    Pencil,
     Scale,
     Wallet,
     Wrench,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { initialsOf } from '@/components/backoffice/backoffice-header';
 import { usePermissions } from '@/hooks/use-permissions';
 import { editablePagesFor } from '@/lib/backoffice-pages';
 import { BACKOFFICE_TOOLS } from '@/lib/backoffice-tools';
 import { formatUpdateDate } from '@/lib/sector-updated';
+
+type Novedad = {
+    id: number;
+    fecha: string;
+    titulo: string;
+    texto: string;
+    nueva: boolean;
+};
+
+type Archivo = {
+    id: number;
+    nombre: string;
+    extension: string;
+    tamano: number;
+};
 
 /** Ícono de cada herramienta (las que no figuran usan la llave inglesa). */
 const TOOL_ICONS: Record<string, LucideIcon> = {
@@ -25,18 +44,45 @@ const TOOL_ICONS: Record<string, LucideIcon> = {
     'big-brother': CalendarClock,
 };
 
+const formatDay = (iso: string): string => {
+    const [year, month, day] = iso.split('-');
+
+    return `${day}·${month}·${year}`;
+};
+
+const formatSize = (bytes: number): string =>
+    bytes < 1024 * 1024
+        ? `${Math.max(1, Math.round(bytes / 1024))} KB`
+        : `${(bytes / (1024 * 1024)).toLocaleString('es-AR', { maximumFractionDigits: 1 })} MB`;
+
 /**
- * Inicio del Back Office. Hoy muestra lo que ya existe de verdad: las páginas del portal que
- * esta persona puede editar (con la fecha real de su última modificación) y sus herramientas.
- * Perfil, novedades y descargas se suman en la próxima etapa.
+ * Inicio del Back Office: el perfil de la persona, las páginas del portal que mantiene, las
+ * novedades, los archivos para descargar y sus herramientas. Todo con datos reales.
  */
-export default function Inicio() {
-    const { auth, sectorUpdates } = usePage().props;
+export default function Inicio({
+    paginas,
+    novedades,
+    descargas,
+}: {
+    paginas: Record<string, { bloques: number; links: number }>;
+    novedades: Novedad[];
+    descargas: Archivo[];
+}) {
+    const { auth, sectorUpdates, novedadesSinLeer } = usePage().props;
     const { can } = usePermissions();
 
-    const firstName = (auth?.user?.name ?? '').split(/\s+/)[0];
+    const user = auth.user;
+    const firstName = user.name.split(/\s+/)[0];
     const pages = editablePagesFor(can);
     const tools = BACKOFFICE_TOOLS.filter((tool) => can(tool.permission));
+    const photo = user.foto_path ? `/storage/${user.foto_path}` : null;
+    const details = [
+        ['Puesto', user.puesto],
+        ['Área', user.area],
+        ['Sede', user.sede],
+        ['Interno', user.interno],
+        ['Mail', user.email],
+    ] as const;
 
     return (
         <>
@@ -54,6 +100,46 @@ export default function Inicio() {
 
             <div className="bo-grid2">
                 <div className="bo-card">
+                    <div className="bo-prof">
+                        <div
+                            className="bo-avatar-lg"
+                            style={
+                                photo
+                                    ? { backgroundImage: `url(${photo})` }
+                                    : undefined
+                            }
+                        >
+                            {photo ? '' : initialsOf(user.name)}
+                        </div>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                }}
+                            >
+                                <b style={{ fontSize: 22 }}>{user.name}</b>
+                                <Link
+                                    href="/administracion/perfil"
+                                    className="bo-icon-btn"
+                                    title="Editar mis datos"
+                                    aria-label="Editar mis datos"
+                                >
+                                    <Pencil size={15} aria-hidden="true" />
+                                </Link>
+                            </div>
+                            {details.map(([label, value]) => (
+                                <div className="bo-field" key={label}>
+                                    <label>{label}</label>
+                                    <span>{value || '—'}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bo-card">
                     <h2>
                         <FileText size={18} aria-hidden="true" />
                         Mis páginas
@@ -65,6 +151,7 @@ export default function Inicio() {
                     )}
                     {pages.map((page) => {
                         const date = formatUpdateDate(sectorUpdates[page.id]);
+                        const counts = paginas[page.id];
 
                         return (
                             <Link
@@ -78,6 +165,9 @@ export default function Inicio() {
                                 <span>
                                     <b>{page.navLabel}</b>
                                     <small>
+                                        {counts
+                                            ? `${counts.bloques} bloques · ${counts.links} links · `
+                                            : ''}
                                         {date
                                             ? `Última actualización: ${date}`
                                             : 'Sin cambios registrados desde el portal'}
@@ -86,6 +176,75 @@ export default function Inicio() {
                             </Link>
                         );
                     })}
+                </div>
+            </div>
+
+            <div className="bo-grid3">
+                <div className="bo-card">
+                    <h2>
+                        <FileText size={18} aria-hidden="true" />
+                        Novedades
+                        {novedadesSinLeer > 0 && (
+                            <span className="bo-tag">
+                                {novedadesSinLeer} nuevas
+                            </span>
+                        )}
+                    </h2>
+                    {novedades.length === 0 && (
+                        <div className="bo-empty">Todavía no hay novedades.</div>
+                    )}
+                    {novedades.map((novedad) => (
+                        <Link
+                            key={novedad.id}
+                            href="/administracion/novedades"
+                            className="bo-item"
+                        >
+                            <div className="bo-item-date">
+                                {formatDay(novedad.fecha)}
+                            </div>
+                            <div>
+                                <b>{novedad.titulo}</b>
+                                <p className="bo-item-text">{novedad.texto}</p>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+
+                <div className="bo-card bo-card-hot">
+                    <h2>
+                        <Download size={18} aria-hidden="true" />
+                        Descargas
+                    </h2>
+                    {descargas.length === 0 && (
+                        <div className="bo-empty">
+                            Todavía no hay archivos para descargar.
+                        </div>
+                    )}
+                    {descargas.map((archivo) => (
+                        <a
+                            key={archivo.id}
+                            href={`/administracion/descargas/${archivo.id}/archivo`}
+                            className="bo-row"
+                        >
+                            <span className="bo-row-ico">
+                                <Download size={18} aria-hidden="true" />
+                            </span>
+                            <span>
+                                <b>{archivo.nombre}</b>
+                                <small>
+                                    {archivo.extension.toUpperCase()} ·{' '}
+                                    {formatSize(archivo.tamano)}
+                                </small>
+                            </span>
+                        </a>
+                    ))}
+                    <Link
+                        href="/administracion/descargas"
+                        className="bo-note"
+                        style={{ display: 'block', marginTop: 8 }}
+                    >
+                        Ver todas
+                    </Link>
                 </div>
 
                 <div className="bo-card bo-card-hot">
@@ -132,6 +291,17 @@ export default function Inicio() {
                             </Link>
                         );
                     })}
+                </div>
+            </div>
+
+            <div className="bo-card" style={{ marginTop: 16 }}>
+                <h2>
+                    <Clock size={18} aria-hidden="true" />
+                    Actividad reciente
+                </h2>
+                <div className="bo-empty">
+                    Próximamente: quién cambió qué y cuándo. El historial de
+                    cambios está en planeación.
                 </div>
             </div>
         </>

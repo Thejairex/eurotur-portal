@@ -2,10 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Novedad;
 use App\Services\DolarOficialService;
 use App\Services\IataRateService;
 use App\Services\SectorUpdates;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -50,6 +52,12 @@ class HandleInertiaRequests extends Middleware
             // true = el usuario todavía no hizo ese recorrido guiado (cada uno se hace una sola vez).
             // Fecha real de la última modificación de cada sector (pie de cada página).
             'sectorUpdates' => fn () => SectorUpdates::todos(),
+            // Cantidad de novedades del sistema que esta persona todavía no vio.
+            'novedadesSinLeer' => fn () => $request->user() === null
+                ? 0
+                : Novedad::query()
+                    ->whereNotIn('id', DB::table('novedad_lecturas')->where('user_id', $request->user()->id)->select('novedad_id'))
+                    ->count(),
             'tours' => [
                 'portal' => $request->user() !== null && $request->user()->portal_tour_completed_at === null,
                 'backoffice' => $request->user() !== null && $request->user()->backoffice_tour_completed_at === null,

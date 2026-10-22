@@ -65,6 +65,10 @@ export default function BackofficeLayout({
             value: editablePagesFor(can).length,
         },
         {
+            label: 'Novedades sin leer',
+            value: props.novedadesSinLeer,
+        },
+        {
             label: 'Herramientas',
             value: BACKOFFICE_TOOLS.filter((tool) => can(tool.permission))
                 .length,
