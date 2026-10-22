@@ -49,7 +49,8 @@ function Label({ children }: { children: string }) {
     return (
         <div
             style={{
-                fontFamily: "'Space Mono', monospace",
+                fontFamily:
+                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                 fontSize: '9px',
                 letterSpacing: '0.14em',
                 textTransform: 'uppercase',
@@ -65,7 +66,8 @@ function EmptyState({ message }: { message: string }) {
     return (
         <div
             style={{
-                fontFamily: "'Space Mono', monospace",
+                fontFamily:
+                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                 fontSize: '11px',
                 letterSpacing: '0.06em',
                 color: '#666',
@@ -91,7 +93,8 @@ function StatValue({
             <Label>{label}</Label>
             <div
                 style={{
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontWeight: 800,
                     fontSize: '15px',
                     color: highlight ? RED : '#000',
@@ -105,7 +108,7 @@ function StatValue({
 
 function panelButtonStyle(variant: 'start' | 'stop', disabled: boolean) {
     return {
-        fontFamily: "'Space Mono', monospace",
+        fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
         fontSize: '10px',
         fontWeight: 700,
         letterSpacing: '0.06em',
@@ -350,7 +353,8 @@ export function BotMonitor({ summary, stats }: BotMonitorProps) {
                             <Label>estado</Label>
                             <div
                                 style={{
-                                    fontFamily: "'Archivo', sans-serif",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontWeight: 800,
                                     fontSize: '15px',
                                     textTransform: 'uppercase',

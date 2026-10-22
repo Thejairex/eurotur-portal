@@ -72,7 +72,7 @@ const KEY_STYLE: CSSProperties = {
     borderBottomWidth: '3px',
     borderRadius: '4px',
     background: '#fafafa',
-    fontFamily: "'Space Mono', monospace",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontWeight: 700,
     fontSize: '14px',
 };
@@ -126,7 +126,8 @@ export function Rico({ texto }: { texto: string }) {
                                     </span>
                                     <span
                                         style={{
-                                            fontFamily: "'Archivo', sans-serif",
+                                            fontFamily:
+                                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                             fontSize: '9px',
                                             fontWeight: 700,
                                             letterSpacing: '0.06em',
@@ -177,7 +178,8 @@ export function Paso({ n, texto }: { n: number; texto: string }) {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontWeight: 900,
                     fontSize: '16px',
                 }}
@@ -226,7 +228,8 @@ export function Subtitulo({ emoji, texto }: { emoji: string; texto: string }) {
         <h3
             style={{
                 margin: '22px 0 6px',
-                fontFamily: "'Archivo', sans-serif",
+                fontFamily:
+                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                 fontWeight: 800,
                 fontSize: '18px',
                 letterSpacing: '-0.01em',
@@ -286,7 +289,8 @@ export function Guia({
                     <h2
                         style={{
                             margin: 0,
-                            fontFamily: "'Archivo', sans-serif",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontWeight: 900,
                             fontSize: '22px',
                             letterSpacing: '-0.01em',
@@ -297,7 +301,8 @@ export function Guia({
                     </h2>
                     <span
                         style={{
-                            fontFamily: "'Space Mono', monospace",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '9.5px',
                             letterSpacing: '0.14em',
                             textTransform: 'uppercase',
@@ -373,7 +378,8 @@ export function IndiceAyuda({ atajos }: { atajos: AtajoAyuda[] }) {
             <div
                 style={{
                     margin: '0 0 12px',
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontWeight: 800,
                     fontSize: '19px',
                 }}
@@ -404,7 +410,8 @@ export function IndiceAyuda({ atajos }: { atajos: AtajoAyuda[] }) {
                             color: '#000',
                             cursor: 'pointer',
                             textAlign: 'left',
-                            fontFamily: "'Archivo', sans-serif",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontWeight: 700,
                             fontSize: '15.5px',
                             lineHeight: 1.25,

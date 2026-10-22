@@ -61,7 +61,8 @@ export default function Qrated() {
                     <div style={{ maxWidth: '620px' }}>
                         <div
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '10px',
                                 letterSpacing: '0.16em',
                                 textTransform: 'uppercase',
@@ -73,9 +74,10 @@ export default function Qrated() {
                         </div>
                         <h1
                             style={{
-                                fontFamily: "'Anton', sans-serif",
-                                fontWeight: 400,
-                                fontSize: 'clamp(56px,7vw,100px)',
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                fontWeight: 800,
+                                fontSize: 'clamp(44px,5vw,60px)',
                                 lineHeight: 0.95,
                                 margin: 0,
                                 letterSpacing: '-1px',
@@ -137,7 +139,8 @@ export default function Qrated() {
                     >
                         <span
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '10px',
                                 letterSpacing: '0.12em',
                                 textTransform: 'uppercase',
@@ -148,7 +151,8 @@ export default function Qrated() {
                         </span>
                         <span
                             style={{
-                                fontFamily: "'Archivo', sans-serif",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontWeight: 800,
                                 fontSize: '19px',
                                 letterSpacing: '-0.01em',
@@ -159,7 +163,8 @@ export default function Qrated() {
                     </span>
                     <span
                         style={{
-                            fontFamily: "'Space Mono', monospace",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '16px',
                         }}
                     >
@@ -178,7 +183,8 @@ export default function Qrated() {
                 >
                     <div
                         style={{
-                            fontFamily: "'Archivo', sans-serif",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontWeight: 900,
                             fontSize: '19px',
                             letterSpacing: '-0.01em',
@@ -189,7 +195,8 @@ export default function Qrated() {
                     </div>
                     <div
                         style={{
-                            fontFamily: "'Space Mono', monospace",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '10px',
                             letterSpacing: '0.12em',
                             textTransform: 'uppercase',
@@ -244,7 +251,8 @@ export default function Qrated() {
                                 <div
                                     className="qrated-cat-num"
                                     style={{
-                                        fontFamily: "'Space Mono', monospace",
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '10px',
                                         letterSpacing: '0.08em',
                                     }}
@@ -253,7 +261,8 @@ export default function Qrated() {
                                 </div>
                                 <div
                                     style={{
-                                        fontFamily: "'Archivo', sans-serif",
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontWeight: 800,
                                         fontSize: '17px',
                                         letterSpacing: '-0.01em',

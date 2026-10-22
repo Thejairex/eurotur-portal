@@ -33,7 +33,8 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
                     <div style={{ maxWidth: '620px' }}>
                         <div
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '10px',
                                 letterSpacing: '0.16em',
                                 textTransform: 'uppercase',
@@ -45,9 +46,10 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
                         </div>
                         <h1
                             style={{
-                                fontFamily: "'Anton', sans-serif",
-                                fontWeight: 400,
-                                fontSize: 'clamp(56px,7vw,100px)',
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                fontWeight: 800,
+                                fontSize: 'clamp(44px,5vw,60px)',
                                 lineHeight: 0.95,
                                 margin: 0,
                                 letterSpacing: '-1px',
@@ -88,7 +90,8 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
                             target="_blank"
                             rel="noreferrer"
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '10px',
                                 fontWeight: 700,
                                 letterSpacing: '0.1em',
@@ -110,7 +113,8 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
                             target="_blank"
                             rel="noreferrer"
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '10px',
                                 fontWeight: 700,
                                 letterSpacing: '0.1em',
@@ -154,7 +158,8 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
                         style={{
                             border: '3px solid #000',
                             padding: '40px',
-                            fontFamily: "'Space Mono', monospace",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '11px',
                             letterSpacing: '0.08em',
                             textTransform: 'uppercase',

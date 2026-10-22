@@ -31,7 +31,7 @@ const DOC_URL = '/documentos/rendicion-gastos-manual.docx';
 /* ------------------------------------------------------------------ estilos */
 
 const mono: CSSProperties = {
-    fontFamily: "'Space Mono', monospace",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '10px',
     letterSpacing: '0.12em',
     textTransform: 'uppercase',
@@ -45,7 +45,7 @@ const bloqueStyle: CSSProperties = {
 
 const inputStyle: CSSProperties = {
     width: '100%',
-    fontFamily: "'Archivo', sans-serif",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '13px',
     fontWeight: 500,
     color: '#111827',
@@ -80,7 +80,7 @@ function campoBorde(
 }
 
 const botonStyle: CSSProperties = {
-    fontFamily: "'Archivo', sans-serif",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '13px',
     fontWeight: 600,
     background: '#111827',
@@ -92,7 +92,7 @@ const botonStyle: CSSProperties = {
 };
 
 const enlaceCaja: CSSProperties = {
-    fontFamily: "'Archivo', sans-serif",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '12px',
     fontWeight: 500,
     textDecoration: 'none',
@@ -732,13 +732,21 @@ export default function AdmRendicionGastos() {
                                 paddingTop: '14px',
                             }}
                         >
-                            <span style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#6b7280' }}>
+                            <span
+                                style={{
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                    fontSize: '12px',
+                                    color: '#6b7280',
+                                }}
+                            >
                                 {gastos.length} de {MAX_GASTOS} comprobantes
                                 cargados
                             </span>
                             <strong
                                 style={{
-                                    fontFamily: "'Archivo', sans-serif",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '17px',
                                 }}
                             >
@@ -809,8 +817,12 @@ export default function AdmRendicionGastos() {
                                 disabled={generando}
                                 style={{
                                     ...botonStyle,
-                                    backgroundColor: generando ? '#f3f4f6' : '#111827',
-                                    borderColor: generando ? '#d1d5db' : '#111827',
+                                    backgroundColor: generando
+                                        ? '#f3f4f6'
+                                        : '#111827',
+                                    borderColor: generando
+                                        ? '#d1d5db'
+                                        : '#111827',
                                     color: generando ? '#9ca3af' : '#ffffff',
                                     cursor: generando
                                         ? 'not-allowed'
@@ -838,15 +850,26 @@ export default function AdmRendicionGastos() {
                                     textAlign: 'center',
                                 }}
                             >
-                                <b style={{ color: '#166534' }}>✓ Archivo generado</b>
-                                <p style={{ margin: '8px 0 0', fontFamily: "'Archivo', sans-serif", fontSize: '13px', color: '#374151' }}>
+                                <b style={{ color: '#166534' }}>
+                                    ✓ Archivo generado
+                                </b>
+                                <p
+                                    style={{
+                                        margin: '8px 0 0',
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                        fontSize: '13px',
+                                        color: '#374151',
+                                    }}
+                                >
                                     Se descargó{' '}
                                     <strong>{resultado.filename}</strong>, ya
                                     completo y con las validaciones correctas.
                                 </p>
                                 <p
                                     style={{
-                                        fontFamily: "'Archivo', sans-serif",
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '12px',
                                         color: '#6b7280',
                                         marginTop: '8px',
@@ -893,8 +916,9 @@ function Encabezado() {
                 </div>
                 <h1
                     style={{
-                        fontFamily: "'Anton', sans-serif",
-                        fontWeight: 400,
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                        fontWeight: 800,
                         fontSize: 'clamp(56px,7.5vw,108px)',
                         lineHeight: 0.86,
                         margin: 0,
@@ -932,7 +956,8 @@ function Encabezado() {
             >
                 <span
                     style={{
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '11px',
                         fontWeight: 600,
                         color: '#ffffff',
@@ -958,7 +983,8 @@ function Encabezado() {
                 </a>
                 <div
                     style={{
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '11px',
                         color: '#9ca3af',
                         maxWidth: '160px',
@@ -972,7 +998,8 @@ function Encabezado() {
                     href={adm()}
                     className="doc-link"
                     style={{
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '12px',
                         fontWeight: 500,
                         textDecoration: 'none',
@@ -999,7 +1026,8 @@ function Pasos({ paso }: { paso: Paso }) {
                 <div
                     key={it.n}
                     style={{
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '12px',
                         fontWeight: 600,
                         flex: 1,
@@ -1072,7 +1100,8 @@ function Bloque({
             >
                 <span
                     style={{
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '11px',
                         fontWeight: 700,
                         backgroundColor: '#e5e7eb',
@@ -1085,7 +1114,8 @@ function Bloque({
                 </span>
                 <span
                     style={{
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontWeight: 700,
                         fontSize: '18px',
                         color: '#111827',
@@ -1096,7 +1126,8 @@ function Bloque({
                 {nota && (
                     <span
                         style={{
-                            fontFamily: "'Archivo', sans-serif",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '12px',
                             color: '#9ca3af',
                             marginLeft: 'auto',
@@ -1124,7 +1155,8 @@ function Campo({
         <div>
             <label
                 style={{
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontSize: '13px',
                     fontWeight: 600,
                     color: '#374151',
@@ -1138,7 +1170,8 @@ function Campo({
             {hint && (
                 <div
                     style={{
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '12px',
                         color: '#6b7280',
                         marginTop: '6px',
@@ -1172,10 +1205,20 @@ function GastoCard({
 
     const handleOcrResult = useCallback((patchKeys: string[]) => {
         const OCR_ESPERADOS = [
-            'fecha', 'proveedor', 'cuit', 'letra_factura', 'talonario',
-            'numero_comprobante', 'importe_neto', 'iva_27', 'iva_21',
-            'iva_105', 'percepcion_iva', 'percepcion_iibb_caba',
-            'percepcion_iibb_sc', 'percepcion_iibb_tdf',
+            'fecha',
+            'proveedor',
+            'cuit',
+            'letra_factura',
+            'talonario',
+            'numero_comprobante',
+            'importe_neto',
+            'iva_27',
+            'iva_21',
+            'iva_105',
+            'percepcion_iva',
+            'percepcion_iibb_caba',
+            'percepcion_iibb_sc',
+            'percepcion_iibb_tdf',
         ];
         setOcrCamposVacios(OCR_ESPERADOS.filter((k) => !patchKeys.includes(k)));
     }, []);
@@ -1216,7 +1259,8 @@ function GastoCard({
             >
                 <span
                     style={{
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '13px',
                         fontWeight: 700,
                         backgroundColor: '#f3f4f6',
@@ -1231,7 +1275,8 @@ function GastoCard({
                     type="button"
                     onClick={onRemove}
                     style={{
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '12px',
                         fontWeight: 500,
                         background: 'none',
@@ -1246,7 +1291,11 @@ function GastoCard({
             </div>
 
             <div style={{ display: 'grid', gap: '16px' }}>
-                <ComprobanteInput gasto={g} onUpdate={onUpdate} onOcrResult={handleOcrResult} />
+                <ComprobanteInput
+                    gasto={g}
+                    onUpdate={onUpdate}
+                    onOcrResult={handleOcrResult}
+                />
 
                 <Campo label="¿Es de un file/proyecto específico?" hint="">
                     <select
@@ -1309,16 +1358,33 @@ function GastoCard({
                                 borderColor: campoBorde(g.fecha, {
                                     required: true,
                                     invalid: invalidFields?.includes('fecha'),
-                                    ocrIncomplete: ocrCamposVacios?.includes('fecha'),
+                                    ocrIncomplete:
+                                        ocrCamposVacios?.includes('fecha'),
                                 }),
                             }}
                         />
                         {invalidFields?.includes('fecha') ? (
-                            <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#991b1b', marginTop: '4px' }}>
+                            <div
+                                style={{
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                    fontSize: '12px',
+                                    color: '#991b1b',
+                                    marginTop: '4px',
+                                }}
+                            >
                                 Este campo es obligatorio.
                             </div>
                         ) : ocrCamposVacios?.includes('fecha') ? (
-                            <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#92400e', marginTop: '4px' }}>
+                            <div
+                                style={{
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                    fontSize: '12px',
+                                    color: '#92400e',
+                                    marginTop: '4px',
+                                }}
+                            >
                                 No reconocido por IA — completar manualmente.
                             </div>
                         ) : null}
@@ -1337,17 +1403,35 @@ function GastoCard({
                                 transition: 'border-color 0.2s ease',
                                 borderColor: campoBorde(g.proveedor, {
                                     required: true,
-                                    invalid: invalidFields?.includes('proveedor'),
-                                    ocrIncomplete: ocrCamposVacios?.includes('proveedor'),
+                                    invalid:
+                                        invalidFields?.includes('proveedor'),
+                                    ocrIncomplete:
+                                        ocrCamposVacios?.includes('proveedor'),
                                 }),
                             }}
                         />
                         {invalidFields?.includes('proveedor') ? (
-                            <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#991b1b', marginTop: '4px' }}>
+                            <div
+                                style={{
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                    fontSize: '12px',
+                                    color: '#991b1b',
+                                    marginTop: '4px',
+                                }}
+                            >
                                 Este campo es obligatorio.
                             </div>
                         ) : ocrCamposVacios?.includes('proveedor') ? (
-                            <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#92400e', marginTop: '4px' }}>
+                            <div
+                                style={{
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                    fontSize: '12px',
+                                    color: '#92400e',
+                                    marginTop: '4px',
+                                }}
+                            >
                                 No reconocido por IA — completar manualmente.
                             </div>
                         ) : null}
@@ -1355,7 +1439,14 @@ function GastoCard({
                 </div>
 
                 {g.monedaTipo === 'EXTRANJERA' ? (
-                    <CamposExtranjera g={g} onUpdate={onUpdate} blockScroll={blockScroll} invalidFields={invalidFields} ocrCamposVacios={ocrCamposVacios} clearOcrCampo={clearOcrCampo} />
+                    <CamposExtranjera
+                        g={g}
+                        onUpdate={onUpdate}
+                        blockScroll={blockScroll}
+                        invalidFields={invalidFields}
+                        ocrCamposVacios={ocrCamposVacios}
+                        clearOcrCampo={clearOcrCampo}
+                    />
                 ) : (
                     <CamposArs
                         g={g}
@@ -1397,7 +1488,8 @@ function GastoCard({
                 <div
                     style={{
                         textAlign: 'right',
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '13px',
                         fontWeight: 700,
                         color: '#111827',
@@ -1424,7 +1516,9 @@ function CamposArs({
     g: Gasto;
     onUpdate: (patch: Partial<Gasto>) => void;
     fieldErrors: Record<string, string>;
-    setFieldErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+    setFieldErrors: React.Dispatch<
+        React.SetStateAction<Record<string, string>>
+    >;
     cuitEstado: 'vacio' | 'valido' | 'invalido';
     blockScroll: (e: WheelEvent) => void;
     invalidFields?: string[];
@@ -1457,7 +1551,15 @@ function CamposArs({
                         ))}
                     </select>
                     {invalidFields?.includes('tipo_gasto') && (
-                        <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#991b1b', marginTop: '4px' }}>
+                        <div
+                            style={{
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                fontSize: '12px',
+                                color: '#991b1b',
+                                marginTop: '4px',
+                            }}
+                        >
                             Este campo es obligatorio.
                         </div>
                     )}
@@ -1475,7 +1577,13 @@ function CamposArs({
                     label="CUIT del proveedor"
                     hint="Sin guiones, 11 dígitos"
                 >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                        }}
+                    >
                         <span
                             aria-hidden="true"
                             style={{
@@ -1544,7 +1652,8 @@ function CamposArs({
                                               (g.cuit.length > 0 &&
                                                   cuitEstado === 'invalido') ||
                                               invalidFields?.includes('cuit'),
-                                          ocrIncomplete: ocrCamposVacios?.includes('cuit'),
+                                          ocrIncomplete:
+                                              ocrCamposVacios?.includes('cuit'),
                                       }),
                             }}
                         />
@@ -1552,7 +1661,8 @@ function CamposArs({
                     {fieldErrors.cuit ? (
                         <div
                             style={{
-                                fontFamily: "'Archivo', sans-serif",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '12px',
                                 fontWeight: 600,
                                 color: RED,
@@ -1561,10 +1671,12 @@ function CamposArs({
                         >
                             {fieldErrors.cuit}
                         </div>
-                    ) : ocrCamposVacios?.includes('cuit') && !g.sinComprobante ? (
+                    ) : ocrCamposVacios?.includes('cuit') &&
+                      !g.sinComprobante ? (
                         <div
                             style={{
-                                fontFamily: "'Archivo', sans-serif",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '12px',
                                 color: '#92400e',
                                 marginTop: '5px',
@@ -1575,7 +1687,8 @@ function CamposArs({
                     ) : invalidFields?.includes('cuit') ? (
                         <div
                             style={{
-                                fontFamily: "'Archivo', sans-serif",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '12px',
                                 color: '#991b1b',
                                 marginTop: '5px',
@@ -1626,7 +1739,15 @@ function CamposArs({
                             );
                         }}
                     />
-                    <label htmlFor={`sc-${g.id}`} style={{ fontFamily: "'Archivo', sans-serif", fontSize: '13px', color: '#374151' }}>
+                    <label
+                        htmlFor={`sc-${g.id}`}
+                        style={{
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                            fontSize: '13px',
+                            color: '#374151',
+                        }}
+                    >
                         No tengo comprobante válido / el CUIT no es válido
                     </label>
                 </div>
@@ -1654,7 +1775,17 @@ function CamposArs({
                             transition: 'border-color 0.2s ease',
                             borderColor: g.sinComprobante
                                 ? '#000'
-                                : campoBorde(g.letra_factura, { required: true, invalid: invalidFields?.includes('letra_factura'), ocrIncomplete: ocrCamposVacios?.includes('letra_factura') }),
+                                : campoBorde(g.letra_factura, {
+                                      required: true,
+                                      invalid:
+                                          invalidFields?.includes(
+                                              'letra_factura',
+                                          ),
+                                      ocrIncomplete:
+                                          ocrCamposVacios?.includes(
+                                              'letra_factura',
+                                          ),
+                                  }),
                         }}
                     >
                         <option value="">Elegir...</option>
@@ -1687,16 +1818,43 @@ function CamposArs({
                                 style={{
                                     ...inputStyle,
                                     transition: 'border-color 0.2s ease',
-                                    borderColor: campoBorde(g.talonario, { required: true, invalid: invalidFields?.includes('talonario'), ocrIncomplete: ocrCamposVacios?.includes('talonario') }),
+                                    borderColor: campoBorde(g.talonario, {
+                                        required: true,
+                                        invalid:
+                                            invalidFields?.includes(
+                                                'talonario',
+                                            ),
+                                        ocrIncomplete:
+                                            ocrCamposVacios?.includes(
+                                                'talonario',
+                                            ),
+                                    }),
                                 }}
                             />
                             {invalidFields?.includes('talonario') ? (
-                                <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#991b1b', marginTop: '4px' }}>
+                                <div
+                                    style={{
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                        fontSize: '12px',
+                                        color: '#991b1b',
+                                        marginTop: '4px',
+                                    }}
+                                >
                                     Este campo es obligatorio.
                                 </div>
                             ) : ocrCamposVacios?.includes('talonario') ? (
-                                <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#92400e', marginTop: '4px' }}>
-                                    No reconocido por IA — completar manualmente.
+                                <div
+                                    style={{
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                        fontSize: '12px',
+                                        color: '#92400e',
+                                        marginTop: '4px',
+                                    }}
+                                >
+                                    No reconocido por IA — completar
+                                    manualmente.
                                 </div>
                             ) : null}
                         </Campo>
@@ -1716,16 +1874,48 @@ function CamposArs({
                                 style={{
                                     ...inputStyle,
                                     transition: 'border-color 0.2s ease',
-                                    borderColor: campoBorde(g.numero_comprobante, { required: true, invalid: invalidFields?.includes('numero_comprobante'), ocrIncomplete: ocrCamposVacios?.includes('numero_comprobante') }),
+                                    borderColor: campoBorde(
+                                        g.numero_comprobante,
+                                        {
+                                            required: true,
+                                            invalid:
+                                                invalidFields?.includes(
+                                                    'numero_comprobante',
+                                                ),
+                                            ocrIncomplete:
+                                                ocrCamposVacios?.includes(
+                                                    'numero_comprobante',
+                                                ),
+                                        },
+                                    ),
                                 }}
                             />
                             {invalidFields?.includes('numero_comprobante') ? (
-                                <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#991b1b', marginTop: '4px' }}>
+                                <div
+                                    style={{
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                        fontSize: '12px',
+                                        color: '#991b1b',
+                                        marginTop: '4px',
+                                    }}
+                                >
                                     Este campo es obligatorio.
                                 </div>
-                            ) : ocrCamposVacios?.includes('numero_comprobante') ? (
-                                <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#92400e', marginTop: '4px' }}>
-                                    No reconocido por IA — completar manualmente.
+                            ) : ocrCamposVacios?.includes(
+                                  'numero_comprobante',
+                              ) ? (
+                                <div
+                                    style={{
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                        fontSize: '12px',
+                                        color: '#92400e',
+                                        marginTop: '4px',
+                                    }}
+                                >
+                                    No reconocido por IA — completar
+                                    manualmente.
                                 </div>
                             ) : null}
                         </Campo>
@@ -1753,15 +1943,36 @@ function CamposArs({
                     style={{
                         ...inputStyle,
                         transition: 'border-color 0.2s ease',
-                        borderColor: campoBorde(g.importe_neto, { required: true, invalid: invalidFields?.includes('importe_neto'), ocrIncomplete: ocrCamposVacios?.includes('importe_neto') }),
+                        borderColor: campoBorde(g.importe_neto, {
+                            required: true,
+                            invalid: invalidFields?.includes('importe_neto'),
+                            ocrIncomplete:
+                                ocrCamposVacios?.includes('importe_neto'),
+                        }),
                     }}
                 />
                 {invalidFields?.includes('importe_neto') ? (
-                    <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#991b1b', marginTop: '4px' }}>
+                    <div
+                        style={{
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                            fontSize: '12px',
+                            color: '#991b1b',
+                            marginTop: '4px',
+                        }}
+                    >
                         Este campo es obligatorio.
                     </div>
                 ) : ocrCamposVacios?.includes('importe_neto') ? (
-                    <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#92400e', marginTop: '4px' }}>
+                    <div
+                        style={{
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                            fontSize: '12px',
+                            color: '#92400e',
+                            marginTop: '4px',
+                        }}
+                    >
                         No reconocido por IA — completar manualmente.
                     </div>
                 ) : null}
@@ -1789,12 +2000,26 @@ function CamposArs({
                                 style={{
                                     ...inputStyle,
                                     transition: 'border-color 0.2s ease',
-                                    borderColor: campoBorde(g.iva_27, { invalid: invalidFields?.includes('iva_27'), ocrIncomplete: ocrCamposVacios?.includes('iva_27') }),
+                                    borderColor: campoBorde(g.iva_27, {
+                                        invalid:
+                                            invalidFields?.includes('iva_27'),
+                                        ocrIncomplete:
+                                            ocrCamposVacios?.includes('iva_27'),
+                                    }),
                                 }}
                             />
                             {ocrCamposVacios?.includes('iva_27') && (
-                                <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#92400e', marginTop: '4px' }}>
-                                    No reconocido por IA — completar manualmente.
+                                <div
+                                    style={{
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                        fontSize: '12px',
+                                        color: '#92400e',
+                                        marginTop: '4px',
+                                    }}
+                                >
+                                    No reconocido por IA — completar
+                                    manualmente.
                                 </div>
                             )}
                         </Campo>
@@ -1811,12 +2036,26 @@ function CamposArs({
                                 style={{
                                     ...inputStyle,
                                     transition: 'border-color 0.2s ease',
-                                    borderColor: campoBorde(g.iva_21, { invalid: invalidFields?.includes('iva_21'), ocrIncomplete: ocrCamposVacios?.includes('iva_21') }),
+                                    borderColor: campoBorde(g.iva_21, {
+                                        invalid:
+                                            invalidFields?.includes('iva_21'),
+                                        ocrIncomplete:
+                                            ocrCamposVacios?.includes('iva_21'),
+                                    }),
                                 }}
                             />
                             {ocrCamposVacios?.includes('iva_21') && (
-                                <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#92400e', marginTop: '4px' }}>
-                                    No reconocido por IA — completar manualmente.
+                                <div
+                                    style={{
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                        fontSize: '12px',
+                                        color: '#92400e',
+                                        marginTop: '4px',
+                                    }}
+                                >
+                                    No reconocido por IA — completar
+                                    manualmente.
                                 </div>
                             )}
                         </Campo>
@@ -1833,12 +2072,28 @@ function CamposArs({
                                 style={{
                                     ...inputStyle,
                                     transition: 'border-color 0.2s ease',
-                                    borderColor: campoBorde(g.iva_105, { invalid: invalidFields?.includes('iva_105'), ocrIncomplete: ocrCamposVacios?.includes('iva_105') }),
+                                    borderColor: campoBorde(g.iva_105, {
+                                        invalid:
+                                            invalidFields?.includes('iva_105'),
+                                        ocrIncomplete:
+                                            ocrCamposVacios?.includes(
+                                                'iva_105',
+                                            ),
+                                    }),
                                 }}
                             />
                             {ocrCamposVacios?.includes('iva_105') && (
-                                <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#92400e', marginTop: '4px' }}>
-                                    No reconocido por IA — completar manualmente.
+                                <div
+                                    style={{
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                        fontSize: '12px',
+                                        color: '#92400e',
+                                        marginTop: '4px',
+                                    }}
+                                >
+                                    No reconocido por IA — completar
+                                    manualmente.
                                 </div>
                             )}
                         </Campo>
@@ -1856,19 +2111,39 @@ function CamposArs({
                                 step="0.01"
                                 value={g.percepcion_iva}
                                 onChange={(e) => {
-                                    onUpdate({ percepcion_iva: e.target.value });
+                                    onUpdate({
+                                        percepcion_iva: e.target.value,
+                                    });
                                     clearOcrCampo?.('percepcion_iva');
                                 }}
                                 onWheel={blockScroll}
                                 style={{
                                     ...inputStyle,
                                     transition: 'border-color 0.2s ease',
-                                    borderColor: campoBorde(g.percepcion_iva, { invalid: invalidFields?.includes('percepcion_iva'), ocrIncomplete: ocrCamposVacios?.includes('percepcion_iva') }),
+                                    borderColor: campoBorde(g.percepcion_iva, {
+                                        invalid:
+                                            invalidFields?.includes(
+                                                'percepcion_iva',
+                                            ),
+                                        ocrIncomplete:
+                                            ocrCamposVacios?.includes(
+                                                'percepcion_iva',
+                                            ),
+                                    }),
                                 }}
                             />
                             {ocrCamposVacios?.includes('percepcion_iva') && (
-                                <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#92400e', marginTop: '4px' }}>
-                                    No reconocido por IA — completar manualmente.
+                                <div
+                                    style={{
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                        fontSize: '12px',
+                                        color: '#92400e',
+                                        marginTop: '4px',
+                                    }}
+                                >
+                                    No reconocido por IA — completar
+                                    manualmente.
                                 </div>
                             )}
                         </Campo>
@@ -1878,19 +2153,43 @@ function CamposArs({
                                 step="0.01"
                                 value={g.percepcion_iibb_caba}
                                 onChange={(e) => {
-                                    onUpdate({ percepcion_iibb_caba: e.target.value });
+                                    onUpdate({
+                                        percepcion_iibb_caba: e.target.value,
+                                    });
                                     clearOcrCampo?.('percepcion_iibb_caba');
                                 }}
                                 onWheel={blockScroll}
                                 style={{
                                     ...inputStyle,
                                     transition: 'border-color 0.2s ease',
-                                    borderColor: campoBorde(g.percepcion_iibb_caba, { invalid: invalidFields?.includes('percepcion_iibb_caba'), ocrIncomplete: ocrCamposVacios?.includes('percepcion_iibb_caba') }),
+                                    borderColor: campoBorde(
+                                        g.percepcion_iibb_caba,
+                                        {
+                                            invalid: invalidFields?.includes(
+                                                'percepcion_iibb_caba',
+                                            ),
+                                            ocrIncomplete:
+                                                ocrCamposVacios?.includes(
+                                                    'percepcion_iibb_caba',
+                                                ),
+                                        },
+                                    ),
                                 }}
                             />
-                            {ocrCamposVacios?.includes('percepcion_iibb_caba') && (
-                                <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#92400e', marginTop: '4px' }}>
-                                    No reconocido por IA — completar manualmente.
+                            {ocrCamposVacios?.includes(
+                                'percepcion_iibb_caba',
+                            ) && (
+                                <div
+                                    style={{
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                        fontSize: '12px',
+                                        color: '#92400e',
+                                        marginTop: '4px',
+                                    }}
+                                >
+                                    No reconocido por IA — completar
+                                    manualmente.
                                 </div>
                             )}
                         </Campo>
@@ -1900,19 +2199,44 @@ function CamposArs({
                                 step="0.01"
                                 value={g.percepcion_iibb_sc}
                                 onChange={(e) => {
-                                    onUpdate({ percepcion_iibb_sc: e.target.value });
+                                    onUpdate({
+                                        percepcion_iibb_sc: e.target.value,
+                                    });
                                     clearOcrCampo?.('percepcion_iibb_sc');
                                 }}
                                 onWheel={blockScroll}
                                 style={{
                                     ...inputStyle,
                                     transition: 'border-color 0.2s ease',
-                                    borderColor: campoBorde(g.percepcion_iibb_sc, { invalid: invalidFields?.includes('percepcion_iibb_sc'), ocrIncomplete: ocrCamposVacios?.includes('percepcion_iibb_sc') }),
+                                    borderColor: campoBorde(
+                                        g.percepcion_iibb_sc,
+                                        {
+                                            invalid:
+                                                invalidFields?.includes(
+                                                    'percepcion_iibb_sc',
+                                                ),
+                                            ocrIncomplete:
+                                                ocrCamposVacios?.includes(
+                                                    'percepcion_iibb_sc',
+                                                ),
+                                        },
+                                    ),
                                 }}
                             />
-                            {ocrCamposVacios?.includes('percepcion_iibb_sc') && (
-                                <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#92400e', marginTop: '4px' }}>
-                                    No reconocido por IA — completar manualmente.
+                            {ocrCamposVacios?.includes(
+                                'percepcion_iibb_sc',
+                            ) && (
+                                <div
+                                    style={{
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                        fontSize: '12px',
+                                        color: '#92400e',
+                                        marginTop: '4px',
+                                    }}
+                                >
+                                    No reconocido por IA — completar
+                                    manualmente.
                                 </div>
                             )}
                         </Campo>
@@ -1922,19 +2246,43 @@ function CamposArs({
                                 step="0.01"
                                 value={g.percepcion_iibb_tdf}
                                 onChange={(e) => {
-                                    onUpdate({ percepcion_iibb_tdf: e.target.value });
+                                    onUpdate({
+                                        percepcion_iibb_tdf: e.target.value,
+                                    });
                                     clearOcrCampo?.('percepcion_iibb_tdf');
                                 }}
                                 onWheel={blockScroll}
                                 style={{
                                     ...inputStyle,
                                     transition: 'border-color 0.2s ease',
-                                    borderColor: campoBorde(g.percepcion_iibb_tdf, { invalid: invalidFields?.includes('percepcion_iibb_tdf'), ocrIncomplete: ocrCamposVacios?.includes('percepcion_iibb_tdf') }),
+                                    borderColor: campoBorde(
+                                        g.percepcion_iibb_tdf,
+                                        {
+                                            invalid: invalidFields?.includes(
+                                                'percepcion_iibb_tdf',
+                                            ),
+                                            ocrIncomplete:
+                                                ocrCamposVacios?.includes(
+                                                    'percepcion_iibb_tdf',
+                                                ),
+                                        },
+                                    ),
                                 }}
                             />
-                            {ocrCamposVacios?.includes('percepcion_iibb_tdf') && (
-                                <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#92400e', marginTop: '4px' }}>
-                                    No reconocido por IA — completar manualmente.
+                            {ocrCamposVacios?.includes(
+                                'percepcion_iibb_tdf',
+                            ) && (
+                                <div
+                                    style={{
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                        fontSize: '12px',
+                                        color: '#92400e',
+                                        marginTop: '4px',
+                                    }}
+                                >
+                                    No reconocido por IA — completar
+                                    manualmente.
                                 </div>
                             )}
                         </Campo>
@@ -1955,11 +2303,26 @@ function CamposArs({
                             style={{
                                 ...inputStyle,
                                 transition: 'border-color 0.2s ease',
-                                borderColor: campoBorde(g.otros_cargos, { invalid: invalidFields?.includes('otros_cargos'), ocrIncomplete: ocrCamposVacios?.includes('otros_cargos') }),
+                                borderColor: campoBorde(g.otros_cargos, {
+                                    invalid:
+                                        invalidFields?.includes('otros_cargos'),
+                                    ocrIncomplete:
+                                        ocrCamposVacios?.includes(
+                                            'otros_cargos',
+                                        ),
+                                }),
                             }}
                         />
                         {ocrCamposVacios?.includes('otros_cargos') && (
-                            <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#92400e', marginTop: '4px' }}>
+                            <div
+                                style={{
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                    fontSize: '12px',
+                                    color: '#92400e',
+                                    marginTop: '4px',
+                                }}
+                            >
                                 No reconocido por IA — completar manualmente.
                             </div>
                         )}
@@ -2041,15 +2404,39 @@ function CamposExtranjera({
                         style={{
                             ...inputStyle,
                             transition: 'border-color 0.2s ease',
-                            borderColor: campoBorde(g.importe_original, { required: true, invalid: invalidFields?.includes('importe_original'), ocrIncomplete: ocrCamposVacios?.includes('importe_original') }),
+                            borderColor: campoBorde(g.importe_original, {
+                                required: true,
+                                invalid:
+                                    invalidFields?.includes('importe_original'),
+                                ocrIncomplete:
+                                    ocrCamposVacios?.includes(
+                                        'importe_original',
+                                    ),
+                            }),
                         }}
                     />
                     {invalidFields?.includes('importe_original') ? (
-                        <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#991b1b', marginTop: '4px' }}>
+                        <div
+                            style={{
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                fontSize: '12px',
+                                color: '#991b1b',
+                                marginTop: '4px',
+                            }}
+                        >
                             Este campo es obligatorio.
                         </div>
                     ) : ocrCamposVacios?.includes('importe_original') ? (
-                        <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#92400e', marginTop: '4px' }}>
+                        <div
+                            style={{
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                fontSize: '12px',
+                                color: '#92400e',
+                                marginTop: '4px',
+                            }}
+                        >
                             No reconocido por IA — completar manualmente.
                         </div>
                     ) : null}
@@ -2075,17 +2462,44 @@ function CamposExtranjera({
                         style={{
                             ...inputStyle,
                             transition: 'border-color 0.2s ease',
-                            borderColor: g.moneda_iso === 'USD'
-                                ? '#000'
-                                : campoBorde(g.tipo_cambio_a_dolares, { required: true, invalid: invalidFields?.includes('tipo_cambio_a_dolares'), ocrIncomplete: ocrCamposVacios?.includes('tipo_cambio_a_dolares') }),
+                            borderColor:
+                                g.moneda_iso === 'USD'
+                                    ? '#000'
+                                    : campoBorde(g.tipo_cambio_a_dolares, {
+                                          required: true,
+                                          invalid: invalidFields?.includes(
+                                              'tipo_cambio_a_dolares',
+                                          ),
+                                          ocrIncomplete:
+                                              ocrCamposVacios?.includes(
+                                                  'tipo_cambio_a_dolares',
+                                              ),
+                                      }),
                         }}
                     />
                     {invalidFields?.includes('tipo_cambio_a_dolares') ? (
-                        <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#991b1b', marginTop: '4px' }}>
+                        <div
+                            style={{
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                fontSize: '12px',
+                                color: '#991b1b',
+                                marginTop: '4px',
+                            }}
+                        >
                             Este campo es obligatorio.
                         </div>
-                    ) : ocrCamposVacios?.includes('tipo_cambio_a_dolares') && g.moneda_iso !== 'USD' ? (
-                        <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#92400e', marginTop: '4px' }}>
+                    ) : ocrCamposVacios?.includes('tipo_cambio_a_dolares') &&
+                      g.moneda_iso !== 'USD' ? (
+                        <div
+                            style={{
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                fontSize: '12px',
+                                color: '#92400e',
+                                marginTop: '4px',
+                            }}
+                        >
                             No reconocido por IA — completar manualmente.
                         </div>
                     ) : null}
@@ -2176,7 +2590,8 @@ function ComprobanteInput({
                 onClick={() => fileInputRef.current?.click()}
                 disabled={ocrStatus === 'leyendo'}
                 style={{
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -2187,7 +2602,9 @@ function ComprobanteInput({
                     padding: '14px',
                     background: g.comprobante_image ? '#ffffff' : '#111827',
                     color: g.comprobante_image ? '#111827' : '#ffffff',
-                    border: g.comprobante_image ? '1px solid #d1d5db' : '1px solid #111827',
+                    border: g.comprobante_image
+                        ? '1px solid #d1d5db'
+                        : '1px solid #111827',
                     borderRadius: '6px',
                     cursor: ocrStatus === 'leyendo' ? 'default' : 'pointer',
                 }}
@@ -2215,7 +2632,8 @@ function ComprobanteInput({
                     <span className="ocr-spinner" aria-hidden="true" />
                     <span
                         style={{
-                            fontFamily: "'Archivo', sans-serif",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '13px',
                             color: '#374151',
                             fontWeight: 600,
@@ -2240,7 +2658,8 @@ function ComprobanteInput({
                 >
                     <span
                         style={{
-                            fontFamily: "'Archivo', sans-serif",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontWeight: 900,
                             fontSize: '15px',
                             color: '#16a34a',
@@ -2251,7 +2670,8 @@ function ComprobanteInput({
                     </span>
                     <span
                         style={{
-                            fontFamily: "'Archivo', sans-serif",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '13px',
                             color: '#166534',
                             fontWeight: 500,
@@ -2277,7 +2697,8 @@ function ComprobanteInput({
                 >
                     <span
                         style={{
-                            fontFamily: "'Archivo', sans-serif",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontWeight: 900,
                             fontSize: '15px',
                             color: '#6b7280',
@@ -2288,7 +2709,8 @@ function ComprobanteInput({
                     </span>
                     <span
                         style={{
-                            fontFamily: "'Archivo', sans-serif",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '13px',
                             color: '#6b7280',
                             flex: 1,
@@ -2304,7 +2726,8 @@ function ComprobanteInput({
                     style={{
                         margin: '6px 0 0',
                         paddingLeft: '18px',
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '12px',
                         color: '#6b7280',
                     }}
@@ -2336,7 +2759,8 @@ function ComprobanteInput({
                         void ejecutarOcr(g.comprobante_image)
                     }
                     style={{
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         marginTop: '8px',
                         fontSize: '12px',
                         fontWeight: 500,
@@ -2405,7 +2829,8 @@ function Resumen({
                 style={{
                     width: '100%',
                     borderCollapse: 'collapse',
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontSize: '13px',
                     marginBottom: '20px',
                 }}
@@ -2459,7 +2884,8 @@ function Resumen({
                 style={{
                     width: '100%',
                     borderCollapse: 'collapse',
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontSize: '13px',
                 }}
             >
@@ -2571,7 +2997,15 @@ function Resumen({
             </p>
 
             {conImagen > 0 && (
-                <p style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#6b7280', marginTop: '8px' }}>
+                <p
+                    style={{
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                        fontSize: '12px',
+                        color: '#6b7280',
+                        marginTop: '8px',
+                    }}
+                >
                     {conImagen} comprobante(s) con foto adjunta — se van a
                     insertar en la hoja de comprobantes del Excel.
                 </p>
@@ -2595,7 +3029,8 @@ function Pie() {
         >
             <div
                 style={{
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontSize: '12px',
                     color: '#9ca3af',
                 }}
@@ -2603,7 +3038,15 @@ function Pie() {
                 El panel corre en esta misma computadora: no sube tus datos ni
                 comprobantes a ningún servidor.
             </div>
-            <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: '12px', color: '#9ca3af', whiteSpace: 'nowrap' }}>
+            <div
+                style={{
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                    fontSize: '12px',
+                    color: '#9ca3af',
+                    whiteSpace: 'nowrap',
+                }}
+            >
                 mantiene— Homez, Valentina · actualizado 07·2026
             </div>
         </div>

@@ -2,39 +2,6 @@
 
 @import 'tw-animate-css';
 
-/* Tipografias del portal, guardadas en el propio servidor (public/fonts): la red interna puede no tener internet. */
-@font-face {
-    font-family: 'Anton';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url('/fonts/anton-latin.woff2') format('woff2');
-}
-
-@font-face {
-    font-family: 'Archivo';
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url('/fonts/archivo-latin.woff2') format('woff2');
-}
-
-@font-face {
-    font-family: 'Space Mono';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url('/fonts/spacemono-400-latin.woff2') format('woff2');
-}
-
-@font-face {
-    font-family: 'Space Mono';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url('/fonts/spacemono-700-latin.woff2') format('woff2');
-}
-
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 

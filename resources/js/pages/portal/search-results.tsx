@@ -31,7 +31,8 @@ export default function SearchResults({
             >
                 <div
                     style={{
-                        fontFamily: "'Space Mono', monospace",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '9px',
                         letterSpacing: '0.16em',
                         textTransform: 'uppercase',
@@ -43,7 +44,8 @@ export default function SearchResults({
                 </div>
                 <h1
                     style={{
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '28px',
                         fontWeight: 800,
                         margin: '0 0 8px',
@@ -54,7 +56,8 @@ export default function SearchResults({
                 </h1>
                 <div
                     style={{
-                        fontFamily: "'Space Mono', monospace",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '11px',
                         color: '#999',
                         marginBottom: '32px',
@@ -108,7 +111,8 @@ export default function SearchResults({
                             >
                                 <div
                                     style={{
-                                        fontFamily: "'Archivo', sans-serif",
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontWeight: 700,
                                         fontSize: '14px',
                                     }}
@@ -117,7 +121,8 @@ export default function SearchResults({
                                 </div>
                                 <div
                                     style={{
-                                        fontFamily: "'Space Mono', monospace",
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '10px',
                                         letterSpacing: '0.04em',
                                         color: '#999',

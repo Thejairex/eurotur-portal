@@ -32,7 +32,9 @@ const LEVEL: Record<Sensor['nivel'], { bar: string; chip: CSSProperties }> = {
     desconocido: { bar: '#bbb', chip: { background: '#eee', color: '#555' } },
 };
 
-const MONO: CSSProperties = { fontFamily: "'Space Mono', monospace" };
+const MONO: CSSProperties = {
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+};
 
 function formatDecimal(value: number): string {
     return value.toLocaleString('es-AR', { maximumFractionDigits: 1 });
@@ -104,7 +106,8 @@ function Card({
             >
                 <span
                     style={{
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontWeight: 800,
                         fontSize: '16px',
                         letterSpacing: '-0.01em',
@@ -186,7 +189,8 @@ function SensorTile({ sensor }: { sensor: Sensor }) {
             <div
                 style={{
                     margin: '6px 0 2px',
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontWeight: 900,
                     fontSize: '34px',
                     lineHeight: 1,
@@ -375,7 +379,8 @@ export function MesaEnVivo() {
                                     padding: '9px 10px',
                                     border: '1px solid #000',
                                     borderRadius: 0,
-                                    fontFamily: "'Archivo', sans-serif",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '13px',
                                 }}
                             />

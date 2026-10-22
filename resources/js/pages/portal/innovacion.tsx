@@ -108,7 +108,7 @@ const INSTRUCTIVOS: Instructivo[] = [
 
 const labelFieldStyle: React.CSSProperties = {
     width: '100%',
-    fontFamily: "'Archivo', sans-serif",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '12.5px',
     fontWeight: 500,
     border: 'none',
@@ -119,7 +119,7 @@ const labelFieldStyle: React.CSSProperties = {
 };
 
 const smallButtonStyle: React.CSSProperties = {
-    fontFamily: "'Space Mono', monospace",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '9px',
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
@@ -172,7 +172,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
 
     const segBase = {
         cursor: 'pointer',
-        fontFamily: "'Space Mono', monospace",
+        fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
         fontSize: '11px',
         letterSpacing: '0.08em',
         textTransform: 'uppercase' as const,
@@ -199,7 +199,8 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                     <div style={{ maxWidth: '600px' }}>
                         <div
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '10px',
                                 letterSpacing: '0.16em',
                                 textTransform: 'uppercase',
@@ -211,9 +212,10 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                         </div>
                         <h1
                             style={{
-                                fontFamily: "'Anton', sans-serif",
-                                fontWeight: 400,
-                                fontSize: 'clamp(56px,7vw,100px)',
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                fontWeight: 800,
+                                fontSize: 'clamp(44px,5vw,60px)',
                                 lineHeight: 0.95,
                                 margin: 0,
                                 letterSpacing: '-1px',
@@ -259,7 +261,8 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                         >
                             <div
                                 style={{
-                                    fontFamily: "'Archivo', sans-serif",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontWeight: 900,
                                     fontSize: '40px',
                                     lineHeight: 0.8,
@@ -269,7 +272,8 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                             </div>
                             <div
                                 style={{
-                                    fontFamily: "'Space Mono', monospace",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '10px',
                                     letterSpacing: '0.1em',
                                     textTransform: 'uppercase',
@@ -284,7 +288,8 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                     <div style={{ padding: '14px 18px 16px 18px' }}>
                         <div
                             style={{
-                                fontFamily: "'Archivo', sans-serif",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontWeight: 900,
                                 fontSize: '40px',
                                 lineHeight: 0.8,
@@ -294,7 +299,8 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                         </div>
                         <div
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '10px',
                                 letterSpacing: '0.1em',
                                 textTransform: 'uppercase',
@@ -320,7 +326,8 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                 >
                     <div
                         style={{
-                            fontFamily: "'Archivo', sans-serif",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontWeight: 900,
                             fontSize: '19px',
                             letterSpacing: '-0.01em',
@@ -430,7 +437,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                             <span
                                                 style={{
                                                     fontFamily:
-                                                        "'Anton', sans-serif",
+                                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                     fontSize: '30px',
                                                     color: RED,
                                                     lineHeight: 1,
@@ -444,7 +451,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                             <span
                                                 style={{
                                                     fontFamily:
-                                                        "'Archivo', sans-serif",
+                                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                     fontWeight: 800,
                                                     fontSize: '18px',
                                                     letterSpacing: '-0.01em',
@@ -463,7 +470,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                 <span
                                                     style={{
                                                         fontFamily:
-                                                            "'Space Mono', monospace",
+                                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                         fontSize: '10px',
                                                         letterSpacing: '0.06em',
                                                         textTransform:
@@ -478,7 +485,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                 <span
                                                     style={{
                                                         fontFamily:
-                                                            "'Archivo', sans-serif",
+                                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                         fontWeight: 900,
                                                         fontSize: '26px',
                                                         color: RED,
@@ -507,7 +514,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                             cursor: 'pointer',
                                                             color: RED,
                                                             fontFamily:
-                                                                "'Space Mono', monospace",
+                                                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                             fontSize: '13px',
                                                             flex: '0 0 auto',
                                                         }}
@@ -563,7 +570,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                                 <div
                                                                     style={{
                                                                         fontFamily:
-                                                                            "'Archivo', sans-serif",
+                                                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                                         fontWeight: 700,
                                                                         fontSize:
                                                                             '15px',
@@ -609,7 +616,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                                     <span
                                                                         style={{
                                                                             fontFamily:
-                                                                                "'Space Mono', monospace",
+                                                                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                                             fontSize:
                                                                                 '9.5px',
                                                                             letterSpacing:
@@ -644,7 +651,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                                                     all: 'unset',
                                                                                     cursor: 'pointer',
                                                                                     fontFamily:
-                                                                                        "'Space Mono', monospace",
+                                                                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                                                     fontSize:
                                                                                         '10px',
                                                                                     color: '#666',
@@ -673,7 +680,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                                                             all: 'unset',
                                                                                             cursor: 'pointer',
                                                                                             fontFamily:
-                                                                                                "'Space Mono', monospace",
+                                                                                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                                                             fontSize:
                                                                                                 '10px',
                                                                                             color: RED,
@@ -698,7 +705,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                                             textDecoration:
                                                                                 'none',
                                                                             fontFamily:
-                                                                                "'Space Mono', monospace",
+                                                                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                                             fontSize:
                                                                                 '9.5px',
                                                                             letterSpacing:
@@ -824,7 +831,8 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                 <div>
                                     <div
                                         style={{
-                                            fontFamily: "'Anton', sans-serif",
+                                            fontFamily:
+                                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                             fontSize: '34px',
                                             color: RED,
                                             lineHeight: 0.9,
@@ -837,7 +845,8 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                     </div>
                                     <div
                                         style={{
-                                            fontFamily: "'Archivo', sans-serif",
+                                            fontFamily:
+                                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                             fontWeight: 800,
                                             fontSize: '14px',
                                             letterSpacing: '-0.01em',
@@ -883,7 +892,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                     style={{
                                                         alignSelf: 'flex-start',
                                                         fontFamily:
-                                                            "'Space Mono', monospace",
+                                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                         fontSize: '9.5px',
                                                         letterSpacing: '0.08em',
                                                         textTransform:
@@ -906,7 +915,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                     <span
                                                         style={{
                                                             fontFamily:
-                                                                "'Archivo', sans-serif",
+                                                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                             fontWeight: 700,
                                                             fontSize: '13px',
                                                             lineHeight: 1.2,
@@ -917,7 +926,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                     <span
                                                         style={{
                                                             fontFamily:
-                                                                "'Archivo', sans-serif",
+                                                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                             fontWeight: 900,
                                                             fontSize: '16px',
                                                             color: RED,
@@ -961,7 +970,8 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                 >
                     <span
                         style={{
-                            fontFamily: "'Anton', sans-serif",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '30px',
                             color: RED,
                             lineHeight: 1,
@@ -996,7 +1006,8 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                 >
                     <div
                         style={{
-                            fontFamily: "'Archivo', sans-serif",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontWeight: 900,
                             fontSize: '19px',
                             letterSpacing: '-0.01em',
@@ -1007,7 +1018,8 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                     </div>
                     <div
                         style={{
-                            fontFamily: "'Space Mono', monospace",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '10px',
                             letterSpacing: '0.12em',
                             textTransform: 'uppercase',
@@ -1059,7 +1071,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                     <span
                                         style={{
                                             fontFamily:
-                                                "'Space Mono', monospace",
+                                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                             fontSize: '9px',
                                             letterSpacing: '0.14em',
                                             color: RED,
@@ -1078,7 +1090,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                         <span
                                             style={{
                                                 fontFamily:
-                                                    "'Archivo', sans-serif",
+                                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                 fontWeight: 800,
                                                 fontSize: '17px',
                                                 letterSpacing: '-0.01em',
@@ -1090,7 +1102,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                         <span
                                             style={{
                                                 fontFamily:
-                                                    "'Archivo', sans-serif",
+                                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                 fontWeight: 900,
                                                 fontSize: '22px',
                                                 color: RED,
@@ -1135,7 +1147,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                     style={{
                                                         color: RED,
                                                         fontFamily:
-                                                            "'Space Mono', monospace",
+                                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                     }}
                                                 >
                                                     ·
@@ -1157,7 +1169,8 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                             textDecoration: 'none',
                                             color: '#fff',
                                             background: RED,
-                                            fontFamily: "'Archivo', sans-serif",
+                                            fontFamily:
+                                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                             fontWeight: 800,
                                             fontSize: '13px',
                                             padding: '9px 13px',
@@ -1172,7 +1185,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                         <span
                                             style={{
                                                 fontFamily:
-                                                    "'Space Mono', monospace",
+                                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                 fontSize: '12px',
                                             }}
                                         >
@@ -1184,7 +1197,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                         style={{
                                             marginTop: 'auto',
                                             fontFamily:
-                                                "'Space Mono', monospace",
+                                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                             fontSize: '10px',
                                             letterSpacing: '0.1em',
                                             textTransform: 'uppercase',

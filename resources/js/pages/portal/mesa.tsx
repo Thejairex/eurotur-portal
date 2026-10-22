@@ -122,7 +122,7 @@ const LINEA: CSSProperties = {
 };
 
 const BOTON_CLARO: CSSProperties = {
-    fontFamily: "'Space Mono', monospace",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '11px',
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
@@ -172,7 +172,8 @@ export default function Mesa() {
                 <div style={{ marginBottom: '28px' }}>
                     <div
                         style={{
-                            fontFamily: "'Space Mono', monospace",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '10px',
                             letterSpacing: '0.16em',
                             textTransform: 'uppercase',
@@ -184,9 +185,10 @@ export default function Mesa() {
                     </div>
                     <h1
                         style={{
-                            fontFamily: "'Anton', sans-serif",
-                            fontWeight: 400,
-                            fontSize: 'clamp(56px,7vw,100px)',
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                            fontWeight: 800,
+                            fontSize: 'clamp(44px,5vw,60px)',
                             lineHeight: 0.95,
                             margin: 0,
                             letterSpacing: '-1px',
@@ -230,7 +232,8 @@ export default function Mesa() {
                         >
                             <span
                                 style={{
-                                    fontFamily: "'Archivo', sans-serif",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontWeight: 800,
                                     fontSize: '16px',
                                     letterSpacing: '-0.01em',
@@ -240,7 +243,8 @@ export default function Mesa() {
                             </span>
                             <span
                                 style={{
-                                    fontFamily: "'Space Mono', monospace",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '9px',
                                     letterSpacing: '0.12em',
                                     textTransform: 'uppercase',
@@ -278,7 +282,7 @@ export default function Mesa() {
                                         <div
                                             style={{
                                                 fontFamily:
-                                                    "'Space Mono', monospace",
+                                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                 fontSize: '11px',
                                                 color: '#888',
                                                 marginTop: '3px',
@@ -298,7 +302,7 @@ export default function Mesa() {
                                         <span
                                             style={{
                                                 fontFamily:
-                                                    "'Space Mono', monospace",
+                                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                 fontSize: '16px',
                                                 fontWeight: 700,
                                                 letterSpacing: '0.08em',
@@ -346,7 +350,8 @@ export default function Mesa() {
                         })}
                         <div
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '10px',
                                 letterSpacing: '0.05em',
                                 color: '#999',
@@ -394,7 +399,8 @@ export default function Mesa() {
                             >
                                 <div
                                     style={{
-                                        fontFamily: "'Archivo', sans-serif",
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontWeight: 900,
                                         fontSize: '34px',
                                         lineHeight: 1,

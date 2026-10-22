@@ -42,7 +42,7 @@ type Props = {
 
 const labelFieldStyle: React.CSSProperties = {
     width: '100%',
-    fontFamily: "'Archivo', sans-serif",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '12.5px',
     fontWeight: 500,
     border: 'none',
@@ -53,7 +53,7 @@ const labelFieldStyle: React.CSSProperties = {
 };
 
 const smallButtonStyle: React.CSSProperties = {
-    fontFamily: "'Space Mono', monospace",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '9px',
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
@@ -77,7 +77,8 @@ function SectionHeading({ label, hint }: { label: string; hint: string }) {
         >
             <div
                 style={{
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontWeight: 900,
                     fontSize: '19px',
                     letterSpacing: '-0.01em',
@@ -88,7 +89,8 @@ function SectionHeading({ label, hint }: { label: string; hint: string }) {
             </div>
             <div
                 style={{
-                    fontFamily: "'Space Mono', monospace",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontSize: '10px',
                     letterSpacing: '0.12em',
                     textTransform: 'uppercase',
@@ -117,7 +119,8 @@ export default function SearchAdmin({
                 <div style={{ maxWidth: '600px', marginBottom: '10px' }}>
                     <div
                         style={{
-                            fontFamily: "'Space Mono', monospace",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '10px',
                             letterSpacing: '0.16em',
                             textTransform: 'uppercase',
@@ -129,8 +132,9 @@ export default function SearchAdmin({
                     </div>
                     <h1
                         style={{
-                            fontFamily: "'Anton', sans-serif",
-                            fontWeight: 400,
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                            fontWeight: 800,
                             fontSize: 'clamp(56px,8vw,110px)',
                             lineHeight: 0.86,
                             margin: 0,
@@ -217,7 +221,8 @@ function ItemKeywordsSection({
                                 style={{
                                     textAlign: 'left',
                                     padding: '6px 10px',
-                                    fontFamily: "'Space Mono', monospace",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '10px',
                                     letterSpacing: '0.08em',
                                     textTransform: 'uppercase',
@@ -346,7 +351,8 @@ function StaticEntriesSection({
                                 style={{
                                     textAlign: 'left',
                                     padding: '6px 10px',
-                                    fontFamily: "'Space Mono', monospace",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '10px',
                                     letterSpacing: '0.08em',
                                     textTransform: 'uppercase',
@@ -422,7 +428,7 @@ function StaticEntriesSection({
                                                     all: 'unset',
                                                     cursor: 'pointer',
                                                     fontFamily:
-                                                        "'Space Mono', monospace",
+                                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                     fontSize: '11px',
                                                     color: '#666',
                                                 }}
@@ -447,7 +453,7 @@ function StaticEntriesSection({
                                                             all: 'unset',
                                                             cursor: 'pointer',
                                                             fontFamily:
-                                                                "'Space Mono', monospace",
+                                                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                             fontSize: '11px',
                                                             color: RED,
                                                         }}
@@ -606,7 +612,8 @@ function ThesaurusSection({
                     >
                         <div
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '9px',
                                 letterSpacing: '0.08em',
                                 textTransform: 'uppercase',

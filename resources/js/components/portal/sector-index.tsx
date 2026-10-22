@@ -18,11 +18,77 @@ export type SectorItem = {
 };
 export type SectorGroup = { id?: number; title: string; items: SectorItem[] };
 
+/** Ícono de línea (viewBox 24) según el tema del bloque; si no hay coincidencia, una carpeta. */
+const GROUP_ICONS: [RegExp, string][] = [
+    [
+        /transport|servicios|vehicul|traslad|flota/i,
+        'M3 16V8h11v8M14 11h4l3 3v2h-7M7 19a2 2 0 100-4 2 2 0 000 4zM17 19a2 2 0 100-4 2 2 0 000 4z',
+    ],
+    [
+        /hotel|aloja|restaurant/i,
+        'M4 20V6a1 1 0 011-1h9a1 1 0 011 1v14M15 10h4a1 1 0 011 1v9M3 20h18M8 9h3M8 13h3M8 17h3',
+    ],
+    [
+        /interno|equipo|responsable|empleado|personal|rrhh|organigrama/i,
+        'M16 11a3 3 0 100-6 3 3 0 000 6zM8 12a3 3 0 100-6 3 3 0 000 6zM2 20c0-3 3-5 6-5s6 2 6 5M14 15c3 0 8 1 8 5',
+    ],
+    [
+        /sucursal|oficina|buenos aires|ushuaia|calafate|salta|mesa de tr/i,
+        'M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11zM12 12a2.5 2.5 0 100-5 2.5 2.5 0 000 5z',
+    ],
+    [/a[eé]reo|vuelo|viaje|famtrip/i, 'M21 3L3 11l7 3 3 7z'],
+    [
+        /horario|guardia|calendario|feriado|fecha/i,
+        'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',
+    ],
+    [
+        /pago|cuenta|banc|cambio|factur|imposit|contab|cobr|transfer/i,
+        'M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4',
+    ],
+    [
+        /legal|seguridad|contingenc|seguro/i,
+        'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z',
+    ],
+    [
+        /alta|formulario|procedim|document|instruc|manual|pol[ií]tic|norma/i,
+        'M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h7',
+    ],
+    [
+        /cliente|sales|venta|comercial|crédito|credito/i,
+        'M4 20V10M10 20V4M16 20v-8M22 20H2',
+    ],
+    [
+        /soporte|ticket|telef|zoiper|tecnolog|sistema|vpn|equipos|google|meet/i,
+        'M3 4h18v12H3zM8 20h8M12 16v4',
+    ],
+    [
+        /foto|imagen|galer/i,
+        'M4 5h16v14H4zM4 15l5-5 4 4 3-3 4 4M9 9a1 1 0 100-2 1 1 0 000 2z',
+    ],
+    [
+        /novedad|newsletter|reporte|informe/i,
+        'M4 5h13v15H4zM17 9h3v9a2 2 0 01-2 2M7 9h7M7 13h7M7 17h4',
+    ],
+    [
+        /grupo|salida|tour|excursi|producto|herramienta/i,
+        'M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10',
+    ],
+];
+
+const FOLDER_ICON =
+    'M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z';
+
+function iconPathFor(title: string): string {
+    return (
+        GROUP_ICONS.find(([pattern]) => pattern.test(title))?.[1] ?? FOLDER_ICON
+    );
+}
+
 function iconButtonStyle(color: string): React.CSSProperties {
     return {
         all: 'unset',
         cursor: 'pointer',
-        fontFamily: "'Space Mono', monospace",
+        fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
         fontSize: '11px',
         color,
     };
@@ -38,7 +104,7 @@ export type SectorIndexData = {
 
 const labelFieldStyle: React.CSSProperties = {
     width: '100%',
-    fontFamily: "'Archivo', sans-serif",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '12.5px',
     fontWeight: 500,
     border: 'none',
@@ -49,7 +115,7 @@ const labelFieldStyle: React.CSSProperties = {
 };
 
 const smallButtonStyle: React.CSSProperties = {
-    fontFamily: "'Space Mono', monospace",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '9px',
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
@@ -81,76 +147,74 @@ export function SectorIndex({
                 flexDirection: 'column',
             }}
         >
-            <div style={{ marginBottom: '26px' }}>
-                <div
+            <div
+                style={{
+                    fontSize: '12px',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    color: SECONDARY,
+                    margin: '6px 0 0',
+                }}
+            >
+                {data.kicker}
+            </div>
+            <div
+                style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    justifyContent: 'space-between',
+                    gap: '40px',
+                }}
+            >
+                <h1
                     style={{
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: '12px',
-                        letterSpacing: '0.2em',
-                        textTransform: 'uppercase',
-                        color: SECONDARY,
-                        marginBottom: '14px',
+                        fontSize: 'clamp(44px,5vw,60px)',
+                        fontWeight: 800,
+                        margin: '6px 0',
+                        letterSpacing: '-1.5px',
+                        lineHeight: 1.05,
                     }}
                 >
-                    {data.kicker}
-                </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        justifyContent: 'space-between',
-                        gap: '40px',
-                    }}
-                >
-                    <h1
+                    {data.title}
+                    <span style={{ color: RED }}>.</span>
+                </h1>
+                {canEdit && (
+                    <button
+                        type="button"
+                        onClick={() => setEditing((v) => !v)}
                         style={{
-                            fontFamily: "'Anton', Impact, sans-serif",
-                            fontWeight: 400,
-                            fontSize: 'clamp(56px,7vw,100px)',
-                            lineHeight: 0.95,
-                            margin: 0,
-                            letterSpacing: '-1px',
+                            ...smallButtonStyle,
+                            flex: '0 0 auto',
+                            marginTop: '14px',
+                            background: editing ? RED : 'transparent',
+                            color: editing ? '#fff' : '#111',
+                            borderColor: editing ? RED : '#111',
                         }}
                     >
-                        {data.title}
-                        <span style={{ color: RED }}>.</span>
-                    </h1>
-                    {canEdit && (
-                        <button
-                            type="button"
-                            onClick={() => setEditing((v) => !v)}
-                            style={{
-                                ...smallButtonStyle,
-                                flex: '0 0 auto',
-                                background: editing ? RED : 'transparent',
-                                color: editing ? '#fff' : '#000',
-                                borderColor: editing ? RED : '#000',
-                            }}
-                        >
-                            {editing ? 'Listo ✕' : 'Editar ✎'}
-                        </button>
-                    )}
-                </div>
-                <p
-                    style={{
-                        maxWidth: '640px',
-                        margin: '18px 0 0',
-                        fontSize: '17px',
-                        lineHeight: 1.5,
-                        color: '#0B0B0B',
-                    }}
-                >
-                    {data.intro}
-                </p>
+                        {editing ? 'Listo ✕' : 'Editar ✎'}
+                    </button>
+                )}
             </div>
+            <p
+                style={{
+                    color: SECONDARY,
+                    maxWidth: '620px',
+                    margin: '0 0 30px',
+                    lineHeight: 1.5,
+                    fontSize: '16px',
+                }}
+            >
+                {data.intro}
+            </p>
 
             <div
                 style={{
                     display: 'grid',
                     gridTemplateColumns:
-                        'repeat(auto-fill, minmax(240px, 1fr))',
-                    gap: 0,
-                    borderTop: '4px solid #000',
+                        'repeat(auto-fill, minmax(260px, 1fr))',
+                    gap: '18px',
+                    alignItems: 'stretch',
+                    gridAutoRows: '1fr',
                 }}
             >
                 {data.groups.map((g, i) => (
@@ -192,22 +256,14 @@ function SectorGroupColumn({
     const [renaming, setRenaming] = useState(false);
 
     return (
-        <div
-            className="sector-col"
-            style={{
-                borderRight: '1px dotted #000',
-                borderBottom: '1px dotted #000',
-                padding: '16px 22px 26px',
-                minHeight: '120px',
-            }}
-        >
+        <section className="card">
             <div
                 style={{
                     display: 'flex',
-                    alignItems: 'baseline',
+                    alignItems: 'flex-start',
                     justifyContent: 'space-between',
                     gap: '10px',
-                    marginBottom: '12px',
+                    marginBottom: '10px',
                 }}
             >
                 {renaming && group.id ? (
@@ -246,17 +302,26 @@ function SectorGroupColumn({
                         )}
                     </Form>
                 ) : (
-                    <span
+                    <h2
                         style={{
-                            fontFamily: "'Archivo', sans-serif",
+                            fontSize: '17px',
                             fontWeight: 700,
-                            fontSize: '19px',
-                            letterSpacing: '-0.01em',
-                            lineHeight: 1.1,
+                            margin: 0,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                            lineHeight: 1.25,
                         }}
                     >
+                        <svg
+                            className="ico"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                        >
+                            <path d={iconPathFor(group.title)} />
+                        </svg>
                         {group.title}
-                    </span>
+                    </h2>
                 )}
                 {editing && group.id && !renaming && (
                     <div
@@ -334,7 +399,7 @@ function SectorGroupColumn({
                     )}
                 </div>
             )}
-        </div>
+        </section>
     );
 }
 
@@ -435,34 +500,23 @@ function SectorItemRow({
                     target="_blank"
                     rel="noreferrer"
                     className="doc-link"
-                    style={{
-                        flex: '1 1 auto',
-                        fontFamily: "'Archivo', sans-serif",
-                        fontWeight: 500,
-                        fontSize: '15px',
-                        lineHeight: 1.25,
-                    }}
+                    style={{ flex: '1 1 auto' }}
                 >
                     <span>{item.t}</span>
-                    <span
-                        className="doc-arrow"
-                        style={{
-                            fontFamily: "'Space Mono', monospace",
-                            fontSize: '11px',
-                        }}
-                    >
+                    <span className="doc-arrow" aria-hidden="true">
                         ↗
                     </span>
                 </a>
             ) : (
                 <div
                     style={{
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontWeight: 500,
-                        fontSize: '15px',
+                        fontSize: '14.5px',
                         lineHeight: 1.4,
                         color: SECONDARY,
-                        padding: '4px 6px 4px 9px',
+                        padding: '10px 0',
                     }}
                 >
                     {item.t}
@@ -471,7 +525,8 @@ function SectorItemRow({
             {item.badge && (
                 <span
                     style={{
-                        fontFamily: "'Space Mono', monospace",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '9px',
                         letterSpacing: '0.08em',
                         textTransform: 'uppercase',
@@ -501,7 +556,8 @@ function SectorItemRow({
                         style={{
                             all: 'unset',
                             cursor: 'pointer',
-                            fontFamily: "'Space Mono', monospace",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '10px',
                             color: '#666',
                         }}
@@ -521,7 +577,8 @@ function SectorItemRow({
                                 style={{
                                     all: 'unset',
                                     cursor: 'pointer',
-                                    fontFamily: "'Space Mono', monospace",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '10px',
                                     color: RED,
                                 }}

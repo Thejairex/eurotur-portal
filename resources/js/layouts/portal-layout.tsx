@@ -13,8 +13,33 @@ import { index as rolesIndex } from '@/routes/admin/roles';
 import { index as usersIndex } from '@/routes/admin/users';
 import { search, searchResults } from '@/routes/portal';
 
-const RED = '#E30613';
-const STRIPE_ACCENT = true;
+const RED = '#E3000F';
+const RAIL_KEY = 'menuRail';
+
+/** Íconos de línea del menú (viewBox 24). */
+const NAV_ICONS: Record<string, string> = {
+    home: 'M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10',
+    institucional: 'M3 21h18M5 21V10M9 21V10M15 21V10M19 21V10M3 10l9-6 9 6',
+    sales: 'M4 20V10M10 20V4M16 20v-8M22 20H2',
+    customercare:
+        'M4 14v-2a8 8 0 0116 0v2M4 14h3v5H4zM17 14h3v5h-3zM20 19c0 1.5-2 2-5 2',
+    producto: 'M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10',
+    operaciones: 'M12 21a9 9 0 100-18 9 9 0 000 18zM15.5 8.5l-2 5-5 2 2-5z',
+    contrataciones: 'M6 3h9l4 4v14H6zM9 14l2 2 4-4',
+    rrhh: 'M16 11a3 3 0 100-6 3 3 0 000 6zM8 12a3 3 0 100-6 3 3 0 000 6zM2 20c0-3 3-5 6-5s6 2 6 5M14 15c3 0 8 1 8 5',
+    adm: 'M6 3h12v18H6zM9 7h6M9 11h2M13 11h2M9 15h2M13 15h2',
+    traveldesigners: 'M21 3L3 11l7 3 3 7z',
+    qrated: 'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z',
+    innovacion:
+        'M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0012 3z',
+    it: 'M3 4h18v12H3zM8 20h8M12 16v4',
+    mesa: 'M12 21a9 9 0 100-18 9 9 0 000 18zM12 11v6M12 7.5v.5',
+    'meeting-room': 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',
+    'exchange-rate': 'M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4',
+    responsables:
+        'M9 11a4 4 0 100-8 4 4 0 000 8zM2 21c0-4 3-6 7-6s7 2 7 6M16 11l2 2 4-4',
+    'search-admin': 'M11 19a8 8 0 100-16 8 8 0 000 16zM21 21l-4.3-4.3',
+};
 
 function formatToday(): string {
     const now = new Date();
@@ -29,6 +54,21 @@ function formatArs(value: number): string {
     return Math.round(value).toLocaleString('es-AR');
 }
 
+/** Barra angosta guardada por cada persona; por defecto abierta, y angosta por debajo de 800 px. */
+function initialRail(): boolean {
+    try {
+        const saved = window.localStorage.getItem(RAIL_KEY);
+
+        if (saved === '1' || saved === '0') {
+            return saved === '1';
+        }
+    } catch {
+        // sin localStorage (ventana privada, bloqueado): se usa el valor por defecto
+    }
+
+    return window.innerWidth < 800;
+}
+
 export default function PortalLayout({
     active = 'home',
     children,
@@ -38,44 +78,96 @@ export default function PortalLayout({
     label?: string;
     children: ReactNode;
 }) {
-    const [menuOpen, setMenuOpen] = useState(false);
+    const [rail, setRail] = useState<boolean>(() =>
+        typeof window === 'undefined' ? false : initialRail(),
+    );
     const { dolarOficial, iataRate } = usePage().props;
+
+    const toggleRail = () => {
+        setRail((value) => {
+            const next = !value;
+
+            try {
+                window.localStorage.setItem(RAIL_KEY, next ? '1' : '0');
+            } catch {
+                // sin localStorage: la elección dura mientras la página siga abierta
+            }
+
+            return next;
+        });
+    };
 
     return (
         <>
             <style>{`
+                .eurotur-portal { background: #E2E2DF; color: #111; font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif; min-height: 100vh; }
                 .eurotur-portal ::selection { background: ${RED}; color: #fff; }
-                /* Animaciones: solo transform, opacidad y color, de 0,12 a 0,2 s. No se animan width, height, padding, margin, top ni left. */
-                .eurotur-portal .nav-item { position: relative; display: flex; align-items: baseline; padding: 7px 6px; color: #0B0B0B; font-weight: 500; text-decoration: none; cursor: pointer; transition: color .15s; }
-                .eurotur-portal .nav-item::before { content: ''; position: absolute; left: 0; top: 50%; width: 10px; height: 3px; margin-top: -1px; background: ${RED}; transform: scaleX(0); transform-origin: left center; opacity: 0; transition: transform .15s, opacity .15s; }
-                .eurotur-portal .nav-item > span { display: block; transition: transform .15s; }
-                .eurotur-portal .nav-item:hover, .eurotur-portal .nav-item:focus-visible { color: ${RED}; }
-                .eurotur-portal .nav-item:hover::before, .eurotur-portal .nav-item:focus-visible::before { transform: scaleX(1); opacity: 1; }
-                .eurotur-portal .nav-item:hover > span, .eurotur-portal .nav-item:focus-visible > span { transform: translateX(14px); }
-                .eurotur-portal .nav-item[aria-current="page"] { color: ${RED}; font-weight: 700; }
-                .eurotur-portal .nav-item:focus-visible { outline: 2px solid ${RED}; outline-offset: 2px; }
-                .eurotur-portal .search-line { position: relative; border-bottom: 2px solid #0B0B0B; }
-                .eurotur-portal .search-line::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: ${RED}; opacity: 0; transition: opacity .2s; }
-                .eurotur-portal .search-line:focus-within::after { opacity: 1; }
-                .eurotur-portal .logout-btn:hover { background: #000 !important; color: #fff !important; }
-                .eurotur-portal .backoffice-btn:hover { background: #000 !important; color: #fff !important; }
-                .eurotur-portal .login-btn:hover { background: #000 !important; color: #fff !important; }
-                .eurotur-portal .quick-card:hover { background: ${RED}; color: #fff; transform: translateY(-5px); }
-                .eurotur-portal .tile { background-image: linear-gradient(rgba(0,0,0,.42),rgba(0,0,0,.42)),var(--tile-photo); background-size: cover; background-position: center; }
-                .eurotur-portal .tile:hover { background-image: linear-gradient(rgba(227,6,19,.55),rgba(227,6,19,.55)),var(--tile-photo); color: #fff; transform: translateY(-5px); }
-                .eurotur-portal .sector-col { position: relative; }
-                .eurotur-portal .sector-col::before { content: ''; position: absolute; left: 0; right: 0; top: -4px; height: 4px; background: ${RED}; transform: scaleX(0); transform-origin: left center; transition: transform .2s; pointer-events: none; }
-                .eurotur-portal .sector-col:hover::before { transform: scaleX(1); }
-                .eurotur-portal .doc-link { position: relative; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 4px 6px 4px 9px; color: #0B0B0B; text-decoration: none; border-bottom: 1px solid rgba(0,0,0,.12); transition: color .12s, background-color .12s; }
-                .eurotur-portal .doc-link::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: ${RED}; transform: scaleY(0); transform-origin: center; transition: transform .15s; }
-                .eurotur-portal .doc-link .doc-arrow { display: inline-block; color: ${RED}; transition: transform .15s; }
-                .eurotur-portal .doc-link:hover, .eurotur-portal .doc-link:focus-visible { background: #F6DEE0; color: ${RED}; }
+
+                /* Menú lateral: fijo; en barra angosta se despliega flotando sobre el contenido (el contenido no se mueve). */
+                #portal-aside { position: fixed; left: 0; top: 0; width: 240px; height: 100vh; overflow-x: hidden; overflow-y: auto; padding: 24px 18px; border-right: 1px solid #CFCFCB; background: #E2E2DF; z-index: 40; display: flex; flex-direction: column; transition: width .18s ease; }
+                #portal-main { margin-left: 240px; padding: 0 40px; min-height: 100vh; display: flex; flex-direction: column; min-width: 0; }
+                #portal-root[data-rail="1"] #portal-main { margin-left: 72px; }
+                #portal-root[data-rail="1"] #portal-aside { width: 72px; padding: 24px 12px; }
+                #portal-root[data-rail="1"] #portal-aside:hover,
+                #portal-root[data-rail="1"] #portal-aside:has(:focus-visible) { width: 240px; padding: 24px 18px; box-shadow: 6px 0 24px rgba(0,0,0,.14); }
+                #portal-root[data-rail="1"] #portal-aside:not(:hover):not(:has(:focus-visible)) .lbl,
+                #portal-root[data-rail="1"] #portal-aside:not(:hover):not(:has(:focus-visible)) .aside-extra { display: none; }
+                #portal-root[data-rail="1"] #portal-aside:not(:hover):not(:has(:focus-visible)) .nav-item { justify-content: center; padding: 11px 0; }
+                #portal-root[data-rail="1"] #portal-aside:not(:hover):not(:has(:focus-visible)) .nav-item .mi { width: 22px; height: 22px; }
+                #portal-root[data-rail="1"] #portal-aside:not(:hover):not(:has(:focus-visible)) .tog { margin: 0 auto 14px; }
+                #portal-root[data-rail="1"] #portal-aside:not(:hover):not(:has(:focus-visible)) .tog svg { transform: none; }
+                .eurotur-portal .lbl { white-space: nowrap; }
+                .eurotur-portal .mi { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+                .eurotur-portal .tog { margin: 0 0 14px auto; border: 1px solid #CFCFCB; background: #fff; border-radius: 10px; width: 38px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: background-color .12s, border-color .12s; }
+                .eurotur-portal .tog svg { width: 20px; height: 20px; stroke: #111; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transform: scaleX(-1); transition: stroke .12s; }
+                .eurotur-portal .tog:hover, .eurotur-portal .tog:focus-visible { background: #FBEDEE; border-color: ${RED}; outline: none; }
+                .eurotur-portal .tog:hover svg, .eurotur-portal .tog:focus-visible svg { stroke: ${RED}; }
+
+                .eurotur-portal .nav-item { position: relative; display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 10px; color: #111; font-size: 14px; text-decoration: none; cursor: pointer; transition: background-color .12s, color .12s; }
+                .eurotur-portal .nav-item::before { content: ''; position: absolute; left: 0; top: 25%; height: 50%; width: 3px; border-radius: 2px; background: ${RED}; transform: scaleY(0); transition: transform .15s; }
+                .eurotur-portal .nav-item:hover, .eurotur-portal .nav-item:focus-visible { background: rgba(0,0,0,.05); color: ${RED}; outline: none; }
+                .eurotur-portal .nav-item:hover::before, .eurotur-portal .nav-item:focus-visible::before { transform: scaleY(1); }
+                .eurotur-portal .nav-item[aria-current="page"] { background: #111; color: #fff; }
+                .eurotur-portal .nav-item[aria-current="page"]::before { display: none; }
+
+                .eurotur-portal .search-pill { display: flex; align-items: center; gap: 8px; width: 100%; padding: 9px 14px; border: 1px solid #CFCFCB; border-radius: 999px; background: #fff; transition: border-color .12s; }
+                .eurotur-portal .search-pill:focus-within { border-color: ${RED}; box-shadow: 0 0 0 3px rgba(227,0,15,.15); }
+
+                .eurotur-portal .logout-btn:hover { background: #111 !important; color: #fff !important; }
+                .eurotur-portal .backoffice-btn:hover { background: #111 !important; color: #fff !important; }
+                .eurotur-portal .login-btn:hover { background: #111 !important; color: #fff !important; }
+
+                /* Tarjetas de sector: sube 3 px, línea roja abajo; la sombra más marcada aparece con opacidad (no se anima box-shadow). */
+                .eurotur-portal .card { position: relative; isolation: isolate; background: #fff; border-radius: 16px; padding: 20px 22px 14px; box-shadow: 0 1px 2px rgba(0,0,0,.05); transition: transform .2s; }
+                .eurotur-portal .card::before { content: ''; position: absolute; inset: 0; border-radius: 16px; box-shadow: 0 10px 22px rgba(0,0,0,.10); opacity: 0; transition: opacity .2s; z-index: -1; pointer-events: none; }
+                .eurotur-portal .card::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; border-radius: 0 0 16px 16px; background: ${RED}; transform: scaleX(0); transform-origin: left; transition: transform .25s ease-out; pointer-events: none; }
+                .eurotur-portal .card:hover { transform: translateY(-3px); }
+                .eurotur-portal .card:hover::before { opacity: 1; }
+                .eurotur-portal .card:hover::after { transform: scaleX(1); }
+                .eurotur-portal .card .ico { width: 20px; height: 20px; stroke: #111; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; transition: stroke .15s; }
+                .eurotur-portal .card:hover .ico { stroke: ${RED}; }
+
+                .eurotur-portal .doc-link { position: relative; display: flex; justify-content: space-between; gap: 10px; padding: 10px; margin: 0 -10px; border-radius: 10px; color: #111; font-size: 14.5px; text-decoration: none; transition: background-color .12s, color .12s; }
+                .eurotur-portal .doc-link::before { content: ''; position: absolute; left: 0; top: 20%; height: 60%; width: 3px; border-radius: 2px; background: ${RED}; transform: scaleY(0); transition: transform .15s; }
+                .eurotur-portal .doc-link .doc-arrow { color: #6B6B68; transition: transform .15s, color .12s; }
+                .eurotur-portal .doc-link:hover, .eurotur-portal .doc-link:focus-visible { background: #FBEDEE; color: ${RED}; outline: none; }
                 .eurotur-portal .doc-link:hover::before, .eurotur-portal .doc-link:focus-visible::before { transform: scaleY(1); }
-                .eurotur-portal .doc-link:hover .doc-arrow, .eurotur-portal .doc-link:focus-visible .doc-arrow { transform: translate(3px, -3px); }
-                @media (prefers-reduced-motion: reduce) {
-                    .eurotur-portal *, .eurotur-portal *::before, .eurotur-portal *::after { transition: none !important; animation: none !important; }
-                    .eurotur-portal .nav-item:hover > span, .eurotur-portal .nav-item:focus-visible > span, .eurotur-portal .doc-link:hover .doc-arrow { transform: none; }
-                }
+                .eurotur-portal .doc-link:hover .doc-arrow, .eurotur-portal .doc-link:focus-visible .doc-arrow { color: ${RED}; transform: translate(3px, -3px); }
+
+                /* Portada: accesos rápidos y sectores con foto. */
+                .eurotur-portal .quick-card { position: relative; isolation: isolate; overflow: hidden; background: #fff; border-radius: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.05); transition: transform .2s; }
+                .eurotur-portal .quick-card::after, .eurotur-portal .tile::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: ${RED}; transform: scaleX(0); transform-origin: left; transition: transform .25s ease-out; z-index: 2; pointer-events: none; }
+                .eurotur-portal .quick-card:hover, .eurotur-portal .tile:hover { transform: translateY(-3px); }
+                .eurotur-portal .quick-card:hover::after, .eurotur-portal .tile:hover::after { transform: scaleX(1); }
+                .eurotur-portal .quick-card .q-arrow, .eurotur-portal .tile .tile-arrow { transition: transform .15s, color .12s; }
+                .eurotur-portal .quick-card:hover .q-arrow { color: ${RED}; transform: translate(3px, -3px); }
+                .eurotur-portal .tile:hover .tile-arrow { transform: translateX(4px); }
+                .eurotur-portal .tile { position: relative; overflow: hidden; isolation: isolate; border-radius: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.05); background: #222; transition: transform .2s; }
+                .eurotur-portal .tile .tile-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); z-index: 0; }
+                .eurotur-portal .tile .tile-shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.78), rgba(0,0,0,.18)); z-index: 1; }
+                .eurotur-portal .tile .tile-title { position: relative; z-index: 2; }
+
                 .eurotur-portal .search-result:hover { background: ${RED}; color: #fff; }
                 .eurotur-portal .social-link:hover { color: ${RED}; }
                 .eurotur-portal .search-result:hover div { color: #fff !important; }
@@ -95,29 +187,24 @@ export default function PortalLayout({
                 .eurotur-portal .innov-instr-card:hover { background: #faf7f7; }
                 .eurotur-portal .innov-instr-link:hover { background: #b3050f; transform: translateX(3px); }
 
-                @media (max-width: 800px) {
-                    #portal-root { flex-direction: column; }
-                    #portal-aside { width: 100% !important; flex: none !important; position: sticky !important; top: 0 !important; height: auto !important; align-self: auto !important; z-index: 40; background: #E2E2DF; border-right: none !important; border-bottom: 1px solid #000; padding: 14px 18px !important; }
-                    #portal-asidetop { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-                    #portal-burger { display: flex !important; }
-                    #portal-nav { display: none !important; }
-                    #portal-aside[data-menu="open"] #portal-nav { display: flex !important; margin-top: 14px; }
-                    #portal-divider { display: none; }
-                    #portal-aside[data-menu="open"] #portal-divider { display: block; margin: 14px 0 0 !important; }
-                    #portal-asidefoot { display: none; }
-                    #portal-aside[data-menu="open"] #portal-asidefoot { display: block; }
-                    #portal-header { display: none !important; }
-                    #portal-content { padding: 26px 18px 32px !important; }
-                    #portal-footer { flex-direction: column; align-items: flex-start !important; gap: 16px !important; padding: 20px 18px !important; }
-                    #portal-footer > div { flex-wrap: wrap; gap: 10px 22px !important; }
+                @media (prefers-reduced-motion: reduce) {
+                    .eurotur-portal *, .eurotur-portal *::before, .eurotur-portal *::after { transition: none !important; animation: none !important; }
+                    .eurotur-portal .card:hover, .eurotur-portal .quick-card:hover, .eurotur-portal .tile:hover { transform: none; }
+                    .eurotur-portal .doc-link:hover .doc-arrow, .eurotur-portal .doc-link:focus-visible .doc-arrow, .eurotur-portal .tile:hover .tile-arrow, .eurotur-portal .quick-card:hover .q-arrow { transform: none; }
                 }
+
                 @media (max-width: 900px) {
                     #portal-content [style*="repeat(5"] { grid-template-columns: repeat(3,1fr) !important; }
                     #portal-content [style*="repeat(4"] { grid-template-columns: repeat(3,1fr) !important; }
                     #portal-content [style*="1.55fr 1fr"] { grid-template-columns: 1fr !important; }
                     #portal-content [style*="0.82fr 1.18fr"] { grid-template-columns: 1fr !important; }
                     #portal-content [style*="1.08fr 0.92fr"] { grid-template-columns: 1fr !important; }
-                    #portal-root[data-page="home"] [data-testid="home-hero"] h1 { font-size: clamp(20px, 3.2vw, 26px) !important; }
+                }
+                @media (max-width: 800px) {
+                    #portal-main { padding: 0 18px; }
+                    #portal-header [data-testid="home-dollars"] { display: none; }
+                    #portal-footer { flex-direction: column; align-items: flex-start !important; gap: 16px !important; }
+                    #portal-footer > div { flex-wrap: wrap; gap: 10px 22px !important; }
                 }
                 @media (max-width: 600px) {
                     #portal-content [style*="repeat(5"],
@@ -126,15 +213,6 @@ export default function PortalLayout({
                     #portal-content [style*="repeat(2"] { grid-template-columns: 1fr !important; }
                     #portal-content [style*="gap:18px"] { flex-wrap: wrap; row-gap: 8px !important; }
                     #portal-content #qrated-cats { grid-template-columns: 1fr !important; }
-                    #portal-root[data-page="home"] [data-testid="home-hero"] { gap: 6px !important; }
-                    #portal-root[data-page="home"] [data-testid="home-hero"] p { max-width: 100% !important; text-align: left !important; align-self: flex-start !important; }
-                    #portal-root[data-page="home"] [data-testid="home-hero"] h1 { font-size: clamp(18px, 5vw, 22px) !important; }
-                    #portal-root[data-page="home"] [data-testid="home-hero-top"] { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
-                    #portal-root[data-page="home"] [data-testid="home-dollars"] { flex-wrap: wrap !important; }
-                }
-                @media (max-height: 750px) {
-                    #portal-root[data-page="home"] #portal-content { padding-top: 12px !important; padding-bottom: 8px !important; }
-                    #portal-root[data-page="home"] [data-testid="home-root"] { gap: 4px !important; }
                 }
             `}</style>
 
@@ -142,61 +220,19 @@ export default function PortalLayout({
                 id="portal-root"
                 className="eurotur-portal"
                 data-page={active}
-                style={{
-                    display: 'flex',
-                    height: '100vh',
-                    overflow: 'hidden',
-                    background: '#E2E2DF',
-                    color: '#0B0B0B',
-                    fontFamily: "'Archivo', sans-serif",
-                }}
+                data-rail={rail ? '1' : '0'}
             >
-                <Sidebar
-                    active={active}
-                    menuOpen={menuOpen}
-                    onToggleMenu={() => setMenuOpen((v) => !v)}
-                />
+                <Sidebar active={active} onToggleRail={toggleRail} />
 
-                <main
-                    style={{
-                        flex: 1,
-                        minWidth: 0,
-                        minHeight: 0,
-                        position: 'relative',
-                        display: 'flex',
-                        flexDirection: 'column',
-                    }}
-                >
-                    <Header
-                        dolarOficial={dolarOficial}
-                        iataRate={iataRate}
-                        isHome={active === 'home'}
-                    />
-
-                    {STRIPE_ACCENT && (
-                        <div
-                            style={{
-                                height: '30px',
-                                backgroundImage:
-                                    'repeating-linear-gradient(90deg,#000 0 4px,transparent 4px 8px)',
-                                borderTop: '2px solid #000',
-                                borderBottom: '2px solid #000',
-                            }}
-                        />
-                    )}
+                <main id="portal-main">
+                    <Header dolarOficial={dolarOficial} iataRate={iataRate} />
 
                     <div
                         id="portal-content"
                         style={{
                             flex: 1,
-                            minHeight: 0,
-                            overflowY: 'auto',
-                            overflowX: 'hidden',
-                            padding:
-                                active === 'home'
-                                    ? '20px 56px 16px 56px'
-                                    : '28px 56px 24px 56px',
-                            position: 'relative',
+                            minWidth: 0,
+                            padding: '8px 0 24px',
                             display: 'flex',
                             flexDirection: 'column',
                         }}
@@ -213,14 +249,20 @@ export default function PortalLayout({
     );
 }
 
+function NavIcon({ id }: { id: string }) {
+    return (
+        <svg className="mi" viewBox="0 0 24 24" aria-hidden="true">
+            <path d={NAV_ICONS[id] ?? NAV_ICONS.home} />
+        </svg>
+    );
+}
+
 function Sidebar({
     active,
-    menuOpen,
-    onToggleMenu,
+    onToggleRail,
 }: {
     active: ActiveView;
-    menuOpen: boolean;
-    onToggleMenu: () => void;
+    onToggleRail: () => void;
 }) {
     const { auth } = usePage().props;
     const { can, canAny } = usePermissions();
@@ -246,96 +288,49 @@ function Sidebar({
     );
 
     return (
-        <aside
-            id="portal-aside"
-            data-menu={menuOpen ? 'open' : 'closed'}
-            style={{
-                width: '250px',
-                flex: '0 0 250px',
-                position: 'sticky',
-                top: 0,
-                alignSelf: 'flex-start',
-                height: '100vh',
-                overflowY: 'auto',
-                padding: '34px 22px 28px',
-                display: 'flex',
-                flexDirection: 'column',
-                borderRight: '1px solid #000',
-            }}
-        >
-            <div id="portal-asidetop">
+        <aside id="portal-aside">
+            <button
+                type="button"
+                className="tog"
+                onClick={onToggleRail}
+                aria-label="Mostrar u ocultar el menú"
+                title="Mostrar / ocultar menú"
+            >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 4h18v16H3zM9 4v16M14 9l3 3-3 3" />
+                </svg>
+            </button>
+
+            <div className="aside-extra">
                 <Link
                     href={home()}
-                    style={{
-                        all: 'unset',
-                        cursor: 'pointer',
-                        display: 'block',
-                    }}
+                    style={{ display: 'block', textDecoration: 'none' }}
                 >
                     <img
                         src="/eurotur-logo.png"
                         alt="Eurotur — 70 años"
-                        style={{
-                            width: '118px',
-                            height: 'auto',
-                            display: 'block',
-                        }}
+                        width={120}
+                        style={{ height: 'auto', display: 'block' }}
                     />
-                    <div
-                        style={{
-                            fontFamily: "'Space Mono', monospace",
-                            fontSize: '9px',
-                            letterSpacing: '0.14em',
-                            textTransform: 'uppercase',
-                            color: '#6B6B68',
-                            marginTop: '10px',
-                        }}
-                    >
-                        portal interno
-                        <br />
-                        dmc · desde 1954
-                    </div>
                 </Link>
-                <button
-                    id="portal-burger"
-                    type="button"
-                    onClick={onToggleMenu}
+                <div
                     style={{
-                        display: 'none',
-                        alignItems: 'center',
-                        gap: '8px',
-                        cursor: 'pointer',
-                        background: '#000',
-                        color: '#fff',
-                        border: 'none',
-                        fontFamily: "'Space Mono', monospace",
                         fontSize: '11px',
-                        letterSpacing: '0.12em',
+                        color: '#6B6B68',
+                        letterSpacing: '0.08em',
+                        margin: '6px 0 18px',
+                        lineHeight: 1.5,
                         textTransform: 'uppercase',
-                        padding: '11px 14px',
                     }}
                 >
-                    {menuOpen ? 'Cerrar ✕' : 'Menú ≡'}
-                </button>
+                    portal interno
+                    <br />
+                    dmc · desde 1954
+                </div>
+                <div id="portal-search-aside" style={{ marginBottom: '16px' }}>
+                    <GlobalSearch compact />
+                </div>
             </div>
-
-            <div
-                id="portal-search-aside"
-                style={{
-                    marginTop: '14px',
-                }}
-            >
-                <GlobalSearch compact />
-            </div>
-
-            <div
-                id="portal-divider"
-                style={{
-                    height: '1px',
-                    background: '#000',
-                    margin: '24px 0 20px',
-                }}
-            />
 
             <nav
                 id="portal-nav"
@@ -343,139 +338,121 @@ function Sidebar({
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '2px',
-                    flex: 1,
                 }}
             >
+                <Link
+                    href={home()}
+                    className="nav-item"
+                    title="Inicio"
+                    data-tour="portal-nav-home"
+                    aria-current={active === 'home' ? 'page' : undefined}
+                >
+                    <NavIcon id="home" />
+                    <span className="lbl">Inicio</span>
+                </Link>
                 {navItems.map((sector) => (
                     <Link
                         key={sector.id}
                         href={sector.href}
+                        title={sector.navLabel}
                         data-tour={`portal-nav-${sector.id}`}
                         className="nav-item"
                         aria-current={sector.id === active ? 'page' : undefined}
                     >
-                        <span
-                            style={{
-                                fontFamily: "'Archivo', sans-serif",
-                                fontSize: '12.5px',
-                                letterSpacing: '-0.01em',
-                                lineHeight: 1.15,
-                            }}
-                        >
-                            {sector.navLabel}
-                        </span>
+                        <NavIcon id={sector.id} />
+                        <span className="lbl">{sector.navLabel}</span>
                     </Link>
                 ))}
             </nav>
 
             <div style={{ flex: 1 }} />
 
-            <div
-                id="portal-asidefoot"
-                style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: '9px',
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    color: '#999',
-                    marginTop: '18px',
-                }}
-            >
-                bue · fte · ush · sla
+            <div className="aside-extra">
+                {canAdminister && (
+                    <Link
+                        href={
+                            can('users.manage')
+                                ? usersIndex()
+                                : can('roles.manage')
+                                  ? rolesIndex()
+                                  : crmIndex()
+                        }
+                        className="backoffice-btn"
+                        style={{
+                            boxSizing: 'border-box',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            gap: '9px',
+                            marginTop: '14px',
+                            padding: '11px 14px',
+                            width: '100%',
+                            borderRadius: '10px',
+                            background: RED,
+                            color: '#fff',
+                            fontWeight: 700,
+                            fontSize: '13px',
+                            textDecoration: 'none',
+                            transition: 'color .12s, background-color .12s',
+                        }}
+                    >
+                        <span>Back Office</span>
+                        <span aria-hidden="true">→</span>
+                    </Link>
+                )}
+
+                {isAuthenticated ? (
+                    <Form {...logout.form()} style={{ marginTop: '10px' }}>
+                        {({ processing }) => (
+                            <button
+                                type="submit"
+                                disabled={processing}
+                                className="logout-btn"
+                                style={{
+                                    cursor: 'pointer',
+                                    boxSizing: 'border-box',
+                                    display: 'block',
+                                    width: '100%',
+                                    padding: '10px 14px',
+                                    textAlign: 'center',
+                                    border: '1px solid #111',
+                                    borderRadius: '10px',
+                                    background: 'transparent',
+                                    fontWeight: 700,
+                                    fontSize: '13px',
+                                    color: '#111',
+                                    transition:
+                                        'color .12s, background-color .12s',
+                                }}
+                            >
+                                Salir
+                            </button>
+                        )}
+                    </Form>
+                ) : (
+                    <Link
+                        href={login()}
+                        className="login-btn"
+                        style={{
+                            boxSizing: 'border-box',
+                            display: 'block',
+                            width: '100%',
+                            marginTop: '14px',
+                            padding: '11px 14px',
+                            textAlign: 'center',
+                            borderRadius: '10px',
+                            background: RED,
+                            color: '#fff',
+                            fontWeight: 700,
+                            fontSize: '13px',
+                            textDecoration: 'none',
+                            transition: 'color .12s, background-color .12s',
+                        }}
+                    >
+                        Iniciar sesión
+                    </Link>
+                )}
             </div>
-
-            {canAdminister && (
-                <Link
-                    href={
-                        can('users.manage')
-                            ? usersIndex()
-                            : can('roles.manage')
-                              ? rolesIndex()
-                              : crmIndex()
-                    }
-                    className="backoffice-btn"
-                    style={{
-                        all: 'unset',
-                        cursor: 'pointer',
-                        boxSizing: 'border-box',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: '9px',
-                        marginTop: '14px',
-                        padding: '11px 12px',
-                        width: '100%',
-                        background: RED,
-                        color: '#fff',
-                        fontFamily: "'Space Mono', monospace",
-                        fontWeight: 700,
-                        fontSize: '11px',
-                        letterSpacing: '0.1em',
-                        textTransform: 'uppercase',
-                        transition:
-                            'color .12s, background .12s, transform .12s',
-                    }}
-                >
-                    <span>Back Office</span>
-                    <span aria-hidden="true">→</span>
-                </Link>
-            )}
-
-            {isAuthenticated ? (
-                <Form {...logout.form()} style={{ marginTop: '10px' }}>
-                    {({ processing }) => (
-                        <button
-                            type="submit"
-                            disabled={processing}
-                            className="logout-btn"
-                            style={{
-                                all: 'unset',
-                                cursor: 'pointer',
-                                boxSizing: 'border-box',
-                                display: 'block',
-                                width: '100%',
-                                padding: '10px 12px',
-                                textAlign: 'center',
-                                border: '1px solid #000',
-                                fontFamily: "'Space Mono', monospace",
-                                fontWeight: 700,
-                                fontSize: '11px',
-                                letterSpacing: '0.1em',
-                                textTransform: 'uppercase',
-                                color: '#000',
-                                transition: 'color .12s, background .12s',
-                            }}
-                        >
-                            Salir
-                        </button>
-                    )}
-                </Form>
-            ) : (
-                <Link
-                    href={login()}
-                    className="login-btn"
-                    style={{
-                        all: 'unset',
-                        cursor: 'pointer',
-                        boxSizing: 'border-box',
-                        display: 'block',
-                        width: '100%',
-                        marginTop: '14px',
-                        padding: '11px 12px',
-                        textAlign: 'center',
-                        background: RED,
-                        color: '#fff',
-                        fontFamily: "'Space Mono', monospace",
-                        fontWeight: 700,
-                        fontSize: '11px',
-                        letterSpacing: '0.1em',
-                        textTransform: 'uppercase',
-                        transition: 'color .12s, background .12s',
-                    }}
-                >
-                    Iniciar sesión
-                </Link>
-            )}
         </aside>
     );
 }
@@ -559,7 +536,8 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
             {!compact && (
                 <div
                     style={{
-                        fontFamily: "'Space Mono', monospace",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '9px',
                         letterSpacing: '0.16em',
                         textTransform: 'uppercase',
@@ -570,15 +548,7 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
                     búsqueda global
                 </div>
             )}
-            <div
-                className="search-line"
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap,
-                    paddingBottom: compact ? '6px' : '8px',
-                }}
-            >
+            <div className="search-pill" style={{ gap }}>
                 <svg
                     width={iconSize}
                     height={iconSize}
@@ -657,7 +627,8 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
                     style={{
                         all: 'unset',
                         flex: 1,
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: inputFont,
                         fontWeight: 500,
                         color: '#000',
@@ -683,7 +654,8 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
                         <div
                             style={{
                                 padding: '12px 16px',
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '11px',
                                 color: '#999',
                             }}
@@ -695,7 +667,8 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
                         <div
                             style={{
                                 padding: '12px 16px',
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '11px',
                                 color: '#999',
                             }}
@@ -726,7 +699,8 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
                             >
                                 <div
                                     style={{
-                                        fontFamily: "'Archivo', sans-serif",
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontWeight: 700,
                                         fontSize: '13px',
                                     }}
@@ -735,7 +709,8 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
                                 </div>
                                 <div
                                     style={{
-                                        fontFamily: "'Space Mono', monospace",
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '10px',
                                         letterSpacing: '0.04em',
                                         color: '#999',
@@ -757,123 +732,93 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
 function Header({
     dolarOficial,
     iataRate,
-    isHome,
 }: {
     dolarOficial: {
         venta: number;
         fecha: string | null;
     } | null;
     iataRate: { rate: number; updatedAt: string | null; stale: boolean } | null;
-    isHome?: boolean;
 }) {
     const iataStale =
         iataRate?.stale || isRateStale(iataRate?.updatedAt ?? null);
     const bnaStale = isRateStale(dolarOficial?.fecha ?? null);
 
     const metaValStyle: React.CSSProperties = {
-        fontFamily: "'Archivo', sans-serif",
-        fontWeight: 900,
-        fontSize: '15px',
-        lineHeight: 1,
-        letterSpacing: '-0.02em',
+        display: 'block',
+        color: '#111',
+        fontSize: '16px',
+        fontWeight: 700,
+        lineHeight: 1.2,
     };
-    const metaLabelStyle: React.CSSProperties = {
-        fontFamily: "'Space Mono', monospace",
-        fontSize: '9px',
-        letterSpacing: '0.14em',
-        textTransform: 'uppercase',
-        color: '#999',
-    };
-
-    // Bloques meta reutilizables (IATA / BNA / HOY) con estilo compacto 15px
-    const metaBlocks = (
-        <>
-            <div data-testid="meta-iata">
-                <div
-                    style={{
-                        ...metaLabelStyle,
-                        color: iataStale ? RED : '#999',
-                        display: 'flex',
-                        gap: '6px',
-                        justifyContent: 'flex-end',
-                    }}
-                >
-                    dólar iata
-                    {iataStale && (
-                        <span
-                            style={{
-                                background: RED,
-                                color: '#fff',
-                                padding: '1px 5px',
-                                fontSize: '8px',
-                            }}
-                        >
-                            desact.
-                        </span>
-                    )}
-                </div>
-                <div style={metaValStyle} data-testid="meta-val">
-                    {iataRate !== null ? `$${formatArs(iataRate.rate)}` : '—'}
-                    <span style={{ color: RED }}>.</span>
-                </div>
-            </div>
-            <div data-testid="meta-bna">
-                <div
-                    style={{
-                        ...metaLabelStyle,
-                        color: bnaStale ? RED : '#999',
-                        display: 'flex',
-                        gap: '6px',
-                        justifyContent: 'flex-end',
-                    }}
-                >
-                    dólar bna
-                    {bnaStale && (
-                        <span
-                            style={{
-                                background: RED,
-                                color: '#fff',
-                                padding: '1px 5px',
-                                fontSize: '8px',
-                            }}
-                        >
-                            desact.
-                        </span>
-                    )}
-                </div>
-                <div style={metaValStyle} data-testid="meta-val">
-                    {dolarOficial !== null
-                        ? `$${formatArs(dolarOficial.venta)}`
-                        : '—'}
-                    <span style={{ color: RED }}>.</span>
-                </div>
-            </div>
-            <div data-testid="meta-hoy">
-                <div style={metaLabelStyle}>hoy</div>
-                <div style={metaValStyle} data-testid="meta-val">
-                    {formatToday()}
-                </div>
-            </div>
-        </>
+    const staleBadge = (
+        <span
+            style={{
+                background: RED,
+                color: '#fff',
+                borderRadius: '999px',
+                padding: '1px 7px',
+                fontSize: '10px',
+                marginLeft: '6px',
+            }}
+        >
+            desact.
+        </span>
     );
-
-    if (isHome) {
-        return null;
-    }
 
     return (
         <header
             id="portal-header"
             style={{
                 display: 'flex',
-                alignItems: 'flex-end',
                 justifyContent: 'flex-end',
-                gap: '40px',
-                padding: '14px 56px 12px 56px',
+                alignItems: 'center',
+                padding: '14px 0 4px',
+                fontSize: '12px',
+                color: '#6B6B68',
             }}
         >
-            <div style={{ display: 'flex', gap: '24px', textAlign: 'right' }}>
-                {metaBlocks}
+            <div
+                data-testid="home-dollars"
+                style={{ display: 'flex', gap: '22px', textAlign: 'right' }}
+            >
+                <div data-testid="meta-iata">
+                    <span
+                        style={{
+                            textTransform: 'uppercase',
+                            color: iataStale ? RED : undefined,
+                        }}
+                    >
+                        dólar iata
+                        {iataStale && staleBadge}
+                    </span>
+                    <b style={metaValStyle} data-testid="meta-val">
+                        {iataRate !== null
+                            ? `$${formatArs(iataRate.rate)}`
+                            : '—'}
+                    </b>
+                </div>
+                <div data-testid="meta-bna">
+                    <span
+                        style={{
+                            textTransform: 'uppercase',
+                            color: bnaStale ? RED : undefined,
+                        }}
+                    >
+                        dólar bna
+                        {bnaStale && staleBadge}
+                    </span>
+                    <b style={metaValStyle} data-testid="meta-val">
+                        {dolarOficial !== null
+                            ? `$${formatArs(dolarOficial.venta)}`
+                            : '—'}
+                    </b>
+                </div>
+                <div data-testid="meta-hoy">
+                    <span style={{ textTransform: 'uppercase' }}>hoy</span>
+                    <b style={metaValStyle} data-testid="meta-val">
+                        {formatToday()}
+                    </b>
+                </div>
             </div>
         </header>
     );
@@ -938,17 +883,14 @@ function Footer() {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 gap: '30px',
-                padding: '16px 56px 20px 56px',
-                marginTop: 'auto',
+                padding: '16px 0 20px',
             }}
         >
             <div
                 style={{
                     display: 'flex',
                     gap: '40px',
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: '11px',
-                    letterSpacing: '0.04em',
+                    fontSize: '13px',
                 }}
             >
                 <span style={{ whiteSpace: 'nowrap' }}>
@@ -977,7 +919,8 @@ function Footer() {
                         display: 'flex',
                         alignItems: 'center',
                         gap: '16px',
-                        fontFamily: "'Space Mono', monospace",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '10px',
                         letterSpacing: '0.08em',
                         textTransform: 'uppercase',
@@ -1004,11 +947,6 @@ function Footer() {
                         </a>
                     ))}
                 </div>
-                <img
-                    src="/eurotur-logo.png"
-                    alt="Eurotur"
-                    style={{ height: '38px', width: 'auto', display: 'block' }}
-                />
             </div>
         </footer>
     );

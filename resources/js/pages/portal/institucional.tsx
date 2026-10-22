@@ -54,7 +54,8 @@ export default function Institucional() {
                     <div>
                         <div
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '10px',
                                 letterSpacing: '0.16em',
                                 textTransform: 'uppercase',
@@ -66,9 +67,10 @@ export default function Institucional() {
                         </div>
                         <h1
                             style={{
-                                fontFamily: "'Anton', sans-serif",
-                                fontWeight: 400,
-                                fontSize: 'clamp(56px,7vw,100px)',
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                fontWeight: 800,
+                                fontSize: 'clamp(44px,5vw,60px)',
                                 lineHeight: 0.95,
                                 margin: 0,
                                 letterSpacing: '-1px',
@@ -119,7 +121,8 @@ export default function Institucional() {
                             <span
                                 style={{
                                     float: 'left',
-                                    fontFamily: "'Anton', sans-serif",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '98px',
                                     lineHeight: 0.72,
                                     margin: '6px 14px -6px 0',
@@ -156,7 +159,8 @@ export default function Institucional() {
                         <p
                             style={{
                                 margin: '20px 0 0',
-                                fontFamily: "'Archivo', sans-serif",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontWeight: 800,
                                 fontSize: '18px',
                                 lineHeight: 1.35,
@@ -169,7 +173,8 @@ export default function Institucional() {
                         <p
                             style={{
                                 margin: '16px 0 0',
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '11px',
                                 letterSpacing: '0.08em',
                                 textTransform: 'uppercase',
@@ -195,7 +200,8 @@ export default function Institucional() {
                         >
                             <div
                                 style={{
-                                    fontFamily: "'Archivo', sans-serif",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontWeight: 900,
                                     fontSize: '16px',
                                     marginBottom: '8px',
@@ -228,7 +234,8 @@ export default function Institucional() {
                         >
                             <div
                                 style={{
-                                    fontFamily: "'Archivo', sans-serif",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontWeight: 900,
                                     fontSize: '16px',
                                     marginBottom: '8px',
@@ -266,7 +273,8 @@ export default function Institucional() {
                 <div style={{ marginTop: '52px' }}>
                     <div
                         style={{
-                            fontFamily: "'Archivo', sans-serif",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontWeight: 900,
                             fontSize: '19px',
                             borderBottom: '3px solid #000',
@@ -294,7 +302,8 @@ export default function Institucional() {
                             >
                                 <div
                                     style={{
-                                        fontFamily: "'Archivo', sans-serif",
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontWeight: 900,
                                         fontSize: '34px',
                                         lineHeight: 0.8,
@@ -305,7 +314,8 @@ export default function Institucional() {
                                 </div>
                                 <div
                                     style={{
-                                        fontFamily: "'Archivo', sans-serif",
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontWeight: 800,
                                         fontSize: '14px',
                                         letterSpacing: '-0.01em',
