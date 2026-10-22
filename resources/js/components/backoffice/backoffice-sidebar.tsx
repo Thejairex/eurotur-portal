@@ -158,13 +158,6 @@ export function BackofficeSidebar() {
                 />
             </nav>
 
-            <img
-                src="/img/eurotur-logo-blanco.webp"
-                alt=""
-                aria-hidden="true"
-                className="bo-watermark"
-            />
-
             <div className="bo-foot">
                 <div data-tour="tour-config">
                     <button
