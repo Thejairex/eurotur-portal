@@ -86,7 +86,9 @@ export default function PerfilPage({
                     forceFormData: true,
                     preserveScroll: true,
                     onError: (errors) =>
-                        setPhotoError(errors.foto ?? 'No se pudo subir la foto.'),
+                        setPhotoError(
+                            errors.foto ?? 'No se pudo subir la foto.',
+                        ),
                     onFinish: () => setUploading(false),
                 },
             );
@@ -157,11 +159,19 @@ export default function PerfilPage({
                 <form onSubmit={save} style={{ flex: 1, maxWidth: 560 }}>
                     <div className="bo-field">
                         <label>Nombre</label>
-                        <input className="bo-input" value={perfil.name} readOnly />
+                        <input
+                            className="bo-input"
+                            value={perfil.name}
+                            readOnly
+                        />
                     </div>
                     <div className="bo-field">
                         <label>Mail</label>
-                        <input className="bo-input" value={perfil.email} readOnly />
+                        <input
+                            className="bo-input"
+                            value={perfil.email}
+                            readOnly
+                        />
                     </div>
                     {(['puesto', 'area', 'sede'] as const).map((field) => (
                         <div className="bo-field" key={field}>

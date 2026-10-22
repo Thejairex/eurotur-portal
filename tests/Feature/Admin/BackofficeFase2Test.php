@@ -195,7 +195,7 @@ class BackofficeFase2Test extends TestCase
             ->assertSessionHasNoErrors();
 
         $novedad = Novedad::query()->where('titulo', 'Hola')->firstOrFail();
-        $this->assertSame('Textox', $novedad->texto);
+        $this->assertSame('Texto x', $novedad->texto);
         $this->assertSame($admin->id, $novedad->creado_por);
 
         $this->actingAs($viewer)->put(route('admin.novedades.update', $novedad), ['fecha' => '2026-10-23', 'titulo' => 'Z', 'texto' => 'Z'])

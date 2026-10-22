@@ -191,7 +191,9 @@ export default function Inicio({
                         )}
                     </h2>
                     {novedades.length === 0 && (
-                        <div className="bo-empty">Todavía no hay novedades.</div>
+                        <div className="bo-empty">
+                            Todavía no hay novedades.
+                        </div>
                     )}
                     {novedades.map((novedad) => (
                         <Link
