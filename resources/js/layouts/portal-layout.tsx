@@ -152,7 +152,7 @@ export default function PortalLayout({
                 /* Tipo de cambio: tres columnas alineadas a la derecha, a la altura de la base del título */
                 .eurotur-portal #portal-rates { display: flex; gap: 22px; text-align: right; font-size: 12px; align-self: flex-end; margin: 0 0 8px; }
                 @media (min-width: 1100px) {
-                    .eurotur-portal #portal-rates { position: absolute; right: 0; top: 50px; margin: 0; align-self: auto; }
+                    .eurotur-portal #portal-rates { position: absolute; right: 0; top: 4px; margin: 0; align-self: auto; }
                     .eurotur-portal #portal-content h1 { max-width: calc(100% - 330px); }
                 }
 

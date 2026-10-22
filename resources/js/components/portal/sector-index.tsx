@@ -222,14 +222,27 @@ function packGrid(grid: HTMLElement): void {
             ];
         }
 
+        // Si la banda usa menos columnas que las disponibles, se reparten las que sobran entre
+        // sus tarjetas (de izquierda a derecha) para que la fila llene todo el ancho.
+        const spare = Math.max(0, columns - cols.length);
+        let start = 1;
+
         cols.forEach((col, index) => {
+            const span =
+                1 +
+                Math.floor(spare / cols.length) +
+                (index < spare % cols.length ? 1 : 0);
+            const columnRange = `${start} / span ${span}`;
+
+            start += span;
+
             if (Array.isArray(col)) {
                 col.forEach((small, k) => {
-                    small.el.style.gridColumn = String(index + 1);
+                    small.el.style.gridColumn = columnRange;
                     small.el.style.gridRow = `${row + k} / span 1`;
                 });
             } else {
-                col.el.style.gridColumn = String(index + 1);
+                col.el.style.gridColumn = columnRange;
                 col.el.style.gridRow = `${row} / span 2`;
             }
         });
@@ -291,9 +304,9 @@ export function SectorIndex({
             <div
                 style={{
                     display: 'flex',
-                    alignItems: 'flex-start',
-                    justifyContent: 'space-between',
-                    gap: '40px',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    gap: '24px',
                 }}
             >
                 <h1
@@ -315,7 +328,6 @@ export function SectorIndex({
                         style={{
                             ...smallButtonStyle,
                             flex: '0 0 auto',
-                            marginTop: '14px',
                             background: editing ? RED : 'transparent',
                             color: editing ? '#fff' : '#111',
                             borderColor: editing ? RED : '#111',
@@ -341,8 +353,7 @@ export function SectorIndex({
                 ref={gridRef}
                 style={{
                     display: 'grid',
-                    gridTemplateColumns:
-                        'repeat(auto-fill, minmax(260px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
                     gridAutoRows: 'minmax(228px, auto)',
                     gridAutoFlow: 'dense',
                     gap: '18px',
