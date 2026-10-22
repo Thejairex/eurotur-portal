@@ -82,7 +82,9 @@ export default function NovedadesPage({
                     className="bo-card"
                     style={{ margin: '20px 0', background: 'var(--bo-soft)' }}
                 >
-                    <h2>{editing ? 'Editar novedad' : 'Publicar una novedad'}</h2>
+                    <h2>
+                        {editing ? 'Editar novedad' : 'Publicar una novedad'}
+                    </h2>
                     <div className="bo-field">
                         <label htmlFor="fecha">Fecha</label>
                         <div>
@@ -96,7 +98,9 @@ export default function NovedadesPage({
                                 }
                             />
                             {form.errors.fecha && (
-                                <div className="bo-error">{form.errors.fecha}</div>
+                                <div className="bo-error">
+                                    {form.errors.fecha}
+                                </div>
                             )}
                         </div>
                     </div>
@@ -133,7 +137,9 @@ export default function NovedadesPage({
                                 }
                             />
                             {form.errors.texto && (
-                                <div className="bo-error">{form.errors.texto}</div>
+                                <div className="bo-error">
+                                    {form.errors.texto}
+                                </div>
                             )}
                         </div>
                     </div>
