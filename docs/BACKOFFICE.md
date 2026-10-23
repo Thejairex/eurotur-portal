@@ -95,10 +95,13 @@ Nunca se escribe en el Organigrama desde el portal, así que no hay conflictos d
 
 **En la pantalla.** En «Mi perfil», puesto, área y sede muestran el aviso «Conectado con el organigrama» y la fecha de la última sincronización, **solo** si esa persona tuvo correspondencia y la última sincronización salió bien. Si no, no aparece nada, y RRHH sigue pudiendo corregir a mano esos tres campos desde Usuarios.
 
-**Qué hace falta antes de construirlo.**
-- Que RRHH cargue los datos reales con los mails correctos (pendiente de RRHH, ver la bitácora del Organigrama).
-- Confirmar que el mail de cada persona en el Organigrama es el mismo que usa para entrar al portal.
-- Agregar el endpoint interno y su token al repo del Organigrama (cambio chico, va primero a preprod, con semilla ficticia).
+**Estado (23/10/2026): construido y probado en preprod.**
+- Organigrama: ruta interna `/api/interno/personas` (token en `ORGANIGRAMA_TOKEN_INTERNO`, sin token la ruta no existe). Rama `preprod` de `Eurotur/organigrama-interactivo`, 115 pruebas.
+- Portal: servicio `App\Services\OrganigramaSync`, comando `php artisan organigrama:sincronizar` (simula; `--aplicar` escribe), columna `users.organigrama_sync_at` y el aviso «Conectado con el organigrama» en Mi perfil. 371 pruebas.
+- Ya se hizo la carga real de mails e internos en el Organigrama de producción (ver su bitácora del 23/10); las personas que el Organigrama todavía marca con datos de ejemplo se ignoran. Se confirmó que cada persona usa un único mail en todos los sistemas.
+- Preprod: la conexión portal → Organigrama (8240) con la clave compartida funciona.
+
+**Para activarlo en producción** (junto con el resto del pase): desplegar el Organigrama con la ruta nueva y la clave (`ORGANIGRAMA_TOKEN_INTERNO` en su entorno y en el `.env` del portal), desplegar el portal con la migración (respaldar la base antes), correr `organigrama:sincronizar` en simulación, revisar y recién ahí `--aplicar`.
 
 ## Despliegue
 Siempre primero preprod (ver `README.md`). Hoy la rama de preprod es `integracion-preprod` (rediseño del portal + Back Office). Al pasar a producción: respaldar la base (3 migraciones nuevas), integrar en `main` en orden y repetir el cambio del botón del `portal-layout` (Back Office → Inicio).
