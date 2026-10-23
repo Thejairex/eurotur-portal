@@ -13,6 +13,7 @@ import {
     Wrench,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { useState } from 'react';
 import { initialsOf } from '@/components/backoffice/backoffice-header';
 import { usePermissions } from '@/hooks/use-permissions';
 import { editablePagesFor } from '@/lib/backoffice-pages';
@@ -44,6 +45,9 @@ const TOOL_ICONS: Record<string, LucideIcon> = {
     'big-brother': CalendarClock,
 };
 
+/** Cuántas filas muestra cada tarjeta antes de "Ver más". */
+const PREVIEW = 3;
+
 const formatDay = (iso: string): string => {
     const [year, month, day] = iso.split('-');
 
@@ -73,7 +77,12 @@ export default function Inicio({
 
     const user = auth.user;
     const firstName = user.name.split(/\s+/)[0];
-    const pages = editablePagesFor(can);
+    const [allPages, setAllPages] = useState(false);
+    // Primero las que tuvieron el cambio más reciente.
+    const pages = [...editablePagesFor(can)].sort((a, b) =>
+        (sectorUpdates[b.id] ?? '').localeCompare(sectorUpdates[a.id] ?? ''),
+    );
+    const shownPages = allPages ? pages : pages.slice(0, PREVIEW);
     const tools = BACKOFFICE_TOOLS.filter((tool) => can(tool.permission));
     const photo = user.foto_path ? `/storage/${user.foto_path}` : null;
     const details = [
@@ -149,7 +158,7 @@ export default function Inicio({
                             Todavía no tenés páginas del portal para editar.
                         </div>
                     )}
-                    {pages.map((page) => {
+                    {shownPages.map((page) => {
                         const date = formatUpdateDate(sectorUpdates[page.id]);
                         const counts = paginas[page.id];
 
@@ -164,7 +173,7 @@ export default function Inicio({
                                 </span>
                                 <span>
                                     <b>{page.navLabel}</b>
-                                    <small>
+                                    <small className="bo-clip">
                                         {counts
                                             ? `${counts.bloques} bloques · ${counts.links} links · `
                                             : ''}
@@ -176,6 +185,19 @@ export default function Inicio({
                             </Link>
                         );
                     })}
+                    {pages.length > PREVIEW && (
+                        <div className="bo-card-foot">
+                            <button
+                                type="button"
+                                className="bo-more"
+                                onClick={() => setAllPages(!allPages)}
+                            >
+                                {allPages
+                                    ? 'Ver menos'
+                                    : `Ver las ${pages.length - PREVIEW} restantes`}
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -195,7 +217,7 @@ export default function Inicio({
                             Todavía no hay novedades.
                         </div>
                     )}
-                    {novedades.map((novedad) => (
+                    {novedades.slice(0, PREVIEW).map((novedad) => (
                         <Link
                             key={novedad.id}
                             href="/administracion/novedades"
@@ -210,6 +232,14 @@ export default function Inicio({
                             </div>
                         </Link>
                     ))}
+                    <div className="bo-card-foot">
+                        <Link
+                            href="/administracion/novedades"
+                            className="bo-more"
+                        >
+                            Ver más
+                        </Link>
+                    </div>
                 </div>
 
                 <div className="bo-card bo-card-hot">
@@ -222,7 +252,7 @@ export default function Inicio({
                             Todavía no hay archivos para descargar.
                         </div>
                     )}
-                    {descargas.map((archivo) => (
+                    {descargas.slice(0, PREVIEW).map((archivo) => (
                         <a
                             key={archivo.id}
                             href={`/administracion/descargas/${archivo.id}/archivo`}
@@ -232,21 +262,22 @@ export default function Inicio({
                                 <Download size={18} aria-hidden="true" />
                             </span>
                             <span>
-                                <b>{archivo.nombre}</b>
-                                <small>
+                                <b className="bo-clip">{archivo.nombre}</b>
+                                <small className="bo-clip">
                                     {archivo.extension.toUpperCase()} ·{' '}
                                     {formatSize(archivo.tamano)}
                                 </small>
                             </span>
                         </a>
                     ))}
-                    <Link
-                        href="/administracion/descargas"
-                        className="bo-note"
-                        style={{ display: 'block', marginTop: 8 }}
-                    >
-                        Ver todas
-                    </Link>
+                    <div className="bo-card-foot">
+                        <Link
+                            href="/administracion/descargas"
+                            className="bo-more"
+                        >
+                            Ver más
+                        </Link>
+                    </div>
                 </div>
 
                 <div className="bo-card bo-card-hot">
@@ -259,7 +290,7 @@ export default function Inicio({
                             Todavía no tenés herramientas habilitadas.
                         </div>
                     )}
-                    {tools.map((tool) => {
+                    {tools.slice(0, PREVIEW).map((tool) => {
                         const Icon = TOOL_ICONS[tool.id] ?? Wrench;
                         const body = (
                             <>
@@ -267,8 +298,10 @@ export default function Inicio({
                                     <Icon size={18} aria-hidden="true" />
                                 </span>
                                 <span>
-                                    <b>{tool.label}</b>
-                                    <small>{tool.description}</small>
+                                    <b className="bo-clip">{tool.label}</b>
+                                    <small className="bo-clip">
+                                        {tool.description}
+                                    </small>
                                 </span>
                             </>
                         );
@@ -293,6 +326,11 @@ export default function Inicio({
                             </Link>
                         );
                     })}
+                    <div className="bo-card-foot">
+                        <Link href="/administracion/crm" className="bo-more">
+                            Ver más
+                        </Link>
+                    </div>
                 </div>
             </div>
 

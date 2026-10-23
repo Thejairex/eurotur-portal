@@ -46,10 +46,14 @@ export default function PerfilPage({
     const fileInput = useRef<HTMLInputElement>(null);
     const [photoError, setPhotoError] = useState<string | null>(null);
     const [uploading, setUploading] = useState(false);
+    const [editing, setEditing] = useState(false);
 
     const save = (event: FormEvent) => {
         event.preventDefault();
-        form.put(base, { preserveScroll: true });
+        form.put(base, {
+            preserveScroll: true,
+            onSuccess: () => setEditing(false),
+        });
     };
 
     const pickPhoto = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -96,6 +100,12 @@ export default function PerfilPage({
             setPhotoError('No se pudo preparar la foto.');
             setUploading(false);
         }
+    };
+
+    const cancel = () => {
+        form.reset();
+        form.clearErrors();
+        setEditing(false);
     };
 
     const removePhoto = () =>
@@ -183,15 +193,21 @@ export default function PerfilPage({
                                       : 'Sede'}
                             </label>
                             <div>
-                                <input
-                                    id={field}
-                                    className="bo-input"
-                                    value={form.data[field]}
-                                    readOnly={!puedeEditarPuesto}
-                                    onChange={(event) =>
-                                        form.setData(field, event.target.value)
-                                    }
-                                />
+                                {editing && puedeEditarPuesto ? (
+                                    <input
+                                        id={field}
+                                        className="bo-input"
+                                        value={form.data[field]}
+                                        onChange={(event) =>
+                                            form.setData(
+                                                field,
+                                                event.target.value,
+                                            )
+                                        }
+                                    />
+                                ) : (
+                                    <span>{perfil[field] || '—'}</span>
+                                )}
                                 {form.errors[field] && (
                                     <div className="bo-error">
                                         {form.errors[field]}
@@ -203,14 +219,21 @@ export default function PerfilPage({
                     <div className="bo-field">
                         <label htmlFor="interno">Interno</label>
                         <div>
-                            <input
-                                id="interno"
-                                className="bo-input"
-                                value={form.data.interno}
-                                onChange={(event) =>
-                                    form.setData('interno', event.target.value)
-                                }
-                            />
+                            {editing ? (
+                                <input
+                                    id="interno"
+                                    className="bo-input"
+                                    value={form.data.interno}
+                                    onChange={(event) =>
+                                        form.setData(
+                                            'interno',
+                                            event.target.value,
+                                        )
+                                    }
+                                />
+                            ) : (
+                                <span>{perfil.interno || '—'}</span>
+                            )}
                             {form.errors.interno && (
                                 <div className="bo-error">
                                     {form.errors.interno}
@@ -218,19 +241,38 @@ export default function PerfilPage({
                             )}
                         </div>
                     </div>
-                    {!puedeEditarPuesto && (
+                    {editing && !puedeEditarPuesto && (
                         <div className="bo-note">
                             Puesto, área y sede los actualiza RRHH.
                         </div>
                     )}
-                    <div style={{ marginTop: 16 }}>
-                        <button
-                            type="submit"
-                            className="bo-btn"
-                            disabled={form.processing}
-                        >
-                            Guardar cambios
-                        </button>
+                    <div style={{ display: 'flex', gap: 8, marginTop: 16 }}>
+                        {editing ? (
+                            <>
+                                <button
+                                    type="submit"
+                                    className="bo-btn"
+                                    disabled={form.processing}
+                                >
+                                    Guardar
+                                </button>
+                                <button
+                                    type="button"
+                                    className="bo-btn bo-btn-ghost"
+                                    onClick={cancel}
+                                >
+                                    Cancelar
+                                </button>
+                            </>
+                        ) : (
+                            <button
+                                type="button"
+                                className="bo-btn"
+                                onClick={() => setEditing(true)}
+                            >
+                                Editar
+                            </button>
+                        )}
                     </div>
                 </form>
             </div>

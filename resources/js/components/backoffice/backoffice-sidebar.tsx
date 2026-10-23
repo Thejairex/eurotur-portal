@@ -23,6 +23,19 @@ import { index as crmIndex } from '@/routes/admin/crm';
 import { index as rolesIndex } from '@/routes/admin/roles';
 import { index as usersIndex } from '@/routes/admin/users';
 
+/** Guarda en el navegador si "Herramientas" quedó abierta o cerrada. */
+const TOOLS_KEY = 'bo-tools-open';
+
+const readToolsFlag = (): boolean | null => {
+    try {
+        const stored = localStorage.getItem(TOOLS_KEY);
+
+        return stored === null ? null : stored === '1';
+    } catch {
+        return null;
+    }
+};
+
 /** Opción del menú que todavía no está lista: se ve, pero no se puede tocar. */
 function PendingLink({
     icon: Icon,
@@ -75,6 +88,25 @@ export function BackofficeSidebar() {
     const open = configOpen || configActive;
 
     const onHub = path === '/administracion/crm';
+    const onToolsPage =
+        onHub ||
+        tools.some(
+            (tool) => tool.match !== undefined && path.startsWith(tool.match),
+        );
+    // Sin elección guardada, se abre sola solo cuando se está dentro de una herramienta.
+    const [toolsOpen, setToolsOpen] = useState<boolean | null>(readToolsFlag);
+    const toolsShown = toolsOpen ?? onToolsPage;
+    const toggleTools = () => {
+        const next = !toolsShown;
+
+        setToolsOpen(next);
+
+        try {
+            localStorage.setItem(TOOLS_KEY, next ? '1' : '0');
+        } catch {
+            // Sin almacenamiento: queda como está hasta recargar.
+        }
+    };
 
     return (
         <aside className="bo-aside">
@@ -148,15 +180,39 @@ export function BackofficeSidebar() {
 
                 {tools.length > 0 && (
                     <>
-                        <Link
-                            href={crmIndex()}
-                            data-tour="tour-herramientas"
-                            className={onHub ? 'bo-link bo-link-on' : 'bo-link'}
-                        >
-                            <Wrench size={18} aria-hidden="true" />
-                            Herramientas
-                        </Link>
-                        {tools.map((tool) => {
+                        <div className="bo-link-split">
+                            <Link
+                                href={crmIndex()}
+                                data-tour="tour-herramientas"
+                                className={
+                                    onHub ? 'bo-link bo-link-on' : 'bo-link'
+                                }
+                            >
+                                <Wrench size={18} aria-hidden="true" />
+                                Herramientas
+                            </Link>
+                            <button
+                                type="button"
+                                className="bo-chev-btn"
+                                aria-expanded={toolsShown}
+                                aria-label={
+                                    toolsShown
+                                        ? 'Plegar herramientas'
+                                        : 'Desplegar herramientas'
+                                }
+                                onClick={toggleTools}
+                            >
+                                <ChevronDown
+                                    size={16}
+                                    aria-hidden="true"
+                                    className={
+                                        toolsShown ? 'bo-chev-open' : undefined
+                                    }
+                                />
+                            </button>
+                        </div>
+                        {toolsShown &&
+                            tools.map((tool) => {
                             const active =
                                 tool.match !== undefined &&
                                 path.startsWith(tool.match);

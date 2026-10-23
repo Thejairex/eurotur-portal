@@ -302,6 +302,8 @@
     flex-direction: column;
     gap: 2px;
     overflow: auto;
+    scrollbar-color: rgb(255 255 255 / 0.3) transparent;
+    scrollbar-width: thin;
 }
 
 .bo-link {
@@ -315,6 +317,7 @@
     color: #fff;
     text-align: left;
     text-decoration: none;
+    white-space: nowrap;
     cursor: pointer;
     background: transparent;
     border: 0;
@@ -361,9 +364,10 @@
 .bo-soon {
     padding: 1px 7px;
     margin-left: auto;
-    font-size: 10px;
+    font-size: 9px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    white-space: nowrap;
     background: rgb(255 255 255 / 0.2);
     border-radius: 999px;
 }
@@ -375,6 +379,38 @@
 
 .bo-chev-open {
     transform: rotate(180deg);
+}
+
+.bo-link-split {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+}
+
+.bo-link-split .bo-link {
+    flex: 1;
+}
+
+.bo-chev-btn {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    color: #fff;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    border-radius: 10px;
+    transition: background-color 0.12s;
+}
+
+.bo-chev-btn:hover {
+    background: rgb(255 255 255 / 0.14);
+}
+
+.bo-chev-btn svg {
+    transition: transform 0.15s;
 }
 
 .bo-config-box {
@@ -538,6 +574,7 @@
     display: grid;
     grid-template-columns: 1.4fr 1fr;
     gap: 16px;
+    align-items: start;
 }
 
 .bo-row {
@@ -582,39 +619,13 @@
     color: var(--muted-foreground);
 }
 
-/* Tarjeta destacada: rosado suave, franja roja arriba e íconos en rojo sólido */
+/* Tarjeta con acento: blanca como las demás, con un filete rojo a la izquierda (decorativo) */
 .bo-card-hot {
-    background: var(--bo-redsoft);
-    border-top: 6px solid var(--bo-red);
+    border-left: 4px solid var(--bo-red);
 }
 
-.bo-card-hot h2 {
+.bo-card-hot h2 svg {
     color: var(--bo-red);
-}
-
-.dark .bo-card-hot h2 {
-    color: #ff6b73;
-}
-
-.bo-card-hot .bo-row {
-    background: rgb(255 255 255 / 0.65);
-}
-
-.dark .bo-card-hot .bo-row {
-    background: rgb(255 255 255 / 0.06);
-}
-
-.bo-card-hot .bo-row:hover {
-    background: #fff;
-}
-
-.dark .bo-card-hot .bo-row:hover {
-    background: rgb(255 255 255 / 0.12);
-}
-
-.bo-card-hot .bo-row-ico {
-    color: #fff;
-    background: var(--bo-red);
 }
 
 /* Perfil, novedades y descargas */
@@ -623,6 +634,50 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
     margin-top: 16px;
+}
+
+.bo-grid3 .bo-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.bo-card-foot {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto;
+    padding-top: 8px;
+}
+
+.bo-more {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+    padding: 6px 12px;
+    font: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--bo-red);
+    text-decoration: none;
+    cursor: pointer;
+    background: var(--bo-redsoft);
+    border: 0;
+    border-radius: 999px;
+    transition: opacity 0.12s;
+}
+
+.bo-more:hover {
+    opacity: 0.8;
+}
+
+.bo-clip {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bo-row > span:last-child {
+    min-width: 0;
 }
 
 .bo-prof {

@@ -69,8 +69,8 @@ enum Permission: string
             self::PrebalanceUse => 'Usar el armado de Pre-Balance de módulos',
             self::BigBrotherVer => 'Ver el panel de Big Brother (vencimientos)',
             self::OrganigramaEditar => 'Editar el organigrama (RRHH)',
-            self::NovedadesManage => 'Publicar novedades del sistema',
-            self::DescargasManage => 'Gestionar las descargas del Back Office',
+            self::NovedadesManage => 'Crear novedades',
+            self::DescargasManage => 'Subir y gestionar descargas',
         };
     }
 
