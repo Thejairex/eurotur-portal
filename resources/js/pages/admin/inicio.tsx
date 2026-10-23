@@ -1,5 +1,7 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import {
+    Bell,
+    Blocks,
     Calculator,
     CalendarClock,
     Clock,
@@ -48,6 +50,15 @@ const TOOL_ICONS: Record<string, LucideIcon> = {
 /** Cuántas filas muestra cada tarjeta antes de "Ver más". */
 const PREVIEW = 3;
 
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+/** Días enteros desde una fecha ISO hasta ahora, en palabras. */
+const daysAgo = (iso: string): string => {
+    const days = Math.max(0, Math.floor((Date.now() - Date.parse(iso)) / DAY_MS));
+
+    return days === 0 ? 'Hoy' : days === 1 ? 'Hace 1 día' : `Hace ${days} días`;
+};
+
 const formatDay = (iso: string): string => {
     const [year, month, day] = iso.split('-');
 
@@ -80,8 +91,58 @@ export default function Inicio({
     const [allPages, setAllPages] = useState(false);
     // Primero las que tuvieron el cambio más reciente.
     const pages = [...editablePagesFor(can)].sort((a, b) =>
-        (sectorUpdates[b.id] ?? '').localeCompare(sectorUpdates[a.id] ?? ''),
+        (sectorUpdates[b.id]?.en ?? '').localeCompare(
+            sectorUpdates[a.id]?.en ?? '',
+        ),
     );
+    const counted = pages.filter((page) => paginas[page.id]);
+    const totalBloques = counted.reduce(
+        (sum, page) => sum + paginas[page.id].bloques,
+        0,
+    );
+    const totalLinks = counted.reduce(
+        (sum, page) => sum + paginas[page.id].links,
+        0,
+    );
+    const lastChange = pages
+        .map((page) => sectorUpdates[page.id]?.en)
+        .filter((en): en is string => en !== undefined)
+        .sort()
+        .at(-1);
+    const bars = [...counted]
+        .sort((a, b) => paginas[b.id].bloques - paginas[a.id].bloques)
+        .slice(0, 6);
+    const maxBloques = Math.max(1, ...bars.map((page) => paginas[page.id].bloques));
+    const stats = [
+        {
+            tone: 'red',
+            icon: FileText,
+            value: String(pages.length),
+            label: 'Páginas a tu cargo',
+            sub: 'del portal',
+        },
+        {
+            tone: 'wine',
+            icon: Blocks,
+            value: String(totalBloques),
+            label: 'Bloques',
+            sub: `${totalLinks} links en total`,
+        },
+        {
+            tone: 'amber',
+            icon: Bell,
+            value: String(novedadesSinLeer),
+            label: 'Novedades sin leer',
+            sub: novedadesSinLeer === 0 ? 'estás al día' : 'esperándote',
+        },
+        {
+            tone: 'slate',
+            icon: Clock,
+            value: lastChange ? daysAgo(lastChange) : '—',
+            label: 'Tu último cambio',
+            sub: lastChange ? 'en alguna de tus páginas' : 'Sin cambios aún',
+        },
+    ];
     const shownPages = allPages ? pages : pages.slice(0, PREVIEW);
     const tools = BACKOFFICE_TOOLS.filter((tool) => can(tool.permission));
     const photo = user.foto_path ? `/storage/${user.foto_path}` : null;
@@ -107,7 +168,23 @@ export default function Inicio({
                 </div>
             </div>
 
+            <div className="bo-stats">
+                {stats.map((stat) => (
+                    <div key={stat.label} className="bo-card bo-stat">
+                        <span className={`bo-stat-ico bo-tone-${stat.tone}`}>
+                            <stat.icon size={22} aria-hidden="true" />
+                        </span>
+                        <div>
+                            <div className="bo-stat-val">{stat.value}</div>
+                            <div className="bo-stat-label">{stat.label}</div>
+                            <div className="bo-note">{stat.sub}</div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
             <div className="bo-grid2">
+                <div className="bo-col">
                 <div className="bo-card">
                     <div className="bo-prof">
                         <div
@@ -146,6 +223,34 @@ export default function Inicio({
                             ))}
                         </div>
                     </div>
+                </div>
+
+                {bars.length > 0 && (
+                    <div className="bo-card">
+                        <h2>
+                            <Blocks size={18} aria-hidden="true" />
+                            Bloques por página
+                        </h2>
+                        {bars.map((page) => (
+                            <div key={page.id} className="bo-bar-row">
+                                <span className="bo-bar-name">
+                                    {page.navLabel}
+                                </span>
+                                <span className="bo-bar-track">
+                                    <span
+                                        className="bo-bar"
+                                        style={{
+                                            transform: `scaleX(${paginas[page.id].bloques / maxBloques})`,
+                                        }}
+                                    />
+                                </span>
+                                <b className="bo-bar-num">
+                                    {paginas[page.id].bloques}
+                                </b>
+                            </div>
+                        ))}
+                    </div>
+                )}
                 </div>
 
                 <div className="bo-card">
