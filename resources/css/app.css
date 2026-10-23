@@ -574,7 +574,6 @@
     display: grid;
     grid-template-columns: 1.4fr 1fr;
     gap: 16px;
-    align-items: start;
 }
 
 .bo-row {
@@ -794,6 +793,30 @@
 
 .bo-more:hover {
     opacity: 0.8;
+}
+
+.bo-pages {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Lista que ocupa el alto sobrante de la tarjeta sin agrandarla */
+.bo-fill {
+    position: relative;
+    flex: 1;
+    min-height: 180px;
+}
+
+.bo-fill-in {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.bo-card-foot-abs {
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 .bo-clip {

@@ -15,7 +15,7 @@ import {
     Wrench,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { initialsOf } from '@/components/backoffice/backoffice-header';
 import { usePermissions } from '@/hooks/use-permissions';
 import { editablePagesFor } from '@/lib/backoffice-pages';
@@ -49,6 +49,10 @@ const TOOL_ICONS: Record<string, LucideIcon> = {
 
 /** Cuántas filas muestra cada tarjeta antes de "Ver más". */
 const PREVIEW = 3;
+
+/** Alto de un renglón de "Mis páginas" si todavía no se pudo medir, y del botón de abajo. */
+const ROW_HEIGHT = 56;
+const FOOT_HEIGHT = 44;
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -92,6 +96,8 @@ export default function Inicio({
     const user = auth.user;
     const firstName = user.name.split(/\s+/)[0];
     const [allPages, setAllPages] = useState(false);
+    const [fit, setFit] = useState(PREVIEW);
+    const fillRef = useRef<HTMLDivElement>(null);
     // Primero las que tuvieron el cambio más reciente.
     const pages = [...editablePagesFor(can)].sort((a, b) =>
         (sectorUpdates[b.id]?.en ?? '').localeCompare(
@@ -149,7 +155,37 @@ export default function Inicio({
             sub: lastChange ? 'en alguna de tus páginas' : 'Sin cambios aún',
         },
     ];
-    const shownPages = allPages ? pages : pages.slice(0, PREVIEW);
+    const shownPages = allPages ? pages : pages.slice(0, fit);
+    const total = pages.length;
+
+    // "Mis páginas" muestra tantos renglones como entren en el alto de la columna de al lado.
+    useEffect(() => {
+        const el = fillRef.current;
+
+        if (allPages || el === null) {
+            return;
+        }
+
+        const measure = () => {
+            const row = el.querySelector<HTMLElement>('.bo-row');
+            const rowHeight = row?.offsetHeight || ROW_HEIGHT;
+            let count = Math.floor(el.clientHeight / rowHeight);
+
+            if (count < total) {
+                count = Math.floor((el.clientHeight - FOOT_HEIGHT) / rowHeight);
+            }
+
+            setFit(Math.min(total, Math.max(PREVIEW, count)));
+        };
+
+        measure();
+
+        const observer = new ResizeObserver(measure);
+
+        observer.observe(el);
+
+        return () => observer.disconnect();
+    }, [allPages, total]);
     const tools = BACKOFFICE_TOOLS.filter((tool) => can(tool.permission));
     const photo = user.foto_path ? `/storage/${user.foto_path}` : null;
     const details = [
@@ -259,7 +295,7 @@ export default function Inicio({
                     )}
                 </div>
 
-                <div className="bo-card">
+                <div className="bo-card bo-pages">
                     <h2>
                         <FileText size={18} aria-hidden="true" />
                         Mis páginas
@@ -269,46 +305,61 @@ export default function Inicio({
                             Todavía no tenés páginas del portal para editar.
                         </div>
                     )}
-                    {shownPages.map((page) => {
-                        const date = formatUpdateDate(sectorUpdates[page.id]);
-                        const counts = paginas[page.id];
+                    <div className={allPages ? undefined : 'bo-fill'} ref={fillRef}>
+                        <div className={allPages ? undefined : 'bo-fill-in'}>
+                            {shownPages.map((page) => {
+                                const date = formatUpdateDate(
+                                    sectorUpdates[page.id],
+                                );
+                                const counts = paginas[page.id];
 
-                        return (
-                            <Link
-                                key={page.id}
-                                href={page.href}
-                                className="bo-row"
-                            >
-                                <span className="bo-row-ico">
-                                    <FileText size={18} aria-hidden="true" />
-                                </span>
-                                <span>
-                                    <b>{page.navLabel}</b>
-                                    <small className="bo-clip">
-                                        {counts
-                                            ? `${counts.bloques} bloques · ${counts.links} links · `
-                                            : ''}
-                                        {date
-                                            ? `Última actualización: ${date}`
-                                            : 'Sin cambios registrados desde el portal'}
-                                    </small>
-                                </span>
-                            </Link>
-                        );
-                    })}
-                    {pages.length > PREVIEW && (
-                        <div className="bo-card-foot">
-                            <button
-                                type="button"
-                                className="bo-more"
-                                onClick={() => setAllPages(!allPages)}
-                            >
-                                {allPages
-                                    ? 'Ver menos'
-                                    : `Ver las ${pages.length - PREVIEW} restantes`}
-                            </button>
+                                return (
+                                    <Link
+                                        key={page.id}
+                                        href={page.href}
+                                        className="bo-row"
+                                    >
+                                        <span className="bo-row-ico">
+                                            <FileText
+                                                size={18}
+                                                aria-hidden="true"
+                                            />
+                                        </span>
+                                        <span>
+                                            <b>{page.navLabel}</b>
+                                            <small className="bo-clip">
+                                                {counts
+                                                    ? `${counts.bloques} bloques · ${counts.links} links · `
+                                                    : ''}
+                                                {date
+                                                    ? `Última actualización: ${date}`
+                                                    : 'Sin cambios registrados desde el portal'}
+                                            </small>
+                                        </span>
+                                    </Link>
+                                );
+                            })}
                         </div>
-                    )}
+                        {(allPages || total > shownPages.length) && (
+                            <div
+                                className={
+                                    allPages
+                                        ? 'bo-card-foot'
+                                        : 'bo-card-foot bo-card-foot-abs'
+                                }
+                            >
+                                <button
+                                    type="button"
+                                    className="bo-more"
+                                    onClick={() => setAllPages(!allPages)}
+                                >
+                                    {allPages
+                                        ? 'Ver menos'
+                                        : `Ver las ${total - shownPages.length} restantes`}
+                                </button>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 
