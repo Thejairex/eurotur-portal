@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-23 — Rediseño del Back Office (rama `feature/backoffice-rediseno-2026-10-22`)
+
+- Menú lateral con degradé vino y logo blanco; Herramientas desplegable (recuerda el estado); `/administracion` entra en Inicio.
+- Inicio nuevo: franja de números, barras de bloques por página, «Mis páginas» que llena la columna, tarjetas con 3 filas y «Ver más». Bienvenida y recorrido guiado.
+- Mi perfil (foto, interno; puesto, área y sede por RRHH) en modo lectura con botón Editar. Novedades con «nueva» por persona. Descargas de archivos con sesión.
+- Permisos nuevos «Crear novedades» (`novedades.manage`) y «Subir y gestionar descargas» (`descargas.manage`). Tres migraciones aditivas.
+- Documentación: `docs/BACKOFFICE.md`.
+
 ## 2026-10-22 (2) — Acomodo, franja superior, sesión, tipo de cambio y rojos
 
 - Tarjetas de dos tamaños (hasta 4 links = chica, 5 o más = grande) con acomodo sin huecos (`packGrid`).

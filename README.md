@@ -276,3 +276,4 @@ consume por HTTP:
 - Contenido cargado desde el navegador, comandos `portal:exportar-contenido` / `portal:importar-contenido` y cómo desplegar sin perderlo: `docs/CONTENIDO_Y_DESPLIEGUE.md`.
 - Historial de cambios: `CHANGELOG.md`.
 - Bloque de sesión (franja superior) y tipo de cambio (arriba a la derecha): `Header`, `SessionBlock` y `Rates` en `resources/js/layouts/portal-layout.tsx`; detalle en `docs/SISTEMA_DE_DISENO.md`.
+- Back Office (pantallas, permisos, datos, sistema de diseño y guía para administradores): `docs/BACKOFFICE.md`.
