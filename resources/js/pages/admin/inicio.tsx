@@ -54,7 +54,10 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 
 /** Días enteros desde una fecha ISO hasta ahora, en palabras. */
 const daysAgo = (iso: string): string => {
-    const days = Math.max(0, Math.floor((Date.now() - Date.parse(iso)) / DAY_MS));
+    const days = Math.max(
+        0,
+        Math.floor((Date.now() - Date.parse(iso)) / DAY_MS),
+    );
 
     return days === 0 ? 'Hoy' : days === 1 ? 'Hace 1 día' : `Hace ${days} días`;
 };
@@ -112,7 +115,10 @@ export default function Inicio({
     const bars = [...counted]
         .sort((a, b) => paginas[b.id].bloques - paginas[a.id].bloques)
         .slice(0, 6);
-    const maxBloques = Math.max(1, ...bars.map((page) => paginas[page.id].bloques));
+    const maxBloques = Math.max(
+        1,
+        ...bars.map((page) => paginas[page.id].bloques),
+    );
     const stats = [
         {
             tone: 'red',
@@ -185,72 +191,72 @@ export default function Inicio({
 
             <div className="bo-grid2">
                 <div className="bo-col">
-                <div className="bo-card">
-                    <div className="bo-prof">
-                        <div
-                            className="bo-avatar-lg"
-                            style={
-                                photo
-                                    ? { backgroundImage: `url(${photo})` }
-                                    : undefined
-                            }
-                        >
-                            {photo ? '' : initialsOf(user.name)}
-                        </div>
-                        <div style={{ flex: 1, minWidth: 0 }}>
+                    <div className="bo-card">
+                        <div className="bo-prof">
                             <div
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between',
-                                }}
+                                className="bo-avatar-lg"
+                                style={
+                                    photo
+                                        ? { backgroundImage: `url(${photo})` }
+                                        : undefined
+                                }
                             >
-                                <b style={{ fontSize: 22 }}>{user.name}</b>
-                                <Link
-                                    href="/administracion/perfil"
-                                    className="bo-icon-btn"
-                                    title="Editar mis datos"
-                                    aria-label="Editar mis datos"
-                                >
-                                    <Pencil size={15} aria-hidden="true" />
-                                </Link>
+                                {photo ? '' : initialsOf(user.name)}
                             </div>
-                            {details.map(([label, value]) => (
-                                <div className="bo-field" key={label}>
-                                    <label>{label}</label>
-                                    <span>{value || '—'}</span>
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                    }}
+                                >
+                                    <b style={{ fontSize: 22 }}>{user.name}</b>
+                                    <Link
+                                        href="/administracion/perfil"
+                                        className="bo-icon-btn"
+                                        title="Editar mis datos"
+                                        aria-label="Editar mis datos"
+                                    >
+                                        <Pencil size={15} aria-hidden="true" />
+                                    </Link>
+                                </div>
+                                {details.map(([label, value]) => (
+                                    <div className="bo-field" key={label}>
+                                        <label>{label}</label>
+                                        <span>{value || '—'}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {bars.length > 0 && (
+                        <div className="bo-card">
+                            <h2>
+                                <Blocks size={18} aria-hidden="true" />
+                                Bloques por página
+                            </h2>
+                            {bars.map((page) => (
+                                <div key={page.id} className="bo-bar-row">
+                                    <span className="bo-bar-name">
+                                        {page.navLabel}
+                                    </span>
+                                    <span className="bo-bar-track">
+                                        <span
+                                            className="bo-bar"
+                                            style={{
+                                                transform: `scaleX(${paginas[page.id].bloques / maxBloques})`,
+                                            }}
+                                        />
+                                    </span>
+                                    <b className="bo-bar-num">
+                                        {paginas[page.id].bloques}
+                                    </b>
                                 </div>
                             ))}
                         </div>
-                    </div>
-                </div>
-
-                {bars.length > 0 && (
-                    <div className="bo-card">
-                        <h2>
-                            <Blocks size={18} aria-hidden="true" />
-                            Bloques por página
-                        </h2>
-                        {bars.map((page) => (
-                            <div key={page.id} className="bo-bar-row">
-                                <span className="bo-bar-name">
-                                    {page.navLabel}
-                                </span>
-                                <span className="bo-bar-track">
-                                    <span
-                                        className="bo-bar"
-                                        style={{
-                                            transform: `scaleX(${paginas[page.id].bloques / maxBloques})`,
-                                        }}
-                                    />
-                                </span>
-                                <b className="bo-bar-num">
-                                    {paginas[page.id].bloques}
-                                </b>
-                            </div>
-                        ))}
-                    </div>
-                )}
+                    )}
                 </div>
 
                 <div className="bo-card">

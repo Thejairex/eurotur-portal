@@ -213,34 +213,34 @@ export function BackofficeSidebar() {
                         </div>
                         {toolsShown &&
                             tools.map((tool) => {
-                            const active =
-                                tool.match !== undefined &&
-                                path.startsWith(tool.match);
-                            const className = active
-                                ? 'bo-link bo-link-sub bo-link-on'
-                                : 'bo-link bo-link-sub';
+                                const active =
+                                    tool.match !== undefined &&
+                                    path.startsWith(tool.match);
+                                const className = active
+                                    ? 'bo-link bo-link-sub bo-link-on'
+                                    : 'bo-link bo-link-sub';
 
-                            return tool.external ? (
-                                <a
-                                    key={tool.id}
-                                    href={tool.href.url}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className={className}
-                                >
-                                    {tool.navLabel}{' '}
-                                    <span aria-hidden="true">↗</span>
-                                </a>
-                            ) : (
-                                <Link
-                                    key={tool.id}
-                                    href={tool.href}
-                                    className={className}
-                                >
-                                    {tool.navLabel}
-                                </Link>
-                            );
-                        })}
+                                return tool.external ? (
+                                    <a
+                                        key={tool.id}
+                                        href={tool.href.url}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className={className}
+                                    >
+                                        {tool.navLabel}{' '}
+                                        <span aria-hidden="true">↗</span>
+                                    </a>
+                                ) : (
+                                    <Link
+                                        key={tool.id}
+                                        href={tool.href}
+                                        className={className}
+                                    >
+                                        {tool.navLabel}
+                                    </Link>
+                                );
+                            })}
                     </>
                 )}
 
