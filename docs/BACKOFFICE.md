@@ -63,7 +63,42 @@ El portal es solo de escritorio (se entra por VPN, no hay uso desde celular), as
 ## Pendiente de diseño (no implementado)
 - **Auditoría / Historial:** tabla `portal_audit_log` (quién, qué, cuándo, antes/después) alimentada desde el editor de páginas, Usuarios/Roles y novedades/descargas. La pantalla «Historial» y la tarjeta «Actividad reciente» ya existen como espacio reservado.
 - **Editor de páginas dentro del Back Office (fase 3):** depende de que se integre la rama `feature/rediseno-portal-2026-10-21`, que ya trae renombrar y reordenar bloques.
-- **Organigrama (fase 4):** el correo queda de solo lectura en el perfil. Solo se sincroniza con el organigrama cuando RRHH cargue datos reales, y el aviso «Conectado con el organigrama» aparece solo si la sincronización funciona de verdad.
+- **Organigrama (fase 4):** diseño completo en la sección siguiente. Hasta que RRHH cargue datos reales no se sincroniza nada.
+
+## Diseño: integración con el Organigrama (fase 4)
+
+**Situación actual.** El Organigrama (`Eurotur/organigrama-interactivo`, producción en el puerto 8003, preprod en 8240) es una app aparte con su propia base SQLite. Cada persona es una fila de `nodos` con apellido, nombre, puesto, sector, sede, mail, interno, foto y cumpleaños, cargada por RRHH. Hoy corre con la semilla de ejemplo (`/api/estado` devuelve `quedan_datos_ejemplo: true`). El portal tiene sus propios datos de perfil en `users` (puesto, área, sede, interno, foto). Los dos conviven sin hablarse, y se editan por separado. La edición del Organigrama ya usa la sesión del portal (`organigrama.editar`).
+
+**Principio.** El Organigrama es la fuente de verdad de *quién es quién* (puesto, sector, sede), porque lo mantiene RRHH. El perfil del portal no pelea con eso: lo lee. Lo que es personal (foto e interno que elige cada persona) sigue siendo de la persona.
+
+**Cómo se reconoce a una persona.** Solo por mail exacto (en minúsculas): `nodos.mail` = `users.email`. Si no coincide, no se adivina (criterio del área): queda en el informe como «sin correspondencia».
+
+**Qué se sincroniza (siempre del Organigrama hacia el portal).**
+
+| Dato | Regla |
+|---|---|
+| Puesto | se copia del Organigrama |
+| Área | se copia del sector del Organigrama (los cuatro sectores del panel) |
+| Sede | se copia del Organigrama |
+| Interno | solo si el portal lo tiene vacío; después manda lo que cargue la persona |
+| Foto | no se toca: la sube cada persona |
+| Mail | no se toca: es el del usuario y queda de solo lectura |
+
+Nunca se escribe en el Organigrama desde el portal, así que no hay conflictos de ida y vuelta.
+
+**Mecanismo.**
+1. El Organigrama expone `GET /api/interno/personas` (mail, puesto, sector, sede, interno de las personas activas), accesible solo desde la red del servidor y con un token compartido en variable de entorno (nunca público: son datos personales).
+2. El portal tiene un comando `organigrama:sincronizar` con **vista previa obligatoria** (`--simular`, por defecto): lista qué se cambiaría, a quién, y qué mails no tienen correspondencia. Recién con `--aplicar` escribe.
+3. Antes de aplicar se verifica que el Organigrama ya no tenga datos de ejemplo. Si los tiene, el comando se niega a escribir.
+4. Cada cambio queda en el registro de auditoría (cuando exista el Historial) y la última sincronización guarda fecha y resultado.
+5. Primero a mano desde Back Office (botón «Sincronizar con el organigrama», con `users.manage`). Una tarea diaria programada se evalúa después, con la sincronización ya probada.
+
+**En la pantalla.** En «Mi perfil», puesto, área y sede muestran el aviso «Conectado con el organigrama» y la fecha de la última sincronización, **solo** si esa persona tuvo correspondencia y la última sincronización salió bien. Si no, no aparece nada, y RRHH sigue pudiendo corregir a mano esos tres campos desde Usuarios.
+
+**Qué hace falta antes de construirlo.**
+- Que RRHH cargue los datos reales con los mails correctos (pendiente de RRHH, ver la bitácora del Organigrama).
+- Confirmar que el mail de cada persona en el Organigrama es el mismo que usa para entrar al portal.
+- Agregar el endpoint interno y su token al repo del Organigrama (cambio chico, va primero a preprod, con semilla ficticia).
 
 ## Despliegue
 Siempre primero preprod (ver `README.md`). Hoy la rama de preprod es `integracion-preprod` (rediseño del portal + Back Office). Al pasar a producción: respaldar la base (3 migraciones nuevas), integrar en `main` en orden y repetir el cambio del botón del `portal-layout` (Back Office → Inicio).
