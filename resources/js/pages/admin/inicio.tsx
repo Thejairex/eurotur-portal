@@ -178,8 +178,6 @@ export default function Inicio({
             setFit(Math.min(total, Math.max(PREVIEW, count)));
         };
 
-        measure();
-
         const observer = new ResizeObserver(measure);
 
         observer.observe(el);
@@ -305,7 +303,10 @@ export default function Inicio({
                             Todavía no tenés páginas del portal para editar.
                         </div>
                     )}
-                    <div className={allPages ? undefined : 'bo-fill'} ref={fillRef}>
+                    <div
+                        className={allPages ? undefined : 'bo-fill'}
+                        ref={fillRef}
+                    >
                         <div className={allPages ? undefined : 'bo-fill-in'}>
                             {shownPages.map((page) => {
                                 const date = formatUpdateDate(
