@@ -29,8 +29,10 @@ export default function PerfilPage({
     perfil,
     esPropio,
     puedeEditarPuesto,
+    organigramaSync,
 }: {
     perfil: Perfil;
+    organigramaSync: string | null;
     esPropio: boolean;
     puedeEditarPuesto: boolean;
 }) {
@@ -241,6 +243,14 @@ export default function PerfilPage({
                             )}
                         </div>
                     </div>
+                    {organigramaSync && (
+                        <div className="bo-note">
+                            Conectado con el organigrama · sincronizado el{' '}
+                            {new Date(organigramaSync).toLocaleDateString(
+                                'es-AR',
+                            )}
+                        </div>
+                    )}
                     {editing && !puedeEditarPuesto && (
                         <div className="bo-note">
                             Puesto, área y sede los actualiza RRHH.

@@ -38,6 +38,7 @@ class PerfilController extends Controller
                 'interno' => $objetivo->interno,
                 'foto' => $objetivo->foto_path ? '/storage/'.$objetivo->foto_path : null,
             ],
+            'organigramaSync' => $objetivo->organigrama_sync_at?->toIso8601String(),
             'esPropio' => $objetivo->is($request->user()),
             'puedeEditarPuesto' => $this->puedeEditarPuesto($request->user()),
         ]);

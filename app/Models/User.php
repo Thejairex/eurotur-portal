@@ -30,6 +30,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $foto_path
  * @property Carbon|null $portal_tour_completed_at
  * @property Carbon|null $backoffice_tour_completed_at
+ * @property Carbon|null $organigrama_sync_at
  * @property string $password
  * @property string|null $two_factor_secret
  * @property string|null $two_factor_recovery_codes
@@ -141,6 +142,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'portal_tour_completed_at' => 'datetime',
             'backoffice_tour_completed_at' => 'datetime',
+            'organigrama_sync_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
