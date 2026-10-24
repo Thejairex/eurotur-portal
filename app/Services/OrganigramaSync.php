@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use RuntimeException;
+use Throwable;
 
 /**
  * Sincroniza el perfil del Back Office con el Organigrama (fuente de verdad de quién es quién).
@@ -91,6 +92,33 @@ class OrganigramaSync
         }
 
         return count($plan['aplicables']);
+    }
+
+    /**
+     * Manda al Organigrama la foto que la persona acaba de subir en Mi perfil, para que quede una sola
+     * en los dos lados. Es un envío "de cortesía": si el Organigrama no está configurado, no responde o
+     * no tiene a esa persona, la foto del portal igual queda guardada y no se interrumpe nada.
+     */
+    public function enviarFoto(User $user, string $contenido): bool
+    {
+        $token = (string) config('services.organigrama.token');
+
+        if ($token === '') {
+            return false;
+        }
+
+        try {
+            $respuesta = Http::withToken($token)
+                ->timeout(15)
+                ->attach('archivo', $contenido, 'foto.webp')
+                ->post(rtrim((string) config('services.organigrama.url'), '/').'/api/interno/foto', ['mail' => $user->email]);
+
+            return $respuesta->successful();
+        } catch (Throwable $e) {
+            report($e);
+
+            return false;
+        }
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Tests\Feature\Admin;
 
 use App\Models\User;
+use App\Services\OrganigramaSync;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
@@ -128,5 +129,27 @@ class OrganigramaSyncTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.perfil'))
             ->assertInertia(fn ($page) => $page->where('organigramaSync', fn ($value) => str_starts_with((string) $value, '2026-10-23')));
+    }
+
+    public function test_the_profile_photo_is_also_sent_to_the_organigrama(): void
+    {
+        Http::fake(['organigrama.test/*' => Http::response(['actualizadas' => 1])]);
+        $user = User::factory()->create(['email' => 'ana@eurotur.tur.ar']);
+
+        $this->assertTrue(app(OrganigramaSync::class)->enviarFoto($user, 'contenido-de-la-foto'));
+
+        Http::assertSent(fn ($request) => str_ends_with($request->url(), '/api/interno/foto')
+            && $request->hasHeader('Authorization', 'Bearer secreto'));
+    }
+
+    public function test_a_failing_organigrama_never_breaks_the_photo_upload(): void
+    {
+        Http::fake(['organigrama.test/*' => Http::response([], 404)]);
+        $user = User::factory()->create(['email' => 'ana@eurotur.tur.ar']);
+
+        $this->assertFalse(app(OrganigramaSync::class)->enviarFoto($user, 'x'));
+
+        config(['services.organigrama.token' => '']);
+        $this->assertFalse(app(OrganigramaSync::class)->enviarFoto($user, 'x'));
     }
 }
