@@ -267,6 +267,7 @@ export function SectorIndex({
     // "Editar páginas" del Back Office abre la página con la edición ya activa (?editar=1).
     const [editing, setEditing] = useState(canEdit && url.includes('editar=1'));
     const [draggingId, setDraggingId] = useState<number | null>(null);
+    const [overIndex, setOverIndex] = useState<number | null>(null);
 
     const moveTo = (groupId: number, position: number) =>
         router.post(
@@ -274,6 +275,49 @@ export function SectorIndex({
             { position },
             { preserveScroll: true },
         );
+
+    // Arrastre propio con el puntero (en vez del arrastre nativo del navegador, que con botones falla en
+    // algunos navegadores): se sigue el mouse o el dedo y al soltar se mueve el bloque al lugar elegido.
+    const startDrag = (groupId: number, event: React.PointerEvent) => {
+        if (event.button !== 0) {
+            return;
+        }
+
+        event.preventDefault();
+        setDraggingId(groupId);
+
+        const indexAt = (x: number, y: number): number | null => {
+            const card = document
+                .elementFromPoint(x, y)
+                ?.closest<HTMLElement>('[data-group-index]');
+
+            return card ? Number(card.dataset.groupIndex) : null;
+        };
+        const stop = () => {
+            document.removeEventListener('pointermove', onMove);
+            document.removeEventListener('pointerup', onUp);
+            document.removeEventListener('pointercancel', onCancel);
+            setDraggingId(null);
+            setOverIndex(null);
+        };
+        const onMove = (e: PointerEvent) =>
+            setOverIndex(indexAt(e.clientX, e.clientY));
+        const onUp = (e: PointerEvent) => {
+            const to = indexAt(e.clientX, e.clientY);
+            const from = data.groups.findIndex((g) => g.id === groupId);
+
+            stop();
+
+            if (to !== null && to !== from) {
+                moveTo(groupId, to);
+            }
+        };
+        const onCancel = () => stop();
+
+        document.addEventListener('pointermove', onMove);
+        document.addEventListener('pointerup', onUp);
+        document.addEventListener('pointercancel', onCancel);
+    };
     const gridRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -378,7 +422,8 @@ export function SectorIndex({
                         isFirst={i === 0}
                         isLast={i === data.groups.length - 1}
                         draggingId={draggingId}
-                        onDragStart={setDraggingId}
+                        overIndex={overIndex}
+                        onHandleDown={startDrag}
                         onMoveTo={moveTo}
                     />
                 ))}
@@ -404,7 +449,8 @@ function SectorGroupColumn({
     isFirst,
     isLast,
     draggingId,
-    onDragStart,
+    overIndex,
+    onHandleDown,
     onMoveTo,
 }: {
     group: SectorGroup;
@@ -413,7 +459,8 @@ function SectorGroupColumn({
     isFirst: boolean;
     isLast: boolean;
     draggingId: number | null;
-    onDragStart: (id: number | null) => void;
+    overIndex: number | null;
+    onHandleDown: (groupId: number, event: React.PointerEvent) => void;
     onMoveTo: (groupId: number, position: number) => void;
 }) {
     const [addingItem, setAddingItem] = useState(false);
@@ -424,24 +471,13 @@ function SectorGroupColumn({
         <section
             className={group.items.length >= 5 ? 'card card-l' : 'card'}
             data-big={group.items.length >= 5 ? '1' : '0'}
-            style={draggingId === group.id ? { opacity: 0.45 } : undefined}
-            onDragOver={
-                editing && draggingId !== null
-                    ? (event) => event.preventDefault()
-                    : undefined
-            }
-            onDrop={
-                editing && draggingId !== null
-                    ? (event) => {
-                          event.preventDefault();
-
-                          if (draggingId !== group.id) {
-                              onMoveTo(draggingId, index);
-                          }
-
-                          onDragStart(null);
-                      }
-                    : undefined
+            data-group-index={index}
+            style={
+                draggingId === group.id
+                    ? { opacity: 0.45 }
+                    : draggingId !== null && overIndex === index
+                      ? { outline: `2px dashed ${RED}`, outlineOffset: '-2px' }
+                      : undefined
             }
         >
             <div
@@ -521,18 +557,13 @@ function SectorGroupColumn({
                     >
                         <button
                             type="button"
-                            draggable
                             title="Arrastrar para mover (o Alt + flechas)"
                             aria-label="Mover bloque"
-                            onDragStart={(event) => {
-                                event.dataTransfer.effectAllowed = 'move';
-                                event.dataTransfer.setData(
-                                    'text/plain',
-                                    String(group.id),
-                                );
-                                onDragStart(group.id ?? null);
+                            onPointerDown={(event) => {
+                                if (group.id) {
+                                    onHandleDown(group.id, event);
+                                }
                             }}
-                            onDragEnd={() => onDragStart(null)}
                             onKeyDown={(event) => {
                                 if (!event.altKey || !group.id) {
                                     return;
@@ -552,6 +583,7 @@ function SectorGroupColumn({
                             style={{
                                 ...iconButtonStyle(SECONDARY),
                                 cursor: 'grab',
+                                touchAction: 'none',
                             }}
                         >
                             ⋮⋮
