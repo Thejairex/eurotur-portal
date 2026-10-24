@@ -541,7 +541,10 @@ function SectorGroupColumn({
                                 if (event.key === 'ArrowUp' && !isFirst) {
                                     event.preventDefault();
                                     onMoveTo(group.id, index - 1);
-                                } else if (event.key === 'ArrowDown' && !isLast) {
+                                } else if (
+                                    event.key === 'ArrowDown' &&
+                                    !isLast
+                                ) {
                                     event.preventDefault();
                                     onMoveTo(group.id, index + 1);
                                 }
