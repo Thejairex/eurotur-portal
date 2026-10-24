@@ -263,7 +263,8 @@ export function SectorIndex({
             <div
                 style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+                    gridTemplateColumns:
+                        'repeat(auto-fill, minmax(260px, 1fr))',
                     gridAutoRows: 'minmax(200px, auto)',
                     gap: '18px',
                 }}

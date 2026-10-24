@@ -19,8 +19,8 @@ import { useEffect, useRef, useState } from 'react';
 import { initialsOf } from '@/components/backoffice/backoffice-header';
 import { usePermissions } from '@/hooks/use-permissions';
 import { editablePagesFor } from '@/lib/backoffice-pages';
-import { SECTORS } from '@/lib/portal-sectors';
 import { BACKOFFICE_TOOLS } from '@/lib/backoffice-tools';
+import { SECTORS } from '@/lib/portal-sectors';
 import { formatUpdateDate } from '@/lib/sector-updated';
 
 type Novedad = {
@@ -373,7 +373,10 @@ export default function Inicio({
                                     className="bo-row"
                                 >
                                     <span className="bo-row-ico">
-                                        <FileText size={18} aria-hidden="true" />
+                                        <FileText
+                                            size={18}
+                                            aria-hidden="true"
+                                        />
                                     </span>
                                     <span>
                                         <b>{row.label}</b>
