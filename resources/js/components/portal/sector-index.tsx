@@ -557,8 +557,8 @@ function SectorGroupColumn({
                     >
                         <button
                             type="button"
-                            title="Arrastrar para mover (o Alt + flechas)"
-                            aria-label="Mover bloque"
+                            title="Arrastrar"
+                            aria-label="Mover bloque (arrastrar, o Alt y flechas)"
                             onPointerDown={(event) => {
                                 if (group.id) {
                                     onHandleDown(group.id, event);
@@ -584,6 +584,10 @@ function SectorGroupColumn({
                                 ...iconButtonStyle(SECONDARY),
                                 cursor: 'grab',
                                 touchAction: 'none',
+                                userSelect: 'none',
+                                fontSize: '15px',
+                                lineHeight: 1,
+                                padding: '0 2px',
                             }}
                         >
                             ⋮⋮
