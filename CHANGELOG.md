@@ -6,6 +6,8 @@
 - Inicio nuevo: franja de números, barras de bloques por página, «Mis páginas» que llena la columna, tarjetas con 3 filas y «Ver más». Bienvenida y recorrido guiado.
 - Mi perfil (foto, interno; puesto, área y sede por RRHH) en modo lectura con botón Editar. Novedades con «nueva» por persona. Descargas de archivos con sesión.
 - Permisos nuevos «Crear novedades» (`novedades.manage`) y «Subir y gestionar descargas» (`descargas.manage`). Tres migraciones aditivas.
+- Editar páginas: lista de páginas que abre cada una con la edición activa; bloques arrastrables (⋮⋮, o Alt + flechas) y confirmación al borrar bloques y links. `portal/groups/{group}/move` acepta `position`. Rama `feature/backoffice-editor-paginas`.
+- Sincronización del perfil con el Organigrama (`organigrama:sincronizar`) y aviso en Mi perfil.
 - Documentación: `docs/BACKOFFICE.md`.
 
 ## 2026-10-22 (2) — Acomodo, franja superior, sesión, tipo de cambio y rojos

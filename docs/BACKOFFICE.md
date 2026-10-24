@@ -11,10 +11,14 @@ Rama: `feature/backoffice-rediseno-2026-10-22`. Pedido original: «Prompt para C
 | Perfil de otra persona | `/administracion/usuarios/{user}/perfil` | `users.manage` |
 | Novedades | `/administracion/novedades` | todas leen; crean/editan/borran con `novedades.manage` |
 | Descargas | `/administracion/descargas` | todas bajan; suben/renombran/borran con `descargas.manage` |
+| Editar páginas | `/administracion/paginas` (`admin.paginas`) | quien tenga el permiso de editar alguna página; lista sus páginas y abre cada una con la edición activa (`?editar=1`) |
 | Herramientas | `/administracion/crm` + cada herramienta | según el permiso de cada una |
 | Configuración | Usuarios, Roles, etc. | según permisos (sin cambios) |
 
-`/administracion` redirige a `inicio` (antes caía en Usuarios). «Editar páginas» e «Historial» aparecen en el menú como «pronto» y «en planeación».
+`/administracion` redirige a `inicio` (antes caía en Usuarios). «Historial» aparece en el menú como «en planeación».
+
+### Editor de páginas
+El editor vive en cada página del portal (`resources/js/components/portal/sector-index.tsx`) y se activa con «Editar ✎» o desde «Editar páginas». Agregar, editar y borrar links; agregar, renombrar, mover y borrar bloques. Mover: flechas ↑ ↓, arrastrar el agarrador ⋮⋮ (arrastre propio con el puntero, funciona con mouse y dedo) o Alt + flechas con el agarrador enfocado. `POST portal/groups/{group}/move` acepta `direction` (up/down) o `position` (lugar final, 0 = primero). Borrar un bloque o un link pide confirmación en el mismo lugar. El editor de Innovación (frentes e iniciativas) es otro componente y no se tocó. Esta parte depende de la rama `feature/rediseno-portal-2026-10-21` (que trae renombrar y mover bloques) y por eso va en `feature/backoffice-editor-paginas`, que sale de `integracion-preprod`.
 
 ### Inicio
 Saludo, franja de 4 números (páginas a cargo, bloques y links, novedades sin leer, días desde el último cambio), perfil, barras de bloques por página, «Mis páginas» (llena el alto de la columna; el resto con «Ver las N restantes»), y tarjetas de Novedades, Descargas y Herramientas con 3 filas y «Ver más». Todo sale de datos reales; no hay cifras inventadas. Las estadísticas de uso (visitas, clics) no existen porque el portal no las registra.
@@ -62,7 +66,6 @@ El portal es solo de escritorio (se entra por VPN, no hay uso desde celular), as
 
 ## Pendiente de diseño (no implementado)
 - **Auditoría / Historial:** tabla `portal_audit_log` (quién, qué, cuándo, antes/después) alimentada desde el editor de páginas, Usuarios/Roles y novedades/descargas. La pantalla «Historial» y la tarjeta «Actividad reciente» ya existen como espacio reservado.
-- **Editor de páginas dentro del Back Office (fase 3):** depende de que se integre la rama `feature/rediseno-portal-2026-10-21`, que ya trae renombrar y reordenar bloques.
 - **Organigrama (fase 4):** diseño completo en la sección siguiente. Hasta que RRHH cargue datos reales no se sincroniza nada.
 
 ## Diseño: integración con el Organigrama (fase 4)
