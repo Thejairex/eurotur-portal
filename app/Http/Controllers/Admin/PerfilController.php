@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\FotoPerfilRequest;
 use App\Http\Requests\Admin\UpdatePerfilRequest;
 use App\Models\User;
+use App\Services\OrganigramaSync;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -79,7 +80,12 @@ class PerfilController extends Controller
         $this->borrarFoto($objetivo);
         $objetivo->forceFill(['foto_path' => 'perfiles/'.$nombre])->save();
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Foto actualizada.')]);
+        $enOrganigrama = app(OrganigramaSync::class)->enviarFoto($objetivo, (string) file_get_contents($archivo->getRealPath()));
+
+        Inertia::flash('toast', [
+            'type' => 'success',
+            'message' => $enOrganigrama ? __('Foto actualizada, también en el organigrama.') : __('Foto actualizada.'),
+        ]);
 
         return back();
     }
