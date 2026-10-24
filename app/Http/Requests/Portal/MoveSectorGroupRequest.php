@@ -18,7 +18,9 @@ class MoveSectorGroupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'direction' => ['required', 'in:up,down'],
+            'direction' => ['required_without:position', 'nullable', 'in:up,down'],
+            // Posición final (0 = primero), para arrastrar un bloque a cualquier lugar de una vez.
+            'position' => ['required_without:direction', 'nullable', 'integer', 'min:0'],
         ];
     }
 }

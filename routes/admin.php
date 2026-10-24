@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\HerramientaEmbebidaController;
 use App\Http\Controllers\Admin\InicioController;
 use App\Http\Controllers\Admin\NovedadController;
 use App\Http\Controllers\Admin\OrganigramaEditarRedirectController;
+use App\Http\Controllers\Admin\PaginasController;
 use App\Http\Controllers\Admin\PerfilController;
 use App\Http\Controllers\Admin\PrepagosRedirectController;
 use App\Http\Controllers\Admin\RoleController;
@@ -22,6 +23,7 @@ Route::middleware(['auth', 'verified'])->prefix('administracion')->name('admin.'
     // /administracion a secas lleva al Inicio del Back Office.
     Route::redirect('/', '/administracion/inicio');
     Route::get('inicio', InicioController::class)->name('inicio');
+    Route::get('paginas', PaginasController::class)->name('paginas');
 
     // Mi perfil: cada persona edita el suyo; quien administra usuarios puede ver y corregir el de cualquiera.
     Route::get('perfil', [PerfilController::class, 'show'])->name('perfil');

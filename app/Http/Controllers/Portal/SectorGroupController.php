@@ -51,8 +51,9 @@ class SectorGroupController extends Controller
     }
 
     /**
-     * Move a group one position up or down within its sector. The sector's groups are renumbered
-     * first so duplicated or gapped sort_order values (from older edits) cannot block the swap.
+     * Move a group within its sector: one position up or down (`direction`), or straight to a given
+     * place (`position`, 0 = first). The sector's groups are renumbered first so duplicated or gapped
+     * sort_order values (from older edits) cannot block the change.
      */
     public function move(SectorGroup $group, MoveSectorGroupRequest $request): RedirectResponse
     {
@@ -64,18 +65,37 @@ class SectorGroupController extends Controller
             ->values();
 
         $position = $groups->search(fn (SectorGroup $candidate): bool => $candidate->is($group));
-        $target = $request->validated('direction') === 'up' ? $position - 1 : $position + 1;
 
-        if ($position !== false && $target >= 0 && $target < $groups->count()) {
-            $ordered = $groups->all();
-            [$ordered[$position], $ordered[$target]] = [$ordered[$target], $ordered[$position]];
+        if ($position === false) {
+            return back();
+        }
 
-            foreach ($ordered as $index => $item) {
-                if ($item->sort_order !== $index) {
-                    $item->update(['sort_order' => $index]);
-                }
+        $ordered = $groups->all();
+
+        if ($request->validated('position') !== null) {
+            $target = min((int) $request->validated('position'), count($ordered) - 1);
+            [$moved] = array_splice($ordered, $position, 1);
+            array_splice($ordered, $target, 0, [$moved]);
+        } else {
+            $target = $request->validated('direction') === 'up' ? $position - 1 : $position + 1;
+
+            if ($target < 0 || $target >= count($ordered)) {
+                return back();
             }
 
+            [$ordered[$position], $ordered[$target]] = [$ordered[$target], $ordered[$position]];
+        }
+
+        $changed = false;
+
+        foreach ($ordered as $index => $item) {
+            if ($item->sort_order !== $index) {
+                $item->update(['sort_order' => $index]);
+                $changed = true;
+            }
+        }
+
+        if ($changed) {
             SectorUpdates::registrar($group->sector);
         }
 

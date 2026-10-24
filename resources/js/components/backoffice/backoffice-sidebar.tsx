@@ -134,11 +134,17 @@ export function BackofficeSidebar() {
                     <Home size={18} aria-hidden="true" />
                     Inicio
                 </Link>
-                <PendingLink
-                    icon={Pencil}
-                    label="Editar páginas"
-                    note="pronto"
-                />
+                <Link
+                    href="/administracion/paginas"
+                    className={
+                        path === '/administracion/paginas'
+                            ? 'bo-link bo-link-on'
+                            : 'bo-link'
+                    }
+                >
+                    <Pencil size={18} aria-hidden="true" />
+                    Editar páginas
+                </Link>
                 <Link
                     href="/administracion/perfil"
                     className={

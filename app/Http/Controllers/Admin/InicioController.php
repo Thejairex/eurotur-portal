@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Descarga;
-use App\Models\Frente;
-use App\Models\Iniciativa;
 use App\Models\Novedad;
-use App\Models\SectorGroup;
-use App\Models\SectorItem;
+use App\Services\PaginasResumen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -25,28 +22,7 @@ class InicioController extends Controller
     {
         $leidas = DB::table('novedad_lecturas')->where('user_id', $request->user()->id)->pluck('novedad_id')->all();
 
-        // Bloques y links de cada página (sector) del portal, para "Mis páginas".
-        $bloques = SectorGroup::query()
-            ->selectRaw('sector, count(*) as total')
-            ->groupBy('sector')
-            ->pluck('total', 'sector');
-        $links = SectorItem::query()
-            ->join('sector_groups', 'sector_groups.id', '=', 'sector_items.sector_group_id')
-            ->selectRaw('sector_groups.sector as sector, count(*) as total')
-            ->groupBy('sector_groups.sector')
-            ->pluck('total', 'sector');
-
-        $paginas = [];
-
-        foreach ($bloques->keys()->merge($links->keys())->unique() as $sector) {
-            $paginas[$sector] = [
-                'bloques' => (int) ($bloques[$sector] ?? 0),
-                'links' => (int) ($links[$sector] ?? 0),
-            ];
-        }
-
-        // Innovación se arma con frentes e iniciativas en lugar de bloques y links.
-        $paginas['innovacion'] = ['bloques' => Frente::query()->count(), 'links' => Iniciativa::query()->count()];
+        $paginas = PaginasResumen::conteos();
 
         return Inertia::render('admin/inicio', [
             'paginas' => $paginas,

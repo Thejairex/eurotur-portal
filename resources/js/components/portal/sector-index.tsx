@@ -1,4 +1,4 @@
-import { Form, usePage } from '@inertiajs/react';
+import { Form, router, usePage } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 import SectorGroupController from '@/actions/App/Http/Controllers/Portal/SectorGroupController';
 import SectorItemController from '@/actions/App/Http/Controllers/Portal/SectorItemController';
@@ -262,8 +262,18 @@ export function SectorIndex({
     const { sectorUpdates } = usePage().props;
     // Editing is scoped to the sector this index renders, not to the portal
     // as a whole: a sector editor must not see controls they cannot use.
+    const { url } = usePage();
     const canEdit = can(sectorPermission(sector));
-    const [editing, setEditing] = useState(false);
+    // "Editar páginas" del Back Office abre la página con la edición ya activa (?editar=1).
+    const [editing, setEditing] = useState(canEdit && url.includes('editar=1'));
+    const [draggingId, setDraggingId] = useState<number | null>(null);
+
+    const moveTo = (groupId: number, position: number) =>
+        router.post(
+            SectorGroupController.move.url({ group: groupId }),
+            { position },
+            { preserveScroll: true },
+        );
     const gridRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -364,8 +374,12 @@ export function SectorIndex({
                         key={g.id ?? g.title}
                         group={g}
                         editing={editing}
+                        index={i}
                         isFirst={i === 0}
                         isLast={i === data.groups.length - 1}
+                        draggingId={draggingId}
+                        onDragStart={setDraggingId}
+                        onMoveTo={moveTo}
                     />
                 ))}
             </div>
@@ -386,21 +400,49 @@ export function SectorIndex({
 function SectorGroupColumn({
     group,
     editing,
+    index,
     isFirst,
     isLast,
+    draggingId,
+    onDragStart,
+    onMoveTo,
 }: {
     group: SectorGroup;
     editing: boolean;
+    index: number;
     isFirst: boolean;
     isLast: boolean;
+    draggingId: number | null;
+    onDragStart: (id: number | null) => void;
+    onMoveTo: (groupId: number, position: number) => void;
 }) {
     const [addingItem, setAddingItem] = useState(false);
     const [renaming, setRenaming] = useState(false);
+    const [confirmingDelete, setConfirmingDelete] = useState(false);
 
     return (
         <section
             className={group.items.length >= 5 ? 'card card-l' : 'card'}
             data-big={group.items.length >= 5 ? '1' : '0'}
+            style={draggingId === group.id ? { opacity: 0.45 } : undefined}
+            onDragOver={
+                editing && draggingId !== null
+                    ? (event) => event.preventDefault()
+                    : undefined
+            }
+            onDrop={
+                editing && draggingId !== null
+                    ? (event) => {
+                          event.preventDefault();
+
+                          if (draggingId !== group.id) {
+                              onMoveTo(draggingId, index);
+                          }
+
+                          onDragStart(null);
+                      }
+                    : undefined
+            }
         >
             <div
                 style={{
@@ -477,6 +519,40 @@ function SectorGroupColumn({
                             whiteSpace: 'nowrap',
                         }}
                     >
+                        <button
+                            type="button"
+                            draggable
+                            title="Arrastrar para mover (o Alt + flechas)"
+                            aria-label="Mover bloque"
+                            onDragStart={(event) => {
+                                event.dataTransfer.effectAllowed = 'move';
+                                event.dataTransfer.setData(
+                                    'text/plain',
+                                    String(group.id),
+                                );
+                                onDragStart(group.id ?? null);
+                            }}
+                            onDragEnd={() => onDragStart(null)}
+                            onKeyDown={(event) => {
+                                if (!event.altKey || !group.id) {
+                                    return;
+                                }
+
+                                if (event.key === 'ArrowUp' && !isFirst) {
+                                    event.preventDefault();
+                                    onMoveTo(group.id, index - 1);
+                                } else if (event.key === 'ArrowDown' && !isLast) {
+                                    event.preventDefault();
+                                    onMoveTo(group.id, index + 1);
+                                }
+                            }}
+                            style={{
+                                ...iconButtonStyle(SECONDARY),
+                                cursor: 'grab',
+                            }}
+                        >
+                            ⋮⋮
+                        </button>
                         {!isFirst && (
                             <MoveGroupButton
                                 groupId={group.id}
@@ -497,22 +573,49 @@ function SectorGroupColumn({
                         >
                             ✎
                         </button>
-                        <Form
-                            {...SectorGroupController.destroy.form({
-                                group: group.id,
-                            })}
-                        >
-                            {({ processing }) => (
-                                <button
-                                    type="submit"
-                                    disabled={processing}
-                                    title="Eliminar bloque"
-                                    style={iconButtonStyle(RED)}
+                        {confirmingDelete ? (
+                            <>
+                                <span style={{ fontSize: '12px' }}>
+                                    ¿Eliminar el bloque y sus links?
+                                </span>
+                                <Form
+                                    {...SectorGroupController.destroy.form({
+                                        group: group.id,
+                                    })}
                                 >
-                                    ✕
+                                    {({ processing }) => (
+                                        <button
+                                            type="submit"
+                                            disabled={processing}
+                                            style={{
+                                                ...smallButtonStyle,
+                                                background: RED,
+                                                color: '#fff',
+                                                borderColor: RED,
+                                            }}
+                                        >
+                                            Sí, eliminar
+                                        </button>
+                                    )}
+                                </Form>
+                                <button
+                                    type="button"
+                                    onClick={() => setConfirmingDelete(false)}
+                                    style={smallButtonStyle}
+                                >
+                                    No
                                 </button>
-                            )}
-                        </Form>
+                            </>
+                        ) : (
+                            <button
+                                type="button"
+                                onClick={() => setConfirmingDelete(true)}
+                                title="Eliminar bloque"
+                                style={iconButtonStyle(RED)}
+                            >
+                                ✕
+                            </button>
+                        )}
                     </div>
                 )}
             </div>
@@ -619,6 +722,7 @@ function SectorItemRow({
     editing: boolean;
 }) {
     const [editingItem, setEditingItem] = useState(false);
+    const [confirmingDelete, setConfirmingDelete] = useState(false);
 
     if (editing && item.id && editingItem) {
         return (
@@ -709,29 +813,53 @@ function SectorItemRow({
                     >
                         ✎
                     </button>
-                    <Form
-                        {...SectorItemController.destroy.form({
-                            item: item.id,
-                        })}
-                    >
-                        {({ processing }) => (
-                            <button
-                                type="submit"
-                                disabled={processing}
-                                title="Eliminar"
-                                style={{
-                                    all: 'unset',
-                                    cursor: 'pointer',
-                                    fontFamily:
-                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                                    fontSize: '10px',
-                                    color: RED,
-                                }}
+                    {confirmingDelete ? (
+                        <>
+                            <Form
+                                {...SectorItemController.destroy.form({
+                                    item: item.id,
+                                })}
                             >
-                                ✕
+                                {({ processing }) => (
+                                    <button
+                                        type="submit"
+                                        disabled={processing}
+                                        style={{
+                                            ...smallButtonStyle,
+                                            background: RED,
+                                            color: '#fff',
+                                            borderColor: RED,
+                                        }}
+                                    >
+                                        Sí, eliminar
+                                    </button>
+                                )}
+                            </Form>
+                            <button
+                                type="button"
+                                onClick={() => setConfirmingDelete(false)}
+                                style={smallButtonStyle}
+                            >
+                                No
                             </button>
-                        )}
-                    </Form>
+                        </>
+                    ) : (
+                        <button
+                            type="button"
+                            onClick={() => setConfirmingDelete(true)}
+                            title="Eliminar"
+                            style={{
+                                all: 'unset',
+                                cursor: 'pointer',
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                fontSize: '10px',
+                                color: RED,
+                            }}
+                        >
+                            ✕
+                        </button>
+                    )}
                 </div>
             )}
         </div>
