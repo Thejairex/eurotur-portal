@@ -49,15 +49,13 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontWeight: 800,
-                                fontSize: 'clamp(44px,5vw,60px)',
+                                fontSize: 'clamp(32px,3.2vw,44px)',
                                 lineHeight: 0.95,
                                 margin: 0,
                                 letterSpacing: '-1px',
                             }}
                         >
-                            Sala de
-                            <br />
-                            Reuniones
+                            Sala de Reuniones
                             <span style={{ color: RED }}>.</span>
                         </h1>
                         <p

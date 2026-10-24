@@ -26,6 +26,7 @@ class InicioController extends Controller
 
         return Inertia::render('admin/inicio', [
             'paginas' => $paginas,
+            'descargasTotal' => Descarga::query()->count(),
             'novedades' => Novedad::query()
                 ->orderByDesc('fecha')
                 ->orderByDesc('id')

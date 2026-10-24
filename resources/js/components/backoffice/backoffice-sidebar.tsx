@@ -16,6 +16,7 @@ import type { LucideIcon } from 'lucide-react';
 import { useState } from 'react';
 import { ThemeToggle } from '@/components/backoffice/theme-toggle';
 import { usePermissions } from '@/hooks/use-permissions';
+import { editablePagesFor } from '@/lib/backoffice-pages';
 import { BACKOFFICE_TOOLS } from '@/lib/backoffice-tools';
 import { home, logout } from '@/routes';
 import { inicio } from '@/routes/admin';
@@ -65,6 +66,7 @@ export function BackofficeSidebar() {
     const { can } = usePermissions();
 
     const tools = BACKOFFICE_TOOLS.filter((tool) => can(tool.permission));
+    const canEditPages = editablePagesFor(can).length > 0;
     const path = url.split('?')[0].replace(/\/+$/, '');
 
     const configLinks = [
@@ -134,17 +136,19 @@ export function BackofficeSidebar() {
                     <Home size={18} aria-hidden="true" />
                     Inicio
                 </Link>
-                <Link
-                    href="/administracion/paginas"
-                    className={
-                        path === '/administracion/paginas'
-                            ? 'bo-link bo-link-on'
-                            : 'bo-link'
-                    }
-                >
-                    <Pencil size={18} aria-hidden="true" />
-                    Editar páginas
-                </Link>
+                {canEditPages && (
+                    <Link
+                        href="/administracion/paginas"
+                        className={
+                            path === '/administracion/paginas'
+                                ? 'bo-link bo-link-on'
+                                : 'bo-link'
+                        }
+                    >
+                        <Pencil size={18} aria-hidden="true" />
+                        Editar páginas
+                    </Link>
+                )}
                 <Link
                     href="/administracion/perfil"
                     className={

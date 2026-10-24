@@ -1,5 +1,5 @@
 import { Form, router, usePage } from '@inertiajs/react';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import SectorGroupController from '@/actions/App/Http/Controllers/Portal/SectorGroupController';
 import SectorItemController from '@/actions/App/Http/Controllers/Portal/SectorItemController';
 import InputError from '@/components/input-error';
@@ -125,132 +125,6 @@ const smallButtonStyle: React.CSSProperties = {
     cursor: 'pointer',
 };
 
-/**
- * Acomodo sin huecos de la cuadrícula: tarjetas grandes (5 o más links) ocupan 2 filas y las
- * chicas 1. Se arman bandas de 2 filas en el orden del portal anterior: la primera grande a la
- * izquierda, la última grande a la derecha y las chicas apiladas de a dos en el medio; si queda
- * una chica impar se pasa a grande. Se recalcula al cambiar el ancho o el contenido.
- */
-type PackItem = { el: HTMLElement; big: boolean };
-
-function pairsOf(items: PackItem[]): PackItem[][] {
-    const pairs: PackItem[][] = [];
-
-    for (let i = 0; i < items.length; i += 2) {
-        pairs.push(items.slice(i, i + 2));
-    }
-
-    return pairs;
-}
-
-function packGrid(grid: HTMLElement): void {
-    const cards = Array.from(grid.children) as HTMLElement[];
-
-    cards.forEach((card) => {
-        card.style.gridColumn = '';
-        card.style.gridRow = '';
-    });
-
-    const columns =
-        getComputedStyle(grid).gridTemplateColumns.split(' ').length;
-
-    if (columns < 2) {
-        cards.forEach((card) => {
-            card.style.gridRow = 'auto';
-        });
-
-        return;
-    }
-
-    if (columns < 3) {
-        return;
-    }
-
-    let rest: PackItem[] = cards.map((el) => ({
-        el,
-        big: el.dataset.big === '1',
-    }));
-    let band = 0;
-
-    while (rest.length > 0) {
-        const bigs: PackItem[] = [];
-        const smalls: PackItem[] = [];
-        let take = 0;
-
-        for (; take < rest.length; take++) {
-            const item = rest[take];
-            const nextBigs = bigs.length + (item.big ? 1 : 0);
-            const nextSmalls = smalls.length + (item.big ? 0 : 1);
-
-            if (nextBigs + Math.ceil(nextSmalls / 2) > columns) {
-                break;
-            }
-
-            (item.big ? bigs : smalls).push(item);
-        }
-
-        if (take === 0) {
-            take = 1;
-            bigs.push(rest[0]);
-        }
-
-        rest = rest.slice(take);
-
-        let promoted = false;
-
-        if (smalls.length % 2 === 1) {
-            bigs.push(smalls.pop() as PackItem);
-            promoted = true;
-        }
-
-        const row = band * 2 + 1;
-        const first = bigs[0];
-        const last = bigs.length > 1 ? bigs[bigs.length - 1] : null;
-        const middle = bigs.slice(1, bigs.length > 1 ? -1 : undefined);
-        let cols: (PackItem | PackItem[])[];
-
-        if (bigs.length === 1 && promoted) {
-            cols = [...pairsOf(smalls), bigs[0]];
-        } else if (bigs.length === 0) {
-            cols = pairsOf(smalls);
-        } else {
-            cols = [
-                first,
-                ...middle,
-                ...pairsOf(smalls),
-                ...(last ? [last] : []),
-            ];
-        }
-
-        // Si la banda usa menos columnas que las disponibles, se reparten las que sobran entre
-        // sus tarjetas (de izquierda a derecha) para que la fila llene todo el ancho.
-        const spare = Math.max(0, columns - cols.length);
-        let start = 1;
-
-        cols.forEach((col, index) => {
-            const span =
-                1 +
-                Math.floor(spare / cols.length) +
-                (index < spare % cols.length ? 1 : 0);
-            const columnRange = `${start} / span ${span}`;
-
-            start += span;
-
-            if (Array.isArray(col)) {
-                col.forEach((small, k) => {
-                    small.el.style.gridColumn = columnRange;
-                    small.el.style.gridRow = `${row + k} / span 1`;
-                });
-            } else {
-                col.el.style.gridColumn = columnRange;
-                col.el.style.gridRow = `${row} / span 2`;
-            }
-        });
-
-        band++;
-    }
-}
-
 export function SectorIndex({
     data,
     sector,
@@ -318,23 +192,6 @@ export function SectorIndex({
         document.addEventListener('pointerup', onUp);
         document.addEventListener('pointercancel', onCancel);
     };
-    const gridRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const grid = gridRef.current;
-
-        if (!grid) {
-            return;
-        }
-
-        packGrid(grid);
-
-        const observer = new ResizeObserver(() => packGrid(grid));
-
-        observer.observe(grid);
-
-        return () => observer.disconnect();
-    }, [data.groups, editing]);
 
     return (
         <section
@@ -365,7 +222,7 @@ export function SectorIndex({
             >
                 <h1
                     style={{
-                        fontSize: 'clamp(44px,5vw,60px)',
+                        fontSize: 'clamp(32px,3.2vw,44px)',
                         fontWeight: 800,
                         margin: '6px 0',
                         letterSpacing: '-1.5px',
@@ -404,12 +261,10 @@ export function SectorIndex({
             </p>
 
             <div
-                ref={gridRef}
                 style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                    gridAutoRows: 'minmax(228px, auto)',
-                    gridAutoFlow: 'dense',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+                    gridAutoRows: 'minmax(200px, auto)',
                     gap: '18px',
                 }}
             >
@@ -469,8 +324,7 @@ function SectorGroupColumn({
 
     return (
         <section
-            className={group.items.length >= 5 ? 'card card-l' : 'card'}
-            data-big={group.items.length >= 5 ? '1' : '0'}
+            className="card"
             data-group-index={index}
             style={
                 draggingId === group.id

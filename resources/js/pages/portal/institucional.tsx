@@ -70,15 +70,13 @@ export default function Institucional() {
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontWeight: 800,
-                                fontSize: 'clamp(44px,5vw,60px)',
+                                fontSize: 'clamp(32px,3.2vw,44px)',
                                 lineHeight: 0.95,
                                 margin: 0,
                                 letterSpacing: '-1px',
                             }}
                         >
-                            70 años
-                            <br />
-                            creando viajes
+                            70 años creando viajes
                             <span style={{ color: RED }}>.</span>
                         </h1>
                     </div>

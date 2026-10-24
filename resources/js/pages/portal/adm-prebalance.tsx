@@ -644,8 +644,8 @@ function Encabezado() {
                         fontFamily:
                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontWeight: 800,
-                        fontSize: 'clamp(56px,7.5vw,108px)',
-                        lineHeight: 0.86,
+                        fontSize: 'clamp(32px,3.2vw,44px)',
+                        lineHeight: 1.05,
                         margin: 0,
                         letterSpacing: '-0.005em',
                     }}

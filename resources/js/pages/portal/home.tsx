@@ -99,7 +99,7 @@ export default function Home() {
                     <h1
                         data-testid="home-hero"
                         style={{
-                            fontSize: 'clamp(44px,5vw,60px)',
+                            fontSize: 'clamp(32px,3.2vw,44px)',
                             fontWeight: 800,
                             margin: '6px 0',
                             letterSpacing: '-1.5px',

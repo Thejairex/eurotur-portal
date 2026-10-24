@@ -19,6 +19,7 @@ import { useEffect, useRef, useState } from 'react';
 import { initialsOf } from '@/components/backoffice/backoffice-header';
 import { usePermissions } from '@/hooks/use-permissions';
 import { editablePagesFor } from '@/lib/backoffice-pages';
+import { SECTORS } from '@/lib/portal-sectors';
 import { BACKOFFICE_TOOLS } from '@/lib/backoffice-tools';
 import { formatUpdateDate } from '@/lib/sector-updated';
 
@@ -85,10 +86,12 @@ export default function Inicio({
     paginas,
     novedades,
     descargas,
+    descargasTotal,
 }: {
     paginas: Record<string, { bloques: number; links: number }>;
     novedades: Novedad[];
     descargas: Archivo[];
+    descargasTotal: number;
 }) {
     const { auth, sectorUpdates, novedadesSinLeer } = usePage().props;
     const { can } = usePermissions();
@@ -125,7 +128,9 @@ export default function Inicio({
         1,
         ...bars.map((page) => paginas[page.id].bloques),
     );
-    const stats = [
+    const tools = BACKOFFICE_TOOLS.filter((tool) => can(tool.permission));
+    const isEditor = pages.length > 0;
+    const editorStats = [
         {
             tone: 'red',
             icon: FileText,
@@ -155,8 +160,67 @@ export default function Inicio({
             sub: lastChange ? 'en alguna de tus páginas' : 'Sin cambios aún',
         },
     ];
-    const shownPages = allPages ? pages : pages.slice(0, fit);
-    const total = pages.length;
+    // Quien no edita páginas ve otros números: lo que sí usa.
+    const readerStats = [
+        {
+            tone: 'amber',
+            icon: Bell,
+            value: String(novedadesSinLeer),
+            label: 'Novedades sin leer',
+            sub: novedadesSinLeer === 0 ? 'estás al día' : 'esperándote',
+        },
+        {
+            tone: 'red',
+            icon: Download,
+            value: String(descargasTotal),
+            label: 'Archivos para descargar',
+            sub: 'plantillas e instructivos',
+        },
+        {
+            tone: 'wine',
+            icon: Wrench,
+            value: String(tools.length),
+            label: 'Herramientas habilitadas',
+            sub: tools.length === 0 ? 'ninguna por ahora' : 'a tu disposición',
+        },
+        {
+            tone: 'slate',
+            icon: FileText,
+            value: user.area || '—',
+            label: 'Tu área',
+            sub: user.puesto || 'sin puesto cargado',
+        },
+    ];
+    const stats = isEditor ? editorStats : readerStats;
+    // Filas de la tarjeta de la derecha: las páginas que se editan o, si no se edita ninguna, un acceso
+    // directo a cada página del portal.
+    const rows = isEditor
+        ? pages.map((page) => {
+              const date = formatUpdateDate(sectorUpdates[page.id]);
+              const counts = paginas[page.id];
+
+              return {
+                  id: page.id,
+                  label: page.navLabel,
+                  href: page.href,
+                  sub: `${counts ? `${counts.bloques} bloques · ${counts.links} links · ` : ''}${
+                      date
+                          ? `Última actualización: ${date}`
+                          : 'Sin cambios registrados desde el portal'
+                  }`,
+              };
+          })
+        : SECTORS.filter(
+              (sector) =>
+                  !sector.requiredPermission || can(sector.requiredPermission),
+          ).map((sector) => ({
+              id: sector.id,
+              label: sector.navLabel,
+              href: sector.href,
+              sub: sector.place,
+          }));
+    const shownPages = allPages ? rows : rows.slice(0, fit);
+    const total = rows.length;
 
     // "Mis páginas" muestra tantos renglones como entren en el alto de la columna de al lado.
     useEffect(() => {
@@ -184,7 +248,6 @@ export default function Inicio({
 
         return () => observer.disconnect();
     }, [allPages, total]);
-    const tools = BACKOFFICE_TOOLS.filter((tool) => can(tool.permission));
     const photo = user.foto_path ? `/storage/${user.foto_path}` : null;
     const details = [
         ['Puesto', user.puesto],
@@ -265,7 +328,7 @@ export default function Inicio({
                         </div>
                     </div>
 
-                    {bars.length > 0 && (
+                    {isEditor && bars.length > 0 && (
                         <div className="bo-card">
                             <h2>
                                 <Blocks size={18} aria-hidden="true" />
@@ -296,50 +359,30 @@ export default function Inicio({
                 <div className="bo-card bo-pages">
                     <h2>
                         <FileText size={18} aria-hidden="true" />
-                        Mis páginas
+                        {isEditor ? 'Mis páginas' : 'Páginas del portal'}
                     </h2>
-                    {pages.length === 0 && (
-                        <div className="bo-empty">
-                            Todavía no tenés páginas del portal para editar.
-                        </div>
-                    )}
                     <div
                         className={allPages ? undefined : 'bo-fill'}
                         ref={fillRef}
                     >
                         <div className={allPages ? undefined : 'bo-fill-in'}>
-                            {shownPages.map((page) => {
-                                const date = formatUpdateDate(
-                                    sectorUpdates[page.id],
-                                );
-                                const counts = paginas[page.id];
-
-                                return (
-                                    <Link
-                                        key={page.id}
-                                        href={page.href}
-                                        className="bo-row"
-                                    >
-                                        <span className="bo-row-ico">
-                                            <FileText
-                                                size={18}
-                                                aria-hidden="true"
-                                            />
-                                        </span>
-                                        <span>
-                                            <b>{page.navLabel}</b>
-                                            <small className="bo-clip">
-                                                {counts
-                                                    ? `${counts.bloques} bloques · ${counts.links} links · `
-                                                    : ''}
-                                                {date
-                                                    ? `Última actualización: ${date}`
-                                                    : 'Sin cambios registrados desde el portal'}
-                                            </small>
-                                        </span>
-                                    </Link>
-                                );
-                            })}
+                            {shownPages.map((row) => (
+                                <Link
+                                    key={row.id}
+                                    href={row.href}
+                                    className="bo-row"
+                                >
+                                    <span className="bo-row-ico">
+                                        <FileText size={18} aria-hidden="true" />
+                                    </span>
+                                    <span>
+                                        <b>{row.label}</b>
+                                        <small className="bo-clip">
+                                            {row.sub}
+                                        </small>
+                                    </span>
+                                </Link>
+                            ))}
                         </div>
                         {(allPages || total > shownPages.length) && (
                             <div
