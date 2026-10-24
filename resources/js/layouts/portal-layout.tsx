@@ -151,7 +151,7 @@ export default function PortalLayout({
                 .eurotur-portal #portal-rates { display: flex; gap: 22px; text-align: right; font-size: 12px; align-self: flex-end; margin: 0 0 8px; }
                 @media (min-width: 1100px) {
                     .eurotur-portal #portal-rates { position: absolute; right: 0; top: 4px; margin: 0; align-self: auto; }
-                    .eurotur-portal #portal-content h1 { max-width: calc(100% - 330px); }
+                    .eurotur-portal #portal-content h1 { max-width: calc(100vw - 560px); }
                 }
 
                 .eurotur-portal .logout-btn:hover { background: #111 !important; color: #fff !important; }
@@ -917,21 +917,15 @@ function Footer() {
         <footer
             id="portal-footer"
             style={{
-                display: 'flex',
+                display: 'grid',
+                gridTemplateColumns: '1fr auto 1fr',
                 alignItems: 'center',
-                justifyContent: 'space-between',
                 gap: '30px',
                 padding: '16px 0 20px',
             }}
         >
-            <div
-                style={{
-                    display: 'flex',
-                    gap: '40px',
-                    fontSize: '13px',
-                }}
-            >
-                <span style={{ whiteSpace: 'nowrap' }}>
+            <>
+                <span style={{ whiteSpace: 'nowrap', fontSize: '13px' }}>
                     <span style={{ color: '#6B6B68' }}>phone</span>
                     &nbsp;&nbsp;
                     <a
@@ -941,14 +935,21 @@ function Footer() {
                         +54 11 4312 6077
                     </a>
                 </span>
-                <span style={{ color: '#6B6B68' }}>
+                <span
+                    style={{
+                        color: '#6B6B68',
+                        fontSize: '13px',
+                        textAlign: 'center',
+                    }}
+                >
                     Tucumán 825, piso 5, Capital Federal, Argentina
                 </span>
-            </div>
+            </>
             <div
                 style={{
                     display: 'flex',
                     alignItems: 'center',
+                    justifyContent: 'flex-end',
                     gap: '28px',
                 }}
             >

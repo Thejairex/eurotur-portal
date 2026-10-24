@@ -919,8 +919,8 @@ function Encabezado() {
                         fontFamily:
                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontWeight: 800,
-                        fontSize: 'clamp(56px,7.5vw,108px)',
-                        lineHeight: 0.86,
+                        fontSize: 'clamp(32px,3.2vw,44px)',
+                        lineHeight: 1.05,
                         margin: 0,
                         letterSpacing: '-0.005em',
                     }}
@@ -952,6 +952,8 @@ function Encabezado() {
                     flexDirection: 'column',
                     alignItems: 'flex-end',
                     gap: '10px',
+                    // Deja libre el lugar del tipo de cambio, arriba a la derecha.
+                    paddingTop: '64px',
                 }}
             >
                 <span
@@ -962,8 +964,8 @@ function Encabezado() {
                         fontWeight: 600,
                         color: '#ffffff',
                         backgroundColor: '#dc2626',
-                        padding: '4px 10px',
-                        borderRadius: '4px',
+                        padding: '4px 12px',
+                        borderRadius: '999px',
                         whiteSpace: 'nowrap',
                     }}
                 >

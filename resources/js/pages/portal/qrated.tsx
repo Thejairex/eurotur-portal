@@ -76,7 +76,7 @@ export default function Qrated() {
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontWeight: 800,
-                                fontSize: 'clamp(44px,5vw,60px)',
+                                fontSize: 'clamp(32px,3.2vw,44px)',
                                 lineHeight: 1.05,
                                 margin: 0,
                                 letterSpacing: '-1.5px',

@@ -59,12 +59,13 @@ const labelFieldStyle: React.CSSProperties = {
 
 const smallButtonStyle: React.CSSProperties = {
     fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-    fontSize: '9px',
+    fontSize: '10px',
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
     background: 'transparent',
     border: '1px solid #000',
-    padding: '4px 8px',
+    borderRadius: '999px',
+    padding: '6px 14px',
     cursor: 'pointer',
 };
 
@@ -88,8 +89,9 @@ function RateBlock({
     return (
         <div
             style={{
-                borderRight: '1px solid #000',
-                padding: '14px 18px 16px 18px',
+                background: '#fff',
+                borderRadius: '16px',
+                padding: '18px 22px 20px 22px',
             }}
         >
             <div
@@ -154,7 +156,8 @@ function RateBlock({
                         style={{
                             background: RED,
                             color: '#fff',
-                            padding: '2px 6px',
+                            borderRadius: '999px',
+                            padding: '2px 8px',
                         }}
                     >
                         desactualizado
@@ -166,7 +169,8 @@ function RateBlock({
                     style={{
                         marginTop: '10px',
                         border: `2px solid ${RED}`,
-                        padding: '8px 10px',
+                        borderRadius: '10px',
+                        padding: '8px 12px',
                         fontFamily:
                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontWeight: 700,
@@ -300,8 +304,8 @@ export default function ExchangeRate({
                             fontFamily:
                                 "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontWeight: 800,
-                            fontSize: 'clamp(56px,8vw,110px)',
-                            lineHeight: 0.86,
+                            fontSize: 'clamp(32px,3.2vw,44px)',
+                            lineHeight: 1.05,
                             margin: 0,
                             letterSpacing: '-0.005em',
                         }}
@@ -315,9 +319,7 @@ export default function ExchangeRate({
                     style={{
                         display: 'grid',
                         gridTemplateColumns: 'repeat(2,1fr)',
-                        borderTop: '3px solid #000',
-                        borderBottom: '1px solid #000',
-                        borderLeft: '1px solid #000',
+                        gap: '16px',
                     }}
                 >
                     <RateBlock
@@ -405,10 +407,10 @@ export default function ExchangeRate({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '13px',
-                                border: 'none',
-                                borderBottom: '2px solid #000',
-                                borderRadius: 0,
-                                padding: '6px 0',
+                                border: '1px solid #cfcfca',
+                                borderRadius: '999px',
+                                background: '#fff',
+                                padding: '8px 16px',
                             }}
                         />
                         <input
@@ -420,10 +422,10 @@ export default function ExchangeRate({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '13px',
-                                border: 'none',
-                                borderBottom: '2px solid #000',
-                                borderRadius: 0,
-                                padding: '6px 0',
+                                border: '1px solid #cfcfca',
+                                borderRadius: '999px',
+                                background: '#fff',
+                                padding: '8px 16px',
                                 width: '150px',
                             }}
                         />
@@ -446,10 +448,10 @@ export default function ExchangeRate({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '13px',
-                                border: 'none',
-                                borderBottom: '2px solid #000',
-                                borderRadius: 0,
-                                padding: '6px 0',
+                                border: '1px solid #cfcfca',
+                                borderRadius: '999px',
+                                background: '#fff',
+                                padding: '8px 16px',
                                 width: '150px',
                             }}
                         />
