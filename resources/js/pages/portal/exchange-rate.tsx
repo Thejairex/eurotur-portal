@@ -13,7 +13,7 @@ import {
 import type { ExchangeRate } from '@/lib/exchange-rates';
 import { exchangeRate } from '@/routes/portal';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 
 function formatArs(value: number): string {
     return value.toLocaleString('es-AR', {
@@ -47,7 +47,7 @@ type Props = {
 
 const labelFieldStyle: React.CSSProperties = {
     width: '100%',
-    fontFamily: "'Archivo', sans-serif",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '12.5px',
     fontWeight: 500,
     border: 'none',
@@ -58,7 +58,7 @@ const labelFieldStyle: React.CSSProperties = {
 };
 
 const smallButtonStyle: React.CSSProperties = {
-    fontFamily: "'Space Mono', monospace",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '9px',
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
@@ -94,7 +94,8 @@ function RateBlock({
         >
             <div
                 style={{
-                    fontFamily: "'Space Mono', monospace",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontSize: '10px',
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
@@ -105,7 +106,8 @@ function RateBlock({
             </div>
             <div
                 style={{
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontWeight: 900,
                     fontSize: '48px',
                     lineHeight: 0.9,
@@ -120,7 +122,8 @@ function RateBlock({
                     alignItems: 'center',
                     gap: '8px',
                     marginTop: '10px',
-                    fontFamily: "'Space Mono', monospace",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontSize: '9px',
                     letterSpacing: '0.06em',
                     textTransform: 'uppercase',
@@ -164,7 +167,8 @@ function RateBlock({
                         marginTop: '10px',
                         border: `2px solid ${RED}`,
                         padding: '8px 10px',
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontWeight: 700,
                         fontSize: '12px',
                         color: RED,
@@ -221,39 +225,47 @@ export default function ExchangeRate({
             params.date_to = dateTo;
         }
 
-        router.get(exchangeRate.url({ query: params }), {}, {
-            preserveState: true,
-            replace: true,
-        });
+        router.get(
+            exchangeRate.url({ query: params }),
+            {},
+            {
+                preserveState: true,
+                replace: true,
+            },
+        );
     }
 
     function goToPage(page: number) {
         const params: Record<string, string | number> = { page };
 
         if (dateFrom) {
-params.date_from = dateFrom;
-}
+            params.date_from = dateFrom;
+        }
 
         if (dateTo) {
-params.date_to = dateTo;
-}
+            params.date_to = dateTo;
+        }
 
-        router.get(exchangeRate.url({ query: params }), {}, {
-            preserveState: true,
-            replace: true,
-        });
+        router.get(
+            exchangeRate.url({ query: params }),
+            {},
+            {
+                preserveState: true,
+                replace: true,
+            },
+        );
     }
 
     function exportCsv() {
         const params = new URLSearchParams();
 
         if (dateFrom) {
-params.set('date_from', dateFrom);
-}
+            params.set('date_from', dateFrom);
+        }
 
         if (dateTo) {
-params.set('date_to', dateTo);
-}
+            params.set('date_to', dateTo);
+        }
 
         window.location.href = BnaDailyRateExportController.url({
             query: Object.fromEntries(params),
@@ -272,7 +284,8 @@ params.set('date_to', dateTo);
                 <div style={{ maxWidth: '600px', marginBottom: '26px' }}>
                     <div
                         style={{
-                            fontFamily: "'Space Mono', monospace",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '10px',
                             letterSpacing: '0.16em',
                             textTransform: 'uppercase',
@@ -284,8 +297,9 @@ params.set('date_to', dateTo);
                     </div>
                     <h1
                         style={{
-                            fontFamily: "'Anton', sans-serif",
-                            fontWeight: 400,
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                            fontWeight: 800,
                             fontSize: 'clamp(56px,8vw,110px)',
                             lineHeight: 0.86,
                             margin: 0,
@@ -339,7 +353,8 @@ params.set('date_to', dateTo);
                 >
                     <div
                         style={{
-                            fontFamily: "'Archivo', sans-serif",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontWeight: 900,
                             fontSize: '19px',
                             letterSpacing: '-0.01em',
@@ -350,7 +365,8 @@ params.set('date_to', dateTo);
                     </div>
                     <div
                         style={{
-                            fontFamily: "'Space Mono', monospace",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '10px',
                             letterSpacing: '0.12em',
                             textTransform: 'uppercase',
@@ -386,7 +402,8 @@ params.set('date_to', dateTo);
                             placeholder="Filtrar (fecha o nota)…"
                             style={{
                                 maxWidth: '220px',
-                                fontFamily: "'Archivo', sans-serif",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '13px',
                                 border: 'none',
                                 borderBottom: '2px solid #000',
@@ -400,7 +417,8 @@ params.set('date_to', dateTo);
                             onChange={(e) => setDateFrom(e.target.value)}
                             placeholder="Desde"
                             style={{
-                                fontFamily: "'Archivo', sans-serif",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '13px',
                                 border: 'none',
                                 borderBottom: '2px solid #000',
@@ -411,7 +429,8 @@ params.set('date_to', dateTo);
                         />
                         <span
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '10px',
                                 color: '#999',
                             }}
@@ -424,7 +443,8 @@ params.set('date_to', dateTo);
                             onChange={(e) => setDateTo(e.target.value)}
                             placeholder="Hasta"
                             style={{
-                                fontFamily: "'Archivo', sans-serif",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '13px',
                                 border: 'none',
                                 borderBottom: '2px solid #000',
@@ -487,7 +507,7 @@ params.set('date_to', dateTo);
                                             textAlign: 'left',
                                             padding: '6px 10px',
                                             fontFamily:
-                                                "'Space Mono', monospace",
+                                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                             fontSize: '10px',
                                             letterSpacing: '0.08em',
                                             textTransform: 'uppercase',
@@ -565,7 +585,7 @@ params.set('date_to', dateTo);
                                                         all: 'unset',
                                                         cursor: 'pointer',
                                                         fontFamily:
-                                                            "'Space Mono', monospace",
+                                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                         fontSize: '11px',
                                                         color: '#666',
                                                     }}
@@ -588,7 +608,7 @@ params.set('date_to', dateTo);
                                                                 all: 'unset',
                                                                 cursor: 'pointer',
                                                                 fontFamily:
-                                                                    "'Space Mono', monospace",
+                                                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                                 fontSize:
                                                                     '11px',
                                                                 color: RED,
@@ -621,7 +641,9 @@ params.set('date_to', dateTo);
                         <button
                             type="button"
                             disabled={pagination.current_page <= 1}
-                            onClick={() => goToPage(pagination.current_page - 1)}
+                            onClick={() =>
+                                goToPage(pagination.current_page - 1)
+                            }
                             style={{
                                 ...smallButtonStyle,
                                 opacity: pagination.current_page <= 1 ? 0.4 : 1,
@@ -635,7 +657,8 @@ params.set('date_to', dateTo);
                         </button>
                         <span
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '11px',
                                 color: '#666',
                             }}
@@ -657,15 +680,19 @@ params.set('date_to', dateTo);
                             disabled={
                                 pagination.current_page >= pagination.last_page
                             }
-                            onClick={() => goToPage(pagination.current_page + 1)}
+                            onClick={() =>
+                                goToPage(pagination.current_page + 1)
+                            }
                             style={{
                                 ...smallButtonStyle,
                                 opacity:
-                                    pagination.current_page >= pagination.last_page
+                                    pagination.current_page >=
+                                    pagination.last_page
                                         ? 0.4
                                         : 1,
                                 cursor:
-                                    pagination.current_page >= pagination.last_page
+                                    pagination.current_page >=
+                                    pagination.last_page
                                         ? 'default'
                                         : 'pointer',
                             }}

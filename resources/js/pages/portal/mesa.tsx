@@ -1,6 +1,7 @@
 import { Head, Link } from '@inertiajs/react';
 import { useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
+import { MaintLine } from '@/components/portal/maint-line';
 import { MesaEnVivo } from '@/components/portal/mesa-en-vivo';
 import {
     Aviso,
@@ -15,7 +16,7 @@ import {
 import type { AtajoAyuda } from '@/components/portal/mesa-guias';
 import { copyText } from '@/lib/copy-text';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 
 type Credential = { id: string; label: string; sub: string; pass: string };
 
@@ -102,7 +103,7 @@ const PASOS_PANTALLAS = [
 ];
 
 const OPCIONES_PANTALLAS = [
-    '🪞 **Duplicar estas pantallas**: se ve lo mismo en la notebook y en el monitor.',
+    '**Duplicar estas pantallas**: se ve lo mismo en la notebook y en el monitor.',
     '↔️ **Extender estas pantallas**: trabajás con las dos pantallas a la vez (lo recomendado).',
     '1️⃣ **Mostrar únicamente en 1**: solo se ve en la notebook.',
     '2️⃣ **Mostrar únicamente en 2**: solo se ve en el monitor externo.',
@@ -110,7 +111,7 @@ const OPCIONES_PANTALLAS = [
 
 const PASOS_SONIDO = [
     'Verificá que estén conectados el **cable de audio** y el **cable HDMI** (el cable de video).',
-    'Hacé clic en el ícono del parlante 🔊 (abajo a la derecha, junto al reloj).',
+    'Hacé clic en el ícono del parlante (abajo a la derecha, junto al reloj).',
     'En la lista, elegí **Auriculares (Realtek(R) Audio)**.',
 ];
 
@@ -121,11 +122,12 @@ const LINEA: CSSProperties = {
 };
 
 const BOTON_CLARO: CSSProperties = {
-    fontFamily: "'Space Mono', monospace",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '11px',
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
-    border: '1px solid #000',
+    border: '1px solid #CFCFCB',
+    borderRadius: '999px',
     background: 'transparent',
     padding: '9px 14px',
     cursor: 'pointer',
@@ -165,11 +167,14 @@ export default function Mesa() {
             <Head title="Mesa de Información" />
             <MesaEstilos />
 
-            <section>
+            <section
+                style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
+            >
                 <div style={{ marginBottom: '28px' }}>
                     <div
                         style={{
-                            fontFamily: "'Space Mono', monospace",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '10px',
                             letterSpacing: '0.16em',
                             textTransform: 'uppercase',
@@ -181,11 +186,13 @@ export default function Mesa() {
                     </div>
                     <h1
                         style={{
-                            fontFamily: "'Anton', sans-serif",
-                            fontWeight: 400,
-                            fontSize: 'clamp(46px,6vw,84px)',
-                            lineHeight: 0.92,
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                            fontWeight: 800,
+                            fontSize: 'clamp(44px,5vw,60px)',
+                            lineHeight: 0.95,
                             margin: 0,
+                            letterSpacing: '-1px',
                         }}
                     >
                         Mesa de información
@@ -210,8 +217,11 @@ export default function Mesa() {
                 <Revelar>
                     <div
                         style={{
-                            border: '1px solid #000',
-                            marginBottom: '34px',
+                            background: '#fff',
+                            borderRadius: '16px',
+                            boxShadow: '0 1px 2px rgba(0,0,0,.05)',
+                            overflow: 'hidden',
+                            marginBottom: '24px',
                         }}
                     >
                         <div
@@ -219,28 +229,28 @@ export default function Mesa() {
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'space-between',
-                                background: '#000',
-                                color: '#fff',
-                                padding: '12px 18px',
+                                borderBottom: '1px solid #CFCFCB',
+                                color: '#111',
+                                padding: '14px 18px',
                             }}
                         >
                             <span
                                 style={{
-                                    fontFamily: "'Archivo', sans-serif",
                                     fontWeight: 800,
                                     fontSize: '16px',
                                     letterSpacing: '-0.01em',
                                 }}
                             >
-                                📶 Accesos de red · Tucumán
+                                Accesos de red · Tucumán
                             </span>
                             <span
                                 style={{
-                                    fontFamily: "'Space Mono', monospace",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '9px',
                                     letterSpacing: '0.12em',
                                     textTransform: 'uppercase',
-                                    color: '#ff6a72',
+                                    color: '#E3000F',
                                 }}
                             >
                                 ● acceso interno
@@ -258,7 +268,7 @@ export default function Mesa() {
                                         justifyContent: 'space-between',
                                         gap: '20px',
                                         padding: '16px 18px',
-                                        borderTop: '1px solid #ececec',
+                                        borderTop: '1px solid #EFEFEC',
                                         flexWrap: 'wrap',
                                     }}
                                 >
@@ -274,7 +284,7 @@ export default function Mesa() {
                                         <div
                                             style={{
                                                 fontFamily:
-                                                    "'Space Mono', monospace",
+                                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                 fontSize: '11px',
                                                 color: '#888',
                                                 marginTop: '3px',
@@ -294,7 +304,7 @@ export default function Mesa() {
                                         <span
                                             style={{
                                                 fontFamily:
-                                                    "'Space Mono', monospace",
+                                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                 fontSize: '16px',
                                                 fontWeight: 700,
                                                 letterSpacing: '0.08em',
@@ -342,12 +352,13 @@ export default function Mesa() {
                         })}
                         <div
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '10px',
                                 letterSpacing: '0.05em',
                                 color: '#999',
                                 padding: '11px 18px',
-                                borderTop: '1px solid #ececec',
+                                borderTop: '1px solid #EFEFEC',
                                 background: '#faf7f7',
                                 lineHeight: 1.5,
                             }}
@@ -383,14 +394,15 @@ export default function Mesa() {
                                 key={index}
                                 className="mesa-tarjeta"
                                 style={{
-                                    border: '1px solid #000',
+                                    borderRadius: '12px',
                                     padding: '16px',
-                                    background: '#fff',
+                                    background: '#F6F6F4',
                                 }}
                             >
                                 <div
                                     style={{
-                                        fontFamily: "'Archivo', sans-serif",
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontWeight: 900,
                                         fontSize: '34px',
                                         lineHeight: 1,
@@ -448,7 +460,7 @@ export default function Mesa() {
                             paddingBottom: '3px',
                         }}
                     >
-                        📋 Ver la tabla de discado completa{' '}
+                        Ver la tabla de discado completa{' '}
                         <span style={{ color: RED }}>↗</span>
                     </a>
                 </Guia>
@@ -467,7 +479,7 @@ export default function Mesa() {
                 >
                     <Subtitulo emoji="❓" texto="¿Qué te pasa?" />
                     <Linea texto="⏳ La conexión **no avanza**: se queda trabada en un punto." />
-                    <Linea texto="📶 **Llega al 45 %** y no progresa más (como en la imagen)." />
+                    <Linea texto="**Llega al 45 %** y no progresa más (como en la imagen)." />
 
                     <Subtitulo emoji="🔒" texto="¿Qué significa?" />
                     <Linea texto="Tu VPN está **bloqueada**. Es muy sensible: después de **3 intentos fallidos seguidos** se bloquea sola." />
@@ -483,7 +495,8 @@ export default function Mesa() {
                             display: 'inline-block',
                             marginTop: '18px',
                             padding: '12px 18px',
-                            background: '#000',
+                            borderRadius: '999px',
+                            background: '#111',
                             color: '#fff',
                             textDecoration: 'none',
                             fontWeight: 700,
@@ -581,20 +594,9 @@ export default function Mesa() {
                     ))}
                 </Guia>
 
-                <div
-                    style={{
-                        marginTop: '34px',
-                        borderTop: '1px solid #000',
-                        paddingTop: '14px',
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: '10px',
-                        letterSpacing: '0.12em',
-                        textTransform: 'uppercase',
-                        color: '#666',
-                    }}
-                >
-                    mantiene— IT · Mesa de Información · actualizado 10·2026
-                </div>
+                <MaintLine>
+                    IT · Mesa de Información · actualizado 10·2026
+                </MaintLine>
             </section>
         </>
     );

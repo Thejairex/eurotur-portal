@@ -220,13 +220,15 @@ export function GuidedTour({
                     background: palette.background,
                     color: palette.foreground,
                     border: `1px solid ${palette.foreground}`,
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     ...cardStyle,
                 }}
             >
                 <div
                     style={{
-                        fontFamily: "'Space Mono', monospace",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '10px',
                         letterSpacing: '0.14em',
                         textTransform: 'uppercase',

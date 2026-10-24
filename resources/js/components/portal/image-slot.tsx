@@ -55,7 +55,8 @@ export function ImageSlot({
         >
             <span
                 style={{
-                    fontFamily: "'Space Mono', monospace",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontSize: '10px',
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',

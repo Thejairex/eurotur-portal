@@ -10,7 +10,7 @@ import type {
 } from '@/lib/prebalance/engine';
 import { index as crmIndex } from '@/routes/admin/crm';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 const HTML_FALLBACK = '/herramientas/prebalance-modulos.html';
 const DOC_URL = '/documentos/prebalance-modulos.docx';
 
@@ -44,7 +44,7 @@ type Archivo = {
 /* ------------------------------------------------------------------ estilos */
 
 const mono: CSSProperties = {
-    fontFamily: "'Space Mono', monospace",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '10px',
     letterSpacing: '0.12em',
     textTransform: 'uppercase',
@@ -57,7 +57,7 @@ const bloqueStyle: CSSProperties = {
 
 const inputStyle: CSSProperties = {
     width: '100%',
-    fontFamily: "'Archivo', sans-serif",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '13px',
     fontWeight: 500,
     color: '#000',
@@ -69,7 +69,7 @@ const inputStyle: CSSProperties = {
 };
 
 const botonStyle: CSSProperties = {
-    fontFamily: "'Space Mono', monospace",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '10px',
     letterSpacing: '0.1em',
     textTransform: 'uppercase',
@@ -409,7 +409,8 @@ export default function AdmPrebalance() {
                     >
                         <div
                             style={{
-                                fontFamily: "'Archivo', sans-serif",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontWeight: 800,
                                 fontSize: '17px',
                                 letterSpacing: '-0.01em',
@@ -640,8 +641,9 @@ function Encabezado() {
                 </div>
                 <h1
                     style={{
-                        fontFamily: "'Anton', sans-serif",
-                        fontWeight: 400,
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                        fontWeight: 800,
                         fontSize: 'clamp(56px,7.5vw,108px)',
                         lineHeight: 0.86,
                         margin: 0,
@@ -753,7 +755,8 @@ function Bloque({
             >
                 <span
                     style={{
-                        fontFamily: "'Space Mono', monospace",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontWeight: 700,
                         fontSize: '11px',
                     }}
@@ -762,7 +765,8 @@ function Bloque({
                 </span>
                 <span
                     style={{
-                        fontFamily: "'Archivo', sans-serif",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontWeight: 800,
                         fontSize: '19px',
                         letterSpacing: '-0.01em',
@@ -845,7 +849,8 @@ function TablaArchivos({
                 style={{
                     width: '100%',
                     borderCollapse: 'collapse',
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontSize: '13px',
                 }}
             >
@@ -925,7 +930,8 @@ function TablaArchivos({
                                         all: 'unset',
                                         cursor: 'pointer',
                                         color: RED,
-                                        fontFamily: "'Space Mono', monospace",
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '11px',
                                     }}
                                 >
@@ -993,7 +999,8 @@ function Ayuda() {
                 style={{
                     margin: '14px 0 0',
                     paddingLeft: '18px',
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontSize: '13px',
                     lineHeight: 1.6,
                     color: '#333',
@@ -1025,7 +1032,8 @@ function Aviso({
                 marginBottom: '20px',
                 background: '#faf9f7',
                 borderLeft: `3px solid ${nivel === 'ERROR' ? RED : '#000'}`,
-                fontFamily: "'Archivo', sans-serif",
+                fontFamily:
+                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                 fontSize: '13.5px',
                 lineHeight: 1.5,
             }}
@@ -1101,7 +1109,8 @@ function Resultados({ res }: { res: Resultado }) {
                     >
                         <div
                             style={{
-                                fontFamily: "'Archivo', sans-serif",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontWeight: 900,
                                 fontSize: '26px',
                                 lineHeight: 1,
@@ -1129,7 +1138,8 @@ function Resultados({ res }: { res: Resultado }) {
                 style={{
                     width: '100%',
                     borderCollapse: 'collapse',
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontSize: '13px',
                 }}
             >

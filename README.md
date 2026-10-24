@@ -269,3 +269,11 @@ consume por HTTP:
   jobs en segundo plano (hoy, el archivado del Histórico del Cargador de
   Facturas) — si algo "se sube pero nunca se archiva", lo primero a
   chequear es si el worker está corriendo.
+
+## Rediseño de octubre de 2026 y contenido
+
+- Sistema de diseño (colores, tipografías, animaciones y reglas de rendimiento): `docs/SISTEMA_DE_DISENO.md`.
+- Contenido cargado desde el navegador, comandos `portal:exportar-contenido` / `portal:importar-contenido` y cómo desplegar sin perderlo: `docs/CONTENIDO_Y_DESPLIEGUE.md`.
+- Historial de cambios: `CHANGELOG.md`.
+- Bloque de sesión (franja superior) y tipo de cambio (arriba a la derecha): `Header`, `SessionBlock` y `Rates` en `resources/js/layouts/portal-layout.tsx`; detalle en `docs/SISTEMA_DE_DISENO.md`.
+- Back Office (pantallas, permisos, datos, sistema de diseño y guía para administradores): `docs/BACKOFFICE.md`.

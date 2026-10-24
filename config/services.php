@@ -66,6 +66,8 @@ return [
 
     'organigrama' => [
         'url' => env('ORGANIGRAMA_URL', 'http://192.168.98.4:8003'),
+        // Token para leer mail/puesto/sector/sede/interno (sincronización del perfil). Mismo valor que ORGANIGRAMA_TOKEN_INTERNO del Organigrama.
+        'token' => env('ORGANIGRAMA_TOKEN_INTERNO'),
     ],
 
     // Mesa de Información: sensores y teléfonos, leídos de dos hojas de Google con una cuenta de

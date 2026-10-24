@@ -7,16 +7,52 @@ use App\Http\Controllers\Admin\Crm\InvoiceExecutionController;
 use App\Http\Controllers\Admin\Crm\InvoiceLoaderHistoryController;
 use App\Http\Controllers\Admin\Crm\InvoiceLoaderPageController;
 use App\Http\Controllers\Admin\Crm\InvoiceProposalController;
+use App\Http\Controllers\Admin\DescargaController;
 use App\Http\Controllers\Admin\HerramientaEmbebidaController;
+use App\Http\Controllers\Admin\InicioController;
+use App\Http\Controllers\Admin\NovedadController;
 use App\Http\Controllers\Admin\OrganigramaEditarRedirectController;
+use App\Http\Controllers\Admin\PaginasController;
+use App\Http\Controllers\Admin\PerfilController;
 use App\Http\Controllers\Admin\PrepagosRedirectController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->prefix('administracion')->name('admin.')->group(function () {
-    // /administracion a secas no existia (404): lleva al inicio del Back Office.
-    Route::redirect('/', '/administracion/crm');
+    // /administracion a secas lleva al Inicio del Back Office.
+    Route::redirect('/', '/administracion/inicio');
+    Route::get('inicio', InicioController::class)->name('inicio');
+    Route::get('paginas', PaginasController::class)->name('paginas');
+
+    // Mi perfil: cada persona edita el suyo; quien administra usuarios puede ver y corregir el de cualquiera.
+    Route::get('perfil', [PerfilController::class, 'show'])->name('perfil');
+    Route::put('perfil', [PerfilController::class, 'update'])->name('perfil.update');
+    Route::post('perfil/foto', [PerfilController::class, 'foto'])->name('perfil.foto');
+    Route::delete('perfil/foto', [PerfilController::class, 'quitarFoto'])->name('perfil.foto.quitar');
+    Route::middleware('can:users.manage')->prefix('usuarios/{user}/perfil')->name('users.perfil.')->group(function () {
+        Route::get('/', [PerfilController::class, 'show'])->name('show');
+        Route::put('/', [PerfilController::class, 'update'])->name('update');
+        Route::post('foto', [PerfilController::class, 'foto'])->name('foto');
+        Route::delete('foto', [PerfilController::class, 'quitarFoto'])->name('foto.quitar');
+    });
+
+    // Novedades del sistema: las lee cualquiera; las gestiona quien tenga novedades.manage.
+    Route::get('novedades', [NovedadController::class, 'index'])->name('novedades');
+    Route::middleware('can:novedades.manage')->prefix('novedades')->name('novedades.')->group(function () {
+        Route::post('/', [NovedadController::class, 'store'])->name('store');
+        Route::put('{novedad}', [NovedadController::class, 'update'])->name('update');
+        Route::delete('{novedad}', [NovedadController::class, 'destroy'])->name('destroy');
+    });
+
+    // Archivos para descargar: los baja cualquiera con sesion; los gestiona quien tenga descargas.manage.
+    Route::get('descargas', [DescargaController::class, 'index'])->name('descargas');
+    Route::get('descargas/{descarga}/archivo', [DescargaController::class, 'download'])->name('descargas.download');
+    Route::middleware('can:descargas.manage')->prefix('descargas')->name('descargas.')->group(function () {
+        Route::post('/', [DescargaController::class, 'store'])->name('store');
+        Route::put('{descarga}', [DescargaController::class, 'update'])->name('update');
+        Route::delete('{descarga}', [DescargaController::class, 'destroy'])->name('destroy');
+    });
 
     Route::middleware('can:users.manage')->group(function () {
         Route::resource('usuarios', UserController::class)

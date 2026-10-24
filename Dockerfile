@@ -41,7 +41,9 @@ FROM php:8.3-fpm-alpine AS app
 
 ARG APP_ENV=production
 
-RUN apk add --no-cache \
+# apk upgrade primero: si la imagen base trae un musl más viejo que el de los paquetes -dev, apk falla con "musl breaks musl-dev".
+RUN apk upgrade --no-cache \
+    && apk add --no-cache \
         nginx \
         supervisor \
         sqlite \

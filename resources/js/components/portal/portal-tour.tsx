@@ -5,7 +5,7 @@ import type { TourPalette, TourStep } from '@/components/guided-tour';
 const PALETTE: TourPalette = {
     background: '#fff',
     foreground: '#000',
-    accent: '#E30613',
+    accent: '#E3000F',
     accentForeground: '#fff',
 };
 

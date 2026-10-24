@@ -1,60 +1,63 @@
-import { usePage } from '@inertiajs/react';
-import { Menu } from 'lucide-react';
+import { router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import { BackofficeSidebar } from '@/components/backoffice/backoffice-sidebar';
-import { ThemeToggle } from '@/components/backoffice/theme-toggle';
-import { Breadcrumbs } from '@/components/breadcrumbs';
-import { Button } from '@/components/ui/button';
-import {
-    Sheet,
-    SheetContent,
-    SheetTitle,
-    SheetTrigger,
-} from '@/components/ui/sheet';
-import type { BreadcrumbItem } from '@/types';
+import type { FormEvent } from 'react';
+import { searchResults } from '@/routes/portal';
 
-export function BackofficeHeader({
-    breadcrumbs = [],
-}: {
-    breadcrumbs?: BreadcrumbItem[];
-}) {
-    const [open, setOpen] = useState(false);
+/** Iniciales para el círculo del usuario ("Valentina Homez" → "VH"). */
+export function initialsOf(name: string): string {
+    return name
+        .split(/\s+/)
+        .filter((part) => part !== '')
+        .slice(0, 2)
+        .map((part) => part[0].toUpperCase())
+        .join('');
+}
+
+/** Franja superior: buscador del portal y la persona que tiene la sesión abierta. */
+export function BackofficeHeader() {
     const { auth } = usePage().props;
+    const [query, setQuery] = useState('');
+
+    const search = (event: FormEvent) => {
+        event.preventDefault();
+
+        const trimmed = query.trim();
+
+        if (trimmed.length >= 2) {
+            router.visit(searchResults.url({ query: { q: trimmed } }));
+        }
+    };
 
     return (
-        <header className="flex h-14 shrink-0 items-center justify-between gap-4 border-b border-border px-6">
-            <div className="flex items-center gap-3">
-                <Sheet open={open} onOpenChange={setOpen}>
-                    <SheetTrigger asChild>
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="rounded-none md:hidden"
-                        >
-                            <Menu className="size-5" />
-                            <span className="sr-only">Abrir navegación</span>
-                        </Button>
-                    </SheetTrigger>
-                    <SheetContent
-                        side="left"
-                        className="w-[216px] p-0 sm:max-w-none"
+        <div className="bo-top">
+            <form onSubmit={search} role="search" style={{ flex: 1 }}>
+                <input
+                    type="search"
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                    placeholder="Buscar en el portal"
+                    aria-label="Buscar en el portal"
+                    className="bo-search"
+                />
+            </form>
+            {auth?.user && (
+                <div className="bo-pill">
+                    <span
+                        className="bo-av"
+                        aria-hidden="true"
+                        style={
+                            auth.user.foto_path
+                                ? {
+                                      backgroundImage: `url(/storage/${auth.user.foto_path})`,
+                                  }
+                                : undefined
+                        }
                     >
-                        <SheetTitle className="sr-only">Navegación</SheetTitle>
-                        <BackofficeSidebar onNavigate={() => setOpen(false)} />
-                    </SheetContent>
-                </Sheet>
-
-                <Breadcrumbs breadcrumbs={breadcrumbs} />
-            </div>
-
-            <div className="flex items-center gap-4">
-                <div data-tour="tour-tema">
-                    <ThemeToggle />
+                        {auth.user.foto_path ? '' : initialsOf(auth.user.name)}
+                    </span>
+                    <span>{auth.user.name}</span>
                 </div>
-                {auth?.user && (
-                    <span className="bo-label">{auth.user.name}</span>
-                )}
-            </div>
-        </header>
+            )}
+        </div>
     );
 }

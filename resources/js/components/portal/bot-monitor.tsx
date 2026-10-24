@@ -1,6 +1,6 @@
 import { usePoll } from '@inertiajs/react';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 
 type PipelineStats = {
     running: boolean;
@@ -49,7 +49,8 @@ function Label({ children }: { children: string }) {
     return (
         <div
             style={{
-                fontFamily: "'Space Mono', monospace",
+                fontFamily:
+                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                 fontSize: '9px',
                 letterSpacing: '0.14em',
                 textTransform: 'uppercase',
@@ -65,7 +66,8 @@ function EmptyState({ message }: { message: string }) {
     return (
         <div
             style={{
-                fontFamily: "'Space Mono', monospace",
+                fontFamily:
+                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                 fontSize: '11px',
                 letterSpacing: '0.06em',
                 color: '#666',
@@ -91,7 +93,8 @@ function StatValue({
             <Label>{label}</Label>
             <div
                 style={{
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontWeight: 800,
                     fontSize: '15px',
                     color: highlight ? RED : '#000',
@@ -105,12 +108,13 @@ function StatValue({
 
 function panelButtonStyle(variant: 'start' | 'stop', disabled: boolean) {
     return {
-        fontFamily: "'Space Mono', monospace",
+        fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
         fontSize: '10px',
         fontWeight: 700,
         letterSpacing: '0.06em',
         textTransform: 'uppercase',
-        padding: '7px 12px',
+        padding: '7px 14px',
+        borderRadius: '999px',
         border: variant === 'start' ? '1px solid #000' : `1px solid ${RED}`,
         background: variant === 'start' ? '#000' : '#fff',
         color: variant === 'start' ? '#fff' : RED,
@@ -206,7 +210,7 @@ export function BotMonitor({ summary, stats }: BotMonitorProps) {
                             gridTemplateColumns: '1fr 1fr',
                             gap: '18px',
                             marginTop: '6px',
-                            borderTop: '2px solid #000',
+                            borderTop: '1px solid #CFCFCB',
                         }}
                     >
                         <div
@@ -350,7 +354,8 @@ export function BotMonitor({ summary, stats }: BotMonitorProps) {
                             <Label>estado</Label>
                             <div
                                 style={{
-                                    fontFamily: "'Archivo', sans-serif",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontWeight: 800,
                                     fontSize: '15px',
                                     textTransform: 'uppercase',

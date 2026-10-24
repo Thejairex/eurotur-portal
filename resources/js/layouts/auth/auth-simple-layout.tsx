@@ -1,8 +1,8 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { home } from '@/routes';
 import type { AuthLayoutProps } from '@/types';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 
 export default function AuthSimpleLayout({
     children,
@@ -11,19 +11,6 @@ export default function AuthSimpleLayout({
 }: AuthLayoutProps) {
     return (
         <>
-            <Head>
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link
-                    rel="preconnect"
-                    href="https://fonts.gstatic.com"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="stylesheet"
-                    href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap"
-                />
-            </Head>
-
             <style>{`
                 .eurotur-auth ::selection { background: ${RED}; color: #fff; }
                 .eurotur-auth input:focus { outline: none; border-color: ${RED} !important; }
@@ -46,7 +33,8 @@ export default function AuthSimpleLayout({
                     minHeight: '100vh',
                     background: '#fff',
                     color: '#000',
-                    fontFamily: "'Archivo', sans-serif",
+                    fontFamily:
+                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                 }}
             >
                 <div
@@ -81,7 +69,8 @@ export default function AuthSimpleLayout({
                         />
                         <div
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '9px',
                                 letterSpacing: '0.14em',
                                 textTransform: 'uppercase',
@@ -98,7 +87,8 @@ export default function AuthSimpleLayout({
                     <div
                         id="auth-brand-label"
                         style={{
-                            fontFamily: "'Anton', sans-serif",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '64px',
                             lineHeight: 0.95,
                             color: RED,
@@ -110,7 +100,8 @@ export default function AuthSimpleLayout({
 
                     <div
                         style={{
-                            fontFamily: "'Space Mono', monospace",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '9px',
                             letterSpacing: '0.1em',
                             textTransform: 'uppercase',
@@ -135,7 +126,8 @@ export default function AuthSimpleLayout({
                         <div style={{ marginBottom: '32px' }}>
                             <h1
                                 style={{
-                                    fontFamily: "'Anton', sans-serif",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '28px',
                                     letterSpacing: '0.01em',
                                     margin: 0,
@@ -145,7 +137,8 @@ export default function AuthSimpleLayout({
                             </h1>
                             <p
                                 style={{
-                                    fontFamily: "'Space Mono', monospace",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '11px',
                                     letterSpacing: '0.02em',
                                     color: '#666',

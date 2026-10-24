@@ -5,11 +5,11 @@ import TextLink from '@/components/text-link';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 
 const labelStyle: React.CSSProperties = {
     display: 'block',
-    fontFamily: "'Space Mono', monospace",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '10px',
     fontWeight: 700,
     letterSpacing: '0.12em',
@@ -20,7 +20,7 @@ const labelStyle: React.CSSProperties = {
 
 const inputStyle: React.CSSProperties = {
     width: '100%',
-    fontFamily: "'Archivo', sans-serif",
+    fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '15px',
     fontWeight: 500,
     color: '#000',
@@ -81,7 +81,7 @@ export default function Login({ status, canResetPassword }: Props) {
                                             className="auth-link mb-2 text-xs"
                                             style={{
                                                 fontFamily:
-                                                    "'Space Mono', monospace",
+                                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                 color: '#666',
                                                 textDecoration: 'none',
                                             }}
@@ -117,7 +117,8 @@ export default function Login({ status, canResetPassword }: Props) {
                                 />
                                 <span
                                     style={{
-                                        fontFamily: "'Archivo', sans-serif",
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '13px',
                                         fontWeight: 500,
                                     }}
@@ -138,7 +139,8 @@ export default function Login({ status, canResetPassword }: Props) {
                                     background: RED,
                                     color: '#fff',
                                     border: 'none',
-                                    fontFamily: "'Space Mono', monospace",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '12px',
                                     fontWeight: 700,
                                     letterSpacing: '0.14em',
@@ -160,7 +162,8 @@ export default function Login({ status, canResetPassword }: Props) {
                 <div
                     style={{
                         marginTop: '20px',
-                        fontFamily: "'Space Mono', monospace",
+                        fontFamily:
+                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '12px',
                         textAlign: 'center',
                         color: '#16a34a',

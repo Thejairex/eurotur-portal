@@ -1,0 +1,2256 @@
+{
+  "version": 1,
+  "sectores": {
+    "rrhh": [
+      {
+        "title": "Empleado",
+        "items": [
+          {
+            "label": "Formulario de altas de personal",
+            "url": "https://drive.google.com/drive/u/0/folders/1qCarwAsJhCp3noSeNa9UJOZktMASLZAl",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Carta vacaciones Eurotur",
+            "url": "https://drive.google.com/drive/u/0/folders/1ESdsqm5G3rIaFKVWpRSXuvKel6hwAOpR",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Carta vacaciones Travel Designers",
+            "url": "https://drive.google.com/drive/u/0/folders/1ESdsqm5G3rIaFKVWpRSXuvKel6hwAOpR",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Email, grupos y teléfonos",
+            "url": "https://docs.google.com/spreadsheets/d/1o5Gsm8oSGapcLPGLmHGpmAZwyK9_49VFLQ_e6tqz_5o/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "DDJJ de Domicilio Eurotur",
+            "url": "https://drive.google.com/drive/u/1/folders/1rAVXN-F3tORsSqACPT3lWrZXr0eq906o",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "DDJJ de Domicilio Travel Designers",
+            "url": "https://drive.google.com/drive/u/1/folders/1rAVXN-F3tORsSqACPT3lWrZXr0eq906o",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Descripciones de puestos",
+        "items": [
+          {
+            "label": "Operaciones",
+            "url": "https://drive.google.com/drive/u/0/folders/1pL7ZsiVWP4kl3rFThpNmblBgwcDbJ5t8",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Administración",
+            "url": "https://drive.google.com/drive/folders/195i-maUiLiBFPPuzb__9LMd77hjmZlDS",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Contrataciones",
+            "url": "https://drive.google.com/drive/folders/1ogdPFJRGxqAxPSFiVzSYOzNE4GFAeNCJ",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Políticas de personal",
+        "items": [
+          {
+            "label": "Política de personal",
+            "url": "https://drive.google.com/drive/u/0/folders/1egYGkgq1Yc5XPMZwLZc952K5Vi8hHdMi",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Rendición de gastos de internet",
+            "url": "https://docs.google.com/forms/d/e/1FAIpQLSdNjkgDveNTy3jp8dx1y43mrpgRH688NRSuoqve4Cha2143HQ/viewform",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Feriados",
+        "items": [
+          {
+            "label": "Feriados nacionales 2026",
+            "url": "https://www.argentina.gob.ar/jefatura/feriados-nacionales-2026",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Actividad oficinas BUE-FTE-USH 2026",
+            "url": "https://drive.google.com/drive/u/0/folders/1Ewpl-6o3RkYQh9rMSZE-Ern2SYQw6o6E",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Cronogramas",
+        "items": [
+          {
+            "label": "Cronograma 24 y 31·12·25",
+            "url": "https://drive.google.com/drive/u/0/folders/1-f5Ymcn9n_zTClSXgWxEMkFLP_wlv0GX",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Organigrama",
+        "items": [
+          {
+            "label": "Organigrama Eurotur",
+            "url": "/organigrama",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Organigrama Eurotur — carpeta anterior (PDF)",
+            "url": "https://drive.google.com/drive/u/0/folders/1YBH-WESU1sBqR1v6VjPDlpH0fwtTAfcV",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Datos ART",
+        "items": [
+          {
+            "label": "Eurotur S.A.",
+            "url": "https://drive.google.com/drive/folders/1M0bvz0j36Zvbc2bJrKK_XwlxJ-coJF0z",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Travel Designers S.A.",
+            "url": "https://drive.google.com/drive/folders/1M0bvz0j36Zvbc2bJrKK_XwlxJ-coJF0z",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Liquidación de sueldo",
+        "items": [
+          {
+            "label": "Modelo de recibo (Excel)",
+            "url": "https://docs.google.com/spreadsheets/d/1RLN0FVoN9zeE7CF7pCheeOdPcPNtZMjC/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Presentación",
+            "url": "https://drive.google.com/drive/u/0/folders/1gkSTI2Lv-8Sa1YRQEMxG7ccQTfBNCrf3",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Escalas CCT 547/08 · 08/2025",
+            "url": "https://drive.google.com/drive/u/0/folders/18rxmKZW6Wo4IJn-waptDWnzWVsEbx1EO",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Escalas CCT 547/08 · 12/2025",
+            "url": "https://drive.google.com/drive/u/0/folders/18rxmKZW6Wo4IJn-waptDWnzWVsEbx1EO",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Paritaria FAECYS-FAEVYT · 05/2026",
+            "url": "https://drive.google.com/drive/u/0/folders/18rxmKZW6Wo4IJn-waptDWnzWVsEbx1EO",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Escalas CCT 547/08 · 05/2026",
+            "url": "https://drive.google.com/drive/folders/18rxmKZW6Wo4IJn-waptDWnzWVsEbx1EO",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Paritaria FAECYS-FAEVYT · 08/2026",
+            "url": "https://drive.google.com/drive/folders/18rxmKZW6Wo4IJn-waptDWnzWVsEbx1EO",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Escalas CCT 547/08 · 08/2026",
+            "url": "https://drive.google.com/drive/folders/18rxmKZW6Wo4IJn-waptDWnzWVsEbx1EO",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Paritaria FAECYS-FAEVYT · 12/2025",
+            "url": "https://drive.google.com/drive/folders/18rxmKZW6Wo4IJn-waptDWnzWVsEbx1EO",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      }
+    ],
+    "adm": [
+      {
+        "title": "Aspectos legales",
+        "items": [
+          {
+            "label": "Habilitación municipal",
+            "url": "https://drive.google.com/drive/folders/1Y8w4rLzRTM1Kx7U9eL58fu_4SWaOMmvM",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Min. de Turismo — habilitaciones",
+            "url": "https://drive.google.com/drive/folders/1xhuSF_B2r-b1beqoe20M1QtS9N4WWAre",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Acta designación directorio (clave)",
+            "url": "https://drive.google.com/drive/folders/1UYkxuwBIDqJN0LoObosAYk_PaU5OY9la",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Estatutos (clave)",
+            "url": "https://drive.google.com/drive/folders/1i5uWwC6d_LTHRvQr59q9vviM5S8vvVJJ",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Poder general de admin. MZ (clave)",
+            "url": "https://drive.google.com/drive/folders/1Tc3o59yODKPysQ3MKkMt-MZdinjDc90H",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Declaración jurada para recepción de facturas T",
+            "url": "https://drive.google.com/drive/folders/1Y8w4rLzRTM1Kx7U9eL58fu_4SWaOMmvM",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Aspectos impositivos",
+        "items": [
+          {
+            "label": "Constancia CUIT Eurotur S.A.",
+            "url": "https://drive.google.com/drive/folders/1eeFcxPvagetiTzxtFxunibo9Kbdth1hz",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Constancia CUIT Travel Designers S.A.",
+            "url": "https://drive.google.com/drive/folders/1eeFcxPvagetiTzxtFxunibo9Kbdth1hz",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Ingresos brutos Eurotur S.A.",
+            "url": "https://drive.google.com/drive/folders/1RRVZ0g8Q6TPaHUEN-EMCqnobP9G_XbFD",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Ingresos brutos Travel Designers S.A.",
+            "url": "https://drive.google.com/drive/folders/1RRVZ0g8Q6TPaHUEN-EMCqnobP9G_XbFD",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Certificados MiPyme",
+            "url": "https://drive.google.com/drive/u/0/folders/1LzoEK6buqxEMiW9IlBjnr3NyVh53qz1_",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Datos bancarios",
+        "items": [
+          {
+            "label": "Ciudad",
+            "url": "https://drive.google.com/drive/folders/16HCS0kUKafBfQVhMceKNiAY4VPn2WMuk",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Patagonia",
+            "url": "https://drive.google.com/drive/folders/18AWK4aRdlWr3GQ2J0c0OpQlVR52L53Qt",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Exterior",
+            "url": "https://drive.google.com/drive/folders/18NfZslQ_oZYfptHRTvquEbn8PhTfHenk",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Transferencia al exterior",
+            "url": "https://docs.google.com/spreadsheets/d/1UCcDtwFNdxMfA5JZtipjStmyiXTCzmqk/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Pólizas de seguros",
+        "items": [
+          {
+            "label": "Eurotur S.A.",
+            "url": "https://drive.google.com/drive/folders/14UM1ur_nE_9ctehuYVNlzhmjXuLVFAdD",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Travel Designers S.A.",
+            "url": "https://drive.google.com/drive/folders/1YDItsG3qyEFY2Sqh_VBqLC3kKRJh-s5x",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Cuentas a pagar",
+        "items": [
+          {
+            "label": "Solicitud pago Comex — form en página",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "DDJJ Reintegro IVA (Factura T)",
+            "url": "https://drive.google.com/drive/folders/1_czEemImOk5cn2I2td4L6FelKAKCrfOW",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Rendición de gastos — panel guiado",
+            "url": "/adm/rendicion-gastos",
+            "badge": "En prueba — Cuentas a pagar",
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Rendición de gastos — plantilla Excel (respaldo)",
+            "url": "https://drive.google.com/drive/u/0/folders/1rRgOCZ8QBBin6Qgjmnxb-cGbwJhm_5I_",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Affidavit Eurotur LLC",
+            "url": "https://docs.google.com/document/d/1k6qnapxbrIn0AURjEyQZKYNjRi2w8ggh/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Tipo de Cambio — IATA, BNA e histórico",
+            "url": "/tipo-de-cambio",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Balances (clave)",
+        "items": [
+          {
+            "label": "Eurotur S.A.",
+            "url": "https://drive.google.com/drive/folders/1nWVLn72ImqaS-hw--z9tnKsDdj0ST2_o",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Travel Designers S.A.",
+            "url": "https://drive.google.com/drive/folders/1wrrk3uSWgTZPuC5AvlQOvY-Nin6NW9Ir",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Instructivos",
+        "items": [
+          {
+            "label": "Cierre de módulo mensual",
+            "url": "https://drive.google.com/drive/folders/1mWxtqI1mgSq6gx2b7IHbsA4BNek9zZSD",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Pre-Balance de Módulos — cómo se usa",
+            "url": "/documentos/prebalance-modulos.docx",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Rendición de gastos — manual de uso",
+            "url": "/documentos/rendicion-gastos-manual.docx",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Contabilidad · Cierre mensual",
+        "items": [
+          {
+            "label": "Pre-Balance de Módulos — documentación",
+            "url": "/documentos/prebalance-modulos.docx",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      }
+    ],
+    "contrataciones": [
+      {
+        "title": "Servicios",
+        "items": [
+          {
+            "label": "Transportistas (BUE·FTE·USH·SLA)",
+            "url": "https://drive.google.com/drive/folders/1di7_cCAdfVbU3SE3gI-t8WuEgDq7IfsM",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Bases de vehículos",
+            "url": "https://docs.google.com/spreadsheets/d/1zI0Y06ekIEJJ5-UoxLzAYDE3hQhMqN6iD1xKal9GXhM/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Rent-a-Car: tarifarios clientes",
+            "url": "https://drive.google.com/drive/folders/1Bg0iCyfn5q1Z46ZMYyQ30QCXKUm4bI6g",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Hotelería",
+        "items": [
+          {
+            "label": "Comparativos de hoteles",
+            "url": "https://drive.google.com/drive/folders/1y2y-fAsmKVlgPtTGgXMV3urxDQU7R6Hy",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Hoteles recomendados",
+            "url": "https://docs.google.com/spreadsheets/d/1kwqVIy2-rw2zR9h7JUkDaIlPHU6b0w9ZcwNX5Du_gQQ/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Hoteles vinculados a Hyperguest",
+            "url": "https://docs.google.com/spreadsheets/d/19g-8wGzvnwT45l_Ga3SEJyBMazhSlryf5uClOzpHKgY/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Interno",
+        "items": [
+          {
+            "label": "Responsables - Distribución Interna del Sector",
+            "url": "https://docs.google.com/spreadsheets/d/1kQM_8I9p0coDhh8UH8bjD0OuDlTqiOPX7G7brSPcaVo/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Instructivos y procedimientos",
+            "url": "https://drive.google.com/drive/folders/15xxFRFnMKCg78VdQrAYRLFgJSuBOsv39",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Sucursales",
+        "items": [
+          {
+            "label": "Interagencias (USH)",
+            "url": "https://drive.google.com/drive/folders/1rQeCVBCjZPHu1DEr27qPuhRqBUEYlftI",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Interagencias (FTE)",
+            "url": "https://drive.google.com/drive/folders/1xdUx_IJasHrEGlnRDW7xoIC8i7I8_3RA",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Interagencias (SLA) y SIBs",
+            "url": "https://docs.google.com/spreadsheets/d/1iSELrVdPylVbH0Fz-NfRjjuGPhWeQ6LiLQMOQC3UUTU/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Interagencias (SLA)",
+            "url": "https://drive.google.com/drive/folders/1k_2zAaM9YtTCKXCTJbnec7LGgsaMEbbD",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Alta de Proveedor (Nacionales)",
+        "items": [
+          {
+            "label": "Formulario - Servicios/Hoteles",
+            "url": "https://forms.gle/TbejmP67EnMZMuus9",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Formulario - Transportista",
+            "url": "https://forms.gle/61BbkyprUocRgLAh8",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Formulario - Guías",
+            "url": "https://forms.gle/yVsXMkYER3g7bmdx5",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Procedimientos",
+            "url": "https://drive.google.com/drive/folders/1DtU-HYvAm4aijJ7En1wh-gSOvG9lnSAT",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      }
+    ],
+    "operaciones": [
+      {
+        "title": "Horarios y guardias",
+        "items": [
+          {
+            "label": "Vacaciones",
+            "url": "https://drive.google.com/drive/folders/1Sq--6_45OG78rOHnFwFUIjAS_dpnEIOd",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Buenos Aires",
+            "url": "https://drive.google.com/drive/folders/1_NDu5HCzBrNiZvjFmcQPQkI2XOY1yjGn",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Sucursales",
+            "url": "https://drive.google.com/drive/folders/1hjiMnQvwWiGKuGxs4Y_n1dbtcf7ZrANY",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Aéreos",
+        "items": [
+          {
+            "label": "Aéreos",
+            "url": "https://drive.google.com/drive/u/0/folders/1YyXxhXl5xwWl-w4ZB-XvDh-uwrKtGBY7",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Contingencias",
+        "items": [
+          {
+            "label": "Contingencias (Archivos de trabajo - Histórico)",
+            "url": "https://drive.google.com/drive/folders/1UCFuMzJu4cWBSZVoOt_U8tDS8ekPZTZl",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Operaciones",
+        "items": [
+          {
+            "label": "Instrucciones & Procedimientos",
+            "url": "https://drive.google.com/drive/u/0/folders/1SFypymYk36FFEls5jtPui-RV63vlcmav",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "FITs",
+            "url": "https://drive.google.com/drive/u/0/folders/1GaWceN_6C8KdHxcXZbdQLWEE4NIla8bi",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Instructivos y Capacitaciones",
+            "url": "https://drive.google.com/drive/folders/1UQY9DQnr3oNvddHS66F7n51-UMmM68xc",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Grupos",
+            "url": "https://drive.google.com/drive/u/0/folders/1r1brPFqLV9imltVtzXZNrVZi5u09YMcY",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Grupos",
+        "items": [
+          {
+            "label": "Información Varia",
+            "url": "https://drive.google.com/drive/u/0/folders/14xXTAVgCLda9Hlo9MRWSSb-PK54kdT1z",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Instructivos",
+            "url": "https://drive.google.com/drive/u/0/folders/1HvnUL76LW1GVAZKUa-lM4QCWY7l8yrIO",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Cotización-Parámetros-Cotizadores",
+            "url": "https://drive.google.com/drive/u/0/folders/1r1v1glRhprE5sP0FPN2hgX3dDzhB4xQ2",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Salidas Fijas",
+        "items": [
+          {
+            "label": "Instructivos",
+            "url": "https://drive.google.com/drive/folders/1FHBNG3GAFrZMkST17jAZk3tGabF0-i-u",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Planillas Operativas",
+            "url": "https://drive.google.com/drive/u/0/folders/1SJpvSK6w5zm1p0D-wxLjgeyBLyeXmd-H",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Links tarifarios",
+            "url": "https://drive.google.com/drive/u/0/folders/1yJcAQLCXjJ2rbDGcgFlP9wzJY-hMQIsx",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Bloqueos",
+            "url": "https://drive.google.com/drive/u/0/folders/1CCRGB60vvTK-Dlwy4LBvztHSQPSIZTRQ",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Cierres",
+            "url": "https://drive.google.com/drive/u/0/folders/1HeE9AIjIbTwXwj3b0F_cPaCAeQyGIrVM",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Info Media Pensión",
+            "url": "https://drive.google.com/drive/folders/1JkOOUjZCm8SIhZCBqY8z2NfEaqvR4bGf",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Mesa de tráfico / Sucursales",
+        "items": [
+          {
+            "label": "Instructivos Generales",
+            "url": "https://drive.google.com/drive/folders/171lqcOXMD3AUVUTUl5wgWR8v7i8GT4uf",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Mesa de tráfico · Buenos Aires",
+        "items": [
+          {
+            "label": "Procedimientos",
+            "url": "https://drive.google.com/drive/u/0/folders/1Au8_BCWEvUxtMHW9_ep3ZIeR9GVfH8ub",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Guías",
+            "url": "https://drive.google.com/drive/u/0/folders/1l86WWld2cLW4YPcO8VQGD8qmNzJ934Gj",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Seguridad",
+            "url": "https://drive.google.com/drive/u/0/folders/1ShCxFq8mQOA8MIXSiJ2_gnHK5ghv-qH0",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Restaurantes (***Solo Uso Interno***)",
+            "url": "https://sites.google.com/eurotur.tur.ar/vfinal/inicio",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Transporte",
+            "url": "https://drive.google.com/drive/u/0/folders/141CZ5N2bao7LXWNG4rSxG4pd6lEO2pyI",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Sucursales",
+        "items": [
+          {
+            "label": "Procedimientos",
+            "url": "https://drive.google.com/drive/u/0/folders/1p51-4Ha2UFvzdT1iiCFVQ6GBkmfFFfWo",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Vencimientos Oficinas y Flota Travel Designers",
+            "url": "https://drive.google.com/drive/u/0/folders/1LlCZg9lGNO1XOXBqkpfRikumPWracUw2",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Herramientas Generales",
+            "url": "https://drive.google.com/drive/folders/1JNfrB1UzbcIC0dS7E7GTWS921nnxtKMj",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Oficina Ushuaia",
+        "items": [
+          {
+            "label": "Guías",
+            "url": "https://drive.google.com/drive/u/0/folders/1sUJFCPqkXgYa3eKYiXOBZ44Inn0G9ef9",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Guías (planilla)",
+            "url": "https://docs.google.com/spreadsheets/d/1TISFlzSAQ1l3opLz8wB383WUP4qzkKZupeGlkgv8_c4/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Restaurantes",
+            "url": "https://sites.google.com/eurotur.tur.ar/restaurantesushuaia",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Comprobantes Caja Local",
+            "url": "https://drive.google.com/drive/folders/1wKRJ3PWEcWtnZboqF4l7MjhRAR0tk8tn",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Herramientas Internas",
+            "url": "https://drive.google.com/drive/folders/1pZRKK6d4FpRuoquWdADi-CUodyTnFaQC",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Transporte",
+            "url": "https://drive.google.com/drive/u/0/folders/1wP-Kfz3w_GGyuxaaUMRrCTZiKOusyzmp",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Oficina Calafate",
+        "items": [
+          {
+            "label": "Guías",
+            "url": "https://drive.google.com/drive/u/0/folders/1y8wOktFPvV61xhc2vVoB-FE5673mIB48",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Guías (planilla)",
+            "url": "https://docs.google.com/spreadsheets/d/1dOD0xSNv9qEfOzSBasyXlGSpQ6JpQNfh_XYm_VX8GVc/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Restaurantes",
+            "url": "https://sites.google.com/eurotur.tur.ar/restaurantescalafate/inicio",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Comprobantes Caja Local",
+            "url": "https://drive.google.com/drive/folders/1xzm_gv8VRlqdWmGRqTchGvNuZr_zTdK2",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Herramientas Internas",
+            "url": "https://drive.google.com/drive/folders/1y5lCufnbkqT01D_Fn4SU_BSMuyPrLkba",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Transporte",
+            "url": "https://drive.google.com/drive/folders/1XFfJDVP-OD7PsYTffVm-lbwz6ZkKD0pK",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Oficina Salta",
+        "items": [
+          {
+            "label": "Guías",
+            "url": "https://docs.google.com/spreadsheets/d/1jjF31bVU-y2rge8fDSKQ4wXhdWS8_fQ5wSIT8bX7v0s/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Comprobantes Caja Local",
+            "url": "https://drive.google.com/drive/folders/1XqetWMsa4N2F_gV_-boBu2wkOw2dtyJR",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Herramientas Internas",
+            "url": "https://drive.google.com/drive/folders/1MI703ABVOGx5skVR--Ap3kx12kQMUEcS",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Apertura",
+            "url": "https://drive.google.com/drive/u/0/folders/1Ked6Y5h1L3oFZiTV7Sk0ichkUDRrqHTF",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      }
+    ],
+    "producto": [
+      {
+        "title": "Herramientas",
+        "items": [
+          {
+            "label": "Políticas de menores",
+            "url": "https://drive.google.com/drive/u/0/folders/1HwIbaVKHd4L_GrjnopcKAMv7k4hJUgpG",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Horario de excursiones",
+            "url": "https://drive.google.com/drive/u/0/folders/18Im6qWJZwrZlbQBHXOot8zQ0U1lqE8fB",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Fichas técnicas Tango",
+            "url": "https://drive.google.com/drive/u/0/folders/1_TRFlwGeN_p1rwYhIUVflPkjPYxPTI8k",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Ficha hoteles",
+            "url": "https://drive.google.com/drive/u/0/folders/1qqZ4KWzg_mwqO0oXpYIgstbBZjSvlbGe",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Family Plan",
+            "url": "https://drive.google.com/drive/u/0/folders/1O83oWF5hO62efF1UGLAypLXbjCCJgNdj",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Comparativas",
+            "url": "https://drive.google.com/drive/u/0/folders/16EtqTxkRcfGtSQX30un4-N0NGrb4j6Os",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Base vehículos",
+            "url": "https://drive.google.com/drive/u/0/folders/1Lwp2HRaRNtOt64nonTcuWkWIUi7o4_-w",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Tours de Buenos Aires",
+            "url": "https://drive.google.com/drive/u/0/folders/1jeBQOfsRgpcgwsAv1NccCR4I5-ovPxpN",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Ficha restaurantes",
+            "url": "https://drive.google.com/drive/folders/1-UUwVeJRq-pgVlvJMnBA97ql3Umb-VtN",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Tours Euro SLA",
+            "url": "https://drive.google.com/drive/folders/13c3NaujyvHCwsmXDYQ5bwayKW9aVcVqz",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Reportes",
+        "items": [
+          {
+            "label": "Reporte",
+            "url": "https://docs.google.com/document/d/1PpJk07lmw7PGilul4zqlS54ZEnSGC-zV/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Productos",
+            "url": "https://drive.google.com/drive/u/0/folders/1sgazGsnLQj5m9AabP-uZ5UPeC2ICeNH1",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Sites hoteles",
+            "url": "https://drive.google.com/drive/u/0/folders/1-4ICNSD-bInkaTiKraxhwQzXRHynX3zm",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Prestaciones",
+            "url": "https://drive.google.com/drive/folders/17CswK60PH3bDFE6aofUhAoIjyT0TYVS9",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Tasas",
+            "url": "https://drive.google.com/drive/folders/1JowCd2k4930yntbJSWH2DjKSsfz28r0p",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Internas",
+        "items": [
+          {
+            "label": "Procedimientos internos",
+            "url": "https://drive.google.com/drive/u/0/folders/14yI4_JqsRObmD9QBf6pxBisPM9J6G6mK",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Novedades",
+        "items": [
+          {
+            "label": "Novedades productos",
+            "url": "https://drive.google.com/drive/u/0/folders/1HGEFn6CxJKzPh2JMZXK07v1-vc5ljE0h",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Newsletters a clientes",
+            "url": "https://drive.google.com/drive/folders/1YTPfY8fVFMzlZ_XT89fcNmb3Pn9seQgg",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Newsletters internos",
+            "url": "https://drive.google.com/drive/folders/1HGEFn6CxJKzPh2JMZXK07v1-vc5ljE0h",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Fotos",
+        "items": [
+          {
+            "label": "Hoteles",
+            "url": "https://drive.google.com/drive/u/0/folders/1vaFB4CVKaLSN1MLPl5Cdnu2tWh3dAwyx",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Atractivos",
+            "url": "https://drive.google.com/drive/u/0/folders/1ZUd_jV62Q078V3Xjso7e3bCB4wVEjDys",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Presentaciones — en preparación",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "BEST",
+        "items": [
+          {
+            "label": "Fechas",
+            "url": "https://drive.google.com/drive/folders/1rur9EPVt412cGvAnGdIkLHXhp3T8P_vw",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Vuelos sugeridos",
+            "url": "https://drive.google.com/drive/folders/1oPdmfxbR-V_PHUtDIaCwfcqqtu1uOsa2",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Tarifarios",
+            "url": "https://drive.google.com/drive/folders/121Rp7rGaromN8aXnv1TldvVeSfUjf0vG",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Tourbook 2026",
+        "items": [
+          {
+            "label": "Tourbook 2026",
+            "url": "https://drive.google.com/drive/folders/11t1CBKTHQURxv1DFdl6yxha_37Tm0skT",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Prompts",
+            "url": "https://drive.google.com/drive/folders/1zaePfF-PlJdbx5Kqx17tCdp-FVvhdASu",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Procedimientos",
+            "url": "https://drive.google.com/drive/folders/1xQfyBXkFmhLliOSwJo7sTqB9EQTwi2MZ",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Famtrips & Sites",
+        "items": [
+          {
+            "label": "2025 y anteriores",
+            "url": "https://drive.google.com/drive/folders/1gu8LbMGFs5TslIN8r7AOokHv-EePpdxn",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "2026",
+            "url": "https://drive.google.com/drive/folders/1fY2S3_J6JvDWWGUg1zgEIskcwJvGMSgR",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Info personal y pautas",
+            "url": "https://drive.google.com/drive/folders/1ajVjc64fbyZJVFIYckLceKAjHcNHyFuo",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Por área operativa",
+            "url": "https://drive.google.com/drive/folders/1dt35jDhuPrvsCso5sQThopafV0FC_j0i",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      }
+    ],
+    "customercare": [
+      {
+        "title": "Reportes",
+        "items": [
+          {
+            "label": "Reporte final de temporadas",
+            "url": "https://drive.google.com/drive/folders/1hnGCFM2a69of_6LBE9wlsZrKxOsNnitD",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Estandarización de servicios",
+        "items": [
+          {
+            "label": "Estandarización Eurotur 2025",
+            "url": "https://drive.google.com/drive/folders/1tagtLwhKKX5CuaWb4vY7SbN1uCZpxTUl",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Mensajes estandarizados BUE·FTE·USH",
+            "url": "https://docs.google.com/document/d/1FK3zEhXnd8kmU6T6785WFKuGw3M9zxTN/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Nota a los pasajeros",
+        "items": [
+          {
+            "label": "Español",
+            "url": "https://drive.google.com/drive/folders/1IHCup3ssmm2GkEVeRVTwach-jzQD4t49",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Inglés",
+            "url": "https://drive.google.com/drive/folders/1YI6h6zGjjFLQJ_VeDc8pGtXhgb5NDiaG",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Francés",
+            "url": "https://drive.google.com/drive/folders/12dSQnvvjtzaBLtxZ4iaFk_dat5_ask92",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Italiano",
+            "url": "https://drive.google.com/drive/folders/1WJH6-Kh0TvxLkUg4TJiFLKTEDQBTnFQq",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Procedimientos",
+        "items": [
+          {
+            "label": "Emisión de documentación en TP",
+            "url": "https://drive.google.com/drive/folders/1k-DepkqG3gBHehkYCYlkYz0fEZpMhErp",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Servicio de Concierge",
+            "url": "https://drive.google.com/drive/folders/1PVtgEdUIYjojH_NGDWqSel_f_nvtSX3Z",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Procedimiento para informar al seguro en caso de accidente al pasajero",
+            "url": "https://drive.google.com/drive/folders/1k-DepkqG3gBHehkYCYlkYz0fEZpMhErp",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Travel Agents en Viaje",
+            "url": "https://drive.google.com/drive/folders/1PVtgEdUIYjojH_NGDWqSel_f_nvtSX3Z",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      }
+    ],
+    "sales": [
+      {
+        "title": "Clientes",
+        "items": [
+          {
+            "label": "Clientes",
+            "url": "https://drive.google.com/drive/folders/1vxWJN6PJMDQIq6Ayk1XDRlL-b5ntjYWw",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Sección en ampliación",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Client Form modelos",
+            "url": "https://drive.google.com/drive/folders/1CWeImOJJ9MOjCxE5DTvYAObtOTGUNQVg",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Procedimientos & Instructivos",
+        "items": [
+          {
+            "label": "Procedimientos & Instructivos",
+            "url": "https://drive.google.com/drive/folders/1qYToY0mIJUeb1y2LG-TRHSJQEOK03fpy",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Calendario ausencias comercial",
+        "items": [
+          {
+            "label": "Calendario ausencias comercial",
+            "url": "https://drive.google.com/drive/folders/1pikrl_Bx8qXmKLWnSiervO2CvrlMU96y",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Crédito clientes",
+        "items": [
+          {
+            "label": "Crédito clientes",
+            "url": "https://drive.google.com/drive/folders/1mtXZ2_BDPYcllmxl_qj8BC39-Iwfwf4L",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Ferias / Misiones comerciales",
+            "url": "https://drive.google.com/drive/folders/1ujMQkayuEjbPEe6pyR7-xaSZCtlXq8ro",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Links y modelos de respuesta",
+        "items": [
+          {
+            "label": "Links y modelos de respuesta",
+            "url": "https://drive.google.com/drive/folders/1Vw8kKSkY8T23MdIYm-A8JrWL2_pHzqnN",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Profile y logos Eurotur",
+        "items": [
+          {
+            "label": "Profile Eurotur y logos",
+            "url": "https://drive.google.com/drive/folders/101vVGzONJa9_7n5ATleHHCnk_FGZbqh2",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Travel Experience Designers",
+        "items": [
+          {
+            "label": "Travel Experience Designers",
+            "url": "https://drive.google.com/drive/folders/1UQY9DQnr3oNvddHS66F7n51-UMmM68xc",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      }
+    ],
+    "traveldesigners": [
+      {
+        "title": "Información",
+        "items": [
+          {
+            "label": "Manual de conductores/as",
+            "url": "https://drive.google.com/drive/u/0/folders/166lJNjbeaRrE272XPPRCr-ollXUqeVsc",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Manual de convivencia",
+            "url": "https://drive.google.com/drive/u/0/folders/16BCxu_MZyx5WA_3vjJA6dNk2xkpXw3O1",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Simulacro de recibo de haberes",
+            "url": "https://drive.google.com/drive/u/0/folders/1ixZQMHj3CymaSnMuIQKAjzTdu7gcHLJU",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Dirección",
+        "items": [
+          {
+            "label": "Av. Montes de Oca 2238, CABA",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Organigrama",
+        "items": [
+          {
+            "label": "Organigrama Travel Designers",
+            "url": "/organigrama?empresa=TD",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Flota (previa a 2026)",
+        "items": [
+          {
+            "label": "Buenos Aires",
+            "url": "https://drive.google.com/drive/folders/1bce830Tnl-cal8fYUKuqtsoEOndljJbp",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Flota 2026",
+        "items": [
+          {
+            "label": "Buenos Aires",
+            "url": "https://drive.google.com/drive/folders/1duDwWhBKeWHiDKYzfTx7yf4tOlJynw1U",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Calafate",
+            "url": "https://drive.google.com/drive/folders/1ReR8OXlyWawXaSI-YljFSlaiBlqhqKPT",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Ushuaia",
+            "url": "https://drive.google.com/drive/folders/1hswfFyB_R7kdEjhx5CWITJO2wMJXKA0X",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      }
+    ],
+    "it": [
+      {
+        "title": "Ticketera & soporte",
+        "items": [
+          {
+            "label": "Ticketera",
+            "url": "https://docs.google.com/forms/d/e/1FAIpQLSeyq0O-jjq9FRdLqdL8NeOuDogy0VrRfvspfBXU7-3_AO64rA/viewform",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Gestión soporte interno",
+            "url": "https://drive.google.com/drive/folders/11VgSUUrIjarUZW3OfcCR-huLJsWVehY0",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Informe de backups (clave)",
+            "url": "https://drive.google.com/drive/folders/1KH4U7tGSAiiTtSVdgdCsACXNGh-ijnfl",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Instructivo: carga de información en el Portal Eurotur",
+            "url": "https://docs.google.com/document/d/1gdCtNabOh6flzAsEj9_20ExCYxdEPNGv/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Seguridad & manuales",
+        "items": [
+          {
+            "label": "Ciberataques",
+            "url": "https://docs.google.com/presentation/d/1YK6CTvN4Fowmuvt0ai7XAU73NM-7zhMb/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Tango / Delta (Axoft)",
+            "url": "https://ayudas.axoft.com/21ar/documentos/operacion/",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Proveedores: Tec 5 · IPLAN · METROTEL",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Sistemas",
+        "items": [
+          {
+            "label": "Tourplan",
+            "url": "https://drive.google.com/drive/folders/1y7JY1XX1Cu1ydwA-E_LY1vYjoI9IFmpt",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Tourplan — instructivos",
+            "url": "https://drive.google.com/drive/folders/1xK4pC-HiQ3nFXaEPIJ0zwhy2WoWFrJ0s",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Sabre",
+            "url": "https://drive.google.com/drive/folders/1P4X3YKHLt5ZST6YokWcsJgMAOMpEoT9J",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Sabre — descargar",
+            "url": "https://www.sabre.com/products/suites/customer-touchpoints/sabre-red-360/",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "IDB / BOT",
+            "url": "https://indatabiz.com/soporte/doc/entendiendo-idb-glider-y-su-principio-de-funcionamiento/",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Telefonía & internos",
+        "items": [
+          {
+            "label": "Zoiper — presentación",
+            "url": "https://docs.google.com/presentation/d/1XuEdYtfSYAuZGh0uw20nxzQukcy71tvWhMAHnvxvNq4/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Zoiper PC",
+            "url": "https://docs.google.com/document/d/1Ai1EvGJ75opFN7n_XjJswqOoUHYDGTTF/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Zoiper celular",
+            "url": "https://drive.google.com/drive/u/0/folders/1sq_P9iZJmIYhPwLdmjPWGryNCKk9NsQr",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Internos Eurotur",
+            "url": "https://docs.google.com/spreadsheets/d/17_yPlbkFWjTYLPNz7TCRf_pXSp_XIXOy/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Plano de internos",
+            "url": "https://drive.google.com/drive/u/0/folders/1UV8XKwPEm_U470vl-58MUVL-J1f-Dj6j",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Google Meet & Gmail",
+        "items": [
+          {
+            "label": "Audio notebook para Meet",
+            "url": "https://docs.google.com/document/d/1pasl8bOXJTSpv447ueah1m7KB7Ro-a2v/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Fondo en reuniones Meet",
+            "url": "https://drive.google.com/drive/u/0/folders/1T11gNO9I45pHtctv3C-vIMS0nnaP5cV0",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Delegación de permisos en Gmail",
+            "url": "https://drive.google.com/drive/u/0/folders/1D0fQuSnomiZfXVGfiiMuvK6eWl0yYdNg",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Complementos Excel (Disco T)",
+            "url": "https://drive.google.com/drive/folders/1TtmqBMJDBpgYtnrihCJNkOrvp694ybD9",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Guía para mover correos spam a una carpeta (Outlook/Gmail)",
+            "url": "https://docs.google.com/document/d/1T4po7y909FMwviKUtxrO4L0rTYT5vDTz/edit",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Equipos & acceso remoto",
+        "items": [
+          {
+            "label": "Notebook — instructivo",
+            "url": "https://drive.google.com/drive/folders/10lZVU9urVZfJ9aXiSau9H3d-rZn8Kyc4",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "VPN Forticlient / IPSec",
+            "url": "https://drive.google.com/drive/folders/1IcY-SmWA-ZfhzMernOiXl05mGJCcSNU7",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          },
+          {
+            "label": "Guacamole (fuera de Argentina)",
+            "url": "https://remoto.eurotur.tur.ar/",
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      }
+    ],
+    "responsables": [
+      {
+        "title": "Institucional",
+        "items": [
+          {
+            "label": "De Bin, Aldo",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "RRHH",
+        "items": [
+          {
+            "label": "Velázquez, Romina",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Guía telefónica",
+        "items": [
+          {
+            "label": "Velázquez, Romina",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Impuestos & Legales",
+        "items": [
+          {
+            "label": "Quintana, Elsa",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Datos bancarios y pólizas",
+        "items": [
+          {
+            "label": "Agüero, Leonela",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Cuentas a pagar",
+        "items": [
+          {
+            "label": "Flores, María Beatriz",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Operaciones",
+        "items": [
+          {
+            "label": "Juliano, María Valeria",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Contrataciones",
+        "items": [
+          {
+            "label": "Garrigo, Mariana · Dis, Paula",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Producto",
+        "items": [
+          {
+            "label": "Carrizo, C. · Aleu, M. · Carbajo, A.",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Comercial",
+        "items": [
+          {
+            "label": "Zanone · Meyoyan · Carrizo · Lezcano · Clement · Bonserio",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "IT",
+        "items": [
+          {
+            "label": "Fuentes, Yenedier",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Cotización Dólar",
+        "items": [
+          {
+            "label": "Fuentes, Yenedier",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Contabilidad · Pre-Balance",
+        "items": [
+          {
+            "label": "Quintana, Elsa",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "title": "Innovacion",
+        "items": [
+          {
+            "label": "Homez, Valentina",
+            "url": null,
+            "badge": null,
+            "keywords": null,
+            "file_path": null
+          }
+        ]
+      }
+    ]
+  },
+  "frentes": [
+    {
+      "area": "Administrativo · Cuentas a pagar",
+      "owner": "V. Homez · Y. Juárez",
+      "iniciativas": [
+        {
+          "n": "Bot de carga en TourPlan",
+          "badge": "Producción",
+          "cls": "prod",
+          "desc": "Procesó 600.000 líneas históricas: genera invoices y cheques con el costo real cargado contra cada línea.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Carga diaria de tipos de cambio en TourPlan",
+          "badge": "Producción",
+          "cls": "prod",
+          "desc": "Actualiza automáticamente las cotizaciones del día en TourPlan para que las cargas y cotizaciones usen el tipo de cambio correcto.",
+          "url": "/documentos/tourplan-fx-bot-funcionalidad.md",
+          "file_path": null
+        },
+        {
+          "n": "Conciliador de pagos duplicados",
+          "badge": "Desarrollo",
+          "cls": "dev",
+          "desc": "Alerta REVISAR / CON FACTURAS PREVIAS / NUEVA por proveedor + file, antes de generar la OP.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Chat IA de documentación",
+          "badge": "Análisis",
+          "cls": "ana",
+          "desc": "Asistente que responde sobre procesos de CxP a partir de la documentación. Pendiente de aprobación.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Comprobantes USD · Banco→Drive",
+          "badge": "Sin iniciar",
+          "cls": "cero",
+          "desc": "Captura automática de comprobantes en dólares del banco a Drive. Pendiente de aprobación.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Sistematización de pagos a guías",
+          "badge": "Sin iniciar",
+          "cls": "cero",
+          "desc": "Anticipos, rendición de gastos y honorarios. Requiere documentar el proceso completo.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Panel de Rendición de Gastos",
+          "badge": "En prueba",
+          "cls": "test",
+          "desc": "Panel guiado que reemplaza la carga manual del Excel oficial de rendición de gastos: se completa paso a paso y descarga el mismo Excel ya completo, con fórmulas y validaciones intactas, listo para Tesorería. Cubre ARS y moneda extranjera, hasta 60 comprobantes.",
+          "url": "/adm/rendicion-gastos",
+          "file_path": null
+        },
+        {
+          "n": "Carga de cheques",
+          "badge": "Producción",
+          "cls": "prod",
+          "desc": "Registra los cheques en TourPlan sin intervención manual. Área: Cuentas a Pagar.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Tildado de proveedores",
+          "badge": "Producción",
+          "cls": "prod",
+          "desc": "Marca y desmarca proveedores en TourPlan según el estado de cada pago. Área: Cuentas a Pagar.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Carga de facturas de proveedores",
+          "badge": "En desarrollo",
+          "cls": "dev",
+          "desc": "Lleva a TourPlan las facturas pendientes de Tango, entre 20 y 100 por día, imputándolas al voucher. Patrón: el sistema propone, una persona aprueba y recién entonces ejecuta, dejando registro de cada cambio.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Panel de gestión de prepagos",
+          "badge": "En pruebas con datos reales",
+          "cls": "test",
+          "desc": "Seguimiento de cada prepago a proveedores hasta la factura, con alertas de pago doble y cobertura. Áreas: Cuentas a Pagar y Cuentas a Cobrar. 331 pruebas automáticas.",
+          "url": null,
+          "file_path": null
+        }
+      ]
+    },
+    {
+      "area": "Contrataciones · Base de datos",
+      "owner": "M. Zanone",
+      "iniciativas": [
+        {
+          "n": "Revalorización de tarifas (PCM)",
+          "badge": "En TEST",
+          "cls": "test",
+          "desc": "Revaloriza el PCM cuando cambia un componente: modifica el servicio madre o crea temporada. Corre desde un prompt.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Descarga de reportes TP NX",
+          "badge": "Funciona",
+          "cls": "live",
+          "desc": "Bajada automática de reportes de Operations (Tour Summary y otros). Patrón replicable.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Productos",
+          "badge": "Implementado",
+          "cls": "prod",
+          "desc": "Robot sobre TourPlan, parte de la aplicación que usa el equipo de Contrataciones (scripts desarrollados con asistencia de IA). Copia de productos modificando cualquier campo, baja de productos y edición de descripciones y comentarios.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Paquetes (PCM)",
+          "badge": "Implementado",
+          "cls": "prod",
+          "desc": "Robot sobre TourPlan, parte de la aplicación que usa el equipo de Contrataciones (scripts desarrollados con asistencia de IA). Copia de la estructura de un paquete desde un servicio madre y vinculación a un código nuevo.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Valorización",
+          "badge": "Implementado",
+          "cls": "prod",
+          "desc": "Robot sobre TourPlan, parte de la aplicación que usa el equipo de Contrataciones (scripts desarrollados con asistencia de IA). Cálculo y carga de tarifas de paquetes a partir de sus componentes, del servicio madre o de una planilla.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Notas de producto",
+          "badge": "Implementado",
+          "cls": "prod",
+          "desc": "Robot sobre TourPlan, parte de la aplicación que usa el equipo de Contrataciones (scripts desarrollados con asistencia de IA). Alta y edición masiva de notas (descriptivos, luggage waiver y más de 25 tipos), sin pisar lo existente.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Relevamiento de vigencias",
+          "badge": "Implementado",
+          "cls": "prod",
+          "desc": "Robot sobre TourPlan, parte de la aplicación que usa el equipo de Contrataciones (scripts desarrollados con asistencia de IA). Revisión de solo lectura de los períodos de tarifas para detectar tarifas vencidas o sin cargar.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Textos y nombres de tarifas",
+          "badge": "En proceso",
+          "cls": "curso",
+          "desc": "Modificación masiva por período. Probado; falta sumarlo a la app.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Variación del CBD",
+          "badge": "En proceso",
+          "cls": "curso",
+          "desc": "Impacto en los precios en dólares ante un cambio en el valor del CBD.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Genéricos vs. específicos",
+          "badge": "En proceso",
+          "cls": "curso",
+          "desc": "Diferencias entre tarifas genéricas y las de cada transportista según el tipo de cambio.",
+          "url": null,
+          "file_path": null
+        }
+      ]
+    },
+    {
+      "area": "Conciliaciones bancarias",
+      "owner": "Tesorería + Contabilidad",
+      "iniciativas": [
+        {
+          "n": "Conciliación bancaria con IA + bot",
+          "badge": "En curso",
+          "cls": "curso",
+          "desc": "Iniciativa de Administración. En exploración — conviene coordinar para no solaparse con CxP.",
+          "url": null,
+          "file_path": null
+        }
+      ]
+    },
+    {
+      "area": "Contabilidad · Cierre mensual",
+      "owner": "E. Quintana · N. Basualdo",
+      "iniciativas": [
+        {
+          "n": "Pre-Balance de Módulos (Tango)",
+          "badge": "En prueba",
+          "cls": "test",
+          "desc": "Se le arrastran los 4 reportes de Tango y devuelve el Excel armado con 15 controles: pegado de listados, fórmulas EXTRAE, saldo neto debe menos haber, tablas dinámicas por cuenta, validación de que cada módulo dé cero, BUSCARV contra el plan de cuentas y detección de cuentas nuevas.",
+          "url": "/documentos/prebalance-modulos.docx",
+          "file_path": null
+        },
+        {
+          "n": "Generador de asientos contables",
+          "badge": "En validación final",
+          "cls": "test",
+          "desc": "Convierte los movimientos de inversiones en asientos listos para Tango. Nueve tipos de operación. 179 pruebas automáticas; 0 descuadres en los asientos generados, validados contra el Libro Diario de un mes cerrado. Área: Contabilidad.",
+          "url": null,
+          "file_path": null
+        }
+      ]
+    },
+    {
+      "area": "Recursos Humanos · Organigrama",
+      "owner": "V. Homez · R. Velázquez",
+      "iniciativas": [
+        {
+          "n": "Organigrama interactivo",
+          "badge": "En prueba",
+          "cls": "test",
+          "desc": "Organigrama navegable con foto por persona, ficha, filtros por sector y sede, contratos de temporada y vacantes. RRHH lo edita desde el Back Office, con registro de quién cambió qué. Reemplaza el PDF.",
+          "url": null,
+          "file_path": null
+        }
+      ]
+    },
+    {
+      "area": "Cuentas a cobrar",
+      "owner": null,
+      "iniciativas": [
+        {
+          "n": "Datos de pasajeros para factura T",
+          "badge": "En diseño",
+          "cls": "curso",
+          "desc": "Detecta y corrige nacionalidad, pasaporte y país de residencia para el reintegro de IVA a turistas. Diseño cerrado.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Diferencias de invoice",
+          "badge": "En relevamiento",
+          "cls": "ana",
+          "desc": "Control automático de diferencias entre lo facturado y lo presupuestado en cada file. Área: Cuentas a Cobrar.",
+          "url": null,
+          "file_path": null
+        }
+      ]
+    },
+    {
+      "area": "Tesorería · Rendición de gastos",
+      "owner": null,
+      "iniciativas": [
+        {
+          "n": "Lectura de comprobantes con IA",
+          "badge": "Producción",
+          "cls": "prod",
+          "desc": "Lee la foto de una factura o ticket y completa los datos: fecha, CUIT, importes, IVA y moneda. Un modelo de visión identifica el tipo de comprobante y extrae más de 20 campos. Conectada al panel de rendición de gastos. Costo marginal: entre 0,002 y 0,013 dólares por comprobante leído. Área: Tesorería. Tipo: IA generativa.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Caso: de la foto de un comprobante a la rendición lista",
+          "badge": "Caso",
+          "cls": "live",
+          "desc": "1) Foto: la persona saca una foto de la factura, ticket o boleto, en pesos o en moneda extranjera. 2) Lectura con IA: un modelo de visión identifica el tipo de comprobante y extrae más de 20 campos. 3) Validación: el sistema verifica que el desglose sume el total y asigna un nivel de confianza. 4) Revisión: la persona confirma o corrige en el panel; lo dudoso aparece señalado. 5) Excel oficial: sale el archivo de Tesorería con sus fórmulas intactas y los comprobantes adjuntos. Nunca inventa un valor: si un campo no se puede leer, queda vacío y se pide a la persona. Proveedores de IA intercambiables: si uno falla o se satura, se cambia por configuración, sin tocar el sistema.",
+          "url": null,
+          "file_path": null
+        }
+      ]
+    },
+    {
+      "area": "Customer Care · Documentación de viaje",
+      "owner": null,
+      "iniciativas": [
+        {
+          "n": "Documentación de viaje",
+          "badge": "Producción",
+          "cls": "prod",
+          "desc": "Para Customer Care: descarga los vouchers y carteles de un listado de files y los guarda en la carpeta indicada. Robot sobre TourPlan.",
+          "url": null,
+          "file_path": null
+        }
+      ]
+    },
+    {
+      "area": "Toda la empresa · Plataformas y procesos autónomos",
+      "owner": null,
+      "iniciativas": [
+        {
+          "n": "Portal interno",
+          "badge": "Producción",
+          "cls": "prod",
+          "desc": "Punto único de acceso a las herramientas y la documentación, con buscador. Para toda la empresa.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Recordatorios de vencimientos",
+          "badge": "Construido, en despliegue",
+          "cls": "test",
+          "desc": "Avisos automáticos y escalamiento de habilitaciones, seguros, cánones y mantenimientos de todas las oficinas. Para toda la empresa. 167 pruebas automáticas.",
+          "url": null,
+          "file_path": null
+        },
+        {
+          "n": "Caso: un sistema que vigila los vencimientos solo",
+          "badge": "Caso",
+          "cls": "live",
+          "desc": "Qué resuelve: los vencimientos no rutinarios de las seis unidades (habilitaciones, cánones, seguros, revisiones técnicas de la flota, mantenimientos y documentación del personal) vivían en planillas que no avisaban nada. Ahora un sistema los revisa solo, todos los días, y actúa sin que nadie tenga que acordarse. 1) Revisa todos los días qué vence y a quién le corresponde. 2) Avisa al responsable con anticipación: 30, 15 y 5 días antes. 3) Escala al jefe si el vencimiento se acerca sin respuesta. 4) Reclama los datos que faltan para poder controlar. 5) Renueva la próxima fecha cuando el trámite se cumple. Más de 160 pruebas automáticas.",
+          "url": null,
+          "file_path": null
+        }
+      ]
+    },
+    {
+      "area": "Operaciones · Pedidos por email",
+      "owner": null,
+      "iniciativas": [
+        {
+          "n": "Precarga de pedidos en TourPlan con TourConnect",
+          "badge": "En implementación",
+          "cls": "prod",
+          "desc": "Los pedidos de clientes que ingresan por email se procesan con TourConnect y quedan precargados en TourPlan, listos para revisar. Flujo: 1) pedido por email (el cliente envía el pedido de reserva por correo, como hoy); 2) lectura con TourConnect (la plataforma lee el pedido y lo ordena para cargarlo); 3) precarga en TourPlan, sin tipeo manual; 4) revisión del equipo: Operaciones controla y confirma antes de avanzar. Área: Operaciones. Plataforma externa integrada con TourPlan.",
+          "url": "http://192.168.98.4:8003/",
+          "file_path": null
+        }
+      ]
+    }
+  ]
+}

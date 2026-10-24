@@ -1,8 +1,8 @@
 import { Head } from '@inertiajs/react';
 import { ImageSlot } from '@/components/portal/image-slot';
+import { MaintLine } from '@/components/portal/maint-line';
 
-const RED = '#E30613';
-const GOLD = '#b8933f';
+const RED = '#E3000F';
 
 type Category = {
     num: string;
@@ -45,7 +45,9 @@ export default function Qrated() {
         <>
             <Head title="Qrated" />
 
-            <section>
+            <section
+                style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
+            >
                 <div
                     style={{
                         display: 'flex',
@@ -58,7 +60,8 @@ export default function Qrated() {
                     <div style={{ maxWidth: '620px' }}>
                         <div
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '10px',
                                 letterSpacing: '0.16em',
                                 textTransform: 'uppercase',
@@ -70,13 +73,13 @@ export default function Qrated() {
                         </div>
                         <h1
                             style={{
-                                fontFamily: "'Anton', sans-serif",
-                                fontWeight: 400,
-                                fontSize: 'clamp(64px,9vw,132px)',
-                                lineHeight: 0.84,
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                fontWeight: 800,
+                                fontSize: 'clamp(44px,5vw,60px)',
+                                lineHeight: 1.05,
                                 margin: 0,
-                                letterSpacing: '-0.005em',
-                                color: GOLD,
+                                letterSpacing: '-1.5px',
                             }}
                         >
                             Qrated
@@ -97,25 +100,7 @@ export default function Qrated() {
                             creativo para experiencias de alta gama y MICE.
                         </p>
                     </div>
-                    <div
-                        style={{
-                            fontFamily: "'Archivo', sans-serif",
-                            fontWeight: 900,
-                            fontSize: 'clamp(80px,10vw,140px)',
-                            lineHeight: 0.72,
-                        }}
-                    >
-                        08
-                    </div>
                 </div>
-
-                <div
-                    style={{
-                        height: '3px',
-                        background: 'linear-gradient(90deg,#e2c384,#8a6a24)',
-                        marginBottom: '26px',
-                    }}
-                />
 
                 <a
                     href="https://docs.google.com/forms/d/e/1FAIpQLSeQ5QQyS8NMrdeIWoQKCcKlx7UdZt3ziV4L8Hg9NwmZThv1DQ/viewform"
@@ -132,6 +117,7 @@ export default function Qrated() {
                         color: '#fff',
                         padding: '16px 22px',
                         marginBottom: '32px',
+                        borderRadius: '16px',
                         transition: 'background .12s,transform .12s',
                     }}
                 >
@@ -144,7 +130,8 @@ export default function Qrated() {
                     >
                         <span
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '10px',
                                 letterSpacing: '0.12em',
                                 textTransform: 'uppercase',
@@ -155,7 +142,8 @@ export default function Qrated() {
                         </span>
                         <span
                             style={{
-                                fontFamily: "'Archivo', sans-serif",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontWeight: 800,
                                 fontSize: '19px',
                                 letterSpacing: '-0.01em',
@@ -166,7 +154,8 @@ export default function Qrated() {
                     </span>
                     <span
                         style={{
-                            fontFamily: "'Space Mono', monospace",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '16px',
                         }}
                     >
@@ -179,24 +168,27 @@ export default function Qrated() {
                         display: 'flex',
                         alignItems: 'baseline',
                         justifyContent: 'space-between',
-                        borderBottom: '3px solid #000',
                         paddingBottom: '10px',
+                        marginBottom: '4px',
                     }}
                 >
                     <div
                         style={{
-                            fontFamily: "'Archivo', sans-serif",
-                            fontWeight: 900,
-                            fontSize: '19px',
-                            letterSpacing: '-0.01em',
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                            fontWeight: 700,
+                            fontSize: '13px',
+                            letterSpacing: '0.14em',
+                            textTransform: 'uppercase',
+                            color: '#6B6B68',
                         }}
                     >
                         Categorías
-                        <span style={{ color: RED }}>—</span>
                     </div>
                     <div
                         style={{
-                            fontFamily: "'Space Mono', monospace",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '10px',
                             letterSpacing: '0.12em',
                             textTransform: 'uppercase',
@@ -211,8 +203,8 @@ export default function Qrated() {
                     style={{
                         display: 'grid',
                         gridTemplateColumns: 'repeat(3,1fr)',
-                        gap: 0,
-                        borderLeft: '1px solid #000',
+                        gap: '14px',
+                        marginTop: '12px',
                     }}
                 >
                     {CATEGORIES.map((cat) => (
@@ -223,8 +215,10 @@ export default function Qrated() {
                             rel="noreferrer"
                             className="qrated-cat"
                             style={{
-                                borderRight: '1px solid #000',
-                                borderBottom: '1px solid #000',
+                                background: '#fff',
+                                borderRadius: '16px',
+                                overflow: 'hidden',
+                                boxShadow: '0 1px 2px rgba(0,0,0,.05)',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 textDecoration: 'none',
@@ -237,7 +231,6 @@ export default function Qrated() {
                                 style={{
                                     position: 'relative',
                                     height: '210px',
-                                    borderBottom: '1px solid #000',
                                 }}
                             >
                                 <ImageSlot
@@ -249,18 +242,9 @@ export default function Qrated() {
                             </div>
                             <div style={{ padding: '14px 16px 18px' }}>
                                 <div
-                                    className="qrated-cat-num"
                                     style={{
-                                        fontFamily: "'Space Mono', monospace",
-                                        fontSize: '10px',
-                                        letterSpacing: '0.08em',
-                                    }}
-                                >
-                                    {cat.num}
-                                </div>
-                                <div
-                                    style={{
-                                        fontFamily: "'Archivo', sans-serif",
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontWeight: 800,
                                         fontSize: '17px',
                                         letterSpacing: '-0.01em',
@@ -284,20 +268,7 @@ export default function Qrated() {
                     ))}
                 </div>
 
-                <div
-                    style={{
-                        marginTop: '34px',
-                        borderTop: '1px solid #000',
-                        paddingTop: '14px',
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: '10px',
-                        letterSpacing: '0.12em',
-                        textTransform: 'uppercase',
-                        color: '#666',
-                    }}
-                >
-                    mantiene— Qrated · en desarrollo
-                </div>
+                <MaintLine>Qrated · en desarrollo</MaintLine>
             </section>
         </>
     );

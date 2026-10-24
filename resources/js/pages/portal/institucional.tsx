@@ -1,7 +1,8 @@
 import { Head } from '@inertiajs/react';
 import { ImageSlot } from '@/components/portal/image-slot';
+import { MaintLine } from '@/components/portal/maint-line';
 
-const RED = '#E30613';
+const RED = '#E3000F';
 
 type Valor = { n: string; t: string; d: string };
 
@@ -38,7 +39,9 @@ export default function Institucional() {
         <>
             <Head title="Institucional" />
 
-            <section>
+            <section
+                style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
+            >
                 <div
                     style={{
                         display: 'flex',
@@ -51,7 +54,8 @@ export default function Institucional() {
                     <div>
                         <div
                             style={{
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '10px',
                                 letterSpacing: '0.16em',
                                 textTransform: 'uppercase',
@@ -63,12 +67,13 @@ export default function Institucional() {
                         </div>
                         <h1
                             style={{
-                                fontFamily: "'Anton', sans-serif",
-                                fontWeight: 400,
-                                fontSize: 'clamp(64px,9vw,132px)',
-                                lineHeight: 0.84,
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                                fontWeight: 800,
+                                fontSize: 'clamp(44px,5vw,60px)',
+                                lineHeight: 0.95,
                                 margin: 0,
-                                letterSpacing: '-0.005em',
+                                letterSpacing: '-1px',
                             }}
                         >
                             70 años
@@ -76,16 +81,6 @@ export default function Institucional() {
                             creando viajes
                             <span style={{ color: RED }}>.</span>
                         </h1>
-                    </div>
-                    <div
-                        style={{
-                            fontFamily: "'Archivo', sans-serif",
-                            fontWeight: 900,
-                            fontSize: 'clamp(96px,13vw,176px)',
-                            lineHeight: 0.72,
-                        }}
-                    >
-                        01
                     </div>
                 </div>
 
@@ -126,7 +121,8 @@ export default function Institucional() {
                             <span
                                 style={{
                                     float: 'left',
-                                    fontFamily: "'Anton', sans-serif",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '98px',
                                     lineHeight: 0.72,
                                     margin: '6px 14px -6px 0',
@@ -163,7 +159,8 @@ export default function Institucional() {
                         <p
                             style={{
                                 margin: '20px 0 0',
-                                fontFamily: "'Archivo', sans-serif",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontWeight: 800,
                                 fontSize: '18px',
                                 lineHeight: 1.35,
@@ -176,7 +173,8 @@ export default function Institucional() {
                         <p
                             style={{
                                 margin: '16px 0 0',
-                                fontFamily: "'Space Mono', monospace",
+                                fontFamily:
+                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '11px',
                                 letterSpacing: '0.08em',
                                 textTransform: 'uppercase',
@@ -202,7 +200,8 @@ export default function Institucional() {
                         >
                             <div
                                 style={{
-                                    fontFamily: "'Archivo', sans-serif",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontWeight: 900,
                                     fontSize: '16px',
                                     marginBottom: '8px',
@@ -235,7 +234,8 @@ export default function Institucional() {
                         >
                             <div
                                 style={{
-                                    fontFamily: "'Archivo', sans-serif",
+                                    fontFamily:
+                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontWeight: 900,
                                     fontSize: '16px',
                                     marginBottom: '8px',
@@ -273,7 +273,8 @@ export default function Institucional() {
                 <div style={{ marginTop: '52px' }}>
                     <div
                         style={{
-                            fontFamily: "'Archivo', sans-serif",
+                            fontFamily:
+                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontWeight: 900,
                             fontSize: '19px',
                             borderBottom: '3px solid #000',
@@ -301,7 +302,8 @@ export default function Institucional() {
                             >
                                 <div
                                     style={{
-                                        fontFamily: "'Archivo', sans-serif",
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontWeight: 900,
                                         fontSize: '34px',
                                         lineHeight: 0.8,
@@ -312,7 +314,8 @@ export default function Institucional() {
                                 </div>
                                 <div
                                     style={{
-                                        fontFamily: "'Archivo', sans-serif",
+                                        fontFamily:
+                                            "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontWeight: 800,
                                         fontSize: '14px',
                                         letterSpacing: '-0.01em',
@@ -337,20 +340,7 @@ export default function Institucional() {
                     </div>
                 </div>
 
-                <div
-                    style={{
-                        marginTop: '34px',
-                        borderTop: '1px solid #000',
-                        paddingTop: '14px',
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: '10px',
-                        letterSpacing: '0.12em',
-                        textTransform: 'uppercase',
-                        color: '#666',
-                    }}
-                >
-                    mantiene— De Bin, Aldo · actualizado 06·2026
-                </div>
+                <MaintLine>De Bin, Aldo · actualizado 06·2026</MaintLine>
             </section>
         </>
     );
