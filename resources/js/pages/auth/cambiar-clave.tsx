@@ -87,7 +87,9 @@ export default function CambiarClave() {
                                     setConfirmation(event.target.value)
                                 }
                             />
-                            <InputError message={errors.password_confirmation} />
+                            <InputError
+                                message={errors.password_confirmation}
+                            />
                         </div>
 
                         <ul

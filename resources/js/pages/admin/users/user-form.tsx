@@ -146,7 +146,11 @@ export default function UserForm({
 
                         {!user && (
                             <label className="flex items-start gap-2 text-sm">
-                                <input type="hidden" name="enviar_bienvenida" value="0" />
+                                <input
+                                    type="hidden"
+                                    name="enviar_bienvenida"
+                                    value="0"
+                                />
                                 <input
                                     type="checkbox"
                                     name="enviar_bienvenida"
@@ -155,9 +159,9 @@ export default function UserForm({
                                     className="mt-1"
                                 />
                                 <span>
-                                    Mandarle el correo de bienvenida con el usuario
-                                    y la contraseña. Al entrar por primera vez tiene
-                                    que cambiarla.
+                                    Mandarle el correo de bienvenida con el
+                                    usuario y la contraseña. Al entrar por
+                                    primera vez tiene que cambiarla.
                                 </span>
                             </label>
                         )}

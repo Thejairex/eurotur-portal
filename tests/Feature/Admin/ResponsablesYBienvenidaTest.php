@@ -115,7 +115,8 @@ class ResponsablesYBienvenidaTest extends TestCase
             return $mail->hasTo('valeria.juliano@eurotur.tur.ar')
                 && Hash::check($mail->temporaryPassword, $user->password)
                 && strlen($mail->temporaryPassword) >= 12
-                && str_contains($mail->render(), $mail->temporaryPassword)
+                // El correo escribe la contraseña escapada para HTML (un "&" sale como "&amp;" y se ve igual).
+                && str_contains($mail->render(), e($mail->temporaryPassword))
                 && str_contains($mail->render(), 'valeria.juliano@eurotur.tur.ar');
         });
     }
