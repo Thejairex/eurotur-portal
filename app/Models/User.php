@@ -75,7 +75,10 @@ class User extends Authenticatable
      */
     public function extraPermissionSlugs(): array
     {
-        return $this->extraPermissionCache ??= $this->extraPermissions()->pluck('permission')->all();
+        return $this->extraPermissionCache ??= array_values(array_map(
+            'strval',
+            $this->extraPermissions()->pluck('permission')->all(),
+        ));
     }
 
     public function forgetExtraPermissions(): void

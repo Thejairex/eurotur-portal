@@ -60,7 +60,7 @@ class UserController extends Controller
         $user->forceFill(['must_change_password' => true])->save();
 
         // Las páginas tildadas más las que le corresponden por el mapa de responsables (por correo).
-        PageOwners::sync($user, [...($data['paginas'] ?? []), ...PageOwners::mappedFor($user->email)]);
+        PageOwners::sync($user, array_values(array_map('strval', [...($data['paginas'] ?? []), ...PageOwners::mappedFor($user->email)])));
 
         if ($request->boolean('enviar_bienvenida', true)) {
             $message = $this->sendWelcome($user, $temporary)
@@ -106,7 +106,7 @@ class UserController extends Controller
 
         // El formulario manda siempre `paginas_form`: sin ninguna tildada significa "ninguna".
         if ($request->has('paginas_form')) {
-            PageOwners::sync($user, (array) $request->input('paginas', []));
+            PageOwners::sync($user, array_values(array_map('strval', (array) $request->input('paginas', []))));
         }
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Usuario actualizado.')]);

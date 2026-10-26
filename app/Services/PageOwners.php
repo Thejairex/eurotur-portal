@@ -35,8 +35,10 @@ class PageOwners
      */
     public static function mappedFor(string $email): array
     {
-        /** @var list<string> $slugs */
-        $slugs = config('responsables.por_correo.'.mb_strtolower(trim($email)), []);
+        // Ojo: el correo tiene puntos, así que no se puede usar la notación con puntos de config().
+        /** @var array<string, list<string>> $map */
+        $map = config('responsables.por_correo', []);
+        $slugs = $map[mb_strtolower(trim($email))] ?? [];
 
         return array_values(array_intersect($slugs, array_keys(self::grantable())));
     }
