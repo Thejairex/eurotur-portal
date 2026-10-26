@@ -199,6 +199,13 @@ class ResponsablesYBienvenidaTest extends TestCase
         $this->assertStringContainsString('real@eurotur.tur.ar', $message->getSubject());
     }
 
+    public function test_page_names_in_the_welcome_mail_are_human_readable(): void
+    {
+        $this->assertSame('Innovación', PageOwners::pageName(Permission::InnovacionManage->value));
+        $this->assertSame('Tipo de Cambio', PageOwners::pageName(Permission::ExchangeRateManage->value));
+        $this->assertSame('Contrataciones', PageOwners::pageName(Permission::SectorContratacionesEdit->value));
+    }
+
     public function test_temporary_passwords_are_long_and_mixed(): void
     {
         $password = TemporaryPassword::generate();

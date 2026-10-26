@@ -29,6 +29,18 @@ class PageOwners
     }
 
     /**
+     * Cómo se llama la página para una persona (no el nombre del permiso).
+     */
+    public static function pageName(string $slug): string
+    {
+        return match ($slug) {
+            Permission::InnovacionManage->value => 'Innovación',
+            Permission::ExchangeRateManage->value => 'Tipo de Cambio',
+            default => (string) preg_replace('/^Editar sector /', '', self::grantable()[$slug] ?? $slug),
+        };
+    }
+
+    /**
      * Permisos de página que el mapa por correo le da a este correo.
      *
      * @return list<string>

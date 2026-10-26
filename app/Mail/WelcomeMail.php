@@ -27,11 +27,7 @@ class WelcomeMail extends Mailable
 
     public function content(): Content
     {
-        $labels = PageOwners::grantable();
-        $paginas = array_values(array_filter(array_map(
-            fn (string $slug): ?string => isset($labels[$slug]) ? preg_replace('/^Editar sector /', '', $labels[$slug]) : null,
-            $this->user->extraPermissionSlugs(),
-        )));
+        $paginas = array_map(PageOwners::pageName(...), $this->user->extraPermissionSlugs());
 
         return new Content(
             view: 'emails.bienvenida',
