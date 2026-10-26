@@ -24,11 +24,10 @@ const inputStyle: React.CSSProperties = {
     fontSize: '15px',
     fontWeight: 500,
     color: '#000',
-    background: 'transparent',
-    border: 'none',
-    borderBottom: '2px solid #000',
-    borderRadius: 0,
-    padding: '8px 0',
+    background: '#fff',
+    border: '1px solid #cfcfca',
+    borderRadius: '999px',
+    padding: '12px 18px',
 };
 
 type Props = {
@@ -98,7 +97,7 @@ export default function Login({ status, canResetPassword }: Props) {
                                     tabIndex={2}
                                     autoComplete="current-password"
                                     placeholder="••••••••"
-                                    className="rounded-none border-0 border-b-2 border-black bg-transparent px-0 text-[15px] font-medium shadow-none focus-visible:ring-0"
+                                    className="rounded-full border border-[#cfcfca] bg-white px-4 text-[15px] font-medium shadow-none focus-visible:ring-0"
                                 />
                                 <InputError message={errors.password} />
                             </div>
@@ -139,12 +138,11 @@ export default function Login({ status, canResetPassword }: Props) {
                                     background: RED,
                                     color: '#fff',
                                     border: 'none',
+                                    borderRadius: '999px',
                                     fontFamily:
                                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                                    fontSize: '12px',
+                                    fontSize: '13px',
                                     fontWeight: 700,
-                                    letterSpacing: '0.14em',
-                                    textTransform: 'uppercase',
                                     padding: '14px 0',
                                     cursor: processing ? 'default' : 'pointer',
                                     opacity: processing ? 0.7 : 1,
@@ -178,5 +176,5 @@ export default function Login({ status, canResetPassword }: Props) {
 
 Login.layout = {
     title: 'Ingresar',
-    description: 'Ingresá tu email y contraseña para acceder al portal',
+    description: 'Ingresá tu correo y tu contraseña para acceder al portal.',
 };
