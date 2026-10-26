@@ -256,6 +256,26 @@ class ResponsablesYBienvenidaTest extends TestCase
         $this->actingAs($user)->get(route('password.force'))->assertRedirect('/');
     }
 
+    public function test_password_errors_are_in_spanish_and_say_what_is_missing(): void
+    {
+        $user = User::factory()->viewer()->create(['must_change_password' => true]);
+
+        $response = $this->actingAs($user)
+            ->from(route('password.force'))
+            ->put(route('password.force.update'), ['password' => 'sololetrasminusculas', 'password_confirmation' => 'sololetrasminusculas']);
+
+        $response->assertSessionHasErrors('password');
+        $message = session('errors')->first('password');
+        $this->assertStringContainsString('una mayúscula y una minúscula', $message);
+        $this->assertStringContainsString('un número', $message);
+        $this->assertStringContainsString('un símbolo', $message);
+        $this->assertStringNotContainsString('The password', $message);
+
+        $this->actingAs($user)
+            ->put(route('password.force.update'), ['password' => 'Otra-Clave-9876#', 'password_confirmation' => 'distinta'])
+            ->assertSessionHasErrors(['password' => 'Las dos contraseñas no coinciden.']);
+    }
+
     public function test_normal_users_are_not_forced_to_change_their_password(): void
     {
         $user = User::factory()->viewer()->create();

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
+use App\Services\PasswordPolicy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -30,7 +30,21 @@ class ForcedPasswordController extends Controller
         $user = $request->user();
 
         $request->validate([
-            'password' => ['required', 'string', 'min:10', Password::default(), 'confirmed'],
+            'password' => [
+                'required',
+                'string',
+                'confirmed',
+                function (string $attribute, mixed $value, \Closure $fail): void {
+                    $unmet = PasswordPolicy::unmet((string) $value);
+
+                    if ($unmet !== []) {
+                        $fail('La contraseña tiene que tener: '.implode(', ', $unmet).'.');
+                    }
+                },
+            ],
+        ], [
+            'password.required' => 'Escribí la contraseña nueva.',
+            'password.confirmed' => 'Las dos contraseñas no coinciden.',
         ]);
 
         if (Hash::check((string) $request->input('password'), $user->password)) {
