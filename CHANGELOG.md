@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-26 — Responsables de página, correo de bienvenida y cambio de contraseña
+
+- Cada responsable edita solo sus páginas: permisos por persona (`user_permissions`), mapa por correo (`config/responsables.php`), casillas en Usuarios y comando `usuarios:asignar-paginas`. El servidor rechaza (403) cualquier edición de una página ajena.
+- Correo de bienvenida al crear un usuario (logo, enlace, usuario, contraseña temporal, tres pasos y sus páginas), «Reenviar bienvenida» con contraseña nueva, y en preprod todo el correo se desvía a una casilla de prueba (`MAIL_REDIRECT_TO`).
+- Cambio obligatorio de contraseña en el primer ingreso (`/cambiar-clave`): la nueva debe ser distinta de la temporal y tener 10 caracteres o más. Dos migraciones aditivas.
+
 ## 2026-10-23 — Rediseño del Back Office (rama `feature/backoffice-rediseno-2026-10-22`)
 
 - Menú lateral con degradé vino y logo blanco; Herramientas desplegable (recuerda el estado); `/administracion` entra en Inicio.
