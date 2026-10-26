@@ -31,7 +31,7 @@ const STEPS: TourStep[] = [
         id: 'dolar',
         target: '[data-testid="home-dollars"]',
         title: 'Cotización del dólar',
-        body: 'En el inicio ves la cotización del dólar oficial del día, siempre a mano.',
+        body: 'En el inicio ves la cotización del dólar oficial del día, siempre a mano. Próximamente se suma el cambio para tarifario (USD, BRL y CLP).',
     },
     {
         id: 'organigrama',
