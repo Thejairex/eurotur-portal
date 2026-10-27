@@ -207,6 +207,21 @@ class ResponsablesYBienvenidaTest extends TestCase
         $this->assertSame('Contrataciones', PageOwners::pageName(Permission::SectorContratacionesEdit->value));
     }
 
+    public function test_the_welcome_mail_only_talks_about_editing_when_the_person_can_edit(): void
+    {
+        $sinPaginas = User::factory()->viewer()->create();
+        $conPaginas = User::factory()->viewer()->create();
+        PageOwners::sync($conPaginas, [Permission::SectorSalesEdit->value]);
+
+        $html = (new WelcomeMail($sinPaginas, 'Abc123#xyz987'))->render();
+        $this->assertStringNotContainsString('EDITAR', $html);
+        $this->assertStringContainsString('Back Office', $html);
+
+        $html = (new WelcomeMail($conPaginas, 'Abc123#xyz987'))->render();
+        $this->assertStringContainsString('EDITAR', $html);
+        $this->assertStringContainsString('Sales', $html);
+    }
+
     public function test_temporary_passwords_are_long_and_mixed(): void
     {
         $password = TemporaryPassword::generate();
