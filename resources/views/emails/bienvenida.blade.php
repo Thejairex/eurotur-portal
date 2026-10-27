@@ -44,7 +44,11 @@
                         <ol style="margin:0;padding-left:20px;">
                             <li style="margin-bottom:6px;"><strong>Entrá</strong> con tu usuario y la contraseña temporal.</li>
                             <li style="margin-bottom:6px;"><strong>Cambiá la contraseña:</strong> el portal te la pide en el primer ingreso. La temporal deja de servir.</li>
-                            <li><strong>Editá tus páginas:</strong> entrá a tu página y tocá <strong>EDITAR ✎</strong> (arriba, al lado del título), o usá <strong>Back Office → Editar páginas</strong>.</li>
+                            @if (count($paginas) > 0)
+                                <li><strong>Editá tus páginas:</strong> entrá a tu página y tocá <strong>EDITAR ✎</strong> (arriba, al lado del título), o usá <strong>Back Office → Editar páginas</strong>.</li>
+                            @else
+                                <li><strong>Recorré el portal:</strong> con el botón rojo <strong>Back Office</strong> (arriba a la derecha) llegás a tu perfil, a las novedades y a los archivos para descargar.</li>
+                            @endif
                         </ol>
                         @if (count($paginas) > 0)
                             <p style="margin:14px 0 0 0;">Podés editar: <strong>{{ implode(', ', $paginas) }}</strong>. Solo esas páginas.</p>
