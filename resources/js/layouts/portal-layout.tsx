@@ -3,7 +3,7 @@ import { Facebook, Instagram, Linkedin, Youtube } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { ComponentType, ReactNode } from 'react';
 import { PortalTour } from '@/components/portal/portal-tour';
-import { TOOLS_PERMISSIONS, usePermissions } from '@/hooks/use-permissions';
+import { usePermissions } from '@/hooks/use-permissions';
 import { isRateStale } from '@/lib/exchange-rates';
 import { SECTORS } from '@/lib/portal-sectors';
 import type { ActiveView } from '@/lib/portal-sectors';
@@ -683,14 +683,8 @@ function Header() {
 /** Bloque de sesión de la franja superior: iniciar sesión, o Back Office + menú con el nombre y «Salir de sesión». */
 function SessionBlock() {
     const { auth } = usePage().props;
-    const { can, canAny } = usePermissions();
     const [open, setOpen] = useState(false);
     const boxRef = useRef<HTMLDivElement>(null);
-    const canAdminister = canAny(
-        'users.manage',
-        'roles.manage',
-        ...TOOLS_PERMISSIONS,
-    );
 
     useEffect(() => {
         if (!open) {
@@ -734,14 +728,11 @@ function SessionBlock() {
                 flexShrink: 0,
             }}
         >
-            {canAdminister && (
-                <Link
-                    href={inicio()}
-                    className="session-btn session-btn-red"
-                >
-                    Back Office
-                </Link>
-            )}
+            {/* El Back Office es para todas las personas con sesión: Inicio, Mi perfil, Novedades y Descargas;
+                lo demás del menú depende de los permisos de cada una. */}
+            <Link href={inicio()} className="session-btn session-btn-red">
+                Back Office
+            </Link>
             <div ref={boxRef} style={{ position: 'relative' }}>
                 <button
                     type="button"
