@@ -54,7 +54,14 @@ services:
             CACHE_STORE: database
             QUEUE_CONNECTION: database
             # Que ningun mail de prueba salga de verdad.
-            MAIL_MAILER: log
+            # Correo real por el relay de Google, pero TODO se desvía a una casilla de prueba: nunca le llega a
+            # la gente mientras se prueba (los usuarios de preprod ni siquiera existen).
+            MAIL_MAILER: smtp
+            MAIL_HOST: smtp-relay.gmail.com
+            MAIL_PORT: '587'
+            MAIL_FROM_ADDRESS: bigbrother@eurotur.tur.ar
+            MAIL_FROM_NAME: 'Portal Eurotur (prueba)'
+            MAIL_REDIRECT_TO: valentina.homez@eurotur.tur.ar
             # Servicios que NO se conectan en preprod. Las pantallas se ven,
             # pero cualquier accion falla con "no se pudo conectar". Hay que
             # definirlas igual: si faltan, config/services.php usa por defecto

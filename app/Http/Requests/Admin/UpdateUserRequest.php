@@ -6,6 +6,7 @@ use App\Concerns\ProfileValidationRules;
 use App\Enums\Permission;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\PageOwners;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -37,6 +38,8 @@ class UpdateUserRequest extends FormRequest
         return [
             ...$this->profileRules($user instanceof User ? $user->id : null),
             'password' => ['nullable', 'string', Password::default(), 'confirmed'],
+            'paginas' => ['nullable', 'array'],
+            'paginas.*' => ['string', Rule::in(array_keys(PageOwners::grantable()))],
             'role_id' => ['required', 'integer', 'exists:roles,id'],
             'prepagos_analista_codigo' => [
                 Rule::requiredIf(function (): bool {

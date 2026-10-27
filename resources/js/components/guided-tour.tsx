@@ -87,11 +87,14 @@ export function GuidedTour({
         };
 
         window.addEventListener('resize', redraw);
+        // El menú lateral y la página se pueden desplazar (con animación): se vuelve a medir mientras se mueven.
+        window.addEventListener('scroll', redraw, true);
         window.addEventListener('keydown', blockEscape, true);
 
         return () => {
             cancelAnimationFrame(frame);
             window.removeEventListener('resize', redraw);
+            window.removeEventListener('scroll', redraw, true);
             window.removeEventListener('keydown', blockEscape, true);
         };
     }, [pending]);
@@ -113,11 +116,22 @@ export function GuidedTour({
             return;
         }
 
-        document.querySelector(target)?.scrollIntoView({ block: 'center' });
+        // Sin animación: con el desplazamiento suave el recuadro se medía a mitad de camino y quedaba
+        // marcando otro ítem del menú.
+        document
+            .querySelector(target)
+            ?.scrollIntoView({ block: 'center', behavior: 'instant' });
 
         const frame = requestAnimationFrame(redraw);
+        // Por si algo todavía se está acomodando (fuentes, imágenes), se vuelve a medir un instante después.
+        const timers = [80, 250, 600].map((delay) =>
+            window.setTimeout(redraw, delay),
+        );
 
-        return () => cancelAnimationFrame(frame);
+        return () => {
+            cancelAnimationFrame(frame);
+            timers.forEach((timer) => window.clearTimeout(timer));
+        };
     }, [target]);
 
     if (!step) {

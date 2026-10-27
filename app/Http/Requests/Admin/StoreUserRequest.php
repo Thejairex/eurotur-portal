@@ -2,17 +2,18 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
 use App\Enums\Permission;
 use App\Models\Role;
+use App\Services\PageOwners;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class StoreUserRequest extends FormRequest
 {
-    use PasswordValidationRules, ProfileValidationRules;
+    use ProfileValidationRules;
 
     public function authorize(): bool
     {
@@ -33,7 +34,11 @@ class StoreUserRequest extends FormRequest
     {
         return [
             ...$this->profileRules(),
-            'password' => $this->passwordRules(),
+            // Vacía: el portal genera una contraseña temporal y la manda por mail.
+            'password' => ['nullable', 'string', Password::default(), 'confirmed'],
+            'paginas' => ['nullable', 'array'],
+            'paginas.*' => ['string', Rule::in(array_keys(PageOwners::grantable()))],
+            'enviar_bienvenida' => ['nullable', 'boolean'],
             'role_id' => ['required', 'integer', 'exists:roles,id'],
             'prepagos_analista_codigo' => [
                 Rule::requiredIf(function (): bool {

@@ -151,7 +151,7 @@ export default function PortalLayout({
                 .eurotur-portal #portal-rates { display: flex; gap: 22px; text-align: right; font-size: 12px; align-self: flex-end; margin: 0 0 8px; }
                 @media (min-width: 1100px) {
                     .eurotur-portal #portal-rates { position: absolute; right: 0; top: 4px; margin: 0; align-self: auto; }
-                    .eurotur-portal #portal-content h1 { max-width: calc(100vw - 560px); }
+                    .eurotur-portal #portal-content h1 { max-width: calc(100vw - 720px); }
                 }
 
                 .eurotur-portal .logout-btn:hover { background: #111 !important; color: #fff !important; }
@@ -850,6 +850,24 @@ function Rates({
                     {dolarOficial !== null
                         ? `$${formatArs(dolarOficial.venta)}`
                         : '—'}
+                </b>
+            </div>
+            {/* Pedido de Operaciones (USD, BRL y CLP): se muestra como "próximamente" hasta definir la fuente del dato. */}
+            <div
+                data-testid="meta-tarifario"
+                title="Cambio para tarifario (USD, BRL y CLP): próximamente"
+            >
+                <span style={labelStyle(false)}>cambio tarifario (cpt)</span>
+                <b
+                    style={{
+                        ...valueStyle,
+                        color: '#8a8a86',
+                        fontWeight: 600,
+                        fontSize: '14px',
+                    }}
+                    data-testid="meta-val"
+                >
+                    Próximamente
                 </b>
             </div>
             <div data-testid="meta-hoy">

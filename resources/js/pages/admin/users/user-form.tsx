@@ -30,7 +30,12 @@ type UserFormData = {
     password: string;
     password_confirmation: string;
     prepagos_analista_codigo: string;
+    paginas: string;
+    paginas_form: string;
+    enviar_bienvenida: string;
 };
+
+export type PageOption = { slug: string; label: string };
 
 export type EditableUser = {
     id: number;
@@ -38,6 +43,9 @@ export type EditableUser = {
     email: string;
     role_id: number | null;
     prepagos_analista_codigo: number | null;
+    paginas: string[];
+    welcome_sent_at: string | null;
+    must_change_password: boolean;
 };
 
 /**
@@ -47,11 +55,13 @@ export type EditableUser = {
 export default function UserForm({
     action,
     roles,
+    pages,
     user,
     submitLabel,
 }: {
     action: RouteFormDefinition<'post'>;
     roles: RoleOption[];
+    pages: PageOption[];
     user?: EditableUser;
     submitLabel: string;
 }) {
@@ -99,17 +109,16 @@ export default function UserForm({
                         <div className="grid gap-1">
                             <Label htmlFor="password" className="bo-label">
                                 Contraseña
-                                {user && (
-                                    <span className="ml-1 text-muted-foreground normal-case">
-                                        (dejar vacío para no cambiarla)
-                                    </span>
-                                )}
+                                <span className="ml-1 text-muted-foreground normal-case">
+                                    {user
+                                        ? '(dejar vacío para no cambiarla)'
+                                        : '(opcional: vacía, se genera una temporal y se manda por mail)'}
+                                </span>
                             </Label>
                             <Input
                                 id="password"
                                 name="password"
                                 type="password"
-                                required={!user}
                                 autoComplete="new-password"
                                 className={boFieldClass}
                             />
@@ -127,7 +136,6 @@ export default function UserForm({
                                 id="password_confirmation"
                                 name="password_confirmation"
                                 type="password"
-                                required={!user}
                                 autoComplete="new-password"
                                 className={boFieldClass}
                             />
@@ -135,6 +143,28 @@ export default function UserForm({
                                 message={errors.password_confirmation}
                             />
                         </div>
+
+                        {!user && (
+                            <label className="flex items-start gap-2 text-sm">
+                                <input
+                                    type="hidden"
+                                    name="enviar_bienvenida"
+                                    value="0"
+                                />
+                                <input
+                                    type="checkbox"
+                                    name="enviar_bienvenida"
+                                    value="1"
+                                    defaultChecked
+                                    className="mt-1"
+                                />
+                                <span>
+                                    Mandarle el correo de bienvenida con el
+                                    usuario y la contraseña. Al entrar por
+                                    primera vez tiene que cambiarla.
+                                </span>
+                            </label>
+                        )}
 
                         <div className="flex items-center gap-3 pt-2">
                             <Button type="submit" disabled={processing}>
@@ -208,6 +238,37 @@ export default function UserForm({
                                 Slug: {selectedRole.slug}
                             </p>
                         )}
+                    </div>
+
+                    <div className="border border-border p-5 md:col-span-2">
+                        <SectionHeading label="Páginas que puede editar" />
+
+                        <p className="mb-3 bo-label text-muted-foreground normal-case">
+                            Solo estas páginas del portal, además de lo que ya
+                            le da su rol. Si el correo figura en la lista de
+                            responsables, se suman solas al crear el usuario.
+                        </p>
+
+                        <input type="hidden" name="paginas_form" value="1" />
+                        <div className="grid gap-2 sm:grid-cols-2">
+                            {pages.map((page) => (
+                                <label
+                                    key={page.slug}
+                                    className="flex items-center gap-2 text-sm"
+                                >
+                                    <input
+                                        type="checkbox"
+                                        name="paginas[]"
+                                        value={page.slug}
+                                        defaultChecked={user?.paginas.includes(
+                                            page.slug,
+                                        )}
+                                    />
+                                    {page.label}
+                                </label>
+                            ))}
+                        </div>
+                        <InputError message={errors.paginas} />
                     </div>
                 </div>
             )}

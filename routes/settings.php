@@ -1,11 +1,18 @@
 <?php
 
+use App\Http\Controllers\Settings\ForcedPasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\Settings\SecurityController;
 use Illuminate\Auth\Middleware\RequirePassword;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
+    // Primer ingreso con contraseña temporal: hay que cambiarla antes de usar el portal.
+    Route::get('cambiar-clave', [ForcedPasswordController::class, 'edit'])->name('password.force');
+    Route::put('cambiar-clave', [ForcedPasswordController::class, 'update'])
+        ->middleware('throttle:6,1')
+        ->name('password.force.update');
+
     Route::redirect('settings', '/settings/profile');
 
     Route::get('settings/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -110,6 +110,12 @@ return [
     |
     */
 
+    /*
+    | Casilla de prueba: si está definida, TODO correo que salga del portal se manda ahí en lugar de a su
+    | destinatario (preprod). En producción queda vacía.
+    */
+    'redirect_to' => env('MAIL_REDIRECT_TO'),
+
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),

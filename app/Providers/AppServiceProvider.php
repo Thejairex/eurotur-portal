@@ -7,8 +7,10 @@ use App\Enums\UserRole;
 use App\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
@@ -29,6 +31,20 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+
+        // En preprod ningún correo le llega a la gente: todos se desvían a la casilla de prueba.
+        Event::listen(MessageSending::class, function (MessageSending $event): void {
+            $redirect = config('mail.redirect_to');
+
+            if (! is_string($redirect) || $redirect === '') {
+                return;
+            }
+
+            $original = collect($event->message->getTo())->map(fn ($address) => $address->getAddress())->implode(', ');
+
+            $event->message->to($redirect)->cc()->bcc();
+            $event->message->subject('[PRUEBA para '.$original.'] '.$event->message->getSubject());
+        });
     }
 
     /**

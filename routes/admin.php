@@ -59,6 +59,7 @@ Route::middleware(['auth', 'verified'])->prefix('administracion')->name('admin.'
             ->parameters(['usuarios' => 'user'])
             ->except('show')
             ->names('users');
+        Route::post('usuarios/{user}/bienvenida', [UserController::class, 'resendWelcome'])->name('users.bienvenida');
     });
 
     Route::middleware('can:roles.manage')->group(function () {

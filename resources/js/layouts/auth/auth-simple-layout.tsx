@@ -3,7 +3,12 @@ import { home } from '@/routes';
 import type { AuthLayoutProps } from '@/types';
 
 const RED = '#E3000F';
+const FONT = "'Segoe UI', system-ui, -apple-system, Arial, sans-serif";
 
+/**
+ * Pantallas de acceso (ingresar, olvidé mi contraseña, elegir contraseña): el mismo lenguaje visual del
+ * portal — fondo gris, tarjeta blanca redondeada, título grande con punto rojo, botones redondeados.
+ */
 export default function AuthSimpleLayout({
     children,
     title,
@@ -13,41 +18,37 @@ export default function AuthSimpleLayout({
         <>
             <style>{`
                 .eurotur-auth ::selection { background: ${RED}; color: #fff; }
-                .eurotur-auth input:focus { outline: none; border-color: ${RED} !important; }
+                .eurotur-auth input:focus { outline: none; border-color: ${RED} !important; box-shadow: none !important; }
                 .eurotur-auth .auth-submit:hover { background: #b3050f; }
                 .eurotur-auth .auth-link:hover { color: ${RED}; }
-
-                @media (max-width: 860px) {
-                    #auth-root { flex-direction: column; }
-                    #auth-brand { width: 100% !important; flex: none !important; height: auto !important; padding: 28px 24px !important; }
-                    #auth-brand-label { display: none !important; }
-                    #auth-panel { padding: 32px 24px !important; }
+                @media (max-width: 600px) {
+                    #auth-card { padding: 28px 22px !important; }
                 }
             `}</style>
 
             <div
-                id="auth-root"
                 className="eurotur-auth"
                 style={{
-                    display: 'flex',
                     minHeight: '100vh',
-                    background: '#fff',
-                    color: '#000',
-                    fontFamily:
-                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
+                    background: '#E2E2DF',
+                    color: '#111',
+                    fontFamily: FONT,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '32px 16px',
                 }}
             >
                 <div
-                    id="auth-brand"
+                    id="auth-card"
                     style={{
-                        width: '360px',
-                        flex: '0 0 360px',
-                        borderRight: '1px solid #000',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between',
-                        padding: '40px 36px',
-                        position: 'relative',
+                        width: '100%',
+                        maxWidth: '460px',
+                        background: '#fff',
+                        borderRadius: '16px',
+                        padding: '40px 44px',
+                        boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
                     }}
                 >
                     <Link
@@ -55,101 +56,68 @@ export default function AuthSimpleLayout({
                         style={{
                             all: 'unset',
                             cursor: 'pointer',
-                            display: 'block',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '14px',
+                            marginBottom: '28px',
                         }}
                     >
                         <img
                             src="/eurotur-logo.png"
                             alt="Eurotur — 70 años"
-                            style={{
-                                width: '132px',
-                                height: 'auto',
-                                display: 'block',
-                            }}
+                            style={{ width: '88px', height: 'auto' }}
                         />
-                        <div
+                        <span
                             style={{
-                                fontFamily:
-                                    "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                                fontSize: '9px',
+                                fontSize: '10px',
                                 letterSpacing: '0.14em',
                                 textTransform: 'uppercase',
-                                color: '#666',
-                                marginTop: '10px',
+                                color: '#6B6B68',
+                                lineHeight: 1.5,
                             }}
                         >
                             portal interno
                             <br />
                             dmc · desde 1954
-                        </div>
+                        </span>
                     </Link>
 
-                    <div
-                        id="auth-brand-label"
+                    <h1
                         style={{
-                            fontFamily:
-                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                            fontSize: '64px',
-                            lineHeight: 0.95,
-                            color: RED,
-                            letterSpacing: '0.01em',
+                            fontSize: '32px',
+                            fontWeight: 800,
+                            lineHeight: 1.1,
+                            letterSpacing: '-0.5px',
+                            margin: 0,
                         }}
                     >
-                        ACCESO
-                    </div>
+                        {title}
+                        <span style={{ color: RED }}>.</span>
+                    </h1>
+                    <p
+                        style={{
+                            fontSize: '14px',
+                            lineHeight: 1.5,
+                            color: '#6B6B68',
+                            margin: '10px 0 28px',
+                        }}
+                    >
+                        {description}
+                    </p>
 
-                    <div
-                        style={{
-                            fontFamily:
-                                "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                            fontSize: '9px',
-                            letterSpacing: '0.1em',
-                            textTransform: 'uppercase',
-                            color: '#999',
-                        }}
-                    >
-                        bue · fte · ush · sla
-                    </div>
+                    {children}
                 </div>
 
                 <div
-                    id="auth-panel"
                     style={{
-                        flex: 1,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        padding: '40px 56px',
+                        marginTop: '18px',
+                        fontSize: '10px',
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase',
+                        color: '#8a8a86',
                     }}
                 >
-                    <div style={{ width: '100%', maxWidth: '380px' }}>
-                        <div style={{ marginBottom: '32px' }}>
-                            <h1
-                                style={{
-                                    fontFamily:
-                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                                    fontSize: '28px',
-                                    letterSpacing: '0.01em',
-                                    margin: 0,
-                                }}
-                            >
-                                {title}
-                            </h1>
-                            <p
-                                style={{
-                                    fontFamily:
-                                        "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
-                                    fontSize: '11px',
-                                    letterSpacing: '0.02em',
-                                    color: '#666',
-                                    marginTop: '10px',
-                                }}
-                            >
-                                {description}
-                            </p>
-                        </div>
-                        {children}
-                    </div>
+                    bue · fte · ush · sla
                 </div>
             </div>
         </>

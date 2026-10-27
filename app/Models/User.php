@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
@@ -31,6 +32,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $portal_tour_completed_at
  * @property Carbon|null $backoffice_tour_completed_at
  * @property Carbon|null $organigrama_sync_at
+ * @property bool $must_change_password
+ * @property Carbon|null $welcome_sent_at
  * @property string $password
  * @property string|null $two_factor_secret
  * @property string|null $two_factor_recovery_codes
@@ -46,12 +49,41 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
+    /** @var list<string>|null */
+    private ?array $extraPermissionCache = null;
+
     /**
      * @return BelongsTo<Role, $this>
      */
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    /**
+     * Permisos dados a esta persona en particular (por ejemplo, qué páginas edita), además de los de su rol.
+     *
+     * @return HasMany<UserPermission, $this>
+     */
+    public function extraPermissions(): HasMany
+    {
+        return $this->hasMany(UserPermission::class);
+    }
+
+    /**
+     * @return list<string>
+     */
+    public function extraPermissionSlugs(): array
+    {
+        return $this->extraPermissionCache ??= array_values(array_map(
+            'strval',
+            $this->extraPermissions()->pluck('permission')->all(),
+        ));
+    }
+
+    public function forgetExtraPermissions(): void
+    {
+        $this->extraPermissionCache = null;
     }
 
     /**
@@ -89,7 +121,10 @@ class User extends Authenticatable
             return Permission::values();
         }
 
-        return $this->role?->permissionSlugs() ?? [];
+        return array_values(array_unique([
+            ...($this->role?->permissionSlugs() ?? []),
+            ...$this->extraPermissionSlugs(),
+        ]));
     }
 
     public function hasPermission(Permission|string $permission): bool
@@ -143,6 +178,8 @@ class User extends Authenticatable
             'portal_tour_completed_at' => 'datetime',
             'backoffice_tour_completed_at' => 'datetime',
             'organigrama_sync_at' => 'datetime',
+            'must_change_password' => 'boolean',
+            'welcome_sent_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
