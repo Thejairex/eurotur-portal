@@ -37,6 +37,7 @@ class PerfilController extends Controller
                 'area' => $objetivo->area,
                 'sede' => $objetivo->sede,
                 'interno' => $objetivo->interno,
+                'mercados' => $objetivo->mercados ?? [],
                 'foto' => $objetivo->foto_path ? '/storage/'.$objetivo->foto_path : null,
             ],
             'organigramaSync' => $objetivo->organigrama_sync_at?->toIso8601String(),
@@ -56,9 +57,25 @@ class PerfilController extends Controller
             $datos['sede'] = $request->validated('sede');
         }
 
+        $mercadosAntes = $objetivo->mercados ?? [];
+        $mercadosCambiaron = false;
+
+        if ($request->has('mercados')) {
+            $datos['mercados'] = $request->validated('mercados') ?? [];
+            $mercadosCambiaron = $datos['mercados'] !== $mercadosAntes;
+        }
+
         $objetivo->forceFill($datos)->save();
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Perfil actualizado.')]);
+        // «Mercados que gestiona» también se guarda en el Organigrama (por mail), igual que la foto. Si no
+        // responde o no tiene a esa persona, lo del portal queda guardado igual.
+        $enOrganigrama = $mercadosCambiaron
+            && app(OrganigramaSync::class)->enviarMercados($objetivo, $datos['mercados']);
+
+        Inertia::flash('toast', [
+            'type' => 'success',
+            'message' => $enOrganigrama ? __('Perfil actualizado, los mercados también en el organigrama.') : __('Perfil actualizado.'),
+        ]);
 
         return back();
     }

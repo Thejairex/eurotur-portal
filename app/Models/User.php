@@ -33,6 +33,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $backoffice_tour_completed_at
  * @property Carbon|null $organigrama_sync_at
  * @property bool $must_change_password
+ * @property list<string>|null $mercados
  * @property Carbon|null $welcome_sent_at
  * @property string $password
  * @property string|null $two_factor_secret
@@ -179,6 +180,7 @@ class User extends Authenticatable
             'backoffice_tour_completed_at' => 'datetime',
             'organigrama_sync_at' => 'datetime',
             'must_change_password' => 'boolean',
+            'mercados' => 'array',
             'welcome_sent_at' => 'datetime',
             'password' => 'hashed',
         ];

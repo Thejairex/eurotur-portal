@@ -30,7 +30,10 @@ class SyncOrganigrama extends Command
             $detalle = [];
 
             foreach ($item['cambios'] as $campo => $valor) {
-                $detalle[] = "{$campo}: '{$item['user']->{$campo}}' → '{$valor}'";
+                $antes = $item['user']->{$campo};
+                $antes = is_array($antes) ? implode(', ', $antes) : (string) $antes;
+                $nuevo = is_array($valor) ? implode(', ', $valor) : $valor;
+                $detalle[] = "{$campo}: '{$antes}' → '{$nuevo}'";
             }
 
             $this->line($item['user']->email.': '.($detalle === [] ? 'sin cambios' : implode(', ', $detalle)));

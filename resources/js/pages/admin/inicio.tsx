@@ -249,13 +249,17 @@ export default function Inicio({
         return () => observer.disconnect();
     }, [allPages, total]);
     const photo = user.foto_path ? `/storage/${user.foto_path}` : null;
-    const details = [
+    const details: [string, string | null | undefined][] = [
         ['Puesto', user.puesto],
         ['Área', user.area],
         ['Sede', user.sede],
         ['Interno', user.interno],
         ['Mail', user.email],
-    ] as const;
+    ];
+
+    if (user.mercados && user.mercados.length > 0) {
+        details.push(['Mercados', user.mercados.join(', ')]);
+    }
 
     return (
         <>
