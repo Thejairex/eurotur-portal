@@ -36,7 +36,7 @@ export default function SearchResults({
                         fontSize: '9px',
                         letterSpacing: '0.16em',
                         textTransform: 'uppercase',
-                        color: '#999',
+                        color: 'var(--p-mut)',
                         marginBottom: '8px',
                     }}
                 >
@@ -59,7 +59,7 @@ export default function SearchResults({
                         fontFamily:
                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '11px',
-                        color: '#999',
+                        color: 'var(--p-mut)',
                         marginBottom: '32px',
                     }}
                 >
@@ -85,9 +85,9 @@ export default function SearchResults({
                                 style={{
                                     display: 'block',
                                     textDecoration: 'none',
-                                    color: '#000',
+                                    color: 'var(--p-ink)',
                                     padding: '14px 16px',
-                                    border: '1px solid #eee',
+                                    border: '1px solid var(--p-line)',
                                     transition: 'background .15s, color .15s',
                                 }}
                                 onMouseEnter={(e) => {
@@ -125,7 +125,7 @@ export default function SearchResults({
                                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '10px',
                                         letterSpacing: '0.04em',
-                                        color: '#999',
+                                        color: 'var(--p-mut)',
                                         marginTop: '3px',
                                     }}
                                 >

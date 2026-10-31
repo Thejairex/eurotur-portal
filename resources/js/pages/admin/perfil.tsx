@@ -17,6 +17,7 @@ type Perfil = {
     area: string | null;
     sede: string | null;
     interno: string | null;
+    mercados: string[];
     foto: string | null;
 };
 
@@ -44,6 +45,7 @@ export default function PerfilPage({
         area: perfil.area ?? '',
         sede: perfil.sede ?? '',
         interno: perfil.interno ?? '',
+        mercados: perfil.mercados.join(', '),
     });
     const fileInput = useRef<HTMLInputElement>(null);
     const [photoError, setPhotoError] = useState<string | null>(null);
@@ -239,6 +241,46 @@ export default function PerfilPage({
                             {form.errors.interno && (
                                 <div className="bo-error">
                                     {form.errors.interno}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    <div className="bo-field">
+                        <label htmlFor="mercados">Mercados que gestiona</label>
+                        <div>
+                            {editing ? (
+                                <input
+                                    id="mercados"
+                                    className="bo-input"
+                                    placeholder="Ej.: Mercado Italiano, Grupos en general"
+                                    value={form.data.mercados}
+                                    onChange={(event) =>
+                                        form.setData(
+                                            'mercados',
+                                            event.target.value,
+                                        )
+                                    }
+                                />
+                            ) : perfil.mercados.length > 0 ? (
+                                <span className="bo-chips">
+                                    {perfil.mercados.map((mercado) => (
+                                        <span key={mercado} className="bo-tag">
+                                            {mercado}
+                                        </span>
+                                    ))}
+                                </span>
+                            ) : (
+                                <span>—</span>
+                            )}
+                            {form.errors.mercados && (
+                                <div className="bo-error">
+                                    {form.errors.mercados}
+                                </div>
+                            )}
+                            {editing && (
+                                <div className="bo-note">
+                                    Opcional. Separalos con comas; se ven en tu
+                                    ficha del organigrama.
                                 </div>
                             )}
                         </div>

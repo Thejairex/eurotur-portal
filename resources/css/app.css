@@ -950,6 +950,12 @@
     border-color: transparent;
 }
 
+.bo-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
 .bo-tag {
     padding: 2px 8px;
     font-size: 11px;

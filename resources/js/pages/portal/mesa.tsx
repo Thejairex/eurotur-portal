@@ -126,7 +126,7 @@ const BOTON_CLARO: CSSProperties = {
     fontSize: '11px',
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
-    border: '1px solid #CFCFCB',
+    border: '1px solid var(--p-line)',
     borderRadius: '999px',
     background: 'transparent',
     padding: '9px 14px',
@@ -178,7 +178,7 @@ export default function Mesa() {
                             fontSize: '10px',
                             letterSpacing: '0.16em',
                             textTransform: 'uppercase',
-                            color: '#666',
+                            color: 'var(--p-mut)',
                             marginBottom: '10px',
                         }}
                     >
@@ -204,7 +204,7 @@ export default function Mesa() {
                             margin: '14px 0 0',
                             fontSize: '17px',
                             lineHeight: 1.5,
-                            color: '#111',
+                            color: 'var(--p-ink)',
                         }}
                     >
                         Elegí lo que necesitás y seguí los pasos, uno por uno.
@@ -217,7 +217,7 @@ export default function Mesa() {
                 <Revelar>
                     <div
                         style={{
-                            background: '#fff',
+                            background: 'var(--p-card)',
                             borderRadius: '16px',
                             boxShadow: '0 1px 2px rgba(0,0,0,.05)',
                             overflow: 'hidden',
@@ -229,8 +229,8 @@ export default function Mesa() {
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'space-between',
-                                borderBottom: '1px solid #CFCFCB',
-                                color: '#111',
+                                borderBottom: '1px solid var(--p-line)',
+                                color: 'var(--p-ink)',
                                 padding: '14px 18px',
                             }}
                         >
@@ -268,7 +268,7 @@ export default function Mesa() {
                                         justifyContent: 'space-between',
                                         gap: '20px',
                                         padding: '16px 18px',
-                                        borderTop: '1px solid #EFEFEC',
+                                        borderTop: '1px solid var(--p-line)',
                                         flexWrap: 'wrap',
                                     }}
                                 >
@@ -286,7 +286,7 @@ export default function Mesa() {
                                                 fontFamily:
                                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                 fontSize: '11px',
-                                                color: '#888',
+                                                color: 'var(--p-mut)',
                                                 marginTop: '3px',
                                             }}
                                         >
@@ -356,10 +356,10 @@ export default function Mesa() {
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '10px',
                                 letterSpacing: '0.05em',
-                                color: '#999',
+                                color: 'var(--p-mut)',
                                 padding: '11px 18px',
-                                borderTop: '1px solid #EFEFEC',
-                                background: '#faf7f7',
+                                borderTop: '1px solid var(--p-line)',
+                                background: 'var(--p-soft)',
                                 lineHeight: 1.5,
                             }}
                         >
@@ -396,7 +396,7 @@ export default function Mesa() {
                                 style={{
                                     borderRadius: '12px',
                                     padding: '16px',
-                                    background: '#F6F6F4',
+                                    background: 'var(--p-soft)',
                                 }}
                             >
                                 <div
@@ -423,7 +423,7 @@ export default function Mesa() {
                                     style={{
                                         fontSize: '14.5px',
                                         lineHeight: 1.45,
-                                        color: '#444',
+                                        color: 'var(--p-ink)',
                                     }}
                                 >
                                     {prefijo.detalle}
@@ -452,11 +452,11 @@ export default function Mesa() {
                         style={{
                             display: 'inline-block',
                             marginTop: '20px',
-                            color: '#000',
+                            color: 'var(--p-ink)',
                             textDecoration: 'none',
                             fontWeight: 700,
                             fontSize: '15px',
-                            borderBottom: '1px solid #c4c4c4',
+                            borderBottom: '1px solid var(--p-line)',
                             paddingBottom: '3px',
                         }}
                     >

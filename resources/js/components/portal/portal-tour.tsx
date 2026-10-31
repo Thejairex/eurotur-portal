@@ -3,7 +3,7 @@ import { GuidedTour } from '@/components/guided-tour';
 import type { TourPalette, TourStep } from '@/components/guided-tour';
 
 const PALETTE: TourPalette = {
-    background: '#fff',
+    background: 'var(--p-card)',
     foreground: '#000',
     accent: '#E3000F',
     accentForeground: '#fff',

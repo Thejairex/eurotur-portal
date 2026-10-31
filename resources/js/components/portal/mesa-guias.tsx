@@ -120,10 +120,10 @@ const KEY_STYLE: CSSProperties = {
     display: 'inline-block',
     padding: '1px 9px',
     margin: '0 2px',
-    border: '1px solid #CFCFCB',
+    border: '1px solid var(--p-line)',
     borderBottomWidth: '3px',
     borderRadius: '8px',
-    background: '#fafafa',
+    background: 'var(--p-soft)',
     fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontWeight: 700,
     fontSize: '14px',
@@ -215,7 +215,7 @@ export function Paso({ n, texto }: { n: number; texto: string }) {
                 alignItems: 'flex-start',
                 gap: '14px',
                 padding: '12px 0',
-                borderBottom: '1px solid #ececec',
+                borderBottom: '1px solid var(--p-line)',
             }}
         >
             <span
@@ -260,7 +260,7 @@ export function Aviso({ emoji, texto }: { emoji: string; texto: string }) {
                 gap: '12px',
                 margin: '16px 0 0',
                 padding: '14px 16px',
-                background: '#FFF3CD',
+                background: 'var(--p-warn-bg)',
                 borderRadius: '12px',
                 fontSize: '15.5px',
                 lineHeight: 1.5,
@@ -333,7 +333,7 @@ export function Guia({
                     borderRadius: '16px',
                     boxShadow: '0 1px 2px rgba(0,0,0,.05)',
                     marginBottom: '24px',
-                    background: '#fff',
+                    background: 'var(--p-card)',
                     overflow: 'hidden',
                 }}
             >
@@ -343,8 +343,8 @@ export function Guia({
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         gap: '16px',
-                        borderBottom: '1px solid #CFCFCB',
-                        color: '#111',
+                        borderBottom: '1px solid var(--p-line)',
+                        color: 'var(--p-ink)',
                         padding: '16px 24px',
                     }}
                 >
@@ -376,8 +376,8 @@ export function Guia({
                             fontSize: '11px',
                             letterSpacing: '0.1em',
                             textTransform: 'uppercase',
-                            color: '#6B6B68',
-                            border: '1px solid #CFCFCB',
+                            color: 'var(--p-mut)',
+                            border: '1px solid var(--p-line)',
                             borderRadius: '999px',
                             padding: '3px 12px',
                         }}
@@ -392,7 +392,7 @@ export function Guia({
                             margin: '0 0 20px',
                             fontSize: '17px',
                             lineHeight: 1.5,
-                            color: '#222',
+                            color: 'var(--p-ink)',
                         }}
                     >
                         {resumen}
@@ -412,7 +412,7 @@ export function Guia({
                             <figure style={{ margin: 0 }}>
                                 <div
                                     style={{
-                                        border: '1px solid #CFCFCB',
+                                        border: '1px solid var(--p-line)',
                                         borderRadius: '12px',
                                         overflow: 'hidden',
                                     }}
@@ -428,7 +428,7 @@ export function Guia({
                                     style={{
                                         marginTop: '8px',
                                         fontSize: '13px',
-                                        color: '#555',
+                                        color: 'var(--p-ink)',
                                     }}
                                 >
                                     {imagen.pie}
@@ -463,7 +463,7 @@ export function IndiceAyuda({ atajos }: { atajos: AtajoAyuda[] }) {
                     fontSize: '13px',
                     letterSpacing: '0.14em',
                     textTransform: 'uppercase',
-                    color: '#6B6B68',
+                    color: 'var(--p-mut)',
                 }}
             >
                 ¿Qué necesitás hacer?
@@ -490,8 +490,8 @@ export function IndiceAyuda({ atajos }: { atajos: AtajoAyuda[] }) {
                             border: 'none',
                             borderRadius: '16px',
                             boxShadow: '0 1px 2px rgba(0,0,0,.05)',
-                            background: '#fff',
-                            color: '#111',
+                            background: 'var(--p-card)',
+                            color: 'var(--p-ink)',
                             cursor: 'pointer',
                             textAlign: 'left',
                             fontFamily:

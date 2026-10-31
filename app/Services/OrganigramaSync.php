@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Support\Mercados;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use RuntimeException;
@@ -24,7 +25,7 @@ class OrganigramaSync
     /**
      * Lee el Organigrama y calcula qué cambiaría, sin escribir nada.
      *
-     * @return array{aplicables: list<array{user: User, cambios: array<string, string>}>, sin_usuario: list<string>, ambiguos: list<string>, ejemplo: int}
+     * @return array{aplicables: list<array{user: User, cambios: array<string, string|list<string>>}>, sin_usuario: list<string>, ambiguos: list<string>, ejemplo: int}
      */
     public function planificar(): array
     {
@@ -49,7 +50,7 @@ class OrganigramaSync
 
         foreach ($porMail as $mail => $grupo) {
             $distintos = array_unique(array_map(
-                fn (array $p): string => implode('|', [$p['puesto'], $p['sector'], $p['sede'], $p['interno']]),
+                fn (array $p): string => implode('|', [$p['puesto'], $p['sector'], $p['sede'], $p['interno'], implode(';', $p['mercados'])]),
                 $grupo,
             ));
 
@@ -81,7 +82,7 @@ class OrganigramaSync
     /**
      * Escribe lo planificado y marca a cada persona reconocida como sincronizada ahora.
      *
-     * @param  array{aplicables: list<array{user: User, cambios: array<string, string>}>}  $plan
+     * @param  array{aplicables: list<array{user: User, cambios: array<string, string|list<string>>}>}  $plan
      */
     public function aplicar(array $plan): int
     {
@@ -122,8 +123,39 @@ class OrganigramaSync
     }
 
     /**
-     * @param  array{puesto: string, sector: string, sede: string, interno: string}  $persona
-     * @return array<string, string>
+     * Manda al Organigrama los «Mercados que gestiona» que la persona acaba de guardar en Mi perfil (la
+     * persona se reconoce por mail). Mismo criterio que la foto: si no se puede, no se interrumpe nada.
+     *
+     * @param  list<string>  $mercados
+     */
+    public function enviarMercados(User $user, array $mercados): bool
+    {
+        $token = (string) config('services.organigrama.token');
+
+        if ($token === '') {
+            return false;
+        }
+
+        try {
+            $respuesta = Http::withToken($token)
+                ->acceptJson()
+                ->timeout(15)
+                ->post(rtrim((string) config('services.organigrama.url'), '/').'/api/interno/mercados', [
+                    'mail' => $user->email,
+                    'mercados' => $mercados,
+                ]);
+
+            return $respuesta->successful();
+        } catch (Throwable $e) {
+            report($e);
+
+            return false;
+        }
+    }
+
+    /**
+     * @param  array{puesto: string, sector: string, sede: string, interno: string, mercados: list<string>}  $persona
+     * @return array<string, string|list<string>>
      */
     private function cambios(User $user, array $persona): array
     {
@@ -144,6 +176,11 @@ class OrganigramaSync
             $cambios['interno'] = $interno;
         }
 
+        // Los mercados se copian del Organigrama solo si la persona todavía no cargó los suyos.
+        if ($persona['mercados'] !== [] && ($user->mercados ?? []) === []) {
+            $cambios['mercados'] = $persona['mercados'];
+        }
+
         return $cambios;
     }
 
@@ -153,7 +190,7 @@ class OrganigramaSync
     }
 
     /**
-     * @return list<array{mail: string, puesto: string, sector: string, sede: string, interno: string, datos_ejemplo: bool}>
+     * @return list<array{mail: string, puesto: string, sector: string, sede: string, interno: string, mercados: list<string>, datos_ejemplo: bool}>
      */
     private function leer(): array
     {
@@ -187,6 +224,7 @@ class OrganigramaSync
                 'sector' => (string) ($fila['sector'] ?? ''),
                 'sede' => (string) ($fila['sede'] ?? ''),
                 'interno' => (string) ($fila['interno'] ?? ''),
+                'mercados' => Mercados::normalizar($fila['mercados'] ?? []),
                 'datos_ejemplo' => (bool) ($fila['datos_ejemplo'] ?? false),
             ];
         }

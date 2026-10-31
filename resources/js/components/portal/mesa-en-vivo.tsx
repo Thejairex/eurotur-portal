@@ -27,9 +27,9 @@ type Datos = {
 
 /** Color de la barra lateral y de la etiqueta de cada sensor según su estado. */
 const LEVEL: Record<Sensor['nivel'], { bar: string; chip: CSSProperties }> = {
-    ok: { bar: '#2e9d57', chip: { background: '#e7f5ec', color: '#14612f' } },
-    alerta: { bar: RED, chip: { background: '#fde8ea', color: RED } },
-    desconocido: { bar: '#bbb', chip: { background: '#eee', color: '#555' } },
+    ok: { bar: '#2e9d57', chip: { background: 'var(--p-ok-bg)', color: 'var(--p-ok-tx)' } },
+    alerta: { bar: RED, chip: { background: 'var(--p-bad-bg)', color: RED } },
+    desconocido: { bar: '#bbb', chip: { background: 'var(--p-soft)', color: 'var(--p-ink)' } },
 };
 
 const MONO: CSSProperties = {
@@ -90,7 +90,7 @@ function Card({
             style={{
                 display: 'flex',
                 flexDirection: 'column',
-                background: '#fff',
+                background: 'var(--p-card)',
                 borderRadius: '16px',
                 boxShadow: '0 1px 2px rgba(0,0,0,.05)',
                 overflow: 'hidden',
@@ -101,8 +101,8 @@ function Card({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    borderBottom: '1px solid #CFCFCB',
-                    color: '#111',
+                    borderBottom: '1px solid var(--p-line)',
+                    color: 'var(--p-ink)',
                     padding: '14px 18px',
                 }}
             >
@@ -160,7 +160,7 @@ function Message({ children }: { children: ReactNode }) {
                 margin: 0,
                 padding: '22px 18px',
                 fontSize: '13.5px',
-                color: '#555',
+                color: 'var(--p-ink)',
             }}
         >
             {children}
@@ -176,7 +176,7 @@ function SensorTile({ sensor }: { sensor: Sensor }) {
             style={{
                 borderTop: '3px solid ' + level.bar,
                 borderRadius: '12px',
-                background: '#F6F6F4',
+                background: 'var(--p-soft)',
                 padding: '14px 16px',
                 textAlign: 'center',
             }}
@@ -187,7 +187,7 @@ function SensorTile({ sensor }: { sensor: Sensor }) {
                     fontSize: '10px',
                     letterSpacing: '0.12em',
                     textTransform: 'uppercase',
-                    color: '#666',
+                    color: 'var(--p-mut)',
                 }}
             >
                 {sensor.nombre}
@@ -206,7 +206,7 @@ function SensorTile({ sensor }: { sensor: Sensor }) {
                 {formatDecimal(sensor.temperatura)}
                 <span style={{ fontSize: '16px', marginLeft: '3px' }}>°C</span>
             </div>
-            <div style={{ fontSize: '13px', color: '#333' }}>
+            <div style={{ fontSize: '13px', color: 'var(--p-ink)' }}>
                 Humedad <b>{formatDecimal(sensor.humedad)} %</b>
             </div>
             <span
@@ -326,7 +326,7 @@ export function MesaEnVivo() {
                             style={{
                                 ...MONO,
                                 padding: '12px 18px',
-                                borderTop: '1px solid #ececec',
+                                borderTop: '1px solid var(--p-line)',
                                 fontSize: '10px',
                                 letterSpacing: '0.04em',
                                 color: datos.desactualizado ? RED : '#888',
@@ -341,8 +341,8 @@ export function MesaEnVivo() {
                             <div
                                 style={{
                                     padding: '12px 18px',
-                                    background: '#fff6d6',
-                                    borderTop: '1px solid #f2b705',
+                                    background: 'var(--p-warn-bg)',
+                                    borderTop: '1px solid var(--p-line)',
                                     fontSize: '14px',
                                     lineHeight: 1.45,
                                 }}
@@ -351,7 +351,7 @@ export function MesaEnVivo() {
                                 Avisá al equipo de Sistemas:{' '}
                                 <Link
                                     href="/it"
-                                    style={{ color: '#000', fontWeight: 700 }}
+                                    style={{ color: 'var(--p-ink)', fontWeight: 700 }}
                                 >
                                     ir a la página de IT
                                 </Link>
@@ -383,7 +383,7 @@ export function MesaEnVivo() {
                                     boxSizing: 'border-box',
                                     width: '100%',
                                     padding: '9px 10px',
-                                    border: '1px solid #CFCFCB',
+                                    border: '1px solid var(--p-line)',
                                     borderRadius: '999px',
                                     fontFamily:
                                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
@@ -400,7 +400,7 @@ export function MesaEnVivo() {
                                         justifyContent: 'space-between',
                                         gap: '18px',
                                         padding: '11px 18px',
-                                        borderTop: '1px solid #ececec',
+                                        borderTop: '1px solid var(--p-line)',
                                         fontSize: '14px',
                                     }}
                                 >
@@ -409,7 +409,7 @@ export function MesaEnVivo() {
                                         href={'tel:' + phone.numero}
                                         style={{
                                             ...MONO,
-                                            color: '#000',
+                                            color: 'var(--p-ink)',
                                             textDecoration: 'none',
                                             fontWeight: 700,
                                             fontSize: '13px',

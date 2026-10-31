@@ -17,39 +17,39 @@ const BADGE_STYLE: Record<
     { background: string; color: string; border: string }
 > = {
     prod: {
-        background: '#E3F4E7',
-        color: '#1B6B2E',
-        border: '1px solid #E3F4E7',
+        background: 'var(--p-ok-bg)',
+        color: 'var(--p-ok-tx)',
+        border: '1px solid var(--p-line)',
     },
     live: {
-        background: '#E3F4E7',
-        color: '#1B6B2E',
-        border: '1px solid #E3F4E7',
+        background: 'var(--p-ok-bg)',
+        color: 'var(--p-ok-tx)',
+        border: '1px solid var(--p-line)',
     },
     dev: {
-        background: '#E8EEF9',
-        color: '#1F4D9B',
-        border: '1px solid #E8EEF9',
+        background: 'var(--p-info-bg)',
+        color: 'var(--p-info-tx)',
+        border: '1px solid var(--p-line)',
     },
     test: {
-        background: '#FFF3CD',
-        color: '#7A5600',
-        border: '1px solid #FFF3CD',
+        background: 'var(--p-warn-bg)',
+        color: 'var(--p-warn-tx)',
+        border: '1px solid var(--p-line)',
     },
     curso: {
-        background: '#E8EEF9',
-        color: '#1F4D9B',
-        border: '1px solid #E8EEF9',
+        background: 'var(--p-info-bg)',
+        color: 'var(--p-info-tx)',
+        border: '1px solid var(--p-line)',
     },
     ana: {
-        background: '#EFEFEC',
-        color: '#6B6B68',
-        border: '1px solid #EFEFEC',
+        background: 'var(--p-soft)',
+        color: 'var(--p-mut)',
+        border: '1px solid var(--p-line)',
     },
     cero: {
-        background: '#EFEFEC',
-        color: '#6B6B68',
-        border: '1px solid #EFEFEC',
+        background: 'var(--p-soft)',
+        color: 'var(--p-mut)',
+        border: '1px solid var(--p-line)',
     },
 };
 
@@ -136,7 +136,7 @@ const labelFieldStyle: React.CSSProperties = {
     fontSize: '12.5px',
     fontWeight: 500,
     border: 'none',
-    borderBottom: '1px solid #000',
+    borderBottom: '1px solid var(--p-rule)',
     borderRadius: 0,
     padding: '4px 0',
     marginBottom: '6px',
@@ -148,7 +148,7 @@ const smallButtonStyle: React.CSSProperties = {
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
     background: 'transparent',
-    border: '1px solid #CFCFCB',
+    border: '1px solid var(--p-line)',
     borderRadius: '999px',
     padding: '4px 8px',
     cursor: 'pointer',
@@ -229,7 +229,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                 fontSize: '10px',
                                 letterSpacing: '0.16em',
                                 textTransform: 'uppercase',
-                                color: '#666',
+                                color: 'var(--p-mut)',
                                 marginBottom: '12px',
                             }}
                         >
@@ -256,7 +256,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                 fontSize: '15px',
                                 lineHeight: 1.5,
                                 fontWeight: 500,
-                                color: '#111',
+                                color: 'var(--p-ink)',
                             }}
                         >
                             Todo lo que estamos haciendo con IA en Eurotur, en
@@ -285,7 +285,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                         <div
                             key={st.l}
                             style={{
-                                background: '#fff',
+                                background: 'var(--p-card)',
                                 borderRadius: '16px',
                                 boxShadow: '0 1px 2px rgba(0,0,0,.05)',
                                 padding: '16px 20px',
@@ -305,7 +305,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                     fontSize: '11px',
                                     letterSpacing: '0.1em',
                                     textTransform: 'uppercase',
-                                    color: '#6B6B68',
+                                    color: 'var(--p-mut)',
                                     marginTop: '8px',
                                 }}
                             >
@@ -333,7 +333,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                             fontSize: '13px',
                             letterSpacing: '0.14em',
                             textTransform: 'uppercase',
-                            color: '#6B6B68',
+                            color: 'var(--p-mut)',
                         }}
                     >
                         Automatizaciones
@@ -348,7 +348,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                         <div
                             style={{
                                 display: 'inline-flex',
-                                border: '1px solid #CFCFCB',
+                                border: '1px solid var(--p-line)',
                                 borderRadius: '999px',
                                 overflow: 'hidden',
                             }}
@@ -404,7 +404,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                 <div
                                     key={f.id}
                                     style={{
-                                        background: '#fff',
+                                        background: 'var(--p-card)',
                                         borderRadius: '16px',
                                         boxShadow: '0 1px 2px rgba(0,0,0,.05)',
                                         padding: '0 14px',
@@ -472,8 +472,8 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                 <span
                                                     style={{
                                                         fontSize: '12px',
-                                                        color: '#6B6B68',
-                                                        border: '1px solid #CFCFCB',
+                                                        color: 'var(--p-mut)',
+                                                        border: '1px solid var(--p-line)',
                                                         borderRadius: '999px',
                                                         padding: '2px 10px',
                                                         whiteSpace: 'nowrap',
@@ -487,7 +487,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                     aria-hidden="true"
                                                     style={{
                                                         fontSize: '18px',
-                                                        color: '#6B6B68',
+                                                        color: 'var(--p-mut)',
                                                         lineHeight: 1,
                                                         display: 'inline-block',
                                                         transform: open
@@ -547,7 +547,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                         alignItems: 'start',
                                                         padding: '14px 0',
                                                         borderTop:
-                                                            '1px dotted #cfcfcf',
+                                                            '1px dotted var(--p-line)',
                                                     }}
                                                 >
                                                     {editingItem === it.id ? (
@@ -585,7 +585,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                                     style={{
                                                                         fontSize:
                                                                             '12.5px',
-                                                                        color: '#777',
+                                                                        color: 'var(--p-mut)',
                                                                         lineHeight: 1.45,
                                                                         marginTop:
                                                                             '4px',
@@ -659,7 +659,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                                                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                                                     fontSize:
                                                                                         '10px',
-                                                                                    color: '#666',
+                                                                                    color: 'var(--p-mut)',
                                                                                 }}
                                                                             >
                                                                                 ✎
@@ -723,10 +723,10 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                                                 '999px',
                                                                             whiteSpace:
                                                                                 'nowrap',
-                                                                            border: '1px solid #000',
-                                                                            color: '#000',
+                                                                            border: '1px solid var(--p-rule)',
+                                                                            color: 'var(--p-ink)',
                                                                             background:
-                                                                                '#fff',
+                                                                                'var(--p-card)',
                                                                             cursor: 'pointer',
                                                                         }}
                                                                     >
@@ -826,7 +826,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                             <div
                                 key={f.id}
                                 style={{
-                                    background: '#fff',
+                                    background: 'var(--p-card)',
                                     borderRadius: '16px',
                                     boxShadow: '0 1px 2px rgba(0,0,0,.05)',
                                     padding: '16px 14px',
@@ -884,7 +884,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                 style={{
                                                     cursor: 'pointer',
                                                     boxSizing: 'border-box',
-                                                    border: '1px solid #dcdcdc',
+                                                    border: '1px solid var(--p-line)',
                                                     padding: '10px 11px',
                                                     display: 'flex',
                                                     flexDirection: 'column',
@@ -948,7 +948,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                     <span
                                                         style={{
                                                             fontSize: '11.5px',
-                                                            color: '#777',
+                                                            color: 'var(--p-mut)',
                                                             lineHeight: 1.45,
                                                         }}
                                                     >
@@ -971,7 +971,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                         gap: '16px',
                         marginTop: '26px',
                         borderRadius: '16px',
-                        background: '#fff',
+                        background: 'var(--p-card)',
                         boxShadow: '0 1px 2px rgba(0,0,0,.05)',
                         padding: '14px 18px',
                     }}
@@ -991,7 +991,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                     <span
                         style={{
                             fontSize: '13.5px',
-                            color: '#222',
+                            color: 'var(--p-ink)',
                             lineHeight: 1.5,
                             maxWidth: '780px',
                         }}
@@ -1019,7 +1019,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                             fontSize: '13px',
                             letterSpacing: '0.14em',
                             textTransform: 'uppercase',
-                            color: '#6B6B68',
+                            color: 'var(--p-mut)',
                         }}
                     >
                         Instructivos IA
@@ -1031,7 +1031,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                             fontSize: '10px',
                             letterSpacing: '0.12em',
                             textTransform: 'uppercase',
-                            color: '#999',
+                            color: 'var(--p-mut)',
                         }}
                     >
                         ↗ abrí el documento · + detalle
@@ -1052,7 +1052,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                 key={i.id}
                                 className="innov-instr-card"
                                 style={{
-                                    background: '#fff',
+                                    background: 'var(--p-card)',
                                     borderRadius: '16px',
                                     boxShadow: '0 1px 2px rgba(0,0,0,.05)',
                                     padding: '18px 18px 16px',
@@ -1124,7 +1124,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                     <span
                                         style={{
                                             fontSize: '12.5px',
-                                            color: '#777',
+                                            color: 'var(--p-mut)',
                                             lineHeight: 1.45,
                                         }}
                                     >
@@ -1147,7 +1147,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                     display: 'flex',
                                                     gap: '8px',
                                                     fontSize: '12.5px',
-                                                    color: '#333',
+                                                    color: 'var(--p-ink)',
                                                     lineHeight: 1.4,
                                                 }}
                                             >
@@ -1209,7 +1209,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                             fontSize: '10px',
                                             letterSpacing: '0.1em',
                                             textTransform: 'uppercase',
-                                            color: '#c4c4c4',
+                                            color: 'var(--p-mut)',
                                             paddingTop: '10px',
                                         }}
                                     >

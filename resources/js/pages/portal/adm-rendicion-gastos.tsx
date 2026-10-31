@@ -38,7 +38,7 @@ const mono: CSSProperties = {
 };
 
 const bloqueStyle: CSSProperties = {
-    backgroundColor: '#f9fafb',
+    backgroundColor: 'var(--p-soft)',
     borderRadius: '8px',
     padding: '20px 24px',
 };
@@ -48,9 +48,9 @@ const inputStyle: CSSProperties = {
     fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '13px',
     fontWeight: 500,
-    color: '#111827',
-    backgroundColor: '#ffffff',
-    border: '1px solid #d1d5db',
+    color: 'var(--p-ink)',
+    backgroundColor: 'var(--p-card)',
+    border: '1px solid var(--p-line)',
     borderRadius: '6px',
     padding: '8px 12px',
     outline: 'none',
@@ -96,8 +96,8 @@ const enlaceCaja: CSSProperties = {
     fontSize: '12px',
     fontWeight: 500,
     textDecoration: 'none',
-    color: '#374151',
-    border: '1px solid #d1d5db',
+    color: 'var(--p-ink)',
+    border: '1px solid var(--p-line)',
     borderRadius: '6px',
     padding: '8px 12px',
     whiteSpace: 'nowrap',
@@ -493,8 +493,8 @@ export default function AdmRendicionGastos() {
                     display: inline-block;
                     width: 11px;
                     height: 11px;
-                    border: 2px solid #ccc;
-                    border-top-color: #000;
+                    border: 2px solid var(--p-line);
+                    border-top-color: var(--p-rule);
                     border-radius: 50%;
                     animation: ocr-spin 0.7s linear infinite;
                 }
@@ -714,9 +714,9 @@ export default function AdmRendicionGastos() {
                             onClick={addGasto}
                             style={{
                                 ...botonStyle,
-                                backgroundColor: '#ffffff',
-                                borderColor: '#d1d5db',
-                                color: '#374151',
+                                backgroundColor: 'var(--p-card)',
+                                borderColor: 'var(--p-line)',
+                                color: 'var(--p-ink)',
                             }}
                         >
                             + Agregar otro gasto
@@ -728,7 +728,7 @@ export default function AdmRendicionGastos() {
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
                                 marginTop: '22px',
-                                borderTop: '1px solid #e5e7eb',
+                                borderTop: '1px solid var(--p-line)',
                                 paddingTop: '14px',
                             }}
                         >
@@ -737,7 +737,7 @@ export default function AdmRendicionGastos() {
                                     fontFamily:
                                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '12px',
-                                    color: '#6b7280',
+                                    color: 'var(--p-mut)',
                                 }}
                             >
                                 {gastos.length} de {MAX_GASTOS} comprobantes
@@ -843,14 +843,14 @@ export default function AdmRendicionGastos() {
                             <div
                                 style={{
                                     marginTop: '18px',
-                                    border: '1px solid #bbf7d0',
+                                    border: '1px solid var(--p-line)',
                                     borderRadius: '8px',
-                                    backgroundColor: '#f0fdf4',
+                                    backgroundColor: 'var(--p-ok-bg)',
                                     padding: '20px',
                                     textAlign: 'center',
                                 }}
                             >
-                                <b style={{ color: '#166534' }}>
+                                <b style={{ color: 'var(--p-ok-tx)' }}>
                                     ✓ Archivo generado
                                 </b>
                                 <p
@@ -859,7 +859,7 @@ export default function AdmRendicionGastos() {
                                         fontFamily:
                                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '13px',
-                                        color: '#374151',
+                                        color: 'var(--p-ink)',
                                     }}
                                 >
                                     Se descargó{' '}
@@ -871,7 +871,7 @@ export default function AdmRendicionGastos() {
                                         fontFamily:
                                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '12px',
-                                        color: '#6b7280',
+                                        color: 'var(--p-mut)',
                                         marginTop: '8px',
                                     }}
                                 >
@@ -908,7 +908,7 @@ function Encabezado() {
                     style={{
                         ...mono,
                         letterSpacing: '0.16em',
-                        color: '#666',
+                        color: 'var(--p-mut)',
                         marginBottom: '12px',
                     }}
                 >
@@ -935,7 +935,7 @@ function Encabezado() {
                         fontSize: '15px',
                         lineHeight: 1.5,
                         fontWeight: 500,
-                        color: '#111',
+                        color: 'var(--p-ink)',
                     }}
                 >
                     Cargá tus gastos (en pesos o en moneda extranjera) con
@@ -979,7 +979,7 @@ function Encabezado() {
                     target="_blank"
                     rel="noreferrer"
                     className="doc-link"
-                    style={{ ...enlaceCaja, borderColor: '#e5e7eb' }}
+                    style={{ ...enlaceCaja, borderColor: 'var(--p-line)' }}
                 >
                     versión offline ↗
                 </a>
@@ -988,7 +988,7 @@ function Encabezado() {
                         fontFamily:
                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '11px',
-                        color: '#9ca3af',
+                        color: 'var(--p-mut)',
                         maxWidth: '160px',
                         textAlign: 'right',
                     }}
@@ -1005,7 +1005,7 @@ function Encabezado() {
                         fontSize: '12px',
                         fontWeight: 500,
                         textDecoration: 'none',
-                        color: '#6b7280',
+                        color: 'var(--p-mut)',
                     }}
                 >
                     ← volver a administración
@@ -1065,13 +1065,13 @@ function Aviso({ children }: { children: React.ReactNode }) {
     return (
         <div
             style={{
-                background: '#fef2f2',
-                border: '1px solid #fecaca',
+                background: 'var(--p-bad-bg)',
+                border: '1px solid var(--p-line)',
                 borderRadius: '8px',
                 padding: '12px 16px',
                 marginBottom: '16px',
                 fontSize: '13px',
-                color: '#991b1b',
+                color: 'var(--p-bad-tx)',
             }}
         >
             {children}
@@ -1106,8 +1106,8 @@ function Bloque({
                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '11px',
                         fontWeight: 700,
-                        backgroundColor: '#e5e7eb',
-                        color: '#374151',
+                        backgroundColor: 'var(--p-line)',
+                        color: 'var(--p-ink)',
                         padding: '2px 8px',
                         borderRadius: '4px',
                     }}
@@ -1120,7 +1120,7 @@ function Bloque({
                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontWeight: 700,
                         fontSize: '18px',
-                        color: '#111827',
+                        color: 'var(--p-ink)',
                     }}
                 >
                     {titulo}
@@ -1131,7 +1131,7 @@ function Bloque({
                             fontFamily:
                                 "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '12px',
-                            color: '#9ca3af',
+                            color: 'var(--p-mut)',
                             marginLeft: 'auto',
                         }}
                     >
@@ -1161,7 +1161,7 @@ function Campo({
                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontSize: '13px',
                     fontWeight: 600,
-                    color: '#374151',
+                    color: 'var(--p-ink)',
                     display: 'block',
                     marginBottom: '6px',
                 }}
@@ -1175,7 +1175,7 @@ function Campo({
                         fontFamily:
                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '12px',
-                        color: '#6b7280',
+                        color: 'var(--p-mut)',
                         marginTop: '6px',
                         lineHeight: 1.4,
                         wordBreak: 'break-word',
@@ -1242,8 +1242,8 @@ function GastoCard({
     return (
         <div
             style={{
-                backgroundColor: '#ffffff',
-                border: '1px solid #e5e7eb',
+                backgroundColor: 'var(--p-card)',
+                border: '1px solid var(--p-line)',
                 borderRadius: '8px',
                 padding: '24px',
                 marginBottom: '18px',
@@ -1265,8 +1265,8 @@ function GastoCard({
                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '13px',
                         fontWeight: 700,
-                        backgroundColor: '#f3f4f6',
-                        color: '#374151',
+                        backgroundColor: 'var(--p-soft)',
+                        color: 'var(--p-ink)',
                         padding: '4px 10px',
                         borderRadius: '4px',
                     }}
@@ -1283,7 +1283,7 @@ function GastoCard({
                         fontWeight: 500,
                         background: 'none',
                         border: 'none',
-                        color: '#9ca3af',
+                        color: 'var(--p-mut)',
                         cursor: 'pointer',
                         textDecoration: 'underline',
                     }}
@@ -1371,7 +1371,7 @@ function GastoCard({
                                     fontFamily:
                                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '12px',
-                                    color: '#991b1b',
+                                    color: 'var(--p-bad-tx)',
                                     marginTop: '4px',
                                 }}
                             >
@@ -1383,7 +1383,7 @@ function GastoCard({
                                     fontFamily:
                                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '12px',
-                                    color: '#92400e',
+                                    color: 'var(--p-warn-tx)',
                                     marginTop: '4px',
                                 }}
                             >
@@ -1418,7 +1418,7 @@ function GastoCard({
                                     fontFamily:
                                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '12px',
-                                    color: '#991b1b',
+                                    color: 'var(--p-bad-tx)',
                                     marginTop: '4px',
                                 }}
                             >
@@ -1430,7 +1430,7 @@ function GastoCard({
                                     fontFamily:
                                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '12px',
-                                    color: '#92400e',
+                                    color: 'var(--p-warn-tx)',
                                     marginTop: '4px',
                                 }}
                             >
@@ -1494,7 +1494,7 @@ function GastoCard({
                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '13px',
                         fontWeight: 700,
-                        color: '#111827',
+                        color: 'var(--p-ink)',
                     }}
                 >
                     Subtotal: {fmtByMoneda(gastoTotal(g), gastoMoneda(g))}
@@ -1558,7 +1558,7 @@ function CamposArs({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '12px',
-                                color: '#991b1b',
+                                color: 'var(--p-bad-tx)',
                                 marginTop: '4px',
                             }}
                         >
@@ -1680,7 +1680,7 @@ function CamposArs({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '12px',
-                                color: '#92400e',
+                                color: 'var(--p-warn-tx)',
                                 marginTop: '5px',
                             }}
                         >
@@ -1692,7 +1692,7 @@ function CamposArs({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '12px',
-                                color: '#991b1b',
+                                color: 'var(--p-bad-tx)',
                                 marginTop: '5px',
                             }}
                         >
@@ -1747,7 +1747,7 @@ function CamposArs({
                             fontFamily:
                                 "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '13px',
-                            color: '#374151',
+                            color: 'var(--p-ink)',
                         }}
                     >
                         No tengo comprobante válido / el CUIT no es válido
@@ -1839,7 +1839,7 @@ function CamposArs({
                                         fontFamily:
                                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '12px',
-                                        color: '#991b1b',
+                                        color: 'var(--p-bad-tx)',
                                         marginTop: '4px',
                                     }}
                                 >
@@ -1851,7 +1851,7 @@ function CamposArs({
                                         fontFamily:
                                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '12px',
-                                        color: '#92400e',
+                                        color: 'var(--p-warn-tx)',
                                         marginTop: '4px',
                                     }}
                                 >
@@ -1898,7 +1898,7 @@ function CamposArs({
                                         fontFamily:
                                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '12px',
-                                        color: '#991b1b',
+                                        color: 'var(--p-bad-tx)',
                                         marginTop: '4px',
                                     }}
                                 >
@@ -1912,7 +1912,7 @@ function CamposArs({
                                         fontFamily:
                                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '12px',
-                                        color: '#92400e',
+                                        color: 'var(--p-warn-tx)',
                                         marginTop: '4px',
                                     }}
                                 >
@@ -1959,7 +1959,7 @@ function CamposArs({
                             fontFamily:
                                 "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '12px',
-                            color: '#991b1b',
+                            color: 'var(--p-bad-tx)',
                             marginTop: '4px',
                         }}
                     >
@@ -1971,7 +1971,7 @@ function CamposArs({
                             fontFamily:
                                 "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '12px',
-                            color: '#92400e',
+                            color: 'var(--p-warn-tx)',
                             marginTop: '4px',
                         }}
                     >
@@ -2016,7 +2016,7 @@ function CamposArs({
                                         fontFamily:
                                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '12px',
-                                        color: '#92400e',
+                                        color: 'var(--p-warn-tx)',
                                         marginTop: '4px',
                                     }}
                                 >
@@ -2052,7 +2052,7 @@ function CamposArs({
                                         fontFamily:
                                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '12px',
-                                        color: '#92400e',
+                                        color: 'var(--p-warn-tx)',
                                         marginTop: '4px',
                                     }}
                                 >
@@ -2090,7 +2090,7 @@ function CamposArs({
                                         fontFamily:
                                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '12px',
-                                        color: '#92400e',
+                                        color: 'var(--p-warn-tx)',
                                         marginTop: '4px',
                                     }}
                                 >
@@ -2140,7 +2140,7 @@ function CamposArs({
                                         fontFamily:
                                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '12px',
-                                        color: '#92400e',
+                                        color: 'var(--p-warn-tx)',
                                         marginTop: '4px',
                                     }}
                                 >
@@ -2186,7 +2186,7 @@ function CamposArs({
                                         fontFamily:
                                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '12px',
-                                        color: '#92400e',
+                                        color: 'var(--p-warn-tx)',
                                         marginTop: '4px',
                                     }}
                                 >
@@ -2233,7 +2233,7 @@ function CamposArs({
                                         fontFamily:
                                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '12px',
-                                        color: '#92400e',
+                                        color: 'var(--p-warn-tx)',
                                         marginTop: '4px',
                                     }}
                                 >
@@ -2279,7 +2279,7 @@ function CamposArs({
                                         fontFamily:
                                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '12px',
-                                        color: '#92400e',
+                                        color: 'var(--p-warn-tx)',
                                         marginTop: '4px',
                                     }}
                                 >
@@ -2321,7 +2321,7 @@ function CamposArs({
                                     fontFamily:
                                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                     fontSize: '12px',
-                                    color: '#92400e',
+                                    color: 'var(--p-warn-tx)',
                                     marginTop: '4px',
                                 }}
                             >
@@ -2423,7 +2423,7 @@ function CamposExtranjera({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '12px',
-                                color: '#991b1b',
+                                color: 'var(--p-bad-tx)',
                                 marginTop: '4px',
                             }}
                         >
@@ -2435,7 +2435,7 @@ function CamposExtranjera({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '12px',
-                                color: '#92400e',
+                                color: 'var(--p-warn-tx)',
                                 marginTop: '4px',
                             }}
                         >
@@ -2485,7 +2485,7 @@ function CamposExtranjera({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '12px',
-                                color: '#991b1b',
+                                color: 'var(--p-bad-tx)',
                                 marginTop: '4px',
                             }}
                         >
@@ -2498,7 +2498,7 @@ function CamposExtranjera({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '12px',
-                                color: '#92400e',
+                                color: 'var(--p-warn-tx)',
                                 marginTop: '4px',
                             }}
                         >
@@ -2626,9 +2626,9 @@ function ComprobanteInput({
                         gap: '10px',
                         marginTop: '10px',
                         padding: '10px 14px',
-                        border: '1px solid #e5e7eb',
+                        border: '1px solid var(--p-line)',
                         borderRadius: '6px',
-                        backgroundColor: '#f9fafb',
+                        backgroundColor: 'var(--p-soft)',
                     }}
                 >
                     <span className="ocr-spinner" aria-hidden="true" />
@@ -2637,7 +2637,7 @@ function ComprobanteInput({
                             fontFamily:
                                 "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '13px',
-                            color: '#374151',
+                            color: 'var(--p-ink)',
                             fontWeight: 600,
                         }}
                     >
@@ -2653,9 +2653,9 @@ function ComprobanteInput({
                         gap: '10px',
                         marginTop: '10px',
                         padding: '10px 14px',
-                        border: '1px solid #bbf7d0',
+                        border: '1px solid var(--p-line)',
                         borderRadius: '6px',
-                        backgroundColor: '#f0fdf4',
+                        backgroundColor: 'var(--p-ok-bg)',
                     }}
                 >
                     <span
@@ -2664,7 +2664,7 @@ function ComprobanteInput({
                                 "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontWeight: 900,
                             fontSize: '15px',
-                            color: '#16a34a',
+                            color: 'var(--p-ok-tx)',
                             lineHeight: 1,
                         }}
                     >
@@ -2675,7 +2675,7 @@ function ComprobanteInput({
                             fontFamily:
                                 "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '13px',
-                            color: '#166534',
+                            color: 'var(--p-ok-tx)',
                             fontWeight: 500,
                         }}
                     >
@@ -2692,9 +2692,9 @@ function ComprobanteInput({
                         gap: '10px',
                         marginTop: '10px',
                         padding: '10px 14px',
-                        border: '1px solid #e5e7eb',
+                        border: '1px solid var(--p-line)',
                         borderRadius: '6px',
-                        backgroundColor: '#f9fafb',
+                        backgroundColor: 'var(--p-soft)',
                     }}
                 >
                     <span
@@ -2703,7 +2703,7 @@ function ComprobanteInput({
                                 "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontWeight: 900,
                             fontSize: '15px',
-                            color: '#6b7280',
+                            color: 'var(--p-mut)',
                             lineHeight: 1,
                         }}
                     >
@@ -2714,7 +2714,7 @@ function ComprobanteInput({
                             fontFamily:
                                 "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '13px',
-                            color: '#6b7280',
+                            color: 'var(--p-mut)',
                             flex: 1,
                         }}
                     >
@@ -2731,7 +2731,7 @@ function ComprobanteInput({
                         fontFamily:
                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '12px',
-                        color: '#6b7280',
+                        color: 'var(--p-mut)',
                     }}
                 >
                     {ocrMensajes.map((m) => (
@@ -2766,12 +2766,12 @@ function ComprobanteInput({
                         marginTop: '8px',
                         fontSize: '12px',
                         fontWeight: 500,
-                        background: '#ffffff',
-                        border: '1px solid #d1d5db',
+                        background: 'var(--p-card)',
+                        border: '1px solid var(--p-line)',
                         borderRadius: '6px',
                         padding: '6px 12px',
                         cursor: 'pointer',
-                        color: '#374151',
+                        color: 'var(--p-ink)',
                     }}
                 >
                     ↻ Reintentar lectura
@@ -2791,7 +2791,7 @@ function ComprobanteInput({
                         style={{
                             maxWidth: '120px',
                             maxHeight: '120px',
-                            border: '1px solid #000',
+                            border: '1px solid var(--p-rule)',
                         }}
                         alt="Comprobante adjunto"
                     />
@@ -2861,8 +2861,8 @@ function Resumen({
                             <th
                                 style={{
                                     textAlign: 'left',
-                                    color: '#666',
-                                    borderBottom: '1px solid #ddd',
+                                    color: 'var(--p-mut)',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                     fontWeight: 600,
                                 }}
@@ -2871,7 +2871,7 @@ function Resumen({
                             </th>
                             <td
                                 style={{
-                                    borderBottom: '1px solid #ddd',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                 }}
                             >
@@ -2906,8 +2906,8 @@ function Resumen({
                                 key={h}
                                 style={{
                                     textAlign: 'left',
-                                    color: '#666',
-                                    borderBottom: '1px solid #000',
+                                    color: 'var(--p-mut)',
+                                    borderBottom: '1px solid var(--p-rule)',
                                     padding: '0 6px 7px',
                                     fontWeight: 600,
                                 }}
@@ -2922,7 +2922,7 @@ function Resumen({
                         <tr key={g.id}>
                             <td
                                 style={{
-                                    borderBottom: '1px solid #ddd',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                 }}
                             >
@@ -2930,7 +2930,7 @@ function Resumen({
                             </td>
                             <td
                                 style={{
-                                    borderBottom: '1px solid #ddd',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                 }}
                             >
@@ -2938,7 +2938,7 @@ function Resumen({
                             </td>
                             <td
                                 style={{
-                                    borderBottom: '1px solid #ddd',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                 }}
                             >
@@ -2946,7 +2946,7 @@ function Resumen({
                             </td>
                             <td
                                 style={{
-                                    borderBottom: '1px solid #ddd',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                 }}
                             >
@@ -2954,7 +2954,7 @@ function Resumen({
                             </td>
                             <td
                                 style={{
-                                    borderBottom: '1px solid #ddd',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                 }}
                             >
@@ -2962,7 +2962,7 @@ function Resumen({
                             </td>
                             <td
                                 style={{
-                                    borderBottom: '1px solid #ddd',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                 }}
                             >
@@ -2970,7 +2970,7 @@ function Resumen({
                             </td>
                             <td
                                 style={{
-                                    borderBottom: '1px solid #ddd',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                 }}
                             >
@@ -3004,7 +3004,7 @@ function Resumen({
                         fontFamily:
                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: '12px',
-                        color: '#6b7280',
+                        color: 'var(--p-mut)',
                         marginTop: '8px',
                     }}
                 >
@@ -3025,7 +3025,7 @@ function Pie() {
                 justifyContent: 'space-between',
                 gap: '20px',
                 marginTop: '20px',
-                borderTop: '1px solid #e5e7eb',
+                borderTop: '1px solid var(--p-line)',
                 paddingTop: '14px',
             }}
         >
@@ -3034,7 +3034,7 @@ function Pie() {
                     fontFamily:
                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontSize: '12px',
-                    color: '#9ca3af',
+                    color: 'var(--p-mut)',
                 }}
             >
                 El panel corre en esta misma computadora: no sube tus datos ni
@@ -3045,7 +3045,7 @@ function Pie() {
                     fontFamily:
                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontSize: '12px',
-                    color: '#9ca3af',
+                    color: 'var(--p-mut)',
                     whiteSpace: 'nowrap',
                 }}
             >

@@ -15,6 +15,7 @@ export type User = {
     area?: string | null;
     sede?: string | null;
     interno?: string | null;
+    mercados?: string[] | null;
     foto_path?: string | null;
     email_verified_at: string | null;
     created_at: string;

@@ -46,7 +46,7 @@ const labelFieldStyle: React.CSSProperties = {
     fontSize: '12.5px',
     fontWeight: 500,
     border: 'none',
-    borderBottom: '1px solid #000',
+    borderBottom: '1px solid var(--p-rule)',
     borderRadius: 0,
     padding: '4px 0',
     marginBottom: '6px',
@@ -58,7 +58,7 @@ const smallButtonStyle: React.CSSProperties = {
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
     background: 'transparent',
-    border: '1px solid #000',
+    border: '1px solid var(--p-rule)',
     padding: '4px 8px',
     cursor: 'pointer',
 };
@@ -70,7 +70,7 @@ function SectionHeading({ label, hint }: { label: string; hint: string }) {
                 display: 'flex',
                 alignItems: 'baseline',
                 justifyContent: 'space-between',
-                borderBottom: '3px solid #000',
+                borderBottom: '3px solid var(--p-rule)',
                 paddingBottom: '10px',
                 margin: '38px 0 18px',
             }}
@@ -94,7 +94,7 @@ function SectionHeading({ label, hint }: { label: string; hint: string }) {
                     fontSize: '10px',
                     letterSpacing: '0.12em',
                     textTransform: 'uppercase',
-                    color: '#999',
+                    color: 'var(--p-mut)',
                 }}
             >
                 {hint}
@@ -124,7 +124,7 @@ export default function SearchAdmin({
                             fontSize: '10px',
                             letterSpacing: '0.16em',
                             textTransform: 'uppercase',
-                            color: '#666',
+                            color: 'var(--p-mut)',
                             marginBottom: '12px',
                         }}
                     >
@@ -147,7 +147,7 @@ export default function SearchAdmin({
                 </div>
 
                 {!isAuthenticated && (
-                    <p style={{ color: '#777', fontSize: '13px' }}>
+                    <p style={{ color: 'var(--p-mut)', fontSize: '13px' }}>
                         Iniciá sesión para editar keywords, páginas indexadas y
                         el tesauro de sinónimos.
                     </p>
@@ -214,7 +214,7 @@ function ItemKeywordsSection({
                 }}
             >
                 <thead>
-                    <tr style={{ borderBottom: '2px solid #000' }}>
+                    <tr style={{ borderBottom: '2px solid var(--p-rule)' }}>
                         {['Ítem', 'Sector · Grupo', 'Keywords', ''].map((h) => (
                             <th
                                 key={h}
@@ -226,7 +226,7 @@ function ItemKeywordsSection({
                                     fontSize: '10px',
                                     letterSpacing: '0.08em',
                                     textTransform: 'uppercase',
-                                    color: '#666',
+                                    color: 'var(--p-mut)',
                                 }}
                             >
                                 {h}
@@ -256,7 +256,7 @@ function ItemKeywordsRow({
     isAuthenticated: boolean;
 }) {
     return (
-        <tr style={{ borderBottom: '1px dotted #cfcfcf' }}>
+        <tr style={{ borderBottom: '1px dotted var(--p-line)' }}>
             <td
                 style={{
                     padding: '8px 10px',
@@ -269,7 +269,7 @@ function ItemKeywordsRow({
             <td
                 style={{
                     padding: '8px 10px',
-                    color: '#777',
+                    color: 'var(--p-mut)',
                     maxWidth: '160px',
                 }}
             >
@@ -311,7 +311,7 @@ function ItemKeywordsRow({
                         )}
                     </Form>
                 ) : (
-                    <span style={{ color: '#999' }}>
+                    <span style={{ color: 'var(--p-mut)' }}>
                         {item.keywords ?? '—'}
                     </span>
                 )}
@@ -344,7 +344,7 @@ function StaticEntriesSection({
                 }}
             >
                 <thead>
-                    <tr style={{ borderBottom: '2px solid #000' }}>
+                    <tr style={{ borderBottom: '2px solid var(--p-rule)' }}>
                         {['Título', 'URL', 'Sector', ''].map((h) => (
                             <th
                                 key={h}
@@ -356,7 +356,7 @@ function StaticEntriesSection({
                                     fontSize: '10px',
                                     letterSpacing: '0.08em',
                                     textTransform: 'uppercase',
-                                    color: '#666',
+                                    color: 'var(--p-mut)',
                                 }}
                             >
                                 {h}
@@ -378,7 +378,7 @@ function StaticEntriesSection({
                         ) : (
                             <tr
                                 key={entry.id}
-                                style={{ borderBottom: '1px dotted #cfcfcf' }}
+                                style={{ borderBottom: '1px dotted var(--p-line)' }}
                             >
                                 <td
                                     style={{
@@ -391,7 +391,7 @@ function StaticEntriesSection({
                                 <td
                                     style={{
                                         padding: '8px 10px',
-                                        color: '#777',
+                                        color: 'var(--p-mut)',
                                         wordBreak: 'break-all',
                                     }}
                                 >
@@ -400,7 +400,7 @@ function StaticEntriesSection({
                                 <td
                                     style={{
                                         padding: '8px 10px',
-                                        color: '#777',
+                                        color: 'var(--p-mut)',
                                     }}
                                 >
                                     {entry.sectorLabel ?? '—'}
@@ -430,7 +430,7 @@ function StaticEntriesSection({
                                                     fontFamily:
                                                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                     fontSize: '11px',
-                                                    color: '#666',
+                                                    color: 'var(--p-mut)',
                                                 }}
                                             >
                                                 ✎
@@ -606,7 +606,7 @@ function ThesaurusSection({
                     <div
                         key={group.groupNumber}
                         style={{
-                            border: '1px solid #dcdcdc',
+                            border: '1px solid var(--p-line)',
                             padding: '10px 14px',
                         }}
                     >
@@ -617,7 +617,7 @@ function ThesaurusSection({
                                 fontSize: '9px',
                                 letterSpacing: '0.08em',
                                 textTransform: 'uppercase',
-                                color: '#999',
+                                color: 'var(--p-mut)',
                                 marginBottom: '8px',
                             }}
                         >
@@ -638,7 +638,7 @@ function ThesaurusSection({
                                         display: 'inline-flex',
                                         alignItems: 'center',
                                         gap: '6px',
-                                        border: '1px solid #000',
+                                        border: '1px solid var(--p-rule)',
                                         padding: '3px 8px',
                                         fontSize: '12px',
                                     }}

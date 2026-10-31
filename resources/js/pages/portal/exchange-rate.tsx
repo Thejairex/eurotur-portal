@@ -51,7 +51,7 @@ const labelFieldStyle: React.CSSProperties = {
     fontSize: '12.5px',
     fontWeight: 500,
     border: 'none',
-    borderBottom: '1px solid #000',
+    borderBottom: '1px solid var(--p-rule)',
     borderRadius: 0,
     padding: '4px 0',
     marginBottom: '6px',
@@ -63,7 +63,7 @@ const smallButtonStyle: React.CSSProperties = {
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
     background: 'transparent',
-    border: '1px solid #000',
+    border: '1px solid var(--p-rule)',
     borderRadius: '999px',
     padding: '6px 14px',
     cursor: 'pointer',
@@ -89,7 +89,7 @@ function RateBlock({
     return (
         <div
             style={{
-                background: '#fff',
+                background: 'var(--p-card)',
                 borderRadius: '16px',
                 padding: '18px 22px 20px 22px',
             }}
@@ -101,7 +101,7 @@ function RateBlock({
                     fontSize: '10px',
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
-                    color: '#666',
+                    color: 'var(--p-mut)',
                 }}
             >
                 {label}
@@ -129,7 +129,7 @@ function RateBlock({
                     fontSize: '9px',
                     letterSpacing: '0.06em',
                     textTransform: 'uppercase',
-                    color: '#999',
+                    color: 'var(--p-mut)',
                 }}
             >
                 <span>
@@ -293,7 +293,7 @@ export default function ExchangeRate({
                             fontSize: '10px',
                             letterSpacing: '0.16em',
                             textTransform: 'uppercase',
-                            color: '#666',
+                            color: 'var(--p-mut)',
                             marginBottom: '12px',
                         }}
                     >
@@ -348,7 +348,7 @@ export default function ExchangeRate({
                         display: 'flex',
                         alignItems: 'baseline',
                         justifyContent: 'space-between',
-                        borderBottom: '3px solid #000',
+                        borderBottom: '3px solid var(--p-rule)',
                         paddingBottom: '10px',
                         margin: '38px 0 0',
                     }}
@@ -372,7 +372,7 @@ export default function ExchangeRate({
                             fontSize: '10px',
                             letterSpacing: '0.12em',
                             textTransform: 'uppercase',
-                            color: '#999',
+                            color: 'var(--p-mut)',
                         }}
                     >
                         actualización diaria — lun a vie
@@ -407,9 +407,9 @@ export default function ExchangeRate({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '13px',
-                                border: '1px solid #cfcfca',
+                                border: '1px solid var(--p-line)',
                                 borderRadius: '999px',
-                                background: '#fff',
+                                background: 'var(--p-card)',
                                 padding: '8px 16px',
                             }}
                         />
@@ -422,9 +422,9 @@ export default function ExchangeRate({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '13px',
-                                border: '1px solid #cfcfca',
+                                border: '1px solid var(--p-line)',
                                 borderRadius: '999px',
-                                background: '#fff',
+                                background: 'var(--p-card)',
                                 padding: '8px 16px',
                                 width: '150px',
                             }}
@@ -434,7 +434,7 @@ export default function ExchangeRate({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '10px',
-                                color: '#999',
+                                color: 'var(--p-mut)',
                             }}
                         >
                             a
@@ -448,9 +448,9 @@ export default function ExchangeRate({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '13px',
-                                border: '1px solid #cfcfca',
+                                border: '1px solid var(--p-line)',
                                 borderRadius: '999px',
-                                background: '#fff',
+                                background: 'var(--p-card)',
                                 padding: '8px 16px',
                                 width: '150px',
                             }}
@@ -475,7 +475,7 @@ export default function ExchangeRate({
                                 }}
                                 style={{
                                     ...smallButtonStyle,
-                                    color: '#666',
+                                    color: 'var(--p-mut)',
                                 }}
                             >
                                 Limpiar
@@ -500,7 +500,7 @@ export default function ExchangeRate({
                     }}
                 >
                     <thead>
-                        <tr style={{ borderBottom: '2px solid #000' }}>
+                        <tr style={{ borderBottom: '2px solid var(--p-rule)' }}>
                             {['Fecha', 'Compra', 'Venta', 'Nota', ''].map(
                                 (h) => (
                                     <th
@@ -513,7 +513,7 @@ export default function ExchangeRate({
                                             fontSize: '10px',
                                             letterSpacing: '0.08em',
                                             textTransform: 'uppercase',
-                                            color: '#666',
+                                            color: 'var(--p-mut)',
                                         }}
                                     >
                                         {h}
@@ -537,7 +537,7 @@ export default function ExchangeRate({
                                 <tr
                                     key={row.id}
                                     style={{
-                                        borderBottom: '1px dotted #cfcfcf',
+                                        borderBottom: '1px dotted var(--p-line)',
                                     }}
                                 >
                                     <td
@@ -559,7 +559,7 @@ export default function ExchangeRate({
                                     <td
                                         style={{
                                             padding: '8px 10px',
-                                            color: '#777',
+                                            color: 'var(--p-mut)',
                                         }}
                                     >
                                         {row.note ?? '—'}
@@ -589,7 +589,7 @@ export default function ExchangeRate({
                                                         fontFamily:
                                                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                         fontSize: '11px',
-                                                        color: '#666',
+                                                        color: 'var(--p-mut)',
                                                     }}
                                                 >
                                                     ✎
@@ -662,7 +662,7 @@ export default function ExchangeRate({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '11px',
-                                color: '#666',
+                                color: 'var(--p-mut)',
                             }}
                         >
                             Página {pagination.current_page} de{' '}
@@ -670,7 +670,7 @@ export default function ExchangeRate({
                             <span
                                 style={{
                                     marginLeft: '8px',
-                                    color: '#999',
+                                    color: 'var(--p-mut)',
                                     fontSize: '10px',
                                 }}
                             >

@@ -3,6 +3,7 @@ import { Facebook, Instagram, Linkedin, Youtube } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { ComponentType, ReactNode } from 'react';
 import { PortalTour } from '@/components/portal/portal-tour';
+import { useAppearance } from '@/hooks/use-appearance';
 import { usePermissions } from '@/hooks/use-permissions';
 import { isRateStale } from '@/lib/exchange-rates';
 import { SECTORS } from '@/lib/portal-sectors';
@@ -98,17 +99,21 @@ export default function PortalLayout({
     return (
         <>
             <style>{`
-                .eurotur-portal { background: #E2E2DF; color: #111; font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif; min-height: 100vh; }
+                .eurotur-portal { background: var(--p-bg); color: var(--p-ink); font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif; min-height: 100vh; }
+                .eurotur-portal { --p-bg: #E2E2DF; --p-card: #fff; --p-ink: #111; --p-mut: #6B6B68; --p-line: #CFCFCB; --p-soft: #F4F4F2; --p-hover: rgba(0,0,0,.05); --p-sombra: rgba(0,0,0,.14); --p-rule: #000; --p-warn-bg: #FFF3CD; --p-warn-tx: #92400E; --p-info-bg: #E8EEF9; --p-info-tx: #1F4D9B; --p-ok-bg: #E3F4E7; --p-ok-tx: #1B6B2E; --p-bad-bg: #FEF2F2; --p-bad-tx: #991B1B; }
+                .dark .eurotur-portal { --p-bg: #161617; --p-card: #303034; --p-ink: #F2F2F0; --p-mut: #B0B0AD; --p-line: #46464C; --p-soft: #3A3A3F; --p-hover: rgba(255,255,255,.07); --p-sombra: rgba(0,0,0,.55); --p-rule: #D8D8D4; --p-warn-bg: #3B3216; --p-warn-tx: #F2C94C; --p-info-bg: #1B2740; --p-info-tx: #8FB4F5; --p-ok-bg: #14301B; --p-ok-tx: #7FD392; --p-bad-bg: #3A1A1D; --p-bad-tx: #FF8A92; --redsoft: #3A1A1D; --redtext: #FF6B75; color-scheme: dark; }
+                .eurotur-portal input, .eurotur-portal select, .eurotur-portal textarea { color: var(--p-ink); }
+                .eurotur-portal input::placeholder, .eurotur-portal textarea::placeholder { color: var(--p-mut); }
                 .eurotur-portal { --red: #E3000F; --redsoft: #FBEDEE; --redtext: #C4000D; }
                 .eurotur-portal ::selection { background: ${RED}; color: #fff; }
 
                 /* Menú lateral: fijo; en barra angosta se despliega flotando sobre el contenido (el contenido no se mueve). */
-                #portal-aside { position: fixed; left: 0; top: 0; width: 240px; height: 100vh; overflow-x: hidden; overflow-y: auto; padding: 24px 18px; border-right: 1px solid #CFCFCB; background: #E2E2DF; z-index: 40; display: flex; flex-direction: column; transition: width .18s ease; }
+                #portal-aside { position: fixed; left: 0; top: 0; width: 240px; height: 100vh; overflow-x: hidden; overflow-y: auto; padding: 24px 18px; border-right: 1px solid var(--p-line); background: var(--p-bg); z-index: 40; display: flex; flex-direction: column; transition: width .18s ease; }
                 #portal-main { margin-left: 240px; padding: 0 40px; min-height: 100vh; display: flex; flex-direction: column; min-width: 0; }
                 #portal-root[data-rail="1"] #portal-main { margin-left: 72px; }
                 #portal-root[data-rail="1"] #portal-aside { width: 72px; padding: 24px 12px; }
                 #portal-root[data-rail="1"] #portal-aside:hover,
-                #portal-root[data-rail="1"] #portal-aside:has(:focus-visible) { width: 240px; padding: 24px 18px; box-shadow: 6px 0 24px rgba(0,0,0,.14); }
+                #portal-root[data-rail="1"] #portal-aside:has(:focus-visible) { width: 240px; padding: 24px 18px; box-shadow: 6px 0 24px var(--p-sombra); }
                 #portal-root[data-rail="1"] #portal-aside:not(:hover):not(:has(:focus-visible)) .lbl,
                 #portal-root[data-rail="1"] #portal-aside:not(:hover):not(:has(:focus-visible)) .aside-extra { display: none; }
                 #portal-root[data-rail="1"] #portal-aside:not(:hover):not(:has(:focus-visible)) .nav-item { justify-content: center; padding: 11px 0; }
@@ -118,19 +123,19 @@ export default function PortalLayout({
                 .eurotur-portal .lbl { white-space: nowrap; }
                 .eurotur-portal .mi { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
-                .eurotur-portal .tog { margin: 0 0 14px auto; border: 1px solid #CFCFCB; background: #fff; border-radius: 10px; width: 38px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: background-color .12s, border-color .12s; }
-                .eurotur-portal .tog svg { width: 20px; height: 20px; stroke: #111; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transform: scaleX(-1); transition: stroke .12s; }
+                .eurotur-portal .tog { margin: 0 0 14px auto; border: 1px solid var(--p-line); background: var(--p-card); border-radius: 10px; width: 38px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: background-color .12s, border-color .12s; }
+                .eurotur-portal .tog svg { width: 20px; height: 20px; stroke: var(--p-ink); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transform: scaleX(-1); transition: stroke .12s; }
                 .eurotur-portal .tog:hover, .eurotur-portal .tog:focus-visible { background: #FBEDEE; border-color: ${RED}; outline: none; }
                 .eurotur-portal .tog:hover svg, .eurotur-portal .tog:focus-visible svg { stroke: ${RED}; }
 
-                .eurotur-portal .nav-item { position: relative; display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 10px; color: #111; font-size: 14px; text-decoration: none; cursor: pointer; transition: background-color .12s, color .12s; }
+                .eurotur-portal .nav-item { position: relative; display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 10px; color: var(--p-ink); font-size: 14px; text-decoration: none; cursor: pointer; transition: background-color .12s, color .12s; }
                 .eurotur-portal .nav-item::before { content: ''; position: absolute; left: 0; top: 20%; height: 60%; width: 3px; border-radius: 2px; background: ${RED}; transform: scaleY(0); transition: transform .15s; }
-                .eurotur-portal .nav-item:hover, .eurotur-portal .nav-item:focus-visible { background: rgba(0,0,0,.05); color: ${RED}; outline: none; }
+                .eurotur-portal .nav-item:hover, .eurotur-portal .nav-item:focus-visible { background: var(--p-hover); color: ${RED}; outline: none; }
                 .eurotur-portal .nav-item:hover::before, .eurotur-portal .nav-item:focus-visible::before { transform: scaleY(1); }
                 .eurotur-portal .nav-item[aria-current="page"] { background: var(--redsoft); color: var(--redtext); font-weight: 600; }
                 .eurotur-portal .nav-item[aria-current="page"]::before { transform: scaleY(1); }
 
-                .eurotur-portal .search-pill { display: flex; align-items: center; gap: 8px; width: 100%; padding: 9px 14px; border: 1px solid #CFCFCB; border-radius: 999px; background: #fff; transition: border-color .12s; }
+                .eurotur-portal .search-pill { display: flex; align-items: center; gap: 8px; width: 100%; padding: 9px 14px; border: 1px solid var(--p-line); border-radius: 999px; background: var(--p-card); transition: border-color .12s; }
                 .eurotur-portal .search-pill:focus-within { border-color: ${RED}; box-shadow: 0 0 0 3px rgba(227,0,15,.15); }
 
                 /* Marca roja bajo el título de cada página */
@@ -139,12 +144,12 @@ export default function PortalLayout({
                 /* Franja superior: bloque de sesión */
                 .eurotur-portal .session-btn { display: inline-flex; align-items: center; gap: 8px; max-width: 240px; padding: 9px 18px; border-radius: 999px; border: 1px solid transparent; font: inherit; font-size: 13px; font-weight: 700; line-height: 1.2; text-decoration: none; cursor: pointer; white-space: nowrap; transition: background-color .12s, color .12s, border-color .12s; }
                 .eurotur-portal .session-btn-red { background: ${RED}; color: #fff; }
-                .eurotur-portal .session-btn-red:hover, .eurotur-portal .session-btn-red:focus-visible { background: #111; outline: none; }
-                .eurotur-portal .session-btn-white { background: #fff; color: #111; border-color: #CFCFCB; }
+                .eurotur-portal .session-btn-red:hover, .eurotur-portal .session-btn-red:focus-visible { background: var(--p-ink); color: var(--p-card); outline: none; }
+                .eurotur-portal .session-btn-white { background: var(--p-card); color: var(--p-ink); border-color: #CFCFCB; }
                 .eurotur-portal .session-btn-white:hover, .eurotur-portal .session-btn-white:focus-visible { background: var(--redsoft); border-color: var(--red); color: var(--redtext); outline: none; }
                 .eurotur-portal .session-name { overflow: hidden; text-overflow: ellipsis; }
-                .eurotur-portal .session-menu { position: absolute; right: 0; top: calc(100% + 6px); min-width: 180px; background: #fff; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.14); padding: 6px; z-index: 60; }
-                .eurotur-portal .session-menu-item { display: block; width: 100%; padding: 10px 12px; border: none; border-radius: 8px; background: transparent; font: inherit; font-size: 14px; text-align: left; color: #111; cursor: pointer; transition: background-color .12s, color .12s; }
+                .eurotur-portal .session-menu { position: absolute; right: 0; top: calc(100% + 6px); min-width: 180px; background: var(--p-card); border-radius: 12px; box-shadow: 0 8px 24px var(--p-sombra); padding: 6px; z-index: 60; }
+                .eurotur-portal .session-menu-item { display: block; width: 100%; padding: 10px 12px; border: none; border-radius: 8px; background: transparent; font: inherit; font-size: 14px; text-align: left; color: var(--p-ink); cursor: pointer; transition: background-color .12s, color .12s; }
                 .eurotur-portal .session-menu-item:hover, .eurotur-portal .session-menu-item:focus-visible { background: var(--redsoft); color: var(--redtext); outline: none; }
 
                 /* Tipo de cambio: tres columnas alineadas a la derecha, a la altura de la base del título */
@@ -154,12 +159,12 @@ export default function PortalLayout({
                     .eurotur-portal #portal-content h1 { max-width: calc(100vw - 720px); }
                 }
 
-                .eurotur-portal .logout-btn:hover { background: #111 !important; color: #fff !important; }
-                .eurotur-portal .backoffice-btn:hover { background: #111 !important; color: #fff !important; }
-                .eurotur-portal .login-btn:hover { background: #111 !important; color: #fff !important; }
+                .eurotur-portal .logout-btn:hover { background: var(--p-ink) !important; color: var(--p-card) !important; }
+                .eurotur-portal .backoffice-btn:hover { background: var(--p-ink) !important; color: var(--p-card) !important; }
+                .eurotur-portal .login-btn:hover { background: var(--p-ink) !important; color: var(--p-card) !important; }
 
                 /* Tarjetas de sector: sube 3 px, línea roja abajo; la sombra más marcada aparece con opacidad (no se anima box-shadow). */
-                .eurotur-portal .card { position: relative; isolation: isolate; background: #fff; border-radius: 16px; padding: 20px 22px 14px; box-shadow: 0 1px 2px rgba(0,0,0,.05); transition: transform .2s; }
+                .eurotur-portal .card { position: relative; isolation: isolate; background: var(--p-card); border-radius: 16px; padding: 20px 22px 14px; box-shadow: 0 1px 2px rgba(0,0,0,.05); transition: transform .2s; }
                 .eurotur-portal .card::before { content: ''; position: absolute; inset: 0; border-radius: 16px; box-shadow: 0 10px 22px rgba(0,0,0,.10); opacity: 0; transition: opacity .2s; z-index: -1; pointer-events: none; }
                 .eurotur-portal .card::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; border-radius: 0 0 16px 16px; background: ${RED}; transform: scaleX(0); transform-origin: left; transition: transform .25s ease-out; pointer-events: none; }
                 .eurotur-portal .card-l { grid-row: span 2; }
@@ -168,15 +173,15 @@ export default function PortalLayout({
                 .eurotur-portal .card:hover::after { transform: scaleX(1); }
                 .eurotur-portal .card .ico { width: 20px; height: 20px; stroke: var(--red); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; transition: stroke .15s; }
 
-                .eurotur-portal .doc-link { position: relative; display: flex; justify-content: space-between; gap: 10px; padding: 10px; margin: 0 -10px; border-radius: 10px; color: #111; font-size: 14.5px; text-decoration: none; transition: background-color .12s, color .12s; }
+                .eurotur-portal .doc-link { position: relative; display: flex; justify-content: space-between; gap: 10px; padding: 10px; margin: 0 -10px; border-radius: 10px; color: var(--p-ink); font-size: 14.5px; text-decoration: none; transition: background-color .12s, color .12s; }
                 .eurotur-portal .doc-link::before { content: ''; position: absolute; left: 0; top: 20%; height: 60%; width: 3px; border-radius: 2px; background: ${RED}; transform: scaleY(0); transition: transform .15s; }
-                .eurotur-portal .doc-link .doc-arrow { color: #6B6B68; transition: transform .15s, color .12s; }
+                .eurotur-portal .doc-link .doc-arrow { color: var(--p-mut); transition: transform .15s, color .12s; }
                 .eurotur-portal .doc-link:hover, .eurotur-portal .doc-link:focus-visible { background: var(--redsoft); color: var(--redtext); outline: none; }
                 .eurotur-portal .doc-link:hover::before, .eurotur-portal .doc-link:focus-visible::before { transform: scaleY(1); }
                 .eurotur-portal .doc-link:hover .doc-arrow, .eurotur-portal .doc-link:focus-visible .doc-arrow { color: ${RED}; transform: translate(3px, -3px); }
 
                 /* Portada: accesos rápidos y sectores con foto. */
-                .eurotur-portal .quick-card { position: relative; isolation: isolate; overflow: hidden; background: #fff; border-radius: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.05); transition: transform .2s; }
+                .eurotur-portal .quick-card { position: relative; isolation: isolate; overflow: hidden; background: var(--p-card); border-radius: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.05); transition: transform .2s; }
                 .eurotur-portal .quick-card::after, .eurotur-portal .tile::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: ${RED}; transform: scaleX(0); transform-origin: left; transition: transform .25s ease-out; z-index: 2; pointer-events: none; }
                 .eurotur-portal .quick-card:hover, .eurotur-portal .tile:hover { transform: translateY(-3px); }
                 .eurotur-portal .quick-card:hover::after, .eurotur-portal .tile:hover::after { transform: scaleX(1); }
@@ -194,11 +199,11 @@ export default function PortalLayout({
                 .eurotur-portal .search-result-active { background: ${RED}; color: #fff; }
                 .eurotur-portal .search-result-active div { color: #fff !important; }
                 .eurotur-portal .qrated-cta:hover { background: #b3050f; transform: translateY(-3px); }
-                .eurotur-portal .qrated-cat { color: #000; }
+                .eurotur-portal .qrated-cat { color: var(--p-ink); }
                 .eurotur-portal .qrated-cat-num { color: #999; }
                 .eurotur-portal .qrated-cat-desc { color: #777; }
                 .eurotur-portal .qrated-cat:hover { transform: translateY(-3px); }
-                .eurotur-portal .mesa-cred-btn:hover { background: #000; color: #fff; }
+                .eurotur-portal .mesa-cred-btn:hover { background: var(--p-ink); color: var(--p-card); }
                 .eurotur-portal .mesa-copy-btn:hover { background: ${RED}; color: #fff; border-color: ${RED}; }
                 .eurotur-portal .innov-frente-header { border-radius: 16px; }
                 .eurotur-portal .innov-frente-header:hover { background: #FBEDEE; box-shadow: inset 3px 0 0 ${RED}; }
@@ -334,7 +339,7 @@ function Sidebar({
                 <div
                     style={{
                         fontSize: '11px',
-                        color: '#6B6B68',
+                        color: 'var(--p-mut)',
                         letterSpacing: '0.08em',
                         margin: '6px 0 18px',
                         lineHeight: 1.5,
@@ -467,7 +472,7 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
                         fontSize: '9px',
                         letterSpacing: '0.16em',
                         textTransform: 'uppercase',
-                        color: '#999',
+                        color: 'var(--p-mut)',
                         marginBottom: '8px',
                     }}
                 >
@@ -557,7 +562,7 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                         fontSize: inputFont,
                         fontWeight: 500,
-                        color: '#000',
+                        color: 'var(--p-ink)',
                     }}
                 />
             </div>
@@ -569,8 +574,8 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
                         top: 'calc(100% + 4px)',
                         left: 0,
                         right: 0,
-                        background: '#fff',
-                        border: '1px solid #000',
+                        background: 'var(--p-card)',
+                        border: '1px solid var(--p-rule)',
                         maxHeight: '360px',
                         overflowY: 'auto',
                         zIndex: 50,
@@ -583,7 +588,7 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '11px',
-                                color: '#999',
+                                color: 'var(--p-mut)',
                             }}
                         >
                             buscando…
@@ -596,7 +601,7 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '11px',
-                                color: '#999',
+                                color: 'var(--p-mut)',
                             }}
                         >
                             sin resultados.
@@ -618,9 +623,9 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
                                 style={{
                                     display: 'block',
                                     textDecoration: 'none',
-                                    color: '#000',
+                                    color: 'var(--p-ink)',
                                     padding: '10px 16px',
-                                    borderBottom: '1px dotted #ccc',
+                                    borderBottom: '1px dotted var(--p-line)',
                                 }}
                             >
                                 <div
@@ -639,7 +644,7 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
                                             "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                         fontSize: '10px',
                                         letterSpacing: '0.04em',
-                                        color: '#999',
+                                        color: 'var(--p-mut)',
                                         marginTop: '2px',
                                     }}
                                 >
@@ -666,7 +671,7 @@ function Header() {
                 gap: '24px',
                 padding: '14px 0 4px',
                 fontSize: '12px',
-                color: '#6B6B68',
+                color: 'var(--p-mut)',
             }}
         >
             <div
@@ -685,6 +690,7 @@ function SessionBlock() {
     const { auth } = usePage().props;
     const [open, setOpen] = useState(false);
     const boxRef = useRef<HTMLDivElement>(null);
+    const { resolvedAppearance, updateAppearance } = useAppearance();
 
     useEffect(() => {
         if (!open) {
@@ -755,6 +761,23 @@ function SessionBlock() {
                 </button>
                 {open && (
                     <div role="menu" className="session-menu">
+                        <button
+                            type="button"
+                            role="menuitem"
+                            className="session-menu-item"
+                            onClick={() => {
+                                updateAppearance(
+                                    resolvedAppearance === 'dark'
+                                        ? 'light'
+                                        : 'dark',
+                                );
+                                setOpen(false);
+                            }}
+                        >
+                            {resolvedAppearance === 'dark'
+                                ? 'Modo claro'
+                                : 'Modo oscuro'}
+                        </button>
                         <Form {...logout.form()}>
                             {({ processing }) => (
                                 <button
@@ -795,7 +818,7 @@ function Rates({
 
     const valueStyle: React.CSSProperties = {
         display: 'block',
-        color: '#111',
+        color: 'var(--p-ink)',
         fontSize: '16px',
         fontWeight: 700,
         lineHeight: 1.2,
@@ -852,7 +875,7 @@ function Rates({
                 <b
                     style={{
                         ...valueStyle,
-                        color: '#8a8a86',
+                        color: 'var(--p-mut)',
                         fontWeight: 600,
                         fontSize: '14px',
                     }}
@@ -935,7 +958,7 @@ function Footer() {
         >
             <>
                 <span style={{ whiteSpace: 'nowrap', fontSize: '13px' }}>
-                    <span style={{ color: '#6B6B68' }}>phone</span>
+                    <span style={{ color: 'var(--p-mut)' }}>phone</span>
                     &nbsp;&nbsp;
                     <a
                         href={PORTAL_PHONE}
@@ -946,7 +969,7 @@ function Footer() {
                 </span>
                 <span
                     style={{
-                        color: '#6B6B68',
+                        color: 'var(--p-mut)',
                         fontSize: '13px',
                         textAlign: 'center',
                     }}
@@ -972,7 +995,7 @@ function Footer() {
                         fontSize: '10px',
                         letterSpacing: '0.08em',
                         textTransform: 'uppercase',
-                        color: '#999',
+                        color: 'var(--p-mut)',
                     }}
                 >
                     <span>redes —</span>
