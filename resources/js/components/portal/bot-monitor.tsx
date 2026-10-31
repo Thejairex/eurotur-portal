@@ -193,7 +193,7 @@ export function BotMonitor({ summary, stats }: BotMonitorProps) {
             style={{
                 marginTop: '12px',
                 paddingTop: '12px',
-                borderTop: '1px dotted #cfcfcf',
+                borderTop: '1px dotted var(--p-line)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '12px',
@@ -216,7 +216,7 @@ export function BotMonitor({ summary, stats }: BotMonitorProps) {
                         <div
                             style={{
                                 paddingTop: '10px',
-                                borderRight: '1px dotted #cfcfcf',
+                                borderRight: '1px dotted var(--p-line)',
                             }}
                         >
                             <Label>vouchers</Label>

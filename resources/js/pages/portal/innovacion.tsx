@@ -17,39 +17,39 @@ const BADGE_STYLE: Record<
     { background: string; color: string; border: string }
 > = {
     prod: {
-        background: '#E3F4E7',
-        color: '#1B6B2E',
-        border: '1px solid #E3F4E7',
+        background: 'var(--p-ok-bg)',
+        color: 'var(--p-ok-tx)',
+        border: '1px solid var(--p-line)',
     },
     live: {
-        background: '#E3F4E7',
-        color: '#1B6B2E',
-        border: '1px solid #E3F4E7',
+        background: 'var(--p-ok-bg)',
+        color: 'var(--p-ok-tx)',
+        border: '1px solid var(--p-line)',
     },
     dev: {
-        background: '#E8EEF9',
-        color: '#1F4D9B',
-        border: '1px solid #E8EEF9',
+        background: 'var(--p-info-bg)',
+        color: 'var(--p-info-tx)',
+        border: '1px solid var(--p-line)',
     },
     test: {
-        background: '#FFF3CD',
-        color: '#7A5600',
-        border: '1px solid #FFF3CD',
+        background: 'var(--p-warn-bg)',
+        color: 'var(--p-warn-tx)',
+        border: '1px solid var(--p-line)',
     },
     curso: {
-        background: '#E8EEF9',
-        color: '#1F4D9B',
-        border: '1px solid #E8EEF9',
+        background: 'var(--p-info-bg)',
+        color: 'var(--p-info-tx)',
+        border: '1px solid var(--p-line)',
     },
     ana: {
-        background: '#EFEFEC',
+        background: 'var(--p-soft)',
         color: 'var(--p-mut)',
-        border: '1px solid #EFEFEC',
+        border: '1px solid var(--p-line)',
     },
     cero: {
-        background: '#EFEFEC',
+        background: 'var(--p-soft)',
         color: 'var(--p-mut)',
-        border: '1px solid #EFEFEC',
+        border: '1px solid var(--p-line)',
     },
 };
 
@@ -136,7 +136,7 @@ const labelFieldStyle: React.CSSProperties = {
     fontSize: '12.5px',
     fontWeight: 500,
     border: 'none',
-    borderBottom: '1px solid #000',
+    borderBottom: '1px solid var(--p-rule)',
     borderRadius: 0,
     padding: '4px 0',
     marginBottom: '6px',
@@ -547,7 +547,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                         alignItems: 'start',
                                                         padding: '14px 0',
                                                         borderTop:
-                                                            '1px dotted #cfcfcf',
+                                                            '1px dotted var(--p-line)',
                                                     }}
                                                 >
                                                     {editingItem === it.id ? (
@@ -723,7 +723,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                                                 '999px',
                                                                             whiteSpace:
                                                                                 'nowrap',
-                                                                            border: '1px solid #000',
+                                                                            border: '1px solid var(--p-rule)',
                                                                             color: 'var(--p-ink)',
                                                                             background:
                                                                                 'var(--p-card)',
@@ -884,7 +884,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                                 style={{
                                                     cursor: 'pointer',
                                                     boxSizing: 'border-box',
-                                                    border: '1px solid #dcdcdc',
+                                                    border: '1px solid var(--p-line)',
                                                     padding: '10px 11px',
                                                     display: 'flex',
                                                     flexDirection: 'column',
@@ -1209,7 +1209,7 @@ export default function Innovacion({ frentes, summary, stats }: Props) {
                                             fontSize: '10px',
                                             letterSpacing: '0.1em',
                                             textTransform: 'uppercase',
-                                            color: '#c4c4c4',
+                                            color: 'var(--p-mut)',
                                             paddingTop: '10px',
                                         }}
                                     >

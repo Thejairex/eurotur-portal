@@ -268,7 +268,7 @@ export default function Mesa() {
                                         justifyContent: 'space-between',
                                         gap: '20px',
                                         padding: '16px 18px',
-                                        borderTop: '1px solid #EFEFEC',
+                                        borderTop: '1px solid var(--p-line)',
                                         flexWrap: 'wrap',
                                     }}
                                 >
@@ -358,8 +358,8 @@ export default function Mesa() {
                                 letterSpacing: '0.05em',
                                 color: 'var(--p-mut)',
                                 padding: '11px 18px',
-                                borderTop: '1px solid #EFEFEC',
-                                background: '#faf7f7',
+                                borderTop: '1px solid var(--p-line)',
+                                background: 'var(--p-soft)',
                                 lineHeight: 1.5,
                             }}
                         >
@@ -396,7 +396,7 @@ export default function Mesa() {
                                 style={{
                                     borderRadius: '12px',
                                     padding: '16px',
-                                    background: '#F6F6F4',
+                                    background: 'var(--p-soft)',
                                 }}
                             >
                                 <div
@@ -423,7 +423,7 @@ export default function Mesa() {
                                     style={{
                                         fontSize: '14.5px',
                                         lineHeight: 1.45,
-                                        color: '#444',
+                                        color: 'var(--p-ink)',
                                     }}
                                 >
                                     {prefijo.detalle}
@@ -456,7 +456,7 @@ export default function Mesa() {
                             textDecoration: 'none',
                             fontWeight: 700,
                             fontSize: '15px',
-                            borderBottom: '1px solid #c4c4c4',
+                            borderBottom: '1px solid var(--p-line)',
                             paddingBottom: '3px',
                         }}
                     >

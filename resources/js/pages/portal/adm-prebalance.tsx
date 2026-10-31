@@ -51,7 +51,7 @@ const mono: CSSProperties = {
 };
 
 const bloqueStyle: CSSProperties = {
-    borderTop: '3px solid #000',
+    borderTop: '3px solid var(--p-rule)',
     padding: '14px 0 26px',
 };
 
@@ -63,7 +63,7 @@ const inputStyle: CSSProperties = {
     color: 'var(--p-ink)',
     background: 'transparent',
     border: 'none',
-    borderBottom: '1px solid #000',
+    borderBottom: '1px solid var(--p-rule)',
     borderRadius: 0,
     padding: '5px 0',
 };
@@ -74,17 +74,17 @@ const botonStyle: CSSProperties = {
     letterSpacing: '0.1em',
     textTransform: 'uppercase',
     background: 'transparent',
-    border: '1px solid #000',
+    border: '1px solid var(--p-rule)',
     padding: '9px 14px',
     cursor: 'pointer',
     color: 'var(--p-ink)',
 };
 
 const NIVEL_STYLE: Record<Nivel, CSSProperties> = {
-    OK: { background: '#000', color: '#fff', border: '1px solid #000' },
-    ALERTA: { background: 'var(--p-card)', color: 'var(--p-ink)', border: '1px solid #000' },
+    OK: { background: '#000', color: '#fff', border: '1px solid var(--p-rule)' },
+    ALERTA: { background: 'var(--p-card)', color: 'var(--p-ink)', border: '1px solid var(--p-rule)' },
     ERROR: { background: RED, color: '#fff', border: `1px solid ${RED}` },
-    INFO: { background: 'var(--p-card)', color: '#8a8a8a', border: '1px solid #d9d9d9' },
+    INFO: { background: 'var(--p-card)', color: 'var(--p-mut)', border: '1px solid var(--p-line)' },
 };
 
 /* -------------------------------------------------------------------- utils */
@@ -563,7 +563,7 @@ export default function AdmPrebalance() {
                                 onClick={reiniciar}
                                 style={{
                                     ...botonStyle,
-                                    borderColor: '#c4c4c4',
+                                    borderColor: 'var(--p-line)',
                                 }}
                             >
                                 Empezar de nuevo
@@ -699,7 +699,7 @@ function Encabezado() {
                     target="_blank"
                     rel="noreferrer"
                     className="doc-link"
-                    style={{ ...enlaceCaja, borderColor: '#c4c4c4' }}
+                    style={{ ...enlaceCaja, borderColor: 'var(--p-line)' }}
                 >
                     versión offline ↗
                 </a>
@@ -727,7 +727,7 @@ const enlaceCaja: CSSProperties = {
     letterSpacing: '0.1em',
     textDecoration: 'none',
     color: 'var(--p-ink)',
-    border: '1px solid #000',
+    border: '1px solid var(--p-rule)',
     padding: '5px 9px',
     whiteSpace: 'nowrap',
 };
@@ -865,7 +865,7 @@ function TablaArchivos({
                                     letterSpacing: '0.14em',
                                     color: 'var(--p-mut)',
                                     textAlign: i === 2 ? 'right' : 'left',
-                                    borderBottom: '1px solid #000',
+                                    borderBottom: '1px solid var(--p-rule)',
                                     padding: '0 0 7px',
                                     fontWeight: 400,
                                 }}
@@ -881,7 +881,7 @@ function TablaArchivos({
                             <td
                                 style={{
                                     padding: '9px 10px 9px 0',
-                                    borderBottom: '1px dotted #ccc',
+                                    borderBottom: '1px dotted var(--p-line)',
                                     fontWeight: 500,
                                 }}
                             >
@@ -890,7 +890,7 @@ function TablaArchivos({
                             <td
                                 style={{
                                     padding: '9px 0',
-                                    borderBottom: '1px dotted #ccc',
+                                    borderBottom: '1px dotted var(--p-line)',
                                 }}
                             >
                                 <span
@@ -918,7 +918,7 @@ function TablaArchivos({
                             <td
                                 style={{
                                     padding: '9px 0',
-                                    borderBottom: '1px dotted #ccc',
+                                    borderBottom: '1px dotted var(--p-line)',
                                     textAlign: 'right',
                                 }}
                             >
@@ -1030,7 +1030,7 @@ function Aviso({
                 gap: '12px',
                 padding: '14px 16px',
                 marginBottom: '20px',
-                background: '#faf9f7',
+                background: 'var(--p-soft)',
                 borderLeft: `3px solid ${nivel === 'ERROR' ? RED : '#000'}`,
                 fontFamily:
                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
@@ -1094,8 +1094,8 @@ function Resultados({ res }: { res: Resultado }) {
                 style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(5,1fr)',
-                    borderTop: '1px solid #000',
-                    borderBottom: '1px solid #000',
+                    borderTop: '1px solid var(--p-rule)',
+                    borderBottom: '1px solid var(--p-rule)',
                     marginBottom: '24px',
                 }}
             >
@@ -1104,7 +1104,7 @@ function Resultados({ res }: { res: Resultado }) {
                         key={k.et}
                         style={{
                             padding: '14px 16px 16px',
-                            borderRight: '1px dotted #000',
+                            borderRight: '1px dotted var(--p-rule)',
                         }}
                     >
                         <div
@@ -1154,7 +1154,7 @@ function Resultados({ res }: { res: Resultado }) {
                                     letterSpacing: '0.14em',
                                     color: 'var(--p-mut)',
                                     textAlign: 'left',
-                                    borderBottom: '1px solid #000',
+                                    borderBottom: '1px solid var(--p-rule)',
                                     padding: '0 10px 7px 0',
                                     fontWeight: 400,
                                     width:
@@ -1190,7 +1190,7 @@ function Resultados({ res }: { res: Resultado }) {
                                     {v.nivel}
                                 </span>
                             </td>
-                            <td style={{ ...celdaStyle, color: '#444' }}>
+                            <td style={{ ...celdaStyle, color: 'var(--p-ink)' }}>
                                 {v.detalle}
                             </td>
                         </tr>
@@ -1214,7 +1214,7 @@ function Resultados({ res }: { res: Resultado }) {
                                     INFO
                                 </span>
                             </td>
-                            <td style={{ ...celdaStyle, color: '#444' }}>
+                            <td style={{ ...celdaStyle, color: 'var(--p-ink)' }}>
                                 {a}
                             </td>
                         </tr>
@@ -1227,7 +1227,7 @@ function Resultados({ res }: { res: Resultado }) {
 
 const celdaStyle: CSSProperties = {
     padding: '10px 10px 10px 0',
-    borderBottom: '1px dotted #ccc',
+    borderBottom: '1px dotted var(--p-line)',
     verticalAlign: 'top',
     lineHeight: 1.45,
 };
@@ -1241,7 +1241,7 @@ function Pie() {
                 justifyContent: 'space-between',
                 gap: '20px',
                 marginTop: '20px',
-                borderTop: '1px solid #000',
+                borderTop: '1px solid var(--p-rule)',
                 paddingTop: '14px',
             }}
         >

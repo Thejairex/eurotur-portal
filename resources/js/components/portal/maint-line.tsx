@@ -22,7 +22,7 @@ export function MaintLine({ children }: { children: ReactNode }) {
                     textTransform: 'uppercase',
                     color: 'var(--p-mut)',
                     paddingBottom: '6px',
-                    borderBottom: '1px solid #111',
+                    borderBottom: '1px solid var(--p-rule)',
                 }}
             >
                 mantiene — {children}

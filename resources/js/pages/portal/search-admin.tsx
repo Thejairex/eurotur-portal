@@ -46,7 +46,7 @@ const labelFieldStyle: React.CSSProperties = {
     fontSize: '12.5px',
     fontWeight: 500,
     border: 'none',
-    borderBottom: '1px solid #000',
+    borderBottom: '1px solid var(--p-rule)',
     borderRadius: 0,
     padding: '4px 0',
     marginBottom: '6px',
@@ -58,7 +58,7 @@ const smallButtonStyle: React.CSSProperties = {
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
     background: 'transparent',
-    border: '1px solid #000',
+    border: '1px solid var(--p-rule)',
     padding: '4px 8px',
     cursor: 'pointer',
 };
@@ -70,7 +70,7 @@ function SectionHeading({ label, hint }: { label: string; hint: string }) {
                 display: 'flex',
                 alignItems: 'baseline',
                 justifyContent: 'space-between',
-                borderBottom: '3px solid #000',
+                borderBottom: '3px solid var(--p-rule)',
                 paddingBottom: '10px',
                 margin: '38px 0 18px',
             }}
@@ -214,7 +214,7 @@ function ItemKeywordsSection({
                 }}
             >
                 <thead>
-                    <tr style={{ borderBottom: '2px solid #000' }}>
+                    <tr style={{ borderBottom: '2px solid var(--p-rule)' }}>
                         {['Ítem', 'Sector · Grupo', 'Keywords', ''].map((h) => (
                             <th
                                 key={h}
@@ -256,7 +256,7 @@ function ItemKeywordsRow({
     isAuthenticated: boolean;
 }) {
     return (
-        <tr style={{ borderBottom: '1px dotted #cfcfcf' }}>
+        <tr style={{ borderBottom: '1px dotted var(--p-line)' }}>
             <td
                 style={{
                     padding: '8px 10px',
@@ -344,7 +344,7 @@ function StaticEntriesSection({
                 }}
             >
                 <thead>
-                    <tr style={{ borderBottom: '2px solid #000' }}>
+                    <tr style={{ borderBottom: '2px solid var(--p-rule)' }}>
                         {['Título', 'URL', 'Sector', ''].map((h) => (
                             <th
                                 key={h}
@@ -378,7 +378,7 @@ function StaticEntriesSection({
                         ) : (
                             <tr
                                 key={entry.id}
-                                style={{ borderBottom: '1px dotted #cfcfcf' }}
+                                style={{ borderBottom: '1px dotted var(--p-line)' }}
                             >
                                 <td
                                     style={{
@@ -606,7 +606,7 @@ function ThesaurusSection({
                     <div
                         key={group.groupNumber}
                         style={{
-                            border: '1px solid #dcdcdc',
+                            border: '1px solid var(--p-line)',
                             padding: '10px 14px',
                         }}
                     >
@@ -638,7 +638,7 @@ function ThesaurusSection({
                                         display: 'inline-flex',
                                         alignItems: 'center',
                                         gap: '6px',
-                                        border: '1px solid #000',
+                                        border: '1px solid var(--p-rule)',
                                         padding: '3px 8px',
                                         fontSize: '12px',
                                     }}

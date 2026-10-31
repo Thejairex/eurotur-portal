@@ -51,7 +51,7 @@ const labelFieldStyle: React.CSSProperties = {
     fontSize: '12.5px',
     fontWeight: 500,
     border: 'none',
-    borderBottom: '1px solid #000',
+    borderBottom: '1px solid var(--p-rule)',
     borderRadius: 0,
     padding: '4px 0',
     marginBottom: '6px',
@@ -63,7 +63,7 @@ const smallButtonStyle: React.CSSProperties = {
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
     background: 'transparent',
-    border: '1px solid #000',
+    border: '1px solid var(--p-rule)',
     borderRadius: '999px',
     padding: '6px 14px',
     cursor: 'pointer',
@@ -348,7 +348,7 @@ export default function ExchangeRate({
                         display: 'flex',
                         alignItems: 'baseline',
                         justifyContent: 'space-between',
-                        borderBottom: '3px solid #000',
+                        borderBottom: '3px solid var(--p-rule)',
                         paddingBottom: '10px',
                         margin: '38px 0 0',
                     }}
@@ -407,7 +407,7 @@ export default function ExchangeRate({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '13px',
-                                border: '1px solid #cfcfca',
+                                border: '1px solid var(--p-line)',
                                 borderRadius: '999px',
                                 background: 'var(--p-card)',
                                 padding: '8px 16px',
@@ -422,7 +422,7 @@ export default function ExchangeRate({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '13px',
-                                border: '1px solid #cfcfca',
+                                border: '1px solid var(--p-line)',
                                 borderRadius: '999px',
                                 background: 'var(--p-card)',
                                 padding: '8px 16px',
@@ -448,7 +448,7 @@ export default function ExchangeRate({
                                 fontFamily:
                                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                 fontSize: '13px',
-                                border: '1px solid #cfcfca',
+                                border: '1px solid var(--p-line)',
                                 borderRadius: '999px',
                                 background: 'var(--p-card)',
                                 padding: '8px 16px',
@@ -500,7 +500,7 @@ export default function ExchangeRate({
                     }}
                 >
                     <thead>
-                        <tr style={{ borderBottom: '2px solid #000' }}>
+                        <tr style={{ borderBottom: '2px solid var(--p-rule)' }}>
                             {['Fecha', 'Compra', 'Venta', 'Nota', ''].map(
                                 (h) => (
                                     <th
@@ -537,7 +537,7 @@ export default function ExchangeRate({
                                 <tr
                                     key={row.id}
                                     style={{
-                                        borderBottom: '1px dotted #cfcfcf',
+                                        borderBottom: '1px dotted var(--p-line)',
                                     }}
                                 >
                                     <td
