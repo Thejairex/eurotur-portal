@@ -101,7 +101,7 @@ export default function PortalLayout({
             <style>{`
                 .eurotur-portal { background: var(--p-bg); color: var(--p-ink); font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif; min-height: 100vh; }
                 .eurotur-portal { --p-bg: #E2E2DF; --p-card: #fff; --p-ink: #111; --p-mut: #6B6B68; --p-line: #CFCFCB; --p-soft: #F4F4F2; --p-hover: rgba(0,0,0,.05); --p-sombra: rgba(0,0,0,.14); }
-                .dark .eurotur-portal { --p-bg: #161617; --p-card: #212123; --p-ink: #F2F2F0; --p-mut: #A3A3A0; --p-line: #34343A; --p-soft: #2A2A2D; --p-hover: rgba(255,255,255,.07); --p-sombra: rgba(0,0,0,.55); --redsoft: #3A1A1D; --redtext: #FF6B75; color-scheme: dark; }
+                .dark .eurotur-portal { --p-bg: #161617; --p-card: #303034; --p-ink: #F2F2F0; --p-mut: #B0B0AD; --p-line: #46464C; --p-soft: #3A3A3F; --p-hover: rgba(255,255,255,.07); --p-sombra: rgba(0,0,0,.55); --redsoft: #3A1A1D; --redtext: #FF6B75; color-scheme: dark; }
                 .eurotur-portal input, .eurotur-portal select, .eurotur-portal textarea { color: var(--p-ink); }
                 .eurotur-portal input::placeholder, .eurotur-portal textarea::placeholder { color: var(--p-mut); }
                 .eurotur-portal { --red: #E3000F; --redsoft: #FBEDEE; --redtext: #C4000D; }
