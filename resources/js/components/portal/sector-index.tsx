@@ -702,7 +702,7 @@ function SectorItemRow({
                             fontFamily:
                                 "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontSize: '10px',
-                            color: '#666',
+                            color: 'var(--p-mut)',
                         }}
                     >
                         ✎

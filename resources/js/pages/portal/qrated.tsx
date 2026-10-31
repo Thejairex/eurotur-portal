@@ -65,7 +65,7 @@ export default function Qrated() {
                                 fontSize: '10px',
                                 letterSpacing: '0.16em',
                                 textTransform: 'uppercase',
-                                color: '#666',
+                                color: 'var(--p-mut)',
                                 marginBottom: '12px',
                             }}
                         >
@@ -92,7 +92,7 @@ export default function Qrated() {
                                 fontSize: '14px',
                                 lineHeight: 1.5,
                                 fontWeight: 500,
-                                color: '#111',
+                                color: 'var(--p-ink)',
                             }}
                         >
                             El sello premium de Eurotur: curaduría de
@@ -180,7 +180,7 @@ export default function Qrated() {
                             fontSize: '13px',
                             letterSpacing: '0.14em',
                             textTransform: 'uppercase',
-                            color: '#6B6B68',
+                            color: 'var(--p-mut)',
                         }}
                     >
                         Categorías
@@ -192,7 +192,7 @@ export default function Qrated() {
                             fontSize: '10px',
                             letterSpacing: '0.12em',
                             textTransform: 'uppercase',
-                            color: '#999',
+                            color: 'var(--p-mut)',
                         }}
                     >
                         curaduría eurotur
@@ -215,7 +215,7 @@ export default function Qrated() {
                             rel="noreferrer"
                             className="qrated-cat"
                             style={{
-                                background: '#fff',
+                                background: 'var(--p-card)',
                                 borderRadius: '16px',
                                 overflow: 'hidden',
                                 boxShadow: '0 1px 2px rgba(0,0,0,.05)',

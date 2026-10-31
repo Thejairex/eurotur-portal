@@ -90,7 +90,7 @@ function Card({
             style={{
                 display: 'flex',
                 flexDirection: 'column',
-                background: '#fff',
+                background: 'var(--p-card)',
                 borderRadius: '16px',
                 boxShadow: '0 1px 2px rgba(0,0,0,.05)',
                 overflow: 'hidden',
@@ -101,8 +101,8 @@ function Card({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    borderBottom: '1px solid #CFCFCB',
-                    color: '#111',
+                    borderBottom: '1px solid var(--p-line)',
+                    color: 'var(--p-ink)',
                     padding: '14px 18px',
                 }}
             >
@@ -187,7 +187,7 @@ function SensorTile({ sensor }: { sensor: Sensor }) {
                     fontSize: '10px',
                     letterSpacing: '0.12em',
                     textTransform: 'uppercase',
-                    color: '#666',
+                    color: 'var(--p-mut)',
                 }}
             >
                 {sensor.nombre}
@@ -206,7 +206,7 @@ function SensorTile({ sensor }: { sensor: Sensor }) {
                 {formatDecimal(sensor.temperatura)}
                 <span style={{ fontSize: '16px', marginLeft: '3px' }}>°C</span>
             </div>
-            <div style={{ fontSize: '13px', color: '#333' }}>
+            <div style={{ fontSize: '13px', color: 'var(--p-ink)' }}>
                 Humedad <b>{formatDecimal(sensor.humedad)} %</b>
             </div>
             <span
@@ -351,7 +351,7 @@ export function MesaEnVivo() {
                                 Avisá al equipo de Sistemas:{' '}
                                 <Link
                                     href="/it"
-                                    style={{ color: '#000', fontWeight: 700 }}
+                                    style={{ color: 'var(--p-ink)', fontWeight: 700 }}
                                 >
                                     ir a la página de IT
                                 </Link>
@@ -383,7 +383,7 @@ export function MesaEnVivo() {
                                     boxSizing: 'border-box',
                                     width: '100%',
                                     padding: '9px 10px',
-                                    border: '1px solid #CFCFCB',
+                                    border: '1px solid var(--p-line)',
                                     borderRadius: '999px',
                                     fontFamily:
                                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
@@ -409,7 +409,7 @@ export function MesaEnVivo() {
                                         href={'tel:' + phone.numero}
                                         style={{
                                             ...MONO,
-                                            color: '#000',
+                                            color: 'var(--p-ink)',
                                             textDecoration: 'none',
                                             fontWeight: 700,
                                             fontSize: '13px',

@@ -60,7 +60,7 @@ const inputStyle: CSSProperties = {
     fontFamily: "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
     fontSize: '13px',
     fontWeight: 500,
-    color: '#000',
+    color: 'var(--p-ink)',
     background: 'transparent',
     border: 'none',
     borderBottom: '1px solid #000',
@@ -77,14 +77,14 @@ const botonStyle: CSSProperties = {
     border: '1px solid #000',
     padding: '9px 14px',
     cursor: 'pointer',
-    color: '#000',
+    color: 'var(--p-ink)',
 };
 
 const NIVEL_STYLE: Record<Nivel, CSSProperties> = {
     OK: { background: '#000', color: '#fff', border: '1px solid #000' },
-    ALERTA: { background: '#fff', color: '#000', border: '1px solid #000' },
+    ALERTA: { background: 'var(--p-card)', color: 'var(--p-ink)', border: '1px solid #000' },
     ERROR: { background: RED, color: '#fff', border: `1px solid ${RED}` },
-    INFO: { background: '#fff', color: '#8a8a8a', border: '1px solid #d9d9d9' },
+    INFO: { background: 'var(--p-card)', color: '#8a8a8a', border: '1px solid #d9d9d9' },
 };
 
 /* -------------------------------------------------------------------- utils */
@@ -422,7 +422,7 @@ export default function AdmPrebalance() {
                             style={{
                                 ...mono,
                                 letterSpacing: '0.08em',
-                                color: '#666',
+                                color: 'var(--p-mut)',
                                 marginTop: '10px',
                                 lineHeight: 1.6,
                             }}
@@ -575,7 +575,7 @@ export default function AdmPrebalance() {
                                 ...mono,
                                 letterSpacing: '0.06em',
                                 textTransform: 'none',
-                                color: '#666',
+                                color: 'var(--p-mut)',
                                 marginLeft: 'auto',
                             }}
                         >
@@ -633,7 +633,7 @@ function Encabezado() {
                     style={{
                         ...mono,
                         letterSpacing: '0.16em',
-                        color: '#666',
+                        color: 'var(--p-mut)',
                         marginBottom: '12px',
                     }}
                 >
@@ -660,7 +660,7 @@ function Encabezado() {
                         fontSize: '15px',
                         lineHeight: 1.5,
                         fontWeight: 500,
-                        color: '#111',
+                        color: 'var(--p-ink)',
                     }}
                 >
                     Arrastrá los 4 reportes de Tango y la herramienta devuelve
@@ -711,7 +711,7 @@ function Encabezado() {
                         fontSize: '10px',
                         letterSpacing: '0.1em',
                         textDecoration: 'none',
-                        color: '#666',
+                        color: 'var(--p-mut)',
                     }}
                 >
                     ← volver a herramientas
@@ -726,7 +726,7 @@ const enlaceCaja: CSSProperties = {
     fontSize: '10px',
     letterSpacing: '0.1em',
     textDecoration: 'none',
-    color: '#000',
+    color: 'var(--p-ink)',
     border: '1px solid #000',
     padding: '5px 9px',
     whiteSpace: 'nowrap',
@@ -780,7 +780,7 @@ function Bloque({
                             ...mono,
                             letterSpacing: '0.04em',
                             textTransform: 'none',
-                            color: '#999',
+                            color: 'var(--p-mut)',
                             marginLeft: 'auto',
                         }}
                     >
@@ -809,7 +809,7 @@ function Campo({
                     ...mono,
                     fontSize: '9px',
                     letterSpacing: '0.14em',
-                    color: '#999',
+                    color: 'var(--p-mut)',
                     marginBottom: '6px',
                 }}
             >
@@ -822,7 +822,7 @@ function Campo({
                     fontSize: '9px',
                     letterSpacing: '0.04em',
                     textTransform: 'none',
-                    color: '#999',
+                    color: 'var(--p-mut)',
                     marginTop: '6px',
                     lineHeight: 1.4,
                     wordBreak: 'break-word',
@@ -863,7 +863,7 @@ function TablaArchivos({
                                     ...mono,
                                     fontSize: '9px',
                                     letterSpacing: '0.14em',
-                                    color: '#999',
+                                    color: 'var(--p-mut)',
                                     textAlign: i === 2 ? 'right' : 'left',
                                     borderBottom: '1px solid #000',
                                     padding: '0 0 7px',
@@ -989,7 +989,7 @@ function Ayuda() {
                     ...mono,
                     fontSize: '10px',
                     letterSpacing: '0.1em',
-                    color: '#666',
+                    color: 'var(--p-mut)',
                     cursor: 'pointer',
                 }}
             >
@@ -1003,7 +1003,7 @@ function Ayuda() {
                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                     fontSize: '13px',
                     lineHeight: 1.6,
-                    color: '#333',
+                    color: 'var(--p-ink)',
                 }}
             >
                 {PASOS.map(([que, como]) => (
@@ -1124,7 +1124,7 @@ function Resultados({ res }: { res: Resultado }) {
                                 ...mono,
                                 fontSize: '9px',
                                 letterSpacing: '0.12em',
-                                color: '#666',
+                                color: 'var(--p-mut)',
                                 marginTop: '8px',
                             }}
                         >
@@ -1152,7 +1152,7 @@ function Resultados({ res }: { res: Resultado }) {
                                     ...mono,
                                     fontSize: '9px',
                                     letterSpacing: '0.14em',
-                                    color: '#999',
+                                    color: 'var(--p-mut)',
                                     textAlign: 'left',
                                     borderBottom: '1px solid #000',
                                     padding: '0 10px 7px 0',
@@ -1250,13 +1250,13 @@ function Pie() {
                     ...mono,
                     letterSpacing: '0.04em',
                     textTransform: 'none',
-                    color: '#999',
+                    color: 'var(--p-mut)',
                 }}
             >
                 Los archivos se procesan en esta misma computadora y no se
                 envían a ningún servidor.
             </div>
-            <div style={{ ...mono, color: '#666', whiteSpace: 'nowrap' }}>
+            <div style={{ ...mono, color: 'var(--p-mut)', whiteSpace: 'nowrap' }}>
                 mantiene— Quintana, Elsa · Basualdo, N. · actualizado 07·2026
             </div>
         </div>

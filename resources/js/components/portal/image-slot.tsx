@@ -60,8 +60,8 @@ export function ImageSlot({
                     fontSize: '10px',
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
-                    color: '#000',
-                    background: '#fff',
+                    color: 'var(--p-ink)',
+                    background: 'var(--p-card)',
                     padding: '4px 8px',
                 }}
             >
