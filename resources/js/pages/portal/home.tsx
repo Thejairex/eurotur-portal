@@ -41,7 +41,7 @@ function SectionHeading({ label }: { label: string }) {
             style={{
                 fontSize: '13px',
                 letterSpacing: '0.14em',
-                color: '#6B6B68',
+                color: 'var(--p-mut)',
                 fontWeight: 700,
                 margin: '26px 0 12px',
                 display: 'flex',
@@ -90,7 +90,7 @@ export default function Home() {
                         style={{
                             fontSize: '12px',
                             letterSpacing: '0.12em',
-                            color: '#6B6B68',
+                            color: 'var(--p-mut)',
                             textTransform: 'uppercase',
                         }}
                     >
@@ -126,7 +126,7 @@ export default function Home() {
                             flexDirection: 'column',
                             padding: '16px 18px',
                             textDecoration: 'none',
-                            color: '#111',
+                            color: 'var(--p-ink)',
                             cursor: 'pointer',
                         };
                         const content = (
@@ -155,7 +155,7 @@ export default function Home() {
                                     <span
                                         className="q-arrow"
                                         aria-hidden="true"
-                                        style={{ color: '#6B6B68' }}
+                                        style={{ color: 'var(--p-mut)' }}
                                     >
                                         {q.internal ? '→' : '↗'}
                                     </span>

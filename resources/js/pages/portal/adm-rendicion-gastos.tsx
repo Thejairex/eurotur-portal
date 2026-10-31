@@ -49,7 +49,7 @@ const inputStyle: CSSProperties = {
     fontSize: '13px',
     fontWeight: 500,
     color: '#111827',
-    backgroundColor: '#ffffff',
+    backgroundColor: 'var(--p-card)',
     border: '1px solid #d1d5db',
     borderRadius: '6px',
     padding: '8px 12px',
@@ -714,7 +714,7 @@ export default function AdmRendicionGastos() {
                             onClick={addGasto}
                             style={{
                                 ...botonStyle,
-                                backgroundColor: '#ffffff',
+                                backgroundColor: 'var(--p-card)',
                                 borderColor: '#d1d5db',
                                 color: '#374151',
                             }}
@@ -908,7 +908,7 @@ function Encabezado() {
                     style={{
                         ...mono,
                         letterSpacing: '0.16em',
-                        color: '#666',
+                        color: 'var(--p-mut)',
                         marginBottom: '12px',
                     }}
                 >
@@ -935,7 +935,7 @@ function Encabezado() {
                         fontSize: '15px',
                         lineHeight: 1.5,
                         fontWeight: 500,
-                        color: '#111',
+                        color: 'var(--p-ink)',
                     }}
                 >
                     Cargá tus gastos (en pesos o en moneda extranjera) con
@@ -1242,7 +1242,7 @@ function GastoCard({
     return (
         <div
             style={{
-                backgroundColor: '#ffffff',
+                backgroundColor: 'var(--p-card)',
                 border: '1px solid #e5e7eb',
                 borderRadius: '8px',
                 padding: '24px',
@@ -2766,7 +2766,7 @@ function ComprobanteInput({
                         marginTop: '8px',
                         fontSize: '12px',
                         fontWeight: 500,
-                        background: '#ffffff',
+                        background: 'var(--p-card)',
                         border: '1px solid #d1d5db',
                         borderRadius: '6px',
                         padding: '6px 12px',
@@ -2861,8 +2861,8 @@ function Resumen({
                             <th
                                 style={{
                                     textAlign: 'left',
-                                    color: '#666',
-                                    borderBottom: '1px solid #ddd',
+                                    color: 'var(--p-mut)',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                     fontWeight: 600,
                                 }}
@@ -2871,7 +2871,7 @@ function Resumen({
                             </th>
                             <td
                                 style={{
-                                    borderBottom: '1px solid #ddd',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                 }}
                             >
@@ -2906,7 +2906,7 @@ function Resumen({
                                 key={h}
                                 style={{
                                     textAlign: 'left',
-                                    color: '#666',
+                                    color: 'var(--p-mut)',
                                     borderBottom: '1px solid #000',
                                     padding: '0 6px 7px',
                                     fontWeight: 600,
@@ -2922,7 +2922,7 @@ function Resumen({
                         <tr key={g.id}>
                             <td
                                 style={{
-                                    borderBottom: '1px solid #ddd',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                 }}
                             >
@@ -2930,7 +2930,7 @@ function Resumen({
                             </td>
                             <td
                                 style={{
-                                    borderBottom: '1px solid #ddd',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                 }}
                             >
@@ -2938,7 +2938,7 @@ function Resumen({
                             </td>
                             <td
                                 style={{
-                                    borderBottom: '1px solid #ddd',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                 }}
                             >
@@ -2946,7 +2946,7 @@ function Resumen({
                             </td>
                             <td
                                 style={{
-                                    borderBottom: '1px solid #ddd',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                 }}
                             >
@@ -2954,7 +2954,7 @@ function Resumen({
                             </td>
                             <td
                                 style={{
-                                    borderBottom: '1px solid #ddd',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                 }}
                             >
@@ -2962,7 +2962,7 @@ function Resumen({
                             </td>
                             <td
                                 style={{
-                                    borderBottom: '1px solid #ddd',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                 }}
                             >
@@ -2970,7 +2970,7 @@ function Resumen({
                             </td>
                             <td
                                 style={{
-                                    borderBottom: '1px solid #ddd',
+                                    borderBottom: '1px solid var(--p-line)',
                                     padding: '8px 6px',
                                 }}
                             >

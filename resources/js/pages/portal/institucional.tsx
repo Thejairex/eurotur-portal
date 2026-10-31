@@ -59,7 +59,7 @@ export default function Institucional() {
                                 fontSize: '10px',
                                 letterSpacing: '0.16em',
                                 textTransform: 'uppercase',
-                                color: '#666',
+                                color: 'var(--p-mut)',
                                 marginBottom: '12px',
                             }}
                         >
@@ -112,7 +112,7 @@ export default function Institucional() {
                                 margin: 0,
                                 fontSize: '17px',
                                 lineHeight: 1.6,
-                                color: '#111',
+                                color: 'var(--p-ink)',
                                 fontWeight: 500,
                             }}
                         >
@@ -143,7 +143,7 @@ export default function Institucional() {
                                 margin: '20px 0 0',
                                 fontSize: '15px',
                                 lineHeight: 1.65,
-                                color: '#222',
+                                color: 'var(--p-ink)',
                             }}
                         >
                             Durante casi siete décadas hemos ofrecido una amplia
@@ -176,7 +176,7 @@ export default function Institucional() {
                                 fontSize: '11px',
                                 letterSpacing: '0.08em',
                                 textTransform: 'uppercase',
-                                color: '#666',
+                                color: 'var(--p-mut)',
                             }}
                         >
                             miembros de WTTC · LATA · USTOA
@@ -213,7 +213,7 @@ export default function Institucional() {
                                     margin: 0,
                                     fontSize: '13.5px',
                                     lineHeight: 1.55,
-                                    color: '#222',
+                                    color: 'var(--p-ink)',
                                 }}
                             >
                                 Facilitar experiencias de viaje únicas y
@@ -247,7 +247,7 @@ export default function Institucional() {
                                     margin: 0,
                                     fontSize: '13.5px',
                                     lineHeight: 1.55,
-                                    color: '#222',
+                                    color: 'var(--p-ink)',
                                 }}
                             >
                                 Ser el principal referente en viajes receptivos
@@ -328,7 +328,7 @@ export default function Institucional() {
                                         margin: 0,
                                         fontSize: '12px',
                                         lineHeight: 1.5,
-                                        color: '#333',
+                                        color: 'var(--p-ink)',
                                     }}
                                 >
                                     {v.d}

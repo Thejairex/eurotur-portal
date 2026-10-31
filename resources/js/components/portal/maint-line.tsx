@@ -20,7 +20,7 @@ export function MaintLine({ children }: { children: ReactNode }) {
                     fontSize: '10.5px',
                     letterSpacing: '0.03em',
                     textTransform: 'uppercase',
-                    color: '#6B6B68',
+                    color: 'var(--p-mut)',
                     paddingBottom: '6px',
                     borderBottom: '1px solid #111',
                 }}

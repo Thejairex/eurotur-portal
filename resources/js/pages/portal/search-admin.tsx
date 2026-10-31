@@ -94,7 +94,7 @@ function SectionHeading({ label, hint }: { label: string; hint: string }) {
                     fontSize: '10px',
                     letterSpacing: '0.12em',
                     textTransform: 'uppercase',
-                    color: '#999',
+                    color: 'var(--p-mut)',
                 }}
             >
                 {hint}
@@ -124,7 +124,7 @@ export default function SearchAdmin({
                             fontSize: '10px',
                             letterSpacing: '0.16em',
                             textTransform: 'uppercase',
-                            color: '#666',
+                            color: 'var(--p-mut)',
                             marginBottom: '12px',
                         }}
                     >
@@ -147,7 +147,7 @@ export default function SearchAdmin({
                 </div>
 
                 {!isAuthenticated && (
-                    <p style={{ color: '#777', fontSize: '13px' }}>
+                    <p style={{ color: 'var(--p-mut)', fontSize: '13px' }}>
                         Iniciá sesión para editar keywords, páginas indexadas y
                         el tesauro de sinónimos.
                     </p>
@@ -226,7 +226,7 @@ function ItemKeywordsSection({
                                     fontSize: '10px',
                                     letterSpacing: '0.08em',
                                     textTransform: 'uppercase',
-                                    color: '#666',
+                                    color: 'var(--p-mut)',
                                 }}
                             >
                                 {h}
@@ -269,7 +269,7 @@ function ItemKeywordsRow({
             <td
                 style={{
                     padding: '8px 10px',
-                    color: '#777',
+                    color: 'var(--p-mut)',
                     maxWidth: '160px',
                 }}
             >
@@ -311,7 +311,7 @@ function ItemKeywordsRow({
                         )}
                     </Form>
                 ) : (
-                    <span style={{ color: '#999' }}>
+                    <span style={{ color: 'var(--p-mut)' }}>
                         {item.keywords ?? '—'}
                     </span>
                 )}
@@ -356,7 +356,7 @@ function StaticEntriesSection({
                                     fontSize: '10px',
                                     letterSpacing: '0.08em',
                                     textTransform: 'uppercase',
-                                    color: '#666',
+                                    color: 'var(--p-mut)',
                                 }}
                             >
                                 {h}
@@ -391,7 +391,7 @@ function StaticEntriesSection({
                                 <td
                                     style={{
                                         padding: '8px 10px',
-                                        color: '#777',
+                                        color: 'var(--p-mut)',
                                         wordBreak: 'break-all',
                                     }}
                                 >
@@ -400,7 +400,7 @@ function StaticEntriesSection({
                                 <td
                                     style={{
                                         padding: '8px 10px',
-                                        color: '#777',
+                                        color: 'var(--p-mut)',
                                     }}
                                 >
                                     {entry.sectorLabel ?? '—'}
@@ -430,7 +430,7 @@ function StaticEntriesSection({
                                                     fontFamily:
                                                         "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                                                     fontSize: '11px',
-                                                    color: '#666',
+                                                    color: 'var(--p-mut)',
                                                 }}
                                             >
                                                 ✎
@@ -617,7 +617,7 @@ function ThesaurusSection({
                                 fontSize: '9px',
                                 letterSpacing: '0.08em',
                                 textTransform: 'uppercase',
-                                color: '#999',
+                                color: 'var(--p-mut)',
                                 marginBottom: '8px',
                             }}
                         >

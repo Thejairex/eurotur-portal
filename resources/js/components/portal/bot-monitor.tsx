@@ -54,7 +54,7 @@ function Label({ children }: { children: string }) {
                 fontSize: '9px',
                 letterSpacing: '0.14em',
                 textTransform: 'uppercase',
-                color: '#999',
+                color: 'var(--p-mut)',
             }}
         >
             {children}
@@ -70,7 +70,7 @@ function EmptyState({ message }: { message: string }) {
                     "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                 fontSize: '11px',
                 letterSpacing: '0.06em',
-                color: '#666',
+                color: 'var(--p-mut)',
                 padding: '4px 0',
             }}
         >
@@ -210,7 +210,7 @@ export function BotMonitor({ summary, stats }: BotMonitorProps) {
                             gridTemplateColumns: '1fr 1fr',
                             gap: '18px',
                             marginTop: '6px',
-                            borderTop: '1px solid #CFCFCB',
+                            borderTop: '1px solid var(--p-line)',
                         }}
                     >
                         <div

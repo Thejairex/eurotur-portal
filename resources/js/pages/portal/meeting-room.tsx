@@ -38,7 +38,7 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
                                 fontSize: '10px',
                                 letterSpacing: '0.16em',
                                 textTransform: 'uppercase',
-                                color: '#666',
+                                color: 'var(--p-mut)',
                                 marginBottom: '12px',
                             }}
                         >
@@ -65,7 +65,7 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
                                 fontSize: '15px',
                                 lineHeight: 1.5,
                                 fontWeight: 500,
-                                color: '#111',
+                                color: 'var(--p-ink)',
                             }}
                         >
                             Agendá la "Sala de Reuniones 1" directo en el
@@ -135,7 +135,7 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
                         style={{
                             border: '3px solid #000',
                             position: 'relative',
-                            background: '#fff',
+                            background: 'var(--p-card)',
                         }}
                     >
                         <iframe
@@ -161,7 +161,7 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
                             fontSize: '11px',
                             letterSpacing: '0.08em',
                             textTransform: 'uppercase',
-                            color: '#666',
+                            color: 'var(--p-mut)',
                         }}
                     >
                         calendario no configurado — avisá a IT
