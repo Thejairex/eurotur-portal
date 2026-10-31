@@ -97,7 +97,7 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
                                 background: '#000',
                                 color: '#fff',
                                 textDecoration: 'none',
-                                border: '1px solid #000',
+                                border: '1px solid var(--p-rule)',
                                 padding: '11px 16px',
                                 transition: 'background .12s, color .12s',
                             }}
@@ -133,7 +133,7 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
                 {calendarUrl ? (
                     <div
                         style={{
-                            border: '3px solid #000',
+                            border: '3px solid var(--p-rule)',
                             position: 'relative',
                             background: 'var(--p-card)',
                         }}
@@ -154,7 +154,7 @@ export default function MeetingRoom({ calendarUrl, instructivoUrl }: Props) {
                 ) : (
                     <div
                         style={{
-                            border: '3px solid #000',
+                            border: '3px solid var(--p-rule)',
                             padding: '40px',
                             fontFamily:
                                 "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",

@@ -108,7 +108,7 @@ const labelFieldStyle: React.CSSProperties = {
     fontSize: '12.5px',
     fontWeight: 500,
     border: 'none',
-    borderBottom: '1px solid #000',
+    borderBottom: '1px solid var(--p-rule)',
     borderRadius: 0,
     padding: '4px 0',
     marginBottom: '6px',
@@ -120,7 +120,7 @@ const smallButtonStyle: React.CSSProperties = {
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
     background: 'transparent',
-    border: '1px solid #000',
+    border: '1px solid var(--p-rule)',
     padding: '4px 8px',
     cursor: 'pointer',
 };

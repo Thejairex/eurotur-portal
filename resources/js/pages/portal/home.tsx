@@ -63,7 +63,7 @@ function SectionHeading({ label }: { label: string }) {
             {label}
             <span
                 aria-hidden="true"
-                style={{ flex: 1, height: '1px', background: '#CFCFCB' }}
+                style={{ flex: 1, height: '1px', background: 'var(--p-line)' }}
             />
         </h2>
     );

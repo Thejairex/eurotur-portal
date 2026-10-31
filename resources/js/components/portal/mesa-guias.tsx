@@ -215,7 +215,7 @@ export function Paso({ n, texto }: { n: number; texto: string }) {
                 alignItems: 'flex-start',
                 gap: '14px',
                 padding: '12px 0',
-                borderBottom: '1px solid #ececec',
+                borderBottom: '1px solid var(--p-line)',
             }}
         >
             <span
@@ -260,7 +260,7 @@ export function Aviso({ emoji, texto }: { emoji: string; texto: string }) {
                 gap: '12px',
                 margin: '16px 0 0',
                 padding: '14px 16px',
-                background: '#FFF3CD',
+                background: 'var(--p-warn-bg)',
                 borderRadius: '12px',
                 fontSize: '15.5px',
                 lineHeight: 1.5,
@@ -428,7 +428,7 @@ export function Guia({
                                     style={{
                                         marginTop: '8px',
                                         fontSize: '13px',
-                                        color: '#555',
+                                        color: 'var(--p-ink)',
                                     }}
                                 >
                                     {imagen.pie}

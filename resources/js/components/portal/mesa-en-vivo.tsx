@@ -27,9 +27,9 @@ type Datos = {
 
 /** Color de la barra lateral y de la etiqueta de cada sensor según su estado. */
 const LEVEL: Record<Sensor['nivel'], { bar: string; chip: CSSProperties }> = {
-    ok: { bar: '#2e9d57', chip: { background: '#e7f5ec', color: '#14612f' } },
-    alerta: { bar: RED, chip: { background: '#fde8ea', color: RED } },
-    desconocido: { bar: '#bbb', chip: { background: '#eee', color: '#555' } },
+    ok: { bar: '#2e9d57', chip: { background: 'var(--p-ok-bg)', color: 'var(--p-ok-tx)' } },
+    alerta: { bar: RED, chip: { background: 'var(--p-bad-bg)', color: RED } },
+    desconocido: { bar: '#bbb', chip: { background: 'var(--p-soft)', color: 'var(--p-ink)' } },
 };
 
 const MONO: CSSProperties = {
@@ -160,7 +160,7 @@ function Message({ children }: { children: ReactNode }) {
                 margin: 0,
                 padding: '22px 18px',
                 fontSize: '13.5px',
-                color: '#555',
+                color: 'var(--p-ink)',
             }}
         >
             {children}
@@ -176,7 +176,7 @@ function SensorTile({ sensor }: { sensor: Sensor }) {
             style={{
                 borderTop: '3px solid ' + level.bar,
                 borderRadius: '12px',
-                background: '#F6F6F4',
+                background: 'var(--p-soft)',
                 padding: '14px 16px',
                 textAlign: 'center',
             }}
@@ -326,7 +326,7 @@ export function MesaEnVivo() {
                             style={{
                                 ...MONO,
                                 padding: '12px 18px',
-                                borderTop: '1px solid #ececec',
+                                borderTop: '1px solid var(--p-line)',
                                 fontSize: '10px',
                                 letterSpacing: '0.04em',
                                 color: datos.desactualizado ? RED : '#888',
@@ -341,8 +341,8 @@ export function MesaEnVivo() {
                             <div
                                 style={{
                                     padding: '12px 18px',
-                                    background: '#fff6d6',
-                                    borderTop: '1px solid #f2b705',
+                                    background: 'var(--p-warn-bg)',
+                                    borderTop: '1px solid var(--p-line)',
                                     fontSize: '14px',
                                     lineHeight: 1.45,
                                 }}
@@ -400,7 +400,7 @@ export function MesaEnVivo() {
                                         justifyContent: 'space-between',
                                         gap: '18px',
                                         padding: '11px 18px',
-                                        borderTop: '1px solid #ececec',
+                                        borderTop: '1px solid var(--p-line)',
                                         fontSize: '14px',
                                     }}
                                 >

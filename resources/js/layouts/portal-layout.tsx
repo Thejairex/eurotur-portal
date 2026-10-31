@@ -100,8 +100,8 @@ export default function PortalLayout({
         <>
             <style>{`
                 .eurotur-portal { background: var(--p-bg); color: var(--p-ink); font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif; min-height: 100vh; }
-                .eurotur-portal { --p-bg: #E2E2DF; --p-card: #fff; --p-ink: #111; --p-mut: #6B6B68; --p-line: #CFCFCB; --p-soft: #F4F4F2; --p-hover: rgba(0,0,0,.05); --p-sombra: rgba(0,0,0,.14); }
-                .dark .eurotur-portal { --p-bg: #161617; --p-card: #303034; --p-ink: #F2F2F0; --p-mut: #B0B0AD; --p-line: #46464C; --p-soft: #3A3A3F; --p-hover: rgba(255,255,255,.07); --p-sombra: rgba(0,0,0,.55); --redsoft: #3A1A1D; --redtext: #FF6B75; color-scheme: dark; }
+                .eurotur-portal { --p-bg: #E2E2DF; --p-card: #fff; --p-ink: #111; --p-mut: #6B6B68; --p-line: #CFCFCB; --p-soft: #F4F4F2; --p-hover: rgba(0,0,0,.05); --p-sombra: rgba(0,0,0,.14); --p-rule: #000; --p-warn-bg: #FFF3CD; --p-warn-tx: #92400E; --p-info-bg: #E8EEF9; --p-info-tx: #1F4D9B; --p-ok-bg: #E3F4E7; --p-ok-tx: #1B6B2E; --p-bad-bg: #FEF2F2; --p-bad-tx: #991B1B; }
+                .dark .eurotur-portal { --p-bg: #161617; --p-card: #303034; --p-ink: #F2F2F0; --p-mut: #B0B0AD; --p-line: #46464C; --p-soft: #3A3A3F; --p-hover: rgba(255,255,255,.07); --p-sombra: rgba(0,0,0,.55); --p-rule: #D8D8D4; --p-warn-bg: #3B3216; --p-warn-tx: #F2C94C; --p-info-bg: #1B2740; --p-info-tx: #8FB4F5; --p-ok-bg: #14301B; --p-ok-tx: #7FD392; --p-bad-bg: #3A1A1D; --p-bad-tx: #FF8A92; --redsoft: #3A1A1D; --redtext: #FF6B75; color-scheme: dark; }
                 .eurotur-portal input, .eurotur-portal select, .eurotur-portal textarea { color: var(--p-ink); }
                 .eurotur-portal input::placeholder, .eurotur-portal textarea::placeholder { color: var(--p-mut); }
                 .eurotur-portal { --red: #E3000F; --redsoft: #FBEDEE; --redtext: #C4000D; }
@@ -575,7 +575,7 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
                         left: 0,
                         right: 0,
                         background: 'var(--p-card)',
-                        border: '1px solid #000',
+                        border: '1px solid var(--p-rule)',
                         maxHeight: '360px',
                         overflowY: 'auto',
                         zIndex: 50,
@@ -625,7 +625,7 @@ function GlobalSearch({ compact = false }: { compact?: boolean } = {}) {
                                     textDecoration: 'none',
                                     color: 'var(--p-ink)',
                                     padding: '10px 16px',
-                                    borderBottom: '1px dotted #ccc',
+                                    borderBottom: '1px dotted var(--p-line)',
                                 }}
                             >
                                 <div
@@ -875,7 +875,7 @@ function Rates({
                 <b
                     style={{
                         ...valueStyle,
-                        color: '#8a8a86',
+                        color: 'var(--p-mut)',
                         fontWeight: 600,
                         fontSize: '14px',
                     }}

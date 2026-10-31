@@ -86,8 +86,8 @@ export default function Institucional() {
                     style={{
                         position: 'relative',
                         height: '340px',
-                        borderTop: '3px solid #000',
-                        borderBottom: '1px solid #000',
+                        borderTop: '3px solid var(--p-rule)',
+                        borderBottom: '1px solid var(--p-rule)',
                         marginBottom: '34px',
                     }}
                 >
@@ -192,7 +192,7 @@ export default function Institucional() {
                     >
                         <div
                             style={{
-                                borderTop: '3px solid #000',
+                                borderTop: '3px solid var(--p-rule)',
                                 paddingTop: '12px',
                             }}
                         >
@@ -226,7 +226,7 @@ export default function Institucional() {
                         </div>
                         <div
                             style={{
-                                borderTop: '3px solid #000',
+                                borderTop: '3px solid var(--p-rule)',
                                 paddingTop: '12px',
                             }}
                         >
@@ -275,7 +275,7 @@ export default function Institucional() {
                                 "'Segoe UI', system-ui, -apple-system, Arial, sans-serif",
                             fontWeight: 900,
                             fontSize: '19px',
-                            borderBottom: '3px solid #000',
+                            borderBottom: '3px solid var(--p-rule)',
                             paddingBottom: '10px',
                             marginBottom: '20px',
                         }}
@@ -294,7 +294,7 @@ export default function Institucional() {
                             <div
                                 key={v.n}
                                 style={{
-                                    borderRight: '1px dotted #000',
+                                    borderRight: '1px dotted var(--p-rule)',
                                     padding: '0 18px 8px 0',
                                 }}
                             >
